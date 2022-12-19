@@ -1,19 +1,20 @@
 #ifndef ALLOCATIONTABLE_H
 #define ALLOCATIONTABLE_H
 
-#include <stdlib.h>
 #include "List.h"
+#include <stdlib.h>
 
 // Forward declaration of incomplete type
 typedef struct allocationTable AllocationTable;
 
 struct allocationTable {
-    char * className;
-    const List * allocationAddressList;
+    char *className;
+    List *allocationAddressList;
 };
 
-static void constructor_AllocationTable_fields(AllocationTable *allocationTable) {
-    allocationTable->className         = "";
+static void
+constructor_AllocationTable_fields(AllocationTable *allocationTable) {
+    allocationTable->className             = "";
     allocationTable->allocationAddressList = ListConstructor();
 }
 
@@ -25,6 +26,11 @@ AllocationTable *AllocationTableConstructor() {
     constructor_AllocationTable_fields(obj);
 
     return obj;
+}
+
+void AllocationTableDestructor(AllocationTable *allocationTable) {
+    ListDestructor(allocationTable->allocationAddressList);
+    free(allocationTable);
 }
 
 #endif //ALLOCATIONTABLE_H
