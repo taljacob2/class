@@ -21,6 +21,33 @@ void add(List *list, Node *node) {
     list->size++;
 }
 
+void delete (List *list, Node *node) {
+    Node *iterationNodePrev = NULL;
+    for (Node *iterationNode    = list->head; iterationNode != NULL;
+         iterationNode          = iterationNode->next,
+              iterationNodePrev = iterationNode) {
+        if (iterationNode == node) {
+            if (iterationNodePrev != NULL) {
+
+                // `iterationNode` is a "middle-node" or `list->tail`.
+                iterationNodePrev->next = iterationNode->next;
+            } else {
+
+                // `iterationNode` is `list->head`.
+                list->head = iterationNode->next;
+            }
+            if (iterationNode->next == NULL) {
+
+                // `iterationNode` is `list->tail`.
+                list->tail = iterationNodePrev;
+            }
+            NodeDestructor(iterationNode);
+            list->size--;
+            break;
+        }
+    }
+}
+
 static void constructor_List_fields(List *list) {
     list->head = NULL;
     list->tail = NULL;
@@ -39,10 +66,10 @@ List *ListConstructor() {
 
 void ListDestructor(List *list) {
     Node *iterationNodePrev = NULL;
-    for (Node *iterationNode = list->head; iterationNode != NULL;
-         iterationNode       = iterationNode->next) {
+    for (Node *iterationNode    = list->head; iterationNode != NULL;
+         iterationNode          = iterationNode->next,
+              iterationNodePrev = iterationNode) {
         NodeDestructor(iterationNodePrev);
-        iterationNodePrev = iterationNode;
     }
     NodeDestructor(iterationNodePrev); // `iterationNodePrev` is `list->tail`.
 
