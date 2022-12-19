@@ -60,9 +60,15 @@ Class1 *Class1Constructor() {
     return obj;
 }
 
+AllocationTable *SingletonClass1AllocationTable() {
+    static AllocationTable *allocationTable = AllocationTableConstructor();
+    return allocationTable;
+}
+
+
 static const AllocationTable Class1AllocationTable = {
         .className = "Class1",
-        .allocationAddressList =
+        .allocationAddressList = ListConstructor();
 };
 
 #endif //CLASS1_H
