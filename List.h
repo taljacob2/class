@@ -26,25 +26,25 @@ void delete (List *list, Node *node) {
     for (Node *iterationNode    = list->head; iterationNode != NULL;
          iterationNode          = iterationNode->next,
               iterationNodePrev = iterationNode) {
-        if (iterationNode == node) {
-            if (iterationNodePrev != NULL) {
+        if (iterationNode != node) { continue; }
 
-                // `iterationNode` is a "middle-node" or `list->tail`.
-                iterationNodePrev->next = iterationNode->next;
-            } else {
+        if (iterationNodePrev != NULL) {
 
-                // `iterationNode` is `list->head`.
-                list->head = iterationNode->next;
-            }
-            if (iterationNode->next == NULL) {
+            // `iterationNode` is a "middle-node" or `list->tail`.
+            iterationNodePrev->next = iterationNode->next;
+        } else {
 
-                // `iterationNode` is `list->tail`.
-                list->tail = iterationNodePrev;
-            }
-            NodeDestructor(iterationNode);
-            list->size--;
-            break;
+            // `iterationNode` is `list->head`.
+            list->head = iterationNode->next;
         }
+        if (iterationNode->next == NULL) {
+
+            // `iterationNode` is `list->tail`.
+            list->tail = iterationNodePrev;
+        }
+        NodeDestructor(iterationNode);
+        list->size--;
+        break;
     }
 }
 
