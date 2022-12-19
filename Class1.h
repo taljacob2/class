@@ -60,6 +60,10 @@ Class1 *Class1Constructor() {
     return obj;
 }
 
+/**
+ * //TODO: See Singleton Guide:
+ * @see https://stackoverflow.com/a/803699/14427765
+ */
 AllocationTable *SingletonClass1AllocationTable() {
     static AllocationTable *allocationTable = AllocationTableConstructor();
     return allocationTable;
