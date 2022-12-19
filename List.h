@@ -10,19 +10,21 @@
 typedef struct list List;
 
 struct list {
-    Node *head;
-    Node *tail;
+    Node * head;
+    Node * tail;
+    size_t size;
 };
 
-size_t getSize(List *list) {
-    return (list->head == NULL) && (list->tail == NULL)
-                   ? 0
-                   : ((list->tail - list->head) / sizeof(Node)) + 1;
+void add(List *list, Node *node) {
+    list->tail->next = node;
+    list->tail       = node;
+    list->size++;
 }
 
 static void constructor_List_fields(List *list) {
     list->head = NULL;
     list->tail = NULL;
+    list->size = 0;
 }
 
 List *ListConstructor() {
