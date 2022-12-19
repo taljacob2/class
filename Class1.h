@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "AllocationTable.h"
 
 typedef struct class1 Class1; // Forward declaration of incomplete type
 
@@ -58,5 +59,10 @@ Class1 *Class1Constructor() {
 
     return obj;
 }
+
+static const AllocationTable Class1AllocationTable = {
+        .className = "Class1",
+        .allocationAddressList =
+};
 
 #endif //CLASS1_H
