@@ -11,7 +11,7 @@ int main() {
 //    (*class1_2->addOneToX)();
 //    (*class1_2->print)();
 
-    free(class1);
+    Class1Destructor(class1);
 
 //    free(class1_2);
 
