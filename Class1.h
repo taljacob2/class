@@ -5,7 +5,6 @@
 #include "Constructable.h"
 #include "Destructable.h"
 #include "Quote.h"
-#include <mspaddr.h>
 #include <stdio.h>
 #include <stdlib.h>
 
