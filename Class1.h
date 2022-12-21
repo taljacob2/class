@@ -14,11 +14,13 @@ typedef struct class1
 
 struct class1 {
 
-    /// Singleton for the whole class.
+    /// Singleton for the whole class. Sensitive data. DO NOT TOUCH!
     AllocationTable *CLASS_ALLOCATION_TABLE;
 
+    /// Sensitive data. DO NOT TOUCH!
     void *ALLOCATION_ADDRESS;
 
+    /// Sensitive data. DO NOT TOUCH!
     char *CLASS_NAME;
 
     int x;
@@ -29,28 +31,6 @@ struct class1 {
     /// A logic method.
     void (*addOneToX)();
 };
-
-/**
- * Singleton implementation.
- *
- * // TODO:
- * @attention Remember to `free` this singleton on the program's exit.
- *
- * @return
- * @see https://stackoverflow.com/a/803699/14427765
- */
-AllocationTable *getClass1AllocationTable() {
-    static AllocationTable *instance = NULL;
-
-    // Do lock here.
-    if (instance == NULL) {
-        instance = AllocationTableConstructorWithClassName(
-                CLASS1_CLASSNAME_AS_STRING);
-    }
-    // Do unlock.
-
-    return instance;
-}
 
 static void print(Class1 *class1) { printf("x = %d\n", class1->x); }
 
@@ -91,8 +71,23 @@ Class1 *Class1Constructor() {
     }
 
     constructor_Class1_fields(obj);
-    obj->ALLOCATION_ADDRESS     = obj;
-    obj->CLASS_ALLOCATION_TABLE = getClass1AllocationTable();
+    obj->CLASS_NAME         = CLASS1_CLASSNAME_AS_STRING;
+    obj->ALLOCATION_ADDRESS = obj;
+    obj->CLASS_ALLOCATION_TABLE =
+            findAllocationTableByClassName(obj->CLASS_NAME);
+    if (obj->CLASS_ALLOCATION_TABLE == NULL) {
+        obj->CLASS_ALLOCATION_TABLE =
+                AllocationTableConstructorWithClassName(obj->CLASS_NAME);
+
+        // Create a node that its data points to `obj->CLASS_ALLOCATION_TABLE`.
+        Node *nodeThatItsDataPointsClassAllocationTable =
+                NodeConstructorWithDataAndDataSize(obj->CLASS_ALLOCATION_TABLE,
+                                                   sizeof(void *));
+
+        // Add this node to `GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList`.
+        add(GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList,
+            nodeThatItsDataPointsClassAllocationTable);
+    }
 
     // Create a node that its data points to the "pointer of `obj`".
     Node *nodeThatItsDataPointsToThePointerOfObj =
