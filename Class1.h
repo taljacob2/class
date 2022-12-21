@@ -94,8 +94,8 @@ Class1 *Class1Constructor() {
             NodeConstructorWithDataAndDataSize(obj->ALLOCATION_ADDRESS,
                                                sizeof(void *));
 
-    // Add this node to `getClass1AllocationTable()->allocationAddressList`.
-    add(getClass1AllocationTable()->allocationAddressList,
+    // Add this node to `obj->CLASS_ALLOCATION_TABLE->allocationAddressList`.
+    add(obj->CLASS_ALLOCATION_TABLE->allocationAddressList,
         nodeThatItsDataPointsToThePointerOfObj);
 
     return obj;
@@ -105,7 +105,7 @@ void Class1Destructor(Class1 *class1) {
     if (class1 == NULL) { return; }
 
     deleteNodeThatHasTheGivenData(
-            getClass1AllocationTable()->allocationAddressList,
+            class1->CLASS_ALLOCATION_TABLE->allocationAddressList,
             class1->ALLOCATION_ADDRESS);
 
     free(class1);
