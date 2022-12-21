@@ -3,7 +3,7 @@
 
 /// Interface.
 typedef struct {
-    void (*const constructor)();
+    void* (*const constructor)();
 } Constructable;
 
 #endif //CONSTRUCTOR_H

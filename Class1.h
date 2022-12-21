@@ -48,7 +48,7 @@ void    Class1Destructor(Class1 *class1);
 
 static void constructor_Class1_fields(Class1 *class1) {
     static Constructable const constructable = {
-            .constructor = (void (*const)(void *))(&Class1Constructor)};
+            .constructor = (void *(*const)(void *) )(&Class1Constructor)};
     class1->constructable = &constructable;
 
     static Destructable const destructable = {
