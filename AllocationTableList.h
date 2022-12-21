@@ -5,6 +5,7 @@
 #include "List.h"
 
 #include <stdio.h>
+#include <string.h>
 
 // Forward declaration of incomplete type
 typedef struct allocationTableList AllocationTableList;
@@ -58,16 +59,29 @@ AllocationTableList *getAllocationTableList() {
     static AllocationTableList *instance = NULL;
 
     // Do lock here.
-    if (instance == NULL) { instance = AllocationTableListConstructor(); }
+    if (instance == NULL) {
+        instance                     = AllocationTableListConstructor();
+        GLOBAL_ALLOCATION_TABLE_LIST = instance;
+    }
     // Do unlock.
 
     return instance;
 }
 
+static BOOLEAN predicateFindAllocationTableByClassName(
+        const Node *      nodeThatPointsToAllocationTable,
+        const char *const allocationTableClassName) {
+    return strcmp(((AllocationTable *) (nodeThatPointsToAllocationTable->data))
+                          ->className,
+                  allocationTableClassName) == 0;
+}
 
-//AllocationTable *findAllocationTableByClassName() {
-//    findNodeByPredicate(getAllocationTableList().)
-//}
+AllocationTable *
+findAllocationTableByClassName(const char *const allocationTableClassName) {
+    findNodeByPredicate(getAllocationTableList()->allocationTableList,
+                        predicateFindAllocationTableByClassName,
+                        allocationTableClassName);
+}
 
 // -----------------------------------------------------------------------------
 

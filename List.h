@@ -92,13 +92,13 @@ void *deleteNodeThatHasTheGivenData(List *list, void *dataOfTheNodeToDelete) {
 }
 
 Node *findNodeByPredicate(List *list,
-                          BOOLEAN (*predicate)(const Node *, const Node *),
-                          const Node *givenNodeToPredicate) {
+                          BOOLEAN (*predicate)(const Node *, const char *const),
+                          const char *const allocationTableClassName) {
     if (list == NULL) { return NULL; }
 
     for (Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode       = iterationNode->next) {
-        if (predicate(iterationNode, givenNodeToPredicate)) {
+        if (predicate(iterationNode, allocationTableClassName)) {
             return iterationNode;
         }
     }
