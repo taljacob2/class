@@ -10,6 +10,8 @@ struct allocationTableList {
     List *allocationTableList;
 };
 
+AllocationTableList *GLOBAL_ALLOCATION_TABLE_LIST = NULL;
+
 static void constructor_AllocationTableList_fields(
         AllocationTableList *allocationTableList) {
     allocationTableList->allocationTableList = ListConstructor();
@@ -40,6 +42,10 @@ void AllocationTableListDestructorWithFreeAllNodeDataInList(
     free(allocationTableList);
 }
 
+static void runAtExit() {
+    AllocationTableListDestructorWithFreeAllNodeDataInList(
+            GLOBAL_ALLOCATION_TABLE_LIST);
+}
 
 /**
  * Singleton implementation.
@@ -54,19 +60,14 @@ AllocationTableList *getAllocationTableList() {
     static AllocationTableList *instance = NULL;
 
     // Do lock here.
-    if (instance == NULL) { instance = AllocationTableListConstructor(); }
+    if (instance == NULL) {
+        instance = AllocationTableListConstructor();
+        atexit(runAtExit);
+    }
     // Do unlock.
 
     return instance;
 }
 
-AllocationTableList *GLOBAL_ALLOCATION_TABLE_LIST = NULL;
-
-void runAtExit() {
-    AllocationTableListDestructorWithFreeAllNodeDataInList(
-            GLOBAL_ALLOCATION_TABLE_LIST);
-}
-
-atexit(runAtExit); // TODO: fix
 
 #endif //ALLOCATIONTABLELIST_H
