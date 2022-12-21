@@ -99,11 +99,9 @@ findAllocationTableByClassName(const char *const allocationTableClassName) {
     is executed before main() */
 void runBeforeMain(void) __attribute__((constructor));
 
-
 /* Apply the destructor attribute to runAfterMain() so that it
    is executed after main() */
 void runAfterMain(void) __attribute__((destructor));
-
 
 /* implementation of runBeforeMain */
 void runBeforeMain(void) {
@@ -115,6 +113,5 @@ void runAfterMain(void) {
     AllocationTableListDestructorWithFreeAllNodeDataInList(
             GLOBAL_ALLOCATION_TABLE_LIST);
 }
-
 
 #endif //ALLOCATIONTABLELIST_H
