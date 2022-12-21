@@ -44,6 +44,8 @@ Node *NodeConstructorWithDataAndDataSize(void *data, size_t dataSize) {
  * @return
  */
 void *NodeDestructor(Node *node) {
+    if (node == NULL) { return NULL; }
+
     void * nodeData = node->data;
     free(node);
     return nodeData;

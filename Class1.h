@@ -13,7 +13,13 @@ typedef struct class1
         CLASS1_CLASSNAME; // Forward declaration of incomplete type
 
 struct class1 {
+
+    /// Singleton for the whole class.
+    AllocationTable *CLASS_ALLOCATION_TABLE;
+
     void *ALLOCATION_ADDRESS;
+
+    char *CLASS_NAME;
 
     int x;
 
@@ -85,7 +91,8 @@ Class1 *Class1Constructor() {
     }
 
     constructor_Class1_fields(obj);
-    obj->ALLOCATION_ADDRESS = obj;
+    obj->ALLOCATION_ADDRESS     = obj;
+    obj->CLASS_ALLOCATION_TABLE = getClass1AllocationTable();
 
     // Create a node that its data points to the "pointer of `obj`".
     Node *nodeThatItsDataPointsToThePointerOfObj =
@@ -100,6 +107,8 @@ Class1 *Class1Constructor() {
 }
 
 void Class1Destructor(Class1 *class1) {
+    if (class1 == NULL) { return; }
+
     deleteNodeThatHasTheGivenData(
             getClass1AllocationTable()->allocationAddressList,
             class1->ALLOCATION_ADDRESS);

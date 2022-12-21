@@ -38,12 +38,16 @@ AllocationTableConstructorWithClassName(char *const className) {
 }
 
 void AllocationTableDestructor(AllocationTable *allocationTable) {
+    if (allocationTable == NULL) { return; }
+
     ListDestructor(allocationTable->allocationAddressList);
     free(allocationTable);
 }
 
 void AllocationTableDestructorWithFreeAllNodeDataInList(
         AllocationTable *allocationTable) {
+    if (allocationTable == NULL) { return; }
+
     ListDestructorAndFreeAllNodeData(allocationTable->allocationAddressList);
     free(allocationTable);
 }

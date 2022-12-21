@@ -1,6 +1,9 @@
+#include "AllocationTableList.h"
 #include "Class1.h"
 
 int main() {
+    GLOBAL_ALLOCATION_TABLE_LIST = getAllocationTableList();
+
     Class1 *class1 = Class1Constructor();
 //    (*class1->print)(class1);
 //    (*class1->addOneToX)(class1);
@@ -14,6 +17,9 @@ int main() {
     Class1Destructor(class1);
 
 //    free(class1_2);
+
+
+    Allo
 
     return 0;
 }

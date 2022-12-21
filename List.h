@@ -102,6 +102,8 @@ List *ListConstructor() {
 }
 
 void ListDestructor(List *list) {
+    if (list == NULL) { return; }
+
     Node *iterationNodePrev = NULL;
     for (Node *iterationNode    = list->head; iterationNode != NULL;
          iterationNode          = iterationNode->next,
@@ -116,6 +118,8 @@ void ListDestructor(List *list) {
 }
 
 void ListDestructorAndFreeAllNodeData(List *list) {
+    if (list == NULL) { return; }
+
     Node *iterationNodePrev = NULL;
     for (Node *iterationNode    = list->head; iterationNode != NULL;
          iterationNode          = iterationNode->next,
