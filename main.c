@@ -3,6 +3,7 @@
 
 int main() {
     Class1 *class1 = Class1Constructor();
+
 //    (*class1->print)(class1);
 //    (*class1->addOneToX)(class1);
 //    (*class1->print)(class1);

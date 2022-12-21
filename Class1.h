@@ -82,7 +82,7 @@ Class1 *Class1Constructor() {
         // Create a node that its data points to `obj->CLASS_ALLOCATION_TABLE`.
         Node *nodeThatItsDataPointsClassAllocationTable =
                 NodeConstructorWithDataAndDataSize(obj->CLASS_ALLOCATION_TABLE,
-                                                   sizeof(void *));
+                                                   sizeof(AllocationTable *));
 
         // Add this node to `GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList`.
         add(GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList,
