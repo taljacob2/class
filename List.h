@@ -1,10 +1,10 @@
 #ifndef CLASS_LIST_H
 #define CLASS_LIST_H
 
+#include "Bool.h"
 #include "Node.h"
 #include <limits.h>
 #include <stdlib.h>
-
 
 // Forward declaration of incomplete type
 typedef struct list List;
@@ -16,6 +16,8 @@ struct list {
 };
 
 void add(List *list, Node *node) {
+    if (list == NULL) { return; }
+
     if (list->tail != NULL) {
         list->tail->next = node;
     } else {
@@ -26,6 +28,8 @@ void add(List *list, Node *node) {
 }
 
 void *delete (List *list, Node *node) {
+    if (list == NULL) { return NULL; }
+
     Node *iterationNodePrev = NULL;
     void *deletedNodeData   = NULL;
     for (Node *iterationNode    = list->head; iterationNode != NULL;
@@ -56,6 +60,8 @@ void *delete (List *list, Node *node) {
 }
 
 void *deleteNodeThatHasTheGivenData(List *list, void *dataOfTheNodeToDelete) {
+    if (list == NULL) { return NULL; }
+
     Node *iterationNodePrev = NULL;
     void *deletedNodeData   = NULL;
     for (Node *iterationNode    = list->head; iterationNode != NULL;
@@ -83,6 +89,13 @@ void *deleteNodeThatHasTheGivenData(List *list, void *dataOfTheNodeToDelete) {
     }
 
     return deletedNodeData;
+}
+
+Node *findNodeByPredicate(List *list, BOOLEAN (*predicate)(Node *, Node *)) {
+    if (list == NULL) { return NULL; }
+
+
+
 }
 
 static void constructor_List_fields(List *list) {
