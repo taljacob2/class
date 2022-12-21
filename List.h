@@ -91,11 +91,19 @@ void *deleteNodeThatHasTheGivenData(List *list, void *dataOfTheNodeToDelete) {
     return deletedNodeData;
 }
 
-Node *findNodeByPredicate(List *list, BOOLEAN (*predicate)(Node *, Node *)) {
+Node *findNodeByPredicate(List *list,
+                          BOOLEAN (*predicate)(const Node *, const Node *),
+                          const Node *givenNodeToPredicate) {
     if (list == NULL) { return NULL; }
 
+    for (Node *iterationNode = list->head; iterationNode != NULL;
+         iterationNode       = iterationNode->next) {
+        if (predicate(iterationNode, givenNodeToPredicate)) {
+            return iterationNode;
+        }
+    }
 
-
+    return NULL;
 }
 
 static void constructor_List_fields(List *list) {
