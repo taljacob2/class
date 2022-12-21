@@ -90,7 +90,7 @@ Class1 *Class1Constructor() {
     // Create a node that its data points to the "pointer of `obj`".
     Node *nodeThatItsDataPointsToThePointerOfObj =
             NodeConstructorWithDataAndDataSize(obj->ALLOCATION_ADDRESS,
-                                               sizeof(size_t));
+                                               sizeof(void *));
 
     // Add this node to `getClass1AllocationTable()->allocationAddressList`.
     add(getClass1AllocationTable()->allocationAddressList,
