@@ -78,9 +78,15 @@ static BOOLEAN predicateFindAllocationTableByClassName(
 
 AllocationTable *
 findAllocationTableByClassName(const char *const allocationTableClassName) {
-    findNodeByPredicate(GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList,
-                        predicateFindAllocationTableByClassName,
-                        allocationTableClassName);
+    Node *foundNode = findNodeByPredicate(
+            GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList,
+            predicateFindAllocationTableByClassName, allocationTableClassName);
+
+    if (foundNode != NULL) {
+        return ((AllocationTable *) (foundNode->data));
+    } else {
+        return NULL;
+    }
 }
 
 // -----------------------------------------------------------------------------
