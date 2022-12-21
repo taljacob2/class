@@ -28,6 +28,15 @@ AllocationTable *AllocationTableConstructor() {
     return obj;
 }
 
+AllocationTable *
+AllocationTableConstructorWithClassName(char *const className) {
+    AllocationTable *obj = AllocationTableConstructor();
+
+    obj->className = className;
+
+    return obj;
+}
+
 void AllocationTableDestructor(AllocationTable *allocationTable) {
     ListDestructor(allocationTable->allocationAddressList);
     free(allocationTable);

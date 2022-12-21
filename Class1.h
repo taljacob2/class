@@ -1,11 +1,16 @@
 #ifndef CLASS1_H
 #define CLASS1_H
 
+#include "AllocationTable.h"
+#include "Quote.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "AllocationTable.h"
 
-typedef struct class1 Class1; // Forward declaration of incomplete type
+#define CLASS1_CLASSNAME           Class1
+#define CLASS1_CLASSNAME_AS_STRING EXPAND_AND_QUOTE(CLASS1_CLASSNAME)
+
+typedef struct class1
+        CLASS1_CLASSNAME; // Forward declaration of incomplete type
 
 struct class1 {
     int x;
@@ -61,18 +66,23 @@ Class1 *Class1Constructor() {
 }
 
 /**
- * //TODO: See Singleton Guide:
+ * Singleton implementation.
+ *
+ * @return
  * @see https://stackoverflow.com/a/803699/14427765
  */
-AllocationTable *SingletonClass1AllocationTable() {
-    static AllocationTable *allocationTable = AllocationTableConstructor();
-    return allocationTable;
+AllocationTable *getClass1AllocationTable() {
+    static AllocationTable *instance = NULL;
+
+    // Do lock here.
+    if (instance == NULL) {
+        instance = AllocationTableConstructorWithClassName(
+                CLASS1_CLASSNAME_AS_STRING);
+    }
+    // Do unlock.
+
+    return instance;
 }
 
-
-static const AllocationTable Class1AllocationTable = {
-        .className = "Class1",
-        .allocationAddressList = ListConstructor();
-};
 
 #endif //CLASS1_H
