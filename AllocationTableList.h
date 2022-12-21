@@ -1,7 +1,10 @@
 #ifndef ALLOCATIONTABLELIST_H
 #define ALLOCATIONTABLELIST_H
 
+#include "AllocationTable.h"
 #include "List.h"
+
+#include <stdio.h>
 
 // Forward declaration of incomplete type
 typedef struct allocationTableList AllocationTableList;
@@ -42,11 +45,6 @@ void AllocationTableListDestructorWithFreeAllNodeDataInList(
     free(allocationTableList);
 }
 
-static void runAtExit() {
-    AllocationTableListDestructorWithFreeAllNodeDataInList(
-            GLOBAL_ALLOCATION_TABLE_LIST);
-}
-
 /**
  * Singleton implementation.
  *
@@ -60,13 +58,42 @@ AllocationTableList *getAllocationTableList() {
     static AllocationTableList *instance = NULL;
 
     // Do lock here.
-    if (instance == NULL) {
-        instance = AllocationTableListConstructor();
-        atexit(runAtExit);
-    }
+    if (instance == NULL) { instance = AllocationTableListConstructor(); }
     // Do unlock.
 
     return instance;
+}
+
+
+//AllocationTable *findAllocationTableByClassName() {
+//    findNodeByPredicate(getAllocationTableList().)
+//}
+
+// -----------------------------------------------------------------------------
+
+/*
+ * See more here: https://www.geeksforgeeks.org/functions-that-are-executed-before-and-after-main-in-c/
+ */
+
+/* Apply the constructor attribute to runBeforeMain() so that it
+    is executed before main() */
+void runBeforeMain(void) __attribute__((constructor));
+
+
+/* Apply the destructor attribute to runAfterMain() so that it
+   is executed after main() */
+void runAfterMain(void) __attribute__((destructor));
+
+
+/* implementation of runBeforeMain */
+void runBeforeMain(void) {
+    GLOBAL_ALLOCATION_TABLE_LIST = getAllocationTableList();
+}
+
+/* implementation of runAfterMain */
+void runAfterMain(void) {
+    AllocationTableListDestructorWithFreeAllNodeDataInList(
+            GLOBAL_ALLOCATION_TABLE_LIST);
 }
 
 
