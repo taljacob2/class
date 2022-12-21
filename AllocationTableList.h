@@ -43,6 +43,9 @@ void AllocationTableListDestructorWithFreeAllNodeDataInList(
     if (allocationTableList == NULL) { return; }
 
     ListDestructorAndFreeAllNodeData(allocationTableList->allocationTableList);
+
+
+
     free(allocationTableList);
 }
 

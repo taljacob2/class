@@ -2,7 +2,10 @@
 #define CLASS1_H
 
 #include "AllocationTable.h"
+#include "Constructable.h"
+#include "Destructable.h"
 #include "Quote.h"
+#include <mspaddr.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -23,6 +26,10 @@ struct class1 {
     /// Sensitive data. DO NOT TOUCH!
     char *CLASS_NAME;
 
+    Constructable const *constructable;
+
+    Destructable const *destructable;
+
     int x;
 
     /// Printing method.
@@ -36,7 +43,18 @@ static void print(Class1 *class1) { printf("x = %d\n", class1->x); }
 
 static void addOneToX(Class1 *class1) { class1->x += 1; }
 
+Class1 *Class1Constructor();
+void    Class1Destructor(Class1 *class1);
+
 static void constructor_Class1_fields(Class1 *class1) {
+    static Constructable const constructable = {
+            .constructor = (void (*const)(void *))(&Class1Constructor)};
+    class1->constructable = &constructable;
+
+    static Destructable const destructable = {
+            .destructor = (void (*const)(void *))(&Class1Destructor)};
+    class1->destructable = &destructable;
+
     class1->x         = 1;
     class1->print     = &print;
     class1->addOneToX = &addOneToX;
