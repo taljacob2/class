@@ -16,8 +16,12 @@ struct list {
 };
 
 void add(List *list, Node *node) {
-    list->tail->next = node;
-    list->tail       = node;
+    if (list->tail != NULL) {
+        list->tail->next = node;
+    } else {
+        list->head = node;
+    }
+    list->tail = node;
     list->size++;
 }
 
