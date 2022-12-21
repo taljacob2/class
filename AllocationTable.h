@@ -42,4 +42,10 @@ void AllocationTableDestructor(AllocationTable *allocationTable) {
     free(allocationTable);
 }
 
+void AllocationTableDestructorWithFreeAllNodeDataInList(
+        AllocationTable *allocationTable) {
+    ListDestructorAndFreeAllNodeData(allocationTable->allocationAddressList);
+    free(allocationTable);
+}
+
 #endif //ALLOCATIONTABLE_H

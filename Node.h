@@ -8,11 +8,13 @@ typedef struct node Node;
 
 struct node {
     void *data;
+    size_t dataSize;
     Node *next;
 };
 
 static void constructor_Node_fields(Node *node) {
     node->data = NULL;
+    node->dataSize = 0;
     node->next = NULL;
 }
 
@@ -26,6 +28,25 @@ Node *NodeConstructor() {
     return obj;
 }
 
-void NodeDestructor(Node *node) { free(node); }
+Node *NodeConstructorWithDataAndDataSize(void *data, size_t dataSize) {
+    Node *obj = NodeConstructor();
+
+    obj->data = data;
+    obj->dataSize = dataSize;
+
+    return obj;
+}
+
+/**
+ * @brief `free`s the given node, and returns its `node->data`.
+ *
+ * @param node
+ * @return
+ */
+void *NodeDestructor(Node *node) {
+    void * nodeData = node->data;
+    free(node);
+    return nodeData;
+}
 
 #endif //CLASS_NODE_H

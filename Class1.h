@@ -22,6 +22,28 @@ struct class1 {
     void (*addOneToX)();
 };
 
+/**
+ * Singleton implementation.
+ *
+ * // TODO:
+ * @attention Remember to `free` this singleton on the program's exit.
+ *
+ * @return
+ * @see https://stackoverflow.com/a/803699/14427765
+ */
+AllocationTable *getClass1AllocationTable() {
+    static AllocationTable *instance = NULL;
+
+    // Do lock here.
+    if (instance == NULL) {
+        instance = AllocationTableConstructorWithClassName(
+                CLASS1_CLASSNAME_AS_STRING);
+    }
+    // Do unlock.
+
+    return instance;
+}
+
 static void print(Class1 *class1) { printf("x = %d\n", class1->x); }
 
 static void addOneToX(Class1 *class1) { class1->x += 1; }
@@ -62,27 +84,24 @@ Class1 *Class1Constructor() {
 
     constructor_Class1_fields(obj);
 
+    // Create a node that its data points to the "pointer of `obj`".
+    Node *nodeThatItsDataPointsToThePointerOfObj =
+            NodeConstructorWithDataAndDataSize(obj, sizeof(size_t));
+
+    // Add this node to `getClass1AllocationTable()->allocationAddressList`.
+    add(getClass1AllocationTable()->allocationAddressList,
+        nodeThatItsDataPointsToThePointerOfObj);
+
     return obj;
 }
 
-/**
- * Singleton implementation.
- *
- * @return
- * @see https://stackoverflow.com/a/803699/14427765
- */
-AllocationTable *getClass1AllocationTable() {
-    static AllocationTable *instance = NULL;
+void Class1Destructor(Class1 *class1) {
 
-    // Do lock here.
-    if (instance == NULL) {
-        instance = AllocationTableConstructorWithClassName(
-                CLASS1_CLASSNAME_AS_STRING);
-    }
-    // Do unlock.
+//    deleteNodeThatHasTheGivenData()
 
-    return instance;
+//    getClass1AllocationTable()->allocationAddressList.
+
+            free(class1);
 }
-
 
 #endif //CLASS1_H
