@@ -1,6 +1,6 @@
 #include "List.h"
 
-void add(List *list, Node *node) {
+void add(List *list, Legacy_Node *node) {
     if (list == NULL) { return; }
 
     if (list->tail != NULL) {
@@ -12,19 +12,19 @@ void add(List *list, Node *node) {
     list->size++;
 }
 
-void *delete (List *list, Node *node) {
+void *delete (List *list, Legacy_Node *node) {
     if (list == NULL) { return NULL; }
 
-    Node *iterationNodePrev = NULL;
-    void *deletedNodeData   = NULL;
-    for (Node *iterationNode    = list->head; iterationNode != NULL;
-         iterationNode          = iterationNode->next,
-              iterationNodePrev = iterationNode) {
+    Legacy_Node *iterationNodePrev = NULL;
+    void *       deletedNodeData   = NULL;
+    for (Legacy_Node *iterationNode    = list->head; iterationNode != NULL;
+         iterationNode                 = iterationNode->next,
+                     iterationNodePrev = iterationNode) {
         if (iterationNode != node) { continue; }
 
         if (iterationNodePrev != NULL) {
 
-            // `iterationNode` is a "middle-node" or `list->tail`.
+            // `iterationNode` is a "middle-legacy_node" or `list->tail`.
             iterationNodePrev->next = iterationNode->next;
         } else {
 
@@ -49,16 +49,16 @@ void *delete (List *list, Node *node) {
 void *deleteNodeThatHasTheGivenData(List *list, void *dataOfTheNodeToDelete) {
     if (list == NULL) { return NULL; }
 
-    Node *iterationNodePrev = NULL;
-    void *deletedNodeData   = NULL;
-    for (Node *iterationNode    = list->head; iterationNode != NULL;
-         iterationNode          = iterationNode->next,
-              iterationNodePrev = iterationNode) {
+    Legacy_Node *iterationNodePrev = NULL;
+    void *       deletedNodeData   = NULL;
+    for (Legacy_Node *iterationNode    = list->head; iterationNode != NULL;
+         iterationNode                 = iterationNode->next,
+                     iterationNodePrev = iterationNode) {
         if (iterationNode->data != dataOfTheNodeToDelete) { continue; }
 
         if (iterationNodePrev != NULL) {
 
-            // `iterationNode` is a "middle-node" or `list->tail`.
+            // `iterationNode` is a "middle-legacy_node" or `list->tail`.
             iterationNodePrev->next = iterationNode->next;
         } else {
 
@@ -81,14 +81,14 @@ void *deleteNodeThatHasTheGivenData(List *list, void *dataOfTheNodeToDelete) {
     return deletedNodeData;
 }
 
-Node *findNodeByPredicateOfConstString(List *list,
-                                       BOOLEAN (*predicate)(const Node *,
-                                                            const char *const),
-                                       const char *allocationTableClassName) {
+Legacy_Node *findNodeByPredicateOfConstString(
+        List *list,
+        BOOLEAN (*predicate)(const Legacy_Node *, const char *const),
+        const char *allocationTableClassName) {
     if (list == NULL) { return NULL; }
 
-    for (Node *iterationNode = list->head; iterationNode != NULL;
-         iterationNode       = iterationNode->next) {
+    for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
+         iterationNode              = iterationNode->next) {
         if (predicate(iterationNode, allocationTableClassName)) {
             return iterationNode;
         }
@@ -100,10 +100,10 @@ Node *findNodeByPredicateOfConstString(List *list,
 void *ListDestructor(List *list) {
     if (list == NULL) { return NULL; }
 
-    Node *iterationNodePrev = NULL;
-    for (Node *iterationNode    = list->head; iterationNode != NULL;
-         iterationNode          = iterationNode->next,
-              iterationNodePrev = iterationNode) {
+    Legacy_Node *iterationNodePrev = NULL;
+    for (Legacy_Node *iterationNode    = list->head; iterationNode != NULL;
+         iterationNode                 = iterationNode->next,
+                     iterationNodePrev = iterationNode) {
         iterationNodePrev->thisObjectBase->destructable->destructor(
                 iterationNodePrev);
     }

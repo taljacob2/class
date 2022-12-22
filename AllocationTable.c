@@ -4,8 +4,8 @@
 void *ListDestructorWhileFreeAllNodeData(List *list) {
     if (list == NULL) { return NULL; }
 
-    Node *iterationNodePrev = NULL;
-    for (Node *iterationNode    = list->head; iterationNode != NULL;
+    Legacy_Node *iterationNodePrev = NULL;
+    for (Legacy_Node *iterationNode    = list->head; iterationNode != NULL;
          iterationNode          = iterationNode->next,
               iterationNodePrev = iterationNode) {
         free(iterationNodePrev->thisObjectBase->destructable->destructor(

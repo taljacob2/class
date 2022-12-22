@@ -2,7 +2,7 @@
 #define CLASS_LIST_H
 
 #include "Bool.h"
-#include "Node.h"
+#include "Legacy_Node.h"
 #include <limits.h>
 #include <stdlib.h>
 
@@ -14,16 +14,17 @@ struct list {
     /// `List` implements `ObjectBase`.
     ObjectBase *thisObjectBase;
 
-    Node * head;
-    Node * tail;
-    size_t size;
+    Legacy_Node *head;
+    Legacy_Node *tail;
+    size_t       size;
 
-    void (*add)(List *list, Node *node);
-    void *(*delete)(List *list, Node *node);
+    void (*add)(List *list, Legacy_Node *node);
+    void *(*delete)(List *list, Legacy_Node *node);
     void *(*deleteNodeThatHasTheGivenData)(List *list,
                                            void *dataOfTheNodeToDelete);
-    Node *(*findNodeByPredicateOfConstString)(
-            List *list, BOOLEAN (*predicate)(const Node *, const char *const),
+    Legacy_Node *(*findNodeByPredicateOfConstString)(
+            List *list,
+            BOOLEAN (*predicate)(const Legacy_Node *, const char *const),
             const char *allocationTableClassName);
 };
 

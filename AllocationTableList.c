@@ -22,7 +22,7 @@ AllocationTableList *getAllocationTableList() {
 }
 
 BOOLEAN predicateFindAllocationTableByClassName(
-        const Node *      nodeThatPointsToAllocationTable,
+        const Legacy_Node *      nodeThatPointsToAllocationTable,
         const char *const allocationTableClassName) {
     return strcmp(((AllocationTable *) (nodeThatPointsToAllocationTable->data))
                           ->className,
@@ -33,8 +33,8 @@ BOOLEAN predicateFindAllocationTableByClassName(
 void DestructAllocationTableListNonGeneric(List *allocationTableList) {
     if (allocationTableList == NULL) { return; }
 
-    Node *iterationNodePrev = NULL;
-    for (Node *iterationNode = allocationTableList->head; iterationNode != NULL;
+    Legacy_Node *iterationNodePrev = NULL;
+    for (Legacy_Node *iterationNode = allocationTableList->head; iterationNode != NULL;
          iterationNode       = iterationNode->next,
               iterationNodePrev = iterationNode) {
         if (iterationNodePrev != NULL) {
@@ -72,7 +72,7 @@ void AllocationTableListDestructor(AllocationTableList *allocationTableList) {
 
 AllocationTable *
 findAllocationTableByClassName(const char *allocationTableClassName) {
-    Node *foundNode =
+    Legacy_Node *foundNode =
             GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList
                     ->findNodeByPredicateOfConstString(
                             GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList,

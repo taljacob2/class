@@ -50,22 +50,22 @@ Class1 *Class1Constructor() {
         obj->CLASS_ALLOCATION_TABLE = AllocationTableConstructorWithClassName(
                 (char *) obj->thisObjectBase->CLASS_NAME);
 
-        // Create a node that its data points to `obj->CLASS_ALLOCATION_TABLE`.
-        Node *nodeThatItsDataPointsClassAllocationTable =
-                NodeConstructorWithDataAndDataSize(obj->CLASS_ALLOCATION_TABLE,
-                                                   sizeof(AllocationTable *));
+        // Create a legacy_node that its data points to `obj->CLASS_ALLOCATION_TABLE`.
+        Legacy_Node *nodeThatItsDataPointsClassAllocationTable =
+                Legacy_NodeConstructorWithDataAndDataSize(
+                        obj->CLASS_ALLOCATION_TABLE, sizeof(AllocationTable *));
 
-        // Add this node to `GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList`.
+        // Add this legacy_node to `GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList`.
         GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList->add(
                 GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList,
                 nodeThatItsDataPointsClassAllocationTable);
     }
 
-    // Create a node that its data points to the "pointer of `obj`".
-    Node *nodeThatItsDataPointsToThePointerOfObj =
-            NodeConstructorWithDataAndDataSize(obj, sizeof(void *));
+    // Create a legacy_node that its data points to the "pointer of `obj`".
+    Legacy_Node *nodeThatItsDataPointsToThePointerOfObj =
+            Legacy_NodeConstructorWithDataAndDataSize(obj, sizeof(void *));
 
-    // Add this node to `obj->CLASS_ALLOCATION_TABLE->allocationAddressList`.
+    // Add this legacy_node to `obj->CLASS_ALLOCATION_TABLE->allocationAddressList`.
     obj->CLASS_ALLOCATION_TABLE->allocationAddressList->add(
             obj->CLASS_ALLOCATION_TABLE->allocationAddressList,
             nodeThatItsDataPointsToThePointerOfObj);
