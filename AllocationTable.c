@@ -1,12 +1,35 @@
 #include "AllocationTable.h"
 
-void AllocationTableDestructor(AllocationTable *allocationTable) {
-    if (allocationTable == NULL) { return; }
+void *ListDestructorWhileFreeAllNodeData(List *list) {
+    if (list == NULL) { return NULL; }
 
-    allocationTable->allocationAddressList->destructable->destructor(
-            allocationTable->allocationAddressList);
+    Node *iterationNodePrev = NULL;
+    for (Node *iterationNode    = list->head; iterationNode != NULL;
+         iterationNode          = iterationNode->next,
+              iterationNodePrev = iterationNode) {
+        free(iterationNodePrev->thisObjectBase->destructable->destructor(
+                iterationNodePrev));
+    }
+
+    // `iterationNodePrev` is `list->tail`.
+    free(iterationNodePrev->thisObjectBase->destructable->destructor(
+            iterationNodePrev));
+
+    free(list);
+
+    return NULL;
+}
+
+void *AllocationTableDestructor(AllocationTable *allocationTable) {
+    if (allocationTable == NULL) { return NULL; }
+
+    ListDestructorWhileFreeAllNodeData(allocationTable->allocationAddressList);
+
+    free(allocationTable->thisObjectBase);
 
     free(allocationTable);
+
+    return NULL;
 }
 
 // TODO REMOVE:
@@ -19,15 +42,17 @@ void AllocationTableDestructor(AllocationTable *allocationTable) {
 //}
 
 void constructor_AllocationTable_fields(AllocationTable *allocationTable) {
+    allocationTable->thisObjectBase = ObjectBaseConstructor();
+
     static Constructable const constructable = {
             .constructor =
                     (void *(*const)(void) )(&AllocationTableConstructor)};
-    allocationTable->constructable = &constructable;
+    allocationTable->thisObjectBase->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor =
                     (void *(*const)(void *) )(&AllocationTableDestructor)};
-    allocationTable->destructable = &destructable;
+    allocationTable->thisObjectBase->destructable = &destructable;
 
     allocationTable->className             = "";
     allocationTable->allocationAddressList = ListConstructor();
@@ -43,7 +68,8 @@ AllocationTable *AllocationTableConstructor() {
     return obj;
 }
 
-AllocationTable *AllocationTableConstructorWithClassName(char *className) {
+AllocationTable *
+AllocationTableConstructorWithClassName(const char *className) {
     AllocationTable *obj = AllocationTableConstructor();
 
     obj->className = className;

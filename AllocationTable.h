@@ -8,17 +8,17 @@
 typedef struct allocationTable AllocationTable;
 
 struct allocationTable {
-    char *className;
+
+    /// `AllocationTable` implements `ObjectBase`.
+    ObjectBase *thisObjectBase;
+
+    const char *className;
 
     List *allocationAddressList;
-
-    Constructable const *constructable;
-
-    Destructable const *destructable;
 };
 
 AllocationTable *AllocationTableConstructor();
 
-AllocationTable *AllocationTableConstructorWithClassName(char *className);
+AllocationTable *AllocationTableConstructorWithClassName(const char *className);
 
 #endif //ALLOCATIONTABLE_H
