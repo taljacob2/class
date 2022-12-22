@@ -71,9 +71,12 @@ void AllocationTableListDestructor(AllocationTableList *allocationTableList) {
 
 AllocationTable *
 findAllocationTableByClassName(const char *allocationTableClassName) {
-    Node *foundNode = findNodeByPredicateOfConstString(
-            GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList,
-            predicateFindAllocationTableByClassName, allocationTableClassName);
+    Node *foundNode =
+            GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList
+                    ->findNodeByPredicateOfConstString(
+                            GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList,
+                            predicateFindAllocationTableByClassName,
+                            allocationTableClassName);
 
     if (foundNode != NULL) {
         return ((AllocationTable *) (foundNode->data));

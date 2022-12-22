@@ -135,6 +135,11 @@ void constructor_List_fields(List *list) {
     list->head = NULL;
     list->tail = NULL;
     list->size = 0;
+
+    list->add                              = &add;
+    list->delete                           = &delete;
+    list->deleteNodeThatHasTheGivenData    = &deleteNodeThatHasTheGivenData;
+    list->findNodeByPredicateOfConstString = &findNodeByPredicateOfConstString;
 }
 
 List *ListConstructor() {

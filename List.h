@@ -17,20 +17,15 @@ struct list {
     Node * head;
     Node * tail;
     size_t size;
+
+    void (*add)(List *list, Node *node);
+    void *(*delete)(List *list, Node *node);
+    void *(*deleteNodeThatHasTheGivenData)(List *list,
+                                           void *dataOfTheNodeToDelete);
+    Node *(*findNodeByPredicateOfConstString)(
+            List *list, BOOLEAN (*predicate)(const Node *, const char *const),
+            const char *allocationTableClassName);
 };
-
-// TODO place all the methods in the struct.
-
-void add(List *list, Node *node);
-
-void *delete (List *list, Node *node);
-
-void *deleteNodeThatHasTheGivenData(List *list, void *dataOfTheNodeToDelete);
-
-Node *findNodeByPredicateOfConstString(List *list,
-                                       BOOLEAN (*predicate)(const Node *,
-                                                            const char *const),
-                                       const char *allocationTableClassName);
 
 List *ListConstructor();
 
