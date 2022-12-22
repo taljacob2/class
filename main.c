@@ -4,7 +4,7 @@
 
 /// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 int main() {
-    Class1 *class1 = Class1Constructor();
+//    Class1 *class1 = Class1Constructor();
 
 //    (*class1->print)(class1);
 //    (*class1->addOneToX)(class1);
@@ -17,7 +17,7 @@ int main() {
 
 
 
-    class1->destructable->destructor(class1);
+//    class1->destructable->destructor(class1);
 
 
 //    free(class1_2);

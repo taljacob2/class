@@ -9,6 +9,7 @@ typedef struct allocationTable AllocationTable;
 
 struct allocationTable {
     char *className;
+
     List *allocationAddressList;
 
     Constructable const *constructable;
@@ -18,6 +19,6 @@ struct allocationTable {
 
 AllocationTable *AllocationTableConstructor();
 
-AllocationTable *AllocationTableConstructorWithClassName(const char *className);
+AllocationTable *AllocationTableConstructorWithClassName(char *className);
 
 #endif //ALLOCATIONTABLE_H

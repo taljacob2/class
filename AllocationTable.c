@@ -43,8 +43,7 @@ AllocationTable *AllocationTableConstructor() {
     return obj;
 }
 
-AllocationTable *
-AllocationTableConstructorWithClassName(const char *className) {
+AllocationTable *AllocationTableConstructorWithClassName(char *className) {
     AllocationTable *obj = AllocationTableConstructor();
 
     obj->className = className;
