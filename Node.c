@@ -11,9 +11,10 @@ void *NodeDestructor(Node *node) {
 
     void *nodeData = node->data;
 
-    // Destruct parent.
-    node->parentInstance->destructable->destructor(
-            (void *) node->parentInstance);
+//    // TODO: Maybe redundant. Remove.
+//    // Destruct parent.
+//    node->parentInstance->destructable->destructor(
+//            (void *) node->parentInstance);
 
     free(node);
 
@@ -39,8 +40,9 @@ Node *NodeConstructor() {
     if (obj == NULL) { /* error handling here */
     }
 
-    // Construct parent.
-    obj->parentInstance = ObjectBaseConstructor();
+//    //    // TODO: Maybe redundant. Remove.
+//    // Construct parent.
+//    obj->parentInstance = ObjectBaseConstructor();
 
     constructor_Node_fields(obj);
 
