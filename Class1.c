@@ -10,6 +10,11 @@ void *Class1Destructor(Class1 *class1) {
     deleteNodeThatHasTheGivenData(
             class1->CLASS_ALLOCATION_TABLE->allocationAddressList, class1);
 
+    // Destruct parent.
+    class1->parentInstance->destructable->destructor(
+            (void *) class1->parentInstance);
+
+    // Destruct self.
     free(class1);
 
     return NULL;
@@ -18,11 +23,11 @@ void *Class1Destructor(Class1 *class1) {
 void constructor_Class1_fields(Class1 *class1) {
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&Class1Constructor)};
-    class1->constructable = &constructable;
+    class1->thisObjectBase->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&Class1Destructor)};
-    class1->destructable = &destructable;
+    class1->thisObjectBase->destructable = &destructable;
 
     class1->x         = 1;
     class1->print     = &print;
@@ -34,13 +39,17 @@ Class1 *Class1Constructor() {
     if (obj == NULL) { /* error handling here */
     }
 
+    // Construct parent.
+    obj->parentInstance = ObjectBaseConstructor();
+
     constructor_Class1_fields(obj);
-    obj->CLASS_NAME = CLASS1_CLASSNAME_AS_STRING;
+
+    obj->thisObjectBase->CLASS_NAME = "Class1";
     obj->CLASS_ALLOCATION_TABLE =
-            findAllocationTableByClassName(obj->CLASS_NAME);
+            findAllocationTableByClassName(obj->thisObjectBase->CLASS_NAME);
     if (obj->CLASS_ALLOCATION_TABLE == NULL) {
-        obj->CLASS_ALLOCATION_TABLE =
-                AllocationTableConstructorWithClassName(obj->CLASS_NAME);
+        obj->CLASS_ALLOCATION_TABLE = AllocationTableConstructorWithClassName(
+                (char *) obj->thisObjectBase->CLASS_NAME);
 
         // Create a node that its data points to `obj->CLASS_ALLOCATION_TABLE`.
         Node *nodeThatItsDataPointsClassAllocationTable =

@@ -9,13 +9,11 @@
 typedef struct objectBase ObjectBase;
 
 struct objectBase {
+    const char *CLASS_NAME;
 
-    /// Sensitive data. DO NOT TOUCH!
-    char *CLASS_NAME;
+    const Constructable *constructable;
 
-    Constructable const *constructable;
-
-    Destructable const *destructable;
+    const Destructable *destructable;
 };
 
 ObjectBase *ObjectBaseConstructor();

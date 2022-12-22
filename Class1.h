@@ -5,27 +5,24 @@
 #include "AllocationTableList.h"
 #include "Constructable.h"
 #include "Destructable.h"
+#include "ObjectBase.h"
 #include "Quote.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-#define CLASS1_CLASSNAME           Class1
-#define CLASS1_CLASSNAME_AS_STRING EXPAND_AND_QUOTE(CLASS1_CLASSNAME)
-
 // Forward declaration of incomplete type
-typedef struct class1 CLASS1_CLASSNAME;
+typedef struct class1 Class1;
 
 struct class1 {
 
+    /// `Class1` is a child of `ObjectBase` (inheritance).
+    ObjectBase const *parentInstance;
+
+    /// `Class1` implements `ObjectBase`.
+    ObjectBase *thisObjectBase;
+
     /// Singleton for the whole class. Sensitive data. DO NOT TOUCH!
     AllocationTable *CLASS_ALLOCATION_TABLE;
-
-    /// Sensitive data. DO NOT TOUCH!
-    char *CLASS_NAME;
-
-    Constructable const *constructable;
-
-    Destructable const *destructable;
 
     int x;
 
