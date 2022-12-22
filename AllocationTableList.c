@@ -24,7 +24,7 @@ AllocationTableList *getAllocationTableList() {
 BOOLEAN predicateFindAllocationTableByClassName(
         const Legacy_Node *      nodeThatPointsToAllocationTable,
         const char *const allocationTableClassName) {
-    return strcmp(((AllocationTable *) (nodeThatPointsToAllocationTable->data))
+    return strcmp(((Legacy_AllocationTable *) (nodeThatPointsToAllocationTable->data))
                           ->className,
                   allocationTableClassName) == 0;
 }
@@ -38,8 +38,8 @@ void DestructAllocationTableListNonGeneric(Legacy_List *allocationTableList) {
          iterationNode       = iterationNode->next,
               iterationNodePrev = iterationNode) {
         if (iterationNodePrev != NULL) {
-            AllocationTable *prevAllocationTable =
-                    ((AllocationTable *) (iterationNodePrev->data));
+            Legacy_AllocationTable *prevAllocationTable =
+                    ((Legacy_AllocationTable *) (iterationNodePrev->data));
             prevAllocationTable->thisObjectBase->destructable->destructor(
                     prevAllocationTable);
         }
@@ -47,8 +47,8 @@ void DestructAllocationTableListNonGeneric(Legacy_List *allocationTableList) {
 
     // `iterationNodePrev` is `allocationTableList->tail`.
     if (iterationNodePrev != NULL) {
-        AllocationTable *prevAllocationTable =
-                ((AllocationTable *) (iterationNodePrev->data));
+        Legacy_AllocationTable *prevAllocationTable =
+                ((Legacy_AllocationTable *) (iterationNodePrev->data));
         prevAllocationTable->thisObjectBase->destructable->destructor(
                 prevAllocationTable);
     }
@@ -70,7 +70,7 @@ void AllocationTableListDestructor(AllocationTableList *allocationTableList) {
     free(allocationTableList);
 }
 
-AllocationTable *
+Legacy_AllocationTable *
 findAllocationTableByClassName(const char *allocationTableClassName) {
     Legacy_Node *foundNode =
             GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList
@@ -80,7 +80,7 @@ findAllocationTableByClassName(const char *allocationTableClassName) {
                             allocationTableClassName);
 
     if (foundNode != NULL) {
-        return ((AllocationTable *) (foundNode->data));
+        return ((Legacy_AllocationTable *) (foundNode->data));
     } else {
         return NULL;
     }

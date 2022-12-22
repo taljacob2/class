@@ -1,13 +1,13 @@
-#include "AllocationTable.h"
+#include "Legacy_AllocationTable.h"
 
 /// @attention This is **not** generic.
-void *ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
+void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
     if (list == NULL) { return NULL; }
 
     Legacy_Node *iterationNodePrev = NULL;
     for (Legacy_Node *iterationNode    = list->head; iterationNode != NULL;
-         iterationNode          = iterationNode->next,
-              iterationNodePrev = iterationNode) {
+         iterationNode                 = iterationNode->next,
+                     iterationNodePrev = iterationNode) {
         free(iterationNodePrev->thisObjectBase->destructable->destructor(
                 iterationNodePrev));
     }
@@ -24,10 +24,12 @@ void *ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
 }
 
 /// @attention This is **not** generic.
-void *AllocationTableDestructor(AllocationTable *allocationTable) {
+void *
+Legacy_AllocationTableDestructor(Legacy_AllocationTable *allocationTable) {
     if (allocationTable == NULL) { return NULL; }
 
-    ListDestructorWhileFreeAllNodeData(allocationTable->allocationAddressList);
+    Legacy_ListDestructorWhileFreeAllNodeData(
+            allocationTable->allocationAddressList);
 
     free(allocationTable->thisObjectBase);
 
@@ -36,36 +38,37 @@ void *AllocationTableDestructor(AllocationTable *allocationTable) {
     return NULL;
 }
 
-void constructor_AllocationTable_fields(AllocationTable *allocationTable) {
+void constructor_Legacy_AllocationTable_fields(
+        Legacy_AllocationTable *allocationTable) {
     allocationTable->thisObjectBase = ObjectBaseConstructor();
 
     static Constructable const constructable = {
-            .constructor =
-                    (void *(*const)(void) )(&AllocationTableConstructor)};
+            .constructor = (void *(*const)(void) )(
+                    &Legacy_AllocationTableConstructor)};
     allocationTable->thisObjectBase->constructable = &constructable;
 
     static Destructable const destructable = {
-            .destructor =
-                    (void *(*const)(void *) )(&AllocationTableDestructor)};
+            .destructor = (void *(*const)(void *) )(
+                    &Legacy_AllocationTableDestructor)};
     allocationTable->thisObjectBase->destructable = &destructable;
 
     allocationTable->className             = "";
     allocationTable->allocationAddressList = Legacy_ListConstructor();
 }
 
-AllocationTable *AllocationTableConstructor() {
-    AllocationTable *obj = malloc(sizeof *obj);
+Legacy_AllocationTable *Legacy_AllocationTableConstructor() {
+    Legacy_AllocationTable *obj = malloc(sizeof *obj);
     if (obj == NULL) { /* error handling here */
     }
 
-    constructor_AllocationTable_fields(obj);
+    constructor_Legacy_AllocationTable_fields(obj);
 
     return obj;
 }
 
-AllocationTable *
-AllocationTableConstructorWithClassName(const char *className) {
-    AllocationTable *obj = AllocationTableConstructor();
+Legacy_AllocationTable *
+Legacy_AllocationTableConstructorWithClassName(const char *className) {
+    Legacy_AllocationTable *obj = Legacy_AllocationTableConstructor();
 
     obj->className = className;
 

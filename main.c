@@ -5,7 +5,7 @@
 
 /*
  * TODO:
- *  rename `Legacy_Node`, `Legacy_List`, `AllocationTable`, `AllocationTableList` to:
+ *  rename `Legacy_Node`, `Legacy_List`, `Legacy_AllocationTable`, `AllocationTableList` to:
  *  `Legacy_Node`, `Legacy_List`, `Legacy_AllocationTable`, `Legacy_AllocationTableList`
  *  so people won't use them in the future.
  */

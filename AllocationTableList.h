@@ -1,7 +1,7 @@
 #ifndef ALLOCATIONTABLELIST_H
 #define ALLOCATIONTABLELIST_H
 
-#include "AllocationTable.h"
+#include "Legacy_AllocationTable.h"
 #include "Legacy_List.h"
 
 #include <stdio.h>
@@ -22,7 +22,7 @@ static AllocationTableList *GLOBAL_ALLOCATION_TABLE_LIST = NULL;
 
 AllocationTableList *AllocationTableListConstructor();
 
-AllocationTable *
+Legacy_AllocationTable *
 findAllocationTableByClassName(const char *allocationTableClassName);
 
 #endif //ALLOCATIONTABLELIST_H

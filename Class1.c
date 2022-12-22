@@ -47,13 +47,14 @@ Class1 *Class1Constructor() {
     obj->CLASS_ALLOCATION_TABLE =
             findAllocationTableByClassName(obj->thisObjectBase->CLASS_NAME);
     if (obj->CLASS_ALLOCATION_TABLE == NULL) {
-        obj->CLASS_ALLOCATION_TABLE = AllocationTableConstructorWithClassName(
-                (char *) obj->thisObjectBase->CLASS_NAME);
+        obj->CLASS_ALLOCATION_TABLE =
+                Legacy_AllocationTableConstructorWithClassName(
+                        (char *) obj->thisObjectBase->CLASS_NAME);
 
         // Create a legacy_node that its data points to `obj->CLASS_ALLOCATION_TABLE`.
         Legacy_Node *nodeThatItsDataPointsClassAllocationTable =
                 Legacy_NodeConstructorWithDataAndDataSize(
-                        obj->CLASS_ALLOCATION_TABLE, sizeof(AllocationTable *));
+                        obj->CLASS_ALLOCATION_TABLE, sizeof(Legacy_AllocationTable *));
 
         // Add this legacy_node to `GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList`.
         GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList->add(
