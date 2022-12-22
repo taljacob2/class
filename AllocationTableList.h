@@ -11,11 +11,11 @@
 typedef struct allocationTableList AllocationTableList;
 
 struct allocationTableList {
+
+    /// `AllocationTableList` implements `ObjectBase`.
+    ObjectBase *thisObjectBase;
+
     List *allocationTableList;
-
-    Constructable const *constructable;
-
-    Destructable const *destructable;
 };
 
 static AllocationTableList *GLOBAL_ALLOCATION_TABLE_LIST = NULL;

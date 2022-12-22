@@ -30,11 +30,43 @@ BOOLEAN predicateFindAllocationTableByClassName(
                   allocationTableClassName) == 0;
 }
 
+/// @attention This is **not** generic.
+
+//TODO:
+void DestructAllocationTableListNonGeneric(List *allocationTableList) {
+    if (allocationTableList == NULL) { return; }
+
+    Node *iterationNodePrev = NULL;
+    for (Node *iterationNode = allocationTableList->head; iterationNode != NULL;
+         iterationNode       = iterationNode->next,
+              iterationNodePrev = iterationNode) {
+        if (iterationNodePrev != NULL) {
+            AllocationTable *prevAllocationTable =
+                    ((AllocationTable *) (iterationNodePrev->data));
+            prevAllocationTable->thisObjectBase->destructable->destructor(
+                    prevAllocationTable);
+        }
+    }
+
+    // `iterationNodePrev` is `allocationTableList->tail`.
+    if (iterationNodePrev != NULL) {
+        AllocationTable *prevAllocationTable =
+                ((AllocationTable *) (iterationNodePrev->data));
+        prevAllocationTable->thisObjectBase->destructable->destructor(
+                prevAllocationTable);
+    }
+
+    free(allocationTableList);
+}
+
 void AllocationTableListDestructor(AllocationTableList *allocationTableList) {
     if (allocationTableList == NULL) { return; }
 
-    allocationTableList->allocationTableList->destructable->destructor(
+    DestructAllocationTableListNonGeneric(
             allocationTableList->allocationTableList);
+
+    free(allocationTableList->thisObjectBase);
+
     free(allocationTableList);
 }
 
@@ -53,31 +85,6 @@ findAllocationTableByClassName(const char *allocationTableClassName) {
 
 /// @attention This is **not** generic.
 
-//TODO:
-//void DestructAllocationTableListNonGeneric(List *allocationTableList) {
-//    if (allocationTableList == NULL) { return; }
-//
-//    Node *iterationNodePrev = NULL;
-//    for (Node *iterationNode = allocationTableList->head; iterationNode != NULL;
-//         iterationNode       = iterationNode->next,
-//              iterationNodePrev = iterationNode) {
-//        if (iterationNodePrev != NULL) {
-//            AllocationTableDestructorWithFreeAllNodeDataInList(
-//                    ((AllocationTable *) (iterationNodePrev->data)));
-//        }
-//    }
-//
-//    // `iterationNodePrev` is `allocationTableList->tail`.
-//    if (iterationNodePrev != NULL) {
-//        AllocationTableDestructorWithFreeAllNodeDataInList(
-//                ((AllocationTable *) (iterationNodePrev->data)));
-//    }
-//
-//    ListDestructorAndFreeAllNodeData(allocationTableList);
-//}
-
-/// @attention This is **not** generic.
-
 // TODO:
 //void AllocationTableListDestructorWithDestructOfAllNodeDataInListNonGeneric(
 //        AllocationTableList *allocationTableList) {
@@ -91,15 +98,17 @@ findAllocationTableByClassName(const char *allocationTableClassName) {
 
 void constructor_AllocationTableList_fields(
         AllocationTableList *allocationTableList) {
+    allocationTableList->thisObjectBase = ObjectBaseConstructor();
+
     static Constructable const constructable = {
             .constructor =
                     (void *(*const)(void) )(&AllocationTableListConstructor)};
-    allocationTableList->constructable = &constructable;
+    allocationTableList->thisObjectBase->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor =
                     (void *(*const)(void *) )(&AllocationTableListDestructor)};
-    allocationTableList->destructable = &destructable;
+    allocationTableList->thisObjectBase->destructable = &destructable;
 
     allocationTableList->allocationTableList = ListConstructor();
 }
@@ -138,6 +147,5 @@ void runBeforeMain(void) {
 void runAfterMain(void) {
 
     //TODO:
-//    AllocationTableListDestructorWithDestructOfAllNodeDataInListNonGeneric(
-//            GLOBAL_ALLOCATION_TABLE_LIST);
+    AllocationTableListDestructor(GLOBAL_ALLOCATION_TABLE_LIST);
 }

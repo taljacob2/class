@@ -109,8 +109,10 @@ void *ListDestructor(List *list) {
     }
 
     // `iterationNodePrev` is `list->tail`.
-    iterationNodePrev->thisObjectBase->destructable->destructor(
-            iterationNodePrev);
+    if (iterationNodePrev != NULL) {
+        iterationNodePrev->thisObjectBase->destructable->destructor(
+                iterationNodePrev);
+    }
 
     free(list->thisObjectBase);
 

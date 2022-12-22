@@ -12,8 +12,10 @@ void *ListDestructorWhileFreeAllNodeData(List *list) {
     }
 
     // `iterationNodePrev` is `list->tail`.
-    free(iterationNodePrev->thisObjectBase->destructable->destructor(
-            iterationNodePrev));
+    if (iterationNodePrev != NULL) {
+        free(iterationNodePrev->thisObjectBase->destructable->destructor(
+                iterationNodePrev));
+    }
 
     free(list);
 
