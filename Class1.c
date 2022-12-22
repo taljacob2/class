@@ -10,10 +10,6 @@ void *Class1Destructor(Class1 *class1) {
     deleteNodeThatHasTheGivenData(
             class1->CLASS_ALLOCATION_TABLE->allocationAddressList, class1);
 
-    // Destruct parent.
-    class1->parentInstance->destructable->destructor(
-            (void *) class1->parentInstance);
-
     // Destruct self.
     free(class1);
 
@@ -38,9 +34,6 @@ Class1 *Class1Constructor() {
     Class1 *obj = malloc(sizeof *obj);
     if (obj == NULL) { /* error handling here */
     }
-
-    // Construct parent.
-    obj->parentInstance = ObjectBaseConstructor();
 
     constructor_Class1_fields(obj);
 

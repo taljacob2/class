@@ -15,9 +15,6 @@ typedef struct class1 Class1;
 
 struct class1 {
 
-    /// `Class1` is a child of `ObjectBase` (inheritance).
-    ObjectBase const *parentInstance;
-
     /// `Class1` implements `ObjectBase`.
     ObjectBase *thisObjectBase;
 
