@@ -34,15 +34,6 @@ void *AllocationTableDestructor(AllocationTable *allocationTable) {
     return NULL;
 }
 
-// TODO REMOVE:
-//void AllocationTableDestructorWithFreeAllNodeDataInList(
-//        AllocationTable *allocationTable) {
-//    if (allocationTable == NULL) { return; }
-//
-//    ListDestructorAndFreeAllNodeData(allocationTable->allocationAddressList);
-//    free(allocationTable);
-//}
-
 void constructor_AllocationTable_fields(AllocationTable *allocationTable) {
     allocationTable->thisObjectBase = ObjectBaseConstructor();
 

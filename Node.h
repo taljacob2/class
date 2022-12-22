@@ -11,10 +11,6 @@ typedef struct node Node;
 
 struct node {
 
-//    // TODO: Maybe redundant. Remove.
-//    /// `Node` is a child of `ObjectBase` (inheritance).
-//    ObjectBase const *parentInstance;
-
     /// `Node` implements `ObjectBase`.
     ObjectBase *thisObjectBase;
 

@@ -3,7 +3,6 @@
 /**
  * Singleton implementation.
  *
- * // TODO:
  * @attention Remember to `free` this singleton on the program's exit.
  *
  * @return
@@ -31,8 +30,6 @@ BOOLEAN predicateFindAllocationTableByClassName(
 }
 
 /// @attention This is **not** generic.
-
-//TODO:
 void DestructAllocationTableListNonGeneric(List *allocationTableList) {
     if (allocationTableList == NULL) { return; }
 
@@ -85,19 +82,6 @@ findAllocationTableByClassName(const char *allocationTableClassName) {
     }
 }
 
-/// @attention This is **not** generic.
-
-// TODO:
-//void AllocationTableListDestructorWithDestructOfAllNodeDataInListNonGeneric(
-//        AllocationTableList *allocationTableList) {
-//    if (allocationTableList == NULL) { return; }
-//
-//    DestructAllocationTableListNonGeneric(
-//            allocationTableList->allocationTableList);
-//
-//    free(allocationTableList);
-//}
-
 void constructor_AllocationTableList_fields(
         AllocationTableList *allocationTableList) {
     allocationTableList->thisObjectBase = ObjectBaseConstructor();
@@ -147,7 +131,5 @@ void runBeforeMain(void) {
 
 /* implementation of runAfterMain */
 void runAfterMain(void) {
-
-    //TODO:
     AllocationTableListDestructor(GLOBAL_ALLOCATION_TABLE_LIST);
 }
