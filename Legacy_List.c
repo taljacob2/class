@@ -18,29 +18,30 @@ void *delete (Legacy_List *list, Legacy_Node *node) {
     Legacy_Node *iterationNodePrev = NULL;
     void *       deletedNodeData   = NULL;
     for (Legacy_Node *iterationNode    = list->head; iterationNode != NULL;
-         iterationNode                 = iterationNode->next,
-                     iterationNodePrev = iterationNode) {
-        if (iterationNode != node) { continue; }
+         iterationNode                 = iterationNode->next) {
+        if (iterationNode == node) {
+            if (iterationNodePrev != NULL) {
 
-        if (iterationNodePrev != NULL) {
+                // `iterationNode` is a "middle-legacy_node" or `legacy_list->tail`.
+                iterationNodePrev->next = iterationNode->next;
+            } else {
 
-            // `iterationNode` is a "middle-legacy_node" or `legacy_list->tail`.
-            iterationNodePrev->next = iterationNode->next;
-        } else {
+                // `iterationNode` is `legacy_list->head`.
+                list->head = iterationNode->next;
+            }
+            if (iterationNode->next == NULL) {
 
-            // `iterationNode` is `legacy_list->head`.
-            list->head = iterationNode->next;
+                // `iterationNode` is `legacy_list->tail`.
+                list->tail = iterationNodePrev;
+            }
+            deletedNodeData =
+                    iterationNode->thisObjectBase->destructable->destructor(
+                            iterationNode);
+            list->size--;
+            break;
         }
-        if (iterationNode->next == NULL) {
 
-            // `iterationNode` is `legacy_list->tail`.
-            list->tail = iterationNodePrev;
-        }
-        deletedNodeData =
-                iterationNode->thisObjectBase->destructable->destructor(
-                        iterationNode);
-        list->size--;
-        break;
+        iterationNodePrev = iterationNode;
     }
 
     return deletedNodeData;
@@ -53,30 +54,31 @@ void *deleteNodeThatHasTheGivenData(Legacy_List *list,
     Legacy_Node *iterationNodePrev = NULL;
     void *       deletedNodeData   = NULL;
     for (Legacy_Node *iterationNode    = list->head; iterationNode != NULL;
-         iterationNode                 = iterationNode->next,
-                     iterationNodePrev = iterationNode) {
-        if (iterationNode->data != dataOfTheNodeToDelete) { continue; }
+         iterationNode                 = iterationNode->next) {
+        if (iterationNode->data == dataOfTheNodeToDelete) {
+            if (iterationNodePrev != NULL) {
 
-        if (iterationNodePrev != NULL) {
+                // `iterationNode` is a "middle-legacy_node" or `legacy_list->tail`.
+                iterationNodePrev->next = iterationNode->next;
+            } else {
 
-            // `iterationNode` is a "middle-legacy_node" or `legacy_list->tail`.
-            iterationNodePrev->next = iterationNode->next;
-        } else {
+                // `iterationNode` is `legacy_list->head`.
+                list->head = iterationNode->next;
+            }
+            if (iterationNode->next == NULL) {
 
-            // `iterationNode` is `legacy_list->head`.
-            list->head = iterationNode->next;
+                // `iterationNode` is `legacy_list->tail`.
+                list->tail = iterationNodePrev;
+            }
+
+            deletedNodeData =
+                    iterationNode->thisObjectBase->destructable->destructor(
+                            iterationNode);
+            list->size--;
+            break;
         }
-        if (iterationNode->next == NULL) {
 
-            // `iterationNode` is `legacy_list->tail`.
-            list->tail = iterationNodePrev;
-        }
-
-        deletedNodeData =
-                iterationNode->thisObjectBase->destructable->destructor(
-                        iterationNode);
-        list->size--;
-        break;
+        iterationNodePrev = iterationNode;
     }
 
     return deletedNodeData;
@@ -103,10 +105,11 @@ void *Legacy_ListDestructor(Legacy_List *list) {
 
     Legacy_Node *iterationNodePrev = NULL;
     for (Legacy_Node *iterationNode    = list->head; iterationNode != NULL;
-         iterationNode                 = iterationNode->next,
-                     iterationNodePrev = iterationNode) {
+         iterationNode                 = iterationNode->next) {
         iterationNodePrev->thisObjectBase->destructable->destructor(
                 iterationNodePrev);
+
+        iterationNodePrev = iterationNode;
     }
 
     // `iterationNodePrev` is `legacy_list->tail`.

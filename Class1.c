@@ -45,8 +45,9 @@ Class1 *Class1Constructor() {
 
     obj->thisObjectBase->CLASS_NAME = "Class1";
     obj->CLASS_ALLOCATION_TABLE =
-            GLOBAL_ALLOCATION_TABLE_LIST->findLegacy_AllocationTableByClassName(
-                    obj->thisObjectBase->CLASS_NAME);
+            getLegacy_AllocationTableList()
+                    ->findLegacy_AllocationTableByClassName(
+                            obj->thisObjectBase->CLASS_NAME);
     if (obj->CLASS_ALLOCATION_TABLE == NULL) {
         obj->CLASS_ALLOCATION_TABLE =
                 Legacy_AllocationTableConstructorWithClassName(
@@ -59,8 +60,8 @@ Class1 *Class1Constructor() {
                         sizeof(Legacy_AllocationTable *));
 
         // Add this legacy_node to `GLOBAL_ALLOCATION_TABLE_LIST->legacy_allocationTableList`.
-        GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList->add(
-                GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList,
+        getLegacy_AllocationTableList()->allocationTableList->add(
+                getLegacy_AllocationTableList()->allocationTableList,
                 nodeThatItsDataPointsClassAllocationTable);
     }
 

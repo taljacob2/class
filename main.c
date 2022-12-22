@@ -1,5 +1,4 @@
-//#include "Legacy_AllocationTableList.h"
-//#include "Class1.h"
+#include "Class1.h"
 
 #include "ObjectBase.h"
 
@@ -26,6 +25,10 @@ int main() {
 
     ObjectBase *objectBase = ObjectBaseConstructor();
     objectBase->destructable->destructor(objectBase);
+
+    Class1 *class1 = Class1Constructor();
+
+    class1->thisObjectBase->destructable->destructor(class1);
 
 
     return 0;

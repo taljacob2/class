@@ -6,10 +6,11 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
 
     Legacy_Node *iterationNodePrev = NULL;
     for (Legacy_Node *iterationNode    = list->head; iterationNode != NULL;
-         iterationNode                 = iterationNode->next,
-                     iterationNodePrev = iterationNode) {
+         iterationNode                 = iterationNode->next) {
         free(iterationNodePrev->thisObjectBase->destructable->destructor(
                 iterationNodePrev));
+
+        iterationNodePrev = iterationNode;
     }
 
     // `iterationNodePrev` is `legacy_list->tail`.

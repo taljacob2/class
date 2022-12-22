@@ -21,7 +21,15 @@ struct legacy_allocationTableList {
             const char *allocationTableClassName);
 };
 
-static Legacy_AllocationTableList *GLOBAL_ALLOCATION_TABLE_LIST = NULL;
+/**
+ * Singleton implementation.
+ *
+ * @attention Remember to `free` this singleton on the program's exit.
+ *
+ * @return
+ * @see https://stackoverflow.com/a/803699/14427765
+ */
+Legacy_AllocationTableList *getLegacy_AllocationTableList();
 
 Legacy_AllocationTableList *Legacy_AllocationTableListConstructor();
 

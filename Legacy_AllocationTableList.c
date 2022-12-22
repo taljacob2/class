@@ -1,20 +1,11 @@
 #include "Legacy_AllocationTableList.h"
 
-/**
- * Singleton implementation.
- *
- * @attention Remember to `free` this singleton on the program's exit.
- *
- * @return
- * @see https://stackoverflow.com/a/803699/14427765
- */
 Legacy_AllocationTableList *getLegacy_AllocationTableList() {
     static Legacy_AllocationTableList *instance = NULL;
 
     // Do lock here.
     if (instance == NULL) {
-        instance                     = Legacy_AllocationTableListConstructor();
-        GLOBAL_ALLOCATION_TABLE_LIST = instance;
+        instance = Legacy_AllocationTableListConstructor();
     }
     // Do unlock.
 
@@ -37,20 +28,31 @@ void DestructLegacy_AllocationTableListNonGeneric(
 
     Legacy_Node *iterationNodePrev = NULL;
     for (Legacy_Node *iterationNode           = allocationTableList->head;
-         iterationNode != NULL; iterationNode = iterationNode->next,
-                     iterationNodePrev        = iterationNode) {
+         iterationNode != NULL; iterationNode = iterationNode->next) {
         if (iterationNodePrev != NULL) {
+
+            // Destruct Node and retrieve the data.
             Legacy_AllocationTable *prevAllocationTable =
-                    ((Legacy_AllocationTable *) (iterationNodePrev->data));
+                    iterationNodePrev->thisObjectBase->destructable->destructor(
+                            iterationNodePrev);
+
+            // Destruct data.
             prevAllocationTable->thisObjectBase->destructable->destructor(
                     prevAllocationTable);
         }
+
+        iterationNodePrev        = iterationNode;
     }
 
     // `iterationNodePrev` is `legacy_allocationTableList->tail`.
     if (iterationNodePrev != NULL) {
+
+        // Destruct Node and retrieve the data.
         Legacy_AllocationTable *prevAllocationTable =
-                ((Legacy_AllocationTable *) (iterationNodePrev->data));
+                iterationNodePrev->thisObjectBase->destructable->destructor(
+                        iterationNodePrev);
+
+        // Destruct data.
         prevAllocationTable->thisObjectBase->destructable->destructor(
                 prevAllocationTable);
     }
@@ -76,9 +78,10 @@ void Legacy_AllocationTableListDestructor(
 Legacy_AllocationTable *
 findLegacy_AllocationTableByClassName(const char *allocationTableClassName) {
     Legacy_Node *foundNode =
-            GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList
-                    ->findNodeByPredicateOfConstString(
-                            GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList,
+            getLegacy_AllocationTableList()
+                    ->allocationTableList->findNodeByPredicateOfConstString(
+                            getLegacy_AllocationTableList()
+                                    ->allocationTableList,
                             predicateFindLegacy_AllocationTableByClassName,
                             allocationTableClassName);
 
@@ -135,11 +138,9 @@ void runBeforeMain(void) __attribute__((constructor));
 void runAfterMain(void) __attribute__((destructor));
 
 /* implementation of runBeforeMain */
-void runBeforeMain(void) {
-    GLOBAL_ALLOCATION_TABLE_LIST = getLegacy_AllocationTableList();
-}
+void runBeforeMain(void) { getLegacy_AllocationTableList(); }
 
 /* implementation of runAfterMain */
 void runAfterMain(void) {
-    Legacy_AllocationTableListDestructor(GLOBAL_ALLOCATION_TABLE_LIST);
+    Legacy_AllocationTableListDestructor(getLegacy_AllocationTableList());
 }
