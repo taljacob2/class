@@ -14,8 +14,9 @@ int main() {
 //    (*class1_2->print)();
 
 
-//    Class1Destructor(class1);
+
     class1->destructable->destructor(class1);
+
 
 //    free(class1_2);
 

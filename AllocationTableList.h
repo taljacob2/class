@@ -38,13 +38,37 @@ void AllocationTableListDestructor(AllocationTableList *allocationTableList) {
     free(allocationTableList);
 }
 
-void AllocationTableListDestructorWithFreeAllNodeDataInList(
+/// @attention This is **not** generic.
+static void DestructAllocationTableListNonGeneric(List *allocationTableList) {
+    if (allocationTableList == NULL) { return; }
+
+    Node *iterationNodePrev = NULL;
+    for (Node *iterationNode = allocationTableList->head; iterationNode != NULL;
+         iterationNode       = iterationNode->next,
+              iterationNodePrev = iterationNode) {
+        if (iterationNodePrev != NULL) {
+            AllocationTableDestructorWithFreeAllNodeDataInList(
+                    ((AllocationTable *) (iterationNodePrev->data)));
+        }
+    }
+
+    // `iterationNodePrev` is `allocationTableList->tail`.
+    if (iterationNodePrev != NULL) {
+        AllocationTableDestructorWithFreeAllNodeDataInList(
+                ((AllocationTable *) (iterationNodePrev->data)));
+    }
+
+    ListDestructorAndFreeAllNodeData(allocationTableList);
+}
+
+/// @attention This is **not** generic.
+static void
+AllocationTableListDestructorWithDestructOfAllNodeDataInListNonGeneric(
         AllocationTableList *allocationTableList) {
     if (allocationTableList == NULL) { return; }
 
-    ListDestructorAndFreeAllNodeData(allocationTableList->allocationTableList);
-
-
+    DestructAllocationTableListNonGeneric(
+            allocationTableList->allocationTableList);
 
     free(allocationTableList);
 }
@@ -113,7 +137,7 @@ void runBeforeMain(void) {
 
 /* implementation of runAfterMain */
 void runAfterMain(void) {
-    AllocationTableListDestructorWithFreeAllNodeDataInList(
+    AllocationTableListDestructorWithDestructOfAllNodeDataInListNonGeneric(
             GLOBAL_ALLOCATION_TABLE_LIST);
 }
 

@@ -44,6 +44,7 @@ void AllocationTableDestructor(AllocationTable *allocationTable) {
     free(allocationTable);
 }
 
+// TODO REMOVE:
 void AllocationTableDestructorWithFreeAllNodeDataInList(
         AllocationTable *allocationTable) {
     if (allocationTable == NULL) { return; }

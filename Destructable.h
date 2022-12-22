@@ -3,7 +3,7 @@
 
 /// Interface.
 typedef struct {
-    void (*const destructor)(void *self);
+    void *(*const destructor)(void *self);
 } Destructable;
 
 #endif //DESTRUCTOR_H
