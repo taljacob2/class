@@ -1,6 +1,8 @@
 #include "AllocationTableList.h"
 #include "Class1.h"
 
+
+/// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 int main() {
     Class1 *class1 = Class1Constructor();
 
