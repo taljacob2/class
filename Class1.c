@@ -8,8 +8,7 @@ void *Class1Destructor(Class1 *class1) {
     if (class1 == NULL) { return NULL; }
 
     deleteNodeThatHasTheGivenData(
-            class1->CLASS_ALLOCATION_TABLE->allocationAddressList,
-            class1->ALLOCATION_ADDRESS);
+            class1->CLASS_ALLOCATION_TABLE->allocationAddressList, class1);
 
     free(class1);
 
@@ -36,8 +35,7 @@ Class1 *Class1Constructor() {
     }
 
     constructor_Class1_fields(obj);
-    obj->CLASS_NAME         = CLASS1_CLASSNAME_AS_STRING;
-    obj->ALLOCATION_ADDRESS = obj;
+    obj->CLASS_NAME = CLASS1_CLASSNAME_AS_STRING;
     obj->CLASS_ALLOCATION_TABLE =
             findAllocationTableByClassName(obj->CLASS_NAME);
     if (obj->CLASS_ALLOCATION_TABLE == NULL) {
@@ -56,8 +54,7 @@ Class1 *Class1Constructor() {
 
     // Create a node that its data points to the "pointer of `obj`".
     Node *nodeThatItsDataPointsToThePointerOfObj =
-            NodeConstructorWithDataAndDataSize(obj->ALLOCATION_ADDRESS,
-                                               sizeof(void *));
+            NodeConstructorWithDataAndDataSize(obj, sizeof(void *));
 
     // Add this node to `obj->CLASS_ALLOCATION_TABLE->allocationAddressList`.
     add(obj->CLASS_ALLOCATION_TABLE->allocationAddressList,

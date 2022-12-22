@@ -21,9 +21,6 @@ struct class1 {
     AllocationTable *CLASS_ALLOCATION_TABLE;
 
     /// Sensitive data. DO NOT TOUCH!
-    void *ALLOCATION_ADDRESS;
-
-    /// Sensitive data. DO NOT TOUCH!
     char *CLASS_NAME;
 
     Constructable const *constructable;
