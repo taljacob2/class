@@ -10,47 +10,14 @@ typedef struct allocationTable AllocationTable;
 struct allocationTable {
     char *className;
     List *allocationAddressList;
+
+    Constructable const *constructable;
+
+    Destructable const *destructable;
 };
 
-static void
-constructor_AllocationTable_fields(AllocationTable *allocationTable) {
-    allocationTable->className             = "";
-    allocationTable->allocationAddressList = ListConstructor();
-}
+AllocationTable *AllocationTableConstructor();
 
-AllocationTable *AllocationTableConstructor() {
-    AllocationTable *obj = malloc(sizeof *obj);
-    if (obj == NULL) { /* error handling here */
-    }
-
-    constructor_AllocationTable_fields(obj);
-
-    return obj;
-}
-
-AllocationTable *
-AllocationTableConstructorWithClassName(char *const className) {
-    AllocationTable *obj = AllocationTableConstructor();
-
-    obj->className = className;
-
-    return obj;
-}
-
-void AllocationTableDestructor(AllocationTable *allocationTable) {
-    if (allocationTable == NULL) { return; }
-
-    ListDestructor(allocationTable->allocationAddressList);
-    free(allocationTable);
-}
-
-// TODO REMOVE:
-void AllocationTableDestructorWithFreeAllNodeDataInList(
-        AllocationTable *allocationTable) {
-    if (allocationTable == NULL) { return; }
-
-    ListDestructorAndFreeAllNodeData(allocationTable->allocationAddressList);
-    free(allocationTable);
-}
+AllocationTable *AllocationTableConstructorWithClassName(const char *className);
 
 #endif //ALLOCATIONTABLE_H

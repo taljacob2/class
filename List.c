@@ -114,23 +114,23 @@ void *ListDestructor(List *list) {
 }
 
 // TODO: REMOVE
-void *ListDestructorAndFreeAllNodeData(List *list) {
-    if (list == NULL) { return NULL; }
-
-    Node *iterationNodePrev = NULL;
-    for (Node *iterationNode    = list->head; iterationNode != NULL;
-         iterationNode          = iterationNode->next,
-              iterationNodePrev = iterationNode) {
-        free(iterationNodePrev->destructable->destructor(iterationNodePrev));
-    }
-
-    // `iterationNodePrev` is `list->tail`.
-    free(iterationNodePrev->destructable->destructor(iterationNodePrev));
-
-    free(list);
-
-    return NULL;
-}
+//void *ListDestructorAndFreeAllNodeData(List *list) {
+//    if (list == NULL) { return NULL; }
+//
+//    Node *iterationNodePrev = NULL;
+//    for (Node *iterationNode    = list->head; iterationNode != NULL;
+//         iterationNode          = iterationNode->next,
+//              iterationNodePrev = iterationNode) {
+//        free(iterationNodePrev->destructable->destructor(iterationNodePrev));
+//    }
+//
+//    // `iterationNodePrev` is `list->tail`.
+//    free(iterationNodePrev->destructable->destructor(iterationNodePrev));
+//
+//    free(list);
+//
+//    return NULL;
+//}
 
 void constructor_List_fields(List *list) {
     static Constructable const constructable = {
