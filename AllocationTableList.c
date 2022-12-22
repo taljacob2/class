@@ -56,6 +56,8 @@ void DestructAllocationTableListNonGeneric(List *allocationTableList) {
                 prevAllocationTable);
     }
 
+    free(allocationTableList->thisObjectBase);
+
     free(allocationTableList);
 }
 
