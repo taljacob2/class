@@ -1,10 +1,10 @@
 #ifndef CLASS1_H
 #define CLASS1_H
 
-#include "AllocationTable.h"
-#include "AllocationTableList.h"
 #include "Constructable.h"
 #include "Destructable.h"
+#include "Legacy_AllocationTable.h"
+#include "Legacy_AllocationTableList.h"
 #include "ObjectBase.h"
 #include "Quote.h"
 #include <stdio.h>
@@ -19,7 +19,7 @@ struct class1 {
     ObjectBase *thisObjectBase;
 
     /// Singleton for the whole class. Sensitive data. DO NOT TOUCH!
-    AllocationTable *CLASS_ALLOCATION_TABLE;
+    Legacy_AllocationTable *CLASS_ALLOCATION_TABLE;
 
     int x;
 
