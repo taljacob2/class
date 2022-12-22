@@ -1,7 +1,7 @@
 #include "AllocationTable.h"
 
 /// @attention This is **not** generic.
-void *ListDestructorWhileFreeAllNodeData(List *list) {
+void *ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
     if (list == NULL) { return NULL; }
 
     Legacy_Node *iterationNodePrev = NULL;
@@ -12,7 +12,7 @@ void *ListDestructorWhileFreeAllNodeData(List *list) {
                 iterationNodePrev));
     }
 
-    // `iterationNodePrev` is `list->tail`.
+    // `iterationNodePrev` is `legacy_list->tail`.
     if (iterationNodePrev != NULL) {
         free(iterationNodePrev->thisObjectBase->destructable->destructor(
                 iterationNodePrev));
@@ -50,7 +50,7 @@ void constructor_AllocationTable_fields(AllocationTable *allocationTable) {
     allocationTable->thisObjectBase->destructable = &destructable;
 
     allocationTable->className             = "";
-    allocationTable->allocationAddressList = ListConstructor();
+    allocationTable->allocationAddressList = Legacy_ListConstructor();
 }
 
 AllocationTable *AllocationTableConstructor() {

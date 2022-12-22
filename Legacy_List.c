@@ -1,6 +1,6 @@
-#include "List.h"
+#include "Legacy_List.h"
 
-void add(List *list, Legacy_Node *node) {
+void add(Legacy_List *list, Legacy_Node *node) {
     if (list == NULL) { return; }
 
     if (list->tail != NULL) {
@@ -12,7 +12,7 @@ void add(List *list, Legacy_Node *node) {
     list->size++;
 }
 
-void *delete (List *list, Legacy_Node *node) {
+void *delete (Legacy_List *list, Legacy_Node *node) {
     if (list == NULL) { return NULL; }
 
     Legacy_Node *iterationNodePrev = NULL;
@@ -24,16 +24,16 @@ void *delete (List *list, Legacy_Node *node) {
 
         if (iterationNodePrev != NULL) {
 
-            // `iterationNode` is a "middle-legacy_node" or `list->tail`.
+            // `iterationNode` is a "middle-legacy_node" or `legacy_list->tail`.
             iterationNodePrev->next = iterationNode->next;
         } else {
 
-            // `iterationNode` is `list->head`.
+            // `iterationNode` is `legacy_list->head`.
             list->head = iterationNode->next;
         }
         if (iterationNode->next == NULL) {
 
-            // `iterationNode` is `list->tail`.
+            // `iterationNode` is `legacy_list->tail`.
             list->tail = iterationNodePrev;
         }
         deletedNodeData =
@@ -46,7 +46,8 @@ void *delete (List *list, Legacy_Node *node) {
     return deletedNodeData;
 }
 
-void *deleteNodeThatHasTheGivenData(List *list, void *dataOfTheNodeToDelete) {
+void *deleteNodeThatHasTheGivenData(Legacy_List *list,
+                                    void *       dataOfTheNodeToDelete) {
     if (list == NULL) { return NULL; }
 
     Legacy_Node *iterationNodePrev = NULL;
@@ -58,16 +59,16 @@ void *deleteNodeThatHasTheGivenData(List *list, void *dataOfTheNodeToDelete) {
 
         if (iterationNodePrev != NULL) {
 
-            // `iterationNode` is a "middle-legacy_node" or `list->tail`.
+            // `iterationNode` is a "middle-legacy_node" or `legacy_list->tail`.
             iterationNodePrev->next = iterationNode->next;
         } else {
 
-            // `iterationNode` is `list->head`.
+            // `iterationNode` is `legacy_list->head`.
             list->head = iterationNode->next;
         }
         if (iterationNode->next == NULL) {
 
-            // `iterationNode` is `list->tail`.
+            // `iterationNode` is `legacy_list->tail`.
             list->tail = iterationNodePrev;
         }
 
@@ -82,7 +83,7 @@ void *deleteNodeThatHasTheGivenData(List *list, void *dataOfTheNodeToDelete) {
 }
 
 Legacy_Node *findNodeByPredicateOfConstString(
-        List *list,
+        Legacy_List *list,
         BOOLEAN (*predicate)(const Legacy_Node *, const char *const),
         const char *allocationTableClassName) {
     if (list == NULL) { return NULL; }
@@ -97,7 +98,7 @@ Legacy_Node *findNodeByPredicateOfConstString(
     return NULL;
 }
 
-void *ListDestructor(List *list) {
+void *Legacy_ListDestructor(Legacy_List *list) {
     if (list == NULL) { return NULL; }
 
     Legacy_Node *iterationNodePrev = NULL;
@@ -108,7 +109,7 @@ void *ListDestructor(List *list) {
                 iterationNodePrev);
     }
 
-    // `iterationNodePrev` is `list->tail`.
+    // `iterationNodePrev` is `legacy_list->tail`.
     if (iterationNodePrev != NULL) {
         iterationNodePrev->thisObjectBase->destructable->destructor(
                 iterationNodePrev);
@@ -121,15 +122,15 @@ void *ListDestructor(List *list) {
     return NULL;
 }
 
-void constructor_List_fields(List *list) {
+void constructor_Legacy_List_fields(Legacy_List *list) {
     list->thisObjectBase = ObjectBaseConstructor();
 
     static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&ListConstructor)};
+            .constructor = (void *(*const)(void) )(&Legacy_ListConstructor)};
     list->thisObjectBase->constructable = &constructable;
 
     static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&ListDestructor)};
+            .destructor = (void *(*const)(void *) )(&Legacy_ListDestructor)};
     list->thisObjectBase->destructable = &destructable;
 
     list->head = NULL;
@@ -142,12 +143,12 @@ void constructor_List_fields(List *list) {
     list->findNodeByPredicateOfConstString = &findNodeByPredicateOfConstString;
 }
 
-List *ListConstructor() {
-    List *obj = malloc(sizeof *obj);
+Legacy_List *Legacy_ListConstructor() {
+    Legacy_List *obj = malloc(sizeof *obj);
     if (obj == NULL) { /* error handling here */
     }
 
-    constructor_List_fields(obj);
+    constructor_Legacy_List_fields(obj);
 
     return obj;
 }

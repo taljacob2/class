@@ -30,7 +30,7 @@ BOOLEAN predicateFindAllocationTableByClassName(
 }
 
 /// @attention This is **not** generic.
-void DestructAllocationTableListNonGeneric(List *allocationTableList) {
+void DestructAllocationTableListNonGeneric(Legacy_List *allocationTableList) {
     if (allocationTableList == NULL) { return; }
 
     Legacy_Node *iterationNodePrev = NULL;
@@ -100,7 +100,7 @@ void constructor_AllocationTableList_fields(
                     (void *(*const)(void *) )(&AllocationTableListDestructor)};
     allocationTableList->thisObjectBase->destructable = &destructable;
 
-    allocationTableList->allocationTableList = ListConstructor();
+    allocationTableList->allocationTableList = Legacy_ListConstructor();
 }
 
 

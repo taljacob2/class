@@ -1,7 +1,7 @@
 #ifndef ALLOCATIONTABLE_H
 #define ALLOCATIONTABLE_H
 
-#include "List.h"
+#include "Legacy_List.h"
 #include <stdlib.h>
 
 // Forward declaration of incomplete type
@@ -14,7 +14,7 @@ struct allocationTable {
 
     const char *className;
 
-    List *allocationAddressList;
+    Legacy_List *allocationAddressList;
 };
 
 AllocationTable *AllocationTableConstructor();
