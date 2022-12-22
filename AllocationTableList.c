@@ -58,6 +58,7 @@ void DestructAllocationTableListNonGeneric(List *allocationTableList) {
     free(allocationTableList);
 }
 
+/// @attention This is **not** generic.
 void AllocationTableListDestructor(AllocationTableList *allocationTableList) {
     if (allocationTableList == NULL) { return; }
 

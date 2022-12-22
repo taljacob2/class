@@ -1,5 +1,6 @@
 #include "AllocationTable.h"
 
+/// @attention This is **not** generic.
 void *ListDestructorWhileFreeAllNodeData(List *list) {
     if (list == NULL) { return NULL; }
 
@@ -22,6 +23,7 @@ void *ListDestructorWhileFreeAllNodeData(List *list) {
     return NULL;
 }
 
+/// @attention This is **not** generic.
 void *AllocationTableDestructor(AllocationTable *allocationTable) {
     if (allocationTable == NULL) { return NULL; }
 
