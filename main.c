@@ -3,13 +3,6 @@
 
 #include "ObjectBase.h"
 
-/*
- * TODO:
- *  rename `Legacy_Node`, `Legacy_List`, `Legacy_AllocationTable`, `Legacy_AllocationTableList` to:
- *  `Legacy_Node`, `Legacy_List`, `Legacy_AllocationTable`, `Legacy_AllocationTableList`
- *  so people won't use them in the future.
- */
-
 /// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 int main() {
 //    Class1 *class1 = Class1Constructor();
