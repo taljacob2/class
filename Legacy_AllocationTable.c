@@ -19,6 +19,8 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
                 iterationNodePrev));
     }
 
+    free(list->thisObjectBase);
+
     free(list);
 
     return NULL;
