@@ -10,6 +10,8 @@ void *Class1Destructor(Class1 *class1) {
     deleteNodeThatHasTheGivenData(
             class1->CLASS_ALLOCATION_TABLE->allocationAddressList, class1);
 
+    free(class1->thisObjectBase);
+
     // Destruct self.
     free(class1);
 
@@ -17,6 +19,8 @@ void *Class1Destructor(Class1 *class1) {
 }
 
 void constructor_Class1_fields(Class1 *class1) {
+    class1->thisObjectBase = ObjectBaseConstructor();
+
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&Class1Constructor)};
     class1->thisObjectBase->constructable = &constructable;

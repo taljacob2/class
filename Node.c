@@ -16,12 +16,16 @@ void *NodeDestructor(Node *node) {
 //    node->parentInstance->destructable->destructor(
 //            (void *) node->parentInstance);
 
+    free(node->thisObjectBase);
+
     free(node);
 
     return nodeData;
 }
 
 void constructor_Node_fields(Node *node) {
+    node->thisObjectBase = ObjectBaseConstructor();
+
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&NodeConstructor)};
     node->thisObjectBase->constructable = &constructable;

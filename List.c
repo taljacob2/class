@@ -37,7 +37,8 @@ void *delete (List *list, Node *node) {
             list->tail = iterationNodePrev;
         }
         deletedNodeData =
-                iterationNode->destructable->destructor(iterationNode);
+                iterationNode->thisObjectBase->destructable->destructor(
+                        iterationNode);
         list->size--;
         break;
     }
@@ -71,7 +72,8 @@ void *deleteNodeThatHasTheGivenData(List *list, void *dataOfTheNodeToDelete) {
         }
 
         deletedNodeData =
-                iterationNode->destructable->destructor(iterationNode);
+                iterationNode->thisObjectBase->destructable->destructor(
+                        iterationNode);
         list->size--;
         break;
     }
@@ -102,11 +104,15 @@ void *ListDestructor(List *list) {
     for (Node *iterationNode    = list->head; iterationNode != NULL;
          iterationNode          = iterationNode->next,
               iterationNodePrev = iterationNode) {
-        iterationNodePrev->destructable->destructor(iterationNodePrev);
+        iterationNodePrev->thisObjectBase->destructable->destructor(
+                iterationNodePrev);
     }
 
     // `iterationNodePrev` is `list->tail`.
-    iterationNodePrev->destructable->destructor(iterationNodePrev);
+    iterationNodePrev->thisObjectBase->destructable->destructor(
+            iterationNodePrev);
+
+    free(list->thisObjectBase);
 
     free(list);
 
@@ -133,13 +139,15 @@ void *ListDestructor(List *list) {
 //}
 
 void constructor_List_fields(List *list) {
+    list->thisObjectBase = ObjectBaseConstructor();
+
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&ListConstructor)};
-    list->constructable = &constructable;
+    list->thisObjectBase->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&ListDestructor)};
-    list->destructable = &destructable;
+    list->thisObjectBase->destructable = &destructable;
 
     list->head = NULL;
     list->tail = NULL;

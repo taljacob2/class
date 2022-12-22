@@ -10,14 +10,16 @@
 typedef struct list List;
 
 struct list {
+
+    /// `List` implements `ObjectBase`.
+    ObjectBase *thisObjectBase;
+
     Node * head;
     Node * tail;
     size_t size;
-
-    Constructable const *constructable;
-
-    Destructable const *destructable;
 };
+
+// TODO place all the methods in the struct.
 
 void add(List *list, Node *node);
 
