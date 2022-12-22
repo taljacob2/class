@@ -3,19 +3,23 @@
 
 #include "Constructable.h"
 #include "Destructable.h"
+#include "ObjectBase.h"
 #include <stdlib.h>
 
 // Forward declaration of incomplete type
 typedef struct node Node;
 
 struct node {
+
+    /// `Node` is a child of `ObjectBase` (inheritance).
+    ObjectBase const *parentInstance;
+
+    /// `Node` implements `ObjectBase`.
+    ObjectBase *thisObjectBase;
+
     void * data;
     size_t dataSize;
     Node * next;
-
-    Constructable const *constructable;
-
-    Destructable const *destructable;
 };
 
 Node *NodeConstructor();
