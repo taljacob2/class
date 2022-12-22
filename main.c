@@ -1,11 +1,11 @@
-//#include "AllocationTableList.h"
+//#include "Legacy_AllocationTableList.h"
 //#include "Class1.h"
 
 #include "ObjectBase.h"
 
 /*
  * TODO:
- *  rename `Legacy_Node`, `Legacy_List`, `Legacy_AllocationTable`, `AllocationTableList` to:
+ *  rename `Legacy_Node`, `Legacy_List`, `Legacy_AllocationTable`, `Legacy_AllocationTableList` to:
  *  `Legacy_Node`, `Legacy_List`, `Legacy_AllocationTable`, `Legacy_AllocationTableList`
  *  so people won't use them in the future.
  */

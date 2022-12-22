@@ -1,4 +1,4 @@
-#include "AllocationTableList.h"
+#include "Legacy_AllocationTableList.h"
 
 /**
  * Singleton implementation.
@@ -8,12 +8,12 @@
  * @return
  * @see https://stackoverflow.com/a/803699/14427765
  */
-AllocationTableList *getAllocationTableList() {
-    static AllocationTableList *instance = NULL;
+Legacy_AllocationTableList *getLegacy_AllocationTableList() {
+    static Legacy_AllocationTableList *instance = NULL;
 
     // Do lock here.
     if (instance == NULL) {
-        instance                     = AllocationTableListConstructor();
+        instance                     = Legacy_AllocationTableListConstructor();
         GLOBAL_ALLOCATION_TABLE_LIST = instance;
     }
     // Do unlock.
@@ -21,22 +21,24 @@ AllocationTableList *getAllocationTableList() {
     return instance;
 }
 
-BOOLEAN predicateFindAllocationTableByClassName(
-        const Legacy_Node *      nodeThatPointsToAllocationTable,
-        const char *const allocationTableClassName) {
-    return strcmp(((Legacy_AllocationTable *) (nodeThatPointsToAllocationTable->data))
+BOOLEAN predicateFindLegacy_AllocationTableByClassName(
+        const Legacy_Node *nodeThatPointsToAllocationTable,
+        const char *const  allocationTableClassName) {
+    return strcmp(((Legacy_AllocationTable *) (nodeThatPointsToAllocationTable
+                                                       ->data))
                           ->className,
                   allocationTableClassName) == 0;
 }
 
 /// @attention This is **not** generic.
-void DestructAllocationTableListNonGeneric(Legacy_List *allocationTableList) {
+void DestructLegacy_AllocationTableListNonGeneric(
+        Legacy_List *allocationTableList) {
     if (allocationTableList == NULL) { return; }
 
     Legacy_Node *iterationNodePrev = NULL;
-    for (Legacy_Node *iterationNode = allocationTableList->head; iterationNode != NULL;
-         iterationNode       = iterationNode->next,
-              iterationNodePrev = iterationNode) {
+    for (Legacy_Node *iterationNode           = allocationTableList->head;
+         iterationNode != NULL; iterationNode = iterationNode->next,
+                     iterationNodePrev        = iterationNode) {
         if (iterationNodePrev != NULL) {
             Legacy_AllocationTable *prevAllocationTable =
                     ((Legacy_AllocationTable *) (iterationNodePrev->data));
@@ -45,7 +47,7 @@ void DestructAllocationTableListNonGeneric(Legacy_List *allocationTableList) {
         }
     }
 
-    // `iterationNodePrev` is `allocationTableList->tail`.
+    // `iterationNodePrev` is `legacy_allocationTableList->tail`.
     if (iterationNodePrev != NULL) {
         Legacy_AllocationTable *prevAllocationTable =
                 ((Legacy_AllocationTable *) (iterationNodePrev->data));
@@ -59,10 +61,11 @@ void DestructAllocationTableListNonGeneric(Legacy_List *allocationTableList) {
 }
 
 /// @attention This is **not** generic.
-void AllocationTableListDestructor(AllocationTableList *allocationTableList) {
+void Legacy_AllocationTableListDestructor(
+        Legacy_AllocationTableList *allocationTableList) {
     if (allocationTableList == NULL) { return; }
 
-    DestructAllocationTableListNonGeneric(
+    DestructLegacy_AllocationTableListNonGeneric(
             allocationTableList->allocationTableList);
 
     free(allocationTableList->thisObjectBase);
@@ -71,12 +74,12 @@ void AllocationTableListDestructor(AllocationTableList *allocationTableList) {
 }
 
 Legacy_AllocationTable *
-findAllocationTableByClassName(const char *allocationTableClassName) {
+findLegacy_AllocationTableByClassName(const char *allocationTableClassName) {
     Legacy_Node *foundNode =
             GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList
                     ->findNodeByPredicateOfConstString(
                             GLOBAL_ALLOCATION_TABLE_LIST->allocationTableList,
-                            predicateFindAllocationTableByClassName,
+                            predicateFindLegacy_AllocationTableByClassName,
                             allocationTableClassName);
 
     if (foundNode != NULL) {
@@ -86,30 +89,33 @@ findAllocationTableByClassName(const char *allocationTableClassName) {
     }
 }
 
-void constructor_AllocationTableList_fields(
-        AllocationTableList *allocationTableList) {
+void constructor_Legacy_AllocationTableList_fields(
+        Legacy_AllocationTableList *allocationTableList) {
     allocationTableList->thisObjectBase = ObjectBaseConstructor();
 
     static Constructable const constructable = {
-            .constructor =
-                    (void *(*const)(void) )(&AllocationTableListConstructor)};
+            .constructor = (void *(*const)(void) )(
+                    &Legacy_AllocationTableListConstructor)};
     allocationTableList->thisObjectBase->constructable = &constructable;
 
     static Destructable const destructable = {
-            .destructor =
-                    (void *(*const)(void *) )(&AllocationTableListDestructor)};
+            .destructor = (void *(*const)(void *) )(
+                    &Legacy_AllocationTableListDestructor)};
     allocationTableList->thisObjectBase->destructable = &destructable;
 
     allocationTableList->allocationTableList = Legacy_ListConstructor();
+
+    allocationTableList->findLegacy_AllocationTableByClassName =
+            &findLegacy_AllocationTableByClassName;
 }
 
 
-AllocationTableList *AllocationTableListConstructor() {
-    AllocationTableList *obj = malloc(sizeof *obj);
+Legacy_AllocationTableList *Legacy_AllocationTableListConstructor() {
+    Legacy_AllocationTableList *obj = malloc(sizeof *obj);
     if (obj == NULL) { /* error handling here */
     }
 
-    constructor_AllocationTableList_fields(obj);
+    constructor_Legacy_AllocationTableList_fields(obj);
 
     return obj;
 }
@@ -130,10 +136,10 @@ void runAfterMain(void) __attribute__((destructor));
 
 /* implementation of runBeforeMain */
 void runBeforeMain(void) {
-    GLOBAL_ALLOCATION_TABLE_LIST = getAllocationTableList();
+    GLOBAL_ALLOCATION_TABLE_LIST = getLegacy_AllocationTableList();
 }
 
 /* implementation of runAfterMain */
 void runAfterMain(void) {
-    AllocationTableListDestructor(GLOBAL_ALLOCATION_TABLE_LIST);
+    Legacy_AllocationTableListDestructor(GLOBAL_ALLOCATION_TABLE_LIST);
 }

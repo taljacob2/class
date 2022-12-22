@@ -1,10 +1,10 @@
 #ifndef CLASS1_H
 #define CLASS1_H
 
-#include "AllocationTableList.h"
 #include "Constructable.h"
 #include "Destructable.h"
 #include "Legacy_AllocationTable.h"
+#include "Legacy_AllocationTableList.h"
 #include "ObjectBase.h"
 #include "Quote.h"
 #include <stdio.h>
