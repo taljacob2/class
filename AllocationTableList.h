@@ -18,7 +18,7 @@ struct allocationTableList {
     Destructable const *destructable;
 };
 
-AllocationTableList *GLOBAL_ALLOCATION_TABLE_LIST = NULL;
+static AllocationTableList *GLOBAL_ALLOCATION_TABLE_LIST = NULL;
 
 AllocationTableList *AllocationTableListConstructor();
 

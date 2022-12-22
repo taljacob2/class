@@ -3,19 +3,11 @@
 /**
  * @brief Destructs `ObjectBase`.
  *
- * Ensures there is no possibility to free the same address twice.
- *
  * @param objectBase The `ObjectBase` to destruct.
  * @see Destructable
  */
 void ObjectBaseDestructor(ObjectBase *objectBase) {
-    if (objectBase == NULL) { return; }
-
-    if (objectBase->ALLOCATION_ADDRESS == NULL) { return; }
-
-    free(objectBase->ALLOCATION_ADDRESS);
-
-    objectBase->ALLOCATION_ADDRESS = NULL;
+    free(objectBase);
 }
 
 void constructor_ObjectBase_fields(ObjectBase *objectBase) {
@@ -33,7 +25,6 @@ ObjectBase *ObjectBaseConstructor() {
     if (obj == NULL) { /* error handling here */
     }
 
-    obj->ALLOCATION_ADDRESS = obj;
     obj->CLASS_NAME         = "ObjectBase";
 
     constructor_ObjectBase_fields(obj);

@@ -52,38 +52,42 @@ findAllocationTableByClassName(const char *allocationTableClassName) {
 }
 
 /// @attention This is **not** generic.
-void DestructAllocationTableListNonGeneric(List *allocationTableList) {
-    if (allocationTableList == NULL) { return; }
 
-    Node *iterationNodePrev = NULL;
-    for (Node *iterationNode = allocationTableList->head; iterationNode != NULL;
-         iterationNode       = iterationNode->next,
-              iterationNodePrev = iterationNode) {
-        if (iterationNodePrev != NULL) {
-            AllocationTableDestructorWithFreeAllNodeDataInList(
-                    ((AllocationTable *) (iterationNodePrev->data)));
-        }
-    }
-
-    // `iterationNodePrev` is `allocationTableList->tail`.
-    if (iterationNodePrev != NULL) {
-        AllocationTableDestructorWithFreeAllNodeDataInList(
-                ((AllocationTable *) (iterationNodePrev->data)));
-    }
-
-    ListDestructorAndFreeAllNodeData(allocationTableList);
-}
+//TODO:
+//void DestructAllocationTableListNonGeneric(List *allocationTableList) {
+//    if (allocationTableList == NULL) { return; }
+//
+//    Node *iterationNodePrev = NULL;
+//    for (Node *iterationNode = allocationTableList->head; iterationNode != NULL;
+//         iterationNode       = iterationNode->next,
+//              iterationNodePrev = iterationNode) {
+//        if (iterationNodePrev != NULL) {
+//            AllocationTableDestructorWithFreeAllNodeDataInList(
+//                    ((AllocationTable *) (iterationNodePrev->data)));
+//        }
+//    }
+//
+//    // `iterationNodePrev` is `allocationTableList->tail`.
+//    if (iterationNodePrev != NULL) {
+//        AllocationTableDestructorWithFreeAllNodeDataInList(
+//                ((AllocationTable *) (iterationNodePrev->data)));
+//    }
+//
+//    ListDestructorAndFreeAllNodeData(allocationTableList);
+//}
 
 /// @attention This is **not** generic.
-void AllocationTableListDestructorWithDestructOfAllNodeDataInListNonGeneric(
-        AllocationTableList *allocationTableList) {
-    if (allocationTableList == NULL) { return; }
 
-    DestructAllocationTableListNonGeneric(
-            allocationTableList->allocationTableList);
-
-    free(allocationTableList);
-}
+// TODO:
+//void AllocationTableListDestructorWithDestructOfAllNodeDataInListNonGeneric(
+//        AllocationTableList *allocationTableList) {
+//    if (allocationTableList == NULL) { return; }
+//
+//    DestructAllocationTableListNonGeneric(
+//            allocationTableList->allocationTableList);
+//
+//    free(allocationTableList);
+//}
 
 void constructor_AllocationTableList_fields(
         AllocationTableList *allocationTableList) {
@@ -132,6 +136,8 @@ void runBeforeMain(void) {
 
 /* implementation of runAfterMain */
 void runAfterMain(void) {
-    AllocationTableListDestructorWithDestructOfAllNodeDataInListNonGeneric(
-            GLOBAL_ALLOCATION_TABLE_LIST);
+
+    //TODO:
+//    AllocationTableListDestructorWithDestructOfAllNodeDataInListNonGeneric(
+//            GLOBAL_ALLOCATION_TABLE_LIST);
 }

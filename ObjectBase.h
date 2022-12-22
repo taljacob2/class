@@ -11,9 +11,6 @@ typedef struct objectBase ObjectBase;
 struct objectBase {
 
     /// Sensitive data. DO NOT TOUCH!
-    void *ALLOCATION_ADDRESS;
-
-    /// Sensitive data. DO NOT TOUCH!
     char *CLASS_NAME;
 
     Constructable const *constructable;

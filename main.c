@@ -1,6 +1,7 @@
-#include "AllocationTableList.h"
-#include "Class1.h"
+//#include "AllocationTableList.h"
+//#include "Class1.h"
 
+#include "ObjectBase.h"
 
 /// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 int main() {
@@ -23,6 +24,8 @@ int main() {
 //    free(class1_2);
 
 
+    ObjectBase *objectBase = ObjectBaseConstructor();
+    objectBase->destructable->destructor(objectBase);
 
 
     return 0;
