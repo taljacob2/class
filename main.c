@@ -30,7 +30,7 @@ int main() {
     class1->thisObjectBase->destructable->destructor(class1);
 
     Class1 *class2 = Class1Constructor();
-    class2->thisObjectBase->destructable->destructor(class2);
+//    class2->thisObjectBase->destructable->destructor(class2);
 
 
     return 0;

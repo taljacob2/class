@@ -106,8 +106,10 @@ void *Legacy_ListDestructor(Legacy_List *list) {
     Legacy_Node *iterationNodePrev = NULL;
     for (Legacy_Node *iterationNode    = list->head; iterationNode != NULL;
          iterationNode                 = iterationNode->next) {
-        iterationNodePrev->thisObjectBase->destructable->destructor(
-                iterationNodePrev);
+        if (iterationNodePrev!= NULL) {
+            iterationNodePrev->thisObjectBase->destructable->destructor(
+                    iterationNodePrev);
+        }
 
         iterationNodePrev = iterationNode;
     }

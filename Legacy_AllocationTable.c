@@ -5,10 +5,12 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
     if (list == NULL) { return NULL; }
 
     Legacy_Node *iterationNodePrev = NULL;
-    for (Legacy_Node *iterationNode    = list->head; iterationNode != NULL;
-         iterationNode                 = iterationNode->next) {
-        free(iterationNodePrev->thisObjectBase->destructable->destructor(
-                iterationNodePrev));
+    for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
+         iterationNode              = iterationNode->next) {
+        if (iterationNodePrev != NULL) {
+            free(iterationNodePrev->thisObjectBase->destructable->destructor(
+                    iterationNodePrev));
+        }
 
         iterationNodePrev = iterationNode;
     }
