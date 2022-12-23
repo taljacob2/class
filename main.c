@@ -27,10 +27,7 @@ int main() {
     objectBase->destructable->destructor(objectBase);
 
     Class1 *class1 = Class1Constructor();
-    class1->thisObjectBase->destructable->destructor(class1);
-
-    Class1 *class2 = Class1Constructor();
-//    class2->thisObjectBase->destructable->destructor(class2);
+//    class1->thisObjectBase->destructable->destructor(class1);
 
 
     return 0;
