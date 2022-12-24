@@ -1,4 +1,5 @@
 #include "Legacy_AllocationTable.h"
+#include "Class1.h"
 
 /// @attention This is **not** generic.
 void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
@@ -8,8 +9,11 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
         if (iterationNodePrev != NULL) {
-            free(iterationNodePrev->thisObjectBase->destructable->destructor(
-                    iterationNodePrev));
+            Class1 *class1 =
+                    iterationNodePrev->thisObjectBase->destructable->destructor(
+                            iterationNodePrev);
+            free(class1->thisObjectBase);
+            free(class1);
         }
 
         iterationNodePrev = iterationNode;
@@ -17,8 +21,11 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
 
     // `iterationNodePrev` is `legacy_list->tail`.
     if (iterationNodePrev != NULL) {
-        free(iterationNodePrev->thisObjectBase->destructable->destructor(
-                iterationNodePrev));
+        Class1 *class1 =
+                iterationNodePrev->thisObjectBase->destructable->destructor(
+                        iterationNodePrev);
+        free(class1->thisObjectBase);
+        free(class1);
     }
 
     free(list->thisObjectBase);
