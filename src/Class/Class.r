@@ -3,13 +3,12 @@
 
 #include "Constructable.r"
 #include "Destructable.r"
+#include "InvocationStatus.r"
 #include "Legacy_AllocationTable.r"
 #include "Legacy_AllocationTableList.r"
 #include "ObjectBase.r"
 #include <stdio.h>
 #include <stdlib.h>
-
-enum InvocationStatus { WAS_NOT_INVOKED, WAS_INVOKED_ONCE };
 
 // Forward declaration of incomplete type
 typedef struct class Class;
