@@ -48,7 +48,7 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
  * @code
  *
  * // Construct.
- * AutoDestructable *autoDestructable = ClassConstructor();
+ * AutoDestructable *autoDestructable = AutoDestructableConstructor();
  *
  * // Do something...
  * (*autoDestructable->print)(autoDestructable);
@@ -61,7 +61,7 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
  *
  * @return A pointer to a `new` "heap-allocated" instance of `AutoDestructable`.
  */
-AutoDestructable *ClassConstructor();
+AutoDestructable *AutoDestructableConstructor();
 
 ObjectContainer *AutoDestructableDestructor(AutoDestructable *autoDestructable);
 

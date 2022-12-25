@@ -78,7 +78,7 @@ void constructor_AutoDestructable_fields(AutoDestructable *autoDestructable) {
     autoDestructable->object = ObjectConstructor();
 
     static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&ClassConstructor)};
+            .constructor = (void *(*const)(void) )(&AutoDestructableConstructor)};
     autoDestructable->object->constructable = &constructable;
 
     static Destructable const destructable = {
@@ -108,6 +108,7 @@ void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
                         sizeof(Legacy_AllocationTable *));
 
         // Add this legacy_node to `GLOBAL_ALLOCATION_TABLE_LIST->legacy_allocationTableList`.
+        // TODO: best practice to change `add` to `addAsUnique`.
         getLegacy_AllocationTableList()->allocationTableList->add(
                 getLegacy_AllocationTableList()->allocationTableList,
                 nodeThatItsDataPointsClassAllocationTable);
@@ -119,7 +120,9 @@ void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
                     autoDestructable->allocatedAddress,
                     sizeof(ObjectContainer *));
 
+
     // Add this legacy_node to `autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList`.
+    // TODO: best practice to change `add` to `addAsUnique`.
     autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList->add(
             autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList,
             nodeThatItsDataPointsToThePointerOfObj);
@@ -146,6 +149,6 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
     return instance;
 }
 
-AutoDestructable *ClassConstructor() {
+AutoDestructable *AutoDestructableConstructor() {
     return AutoDestructableConstructorWithClassName(NULL, "AutoDestructable");
 }

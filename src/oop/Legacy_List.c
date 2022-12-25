@@ -85,17 +85,26 @@ void *deleteNodeThatHasTheGivenData(Legacy_List *list,
 Legacy_Node *findNodeByPredicateOfConstString(
         Legacy_List *list,
         BOOLEAN (*predicate)(const Legacy_Node *, const char *const),
-        const char *allocationTableClassName) {
+        const char *stringToSearch) {
     if (list == NULL) { return NULL; }
 
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
-        if (predicate(iterationNode, allocationTableClassName)) {
-            return iterationNode;
-        }
+        if (predicate(iterationNode, stringToSearch)) { return iterationNode; }
     }
 
     return NULL;
+}
+
+void addAsUnique(Legacy_List *list, Legacy_Node *node,
+                 BOOLEAN (*predicate)(const Legacy_Node *, const char *const),
+                 const char *stringToSearch) {
+    if (list == NULL) { return; }
+
+    if (findNodeByPredicateOfConstString(list, predicate, stringToSearch) ==
+        NULL) {
+        add(list, node);
+    }
 }
 
 void *Legacy_ListDestructor(Legacy_List *list) {
@@ -143,6 +152,7 @@ void constructor_Legacy_List_fields(Legacy_List *list) {
     list->delete                           = &delete;
     list->deleteNodeThatHasTheGivenData    = &deleteNodeThatHasTheGivenData;
     list->findNodeByPredicateOfConstString = &findNodeByPredicateOfConstString;
+    list->addAsUnique                      = &addAsUnique;
 }
 
 Legacy_List *Legacy_ListConstructor() {

@@ -1,5 +1,39 @@
 #include "Legacy_AllocationTable.r"
-#include "AutoDestructable.r"
+#include "AutoDestructableV2.r"
+
+/// @attention This is **not** generic.
+void *Legacy_ListDestructorWhileFreeAllNodeDataV2(Legacy_List *list) {
+    if (list == NULL) { return NULL; }
+
+    Legacy_Node *iterationNodePrev = NULL;
+    for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
+         iterationNode              = iterationNode->next) {
+        if (iterationNodePrev != NULL) {
+            Object *object =
+                    iterationNodePrev->object->destructable->destructor(
+                            iterationNodePrev);
+            object->deleteFromAllocationTableInvocationStatus =
+                    WAS_INVOKED_ONCE;
+            object->destructable->destructor(object);
+        }
+
+        iterationNodePrev = iterationNode;
+    }
+
+    // `iterationNodePrev` is `legacy_list->tail`.
+    if (iterationNodePrev != NULL) {
+        Object *object = iterationNodePrev->object->destructable->destructor(
+                iterationNodePrev);
+        object->deleteFromAllocationTableInvocationStatus = WAS_INVOKED_ONCE;
+        object->destructable->destructor(object);
+    }
+
+    free(list->object);
+
+    free(list);
+
+    return NULL;
+}
 
 /// @attention This is **not** generic.
 void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
@@ -42,7 +76,7 @@ void *
 Legacy_AllocationTableDestructor(Legacy_AllocationTable *allocationTable) {
     if (allocationTable == NULL) { return NULL; }
 
-    Legacy_ListDestructorWhileFreeAllNodeData(
+    Legacy_ListDestructorWhileFreeAllNodeDataV2(
             allocationTable->allocationAddressList);
 
     free(allocationTable->object);

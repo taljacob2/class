@@ -25,7 +25,11 @@ struct legacy_list {
     Legacy_Node *(*findNodeByPredicateOfConstString)(
             Legacy_List *list,
             BOOLEAN (*predicate)(const Legacy_Node *, const char *const),
-            const char *allocationTableClassName);
+            const char *stringToSearchFor);
+    void (*addAsUnique)(Legacy_List *list, Legacy_Node *node,
+                        BOOLEAN (*predicate)(const Legacy_Node *,
+                                             const char *const),
+                        const char *stringToSearch);
 };
 
 Legacy_List *Legacy_ListConstructor();
