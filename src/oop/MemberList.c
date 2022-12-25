@@ -1,4 +1,4 @@
-#include "MemberList.h"
+#include "MemberList.r"
 
 BOOLEAN predicateFindLegacy_StringEntryByMemberName(
         const Legacy_Node *nodeThatPointsToAllocationTable,

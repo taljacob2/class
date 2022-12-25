@@ -1,4 +1,4 @@
-#include "Legacy_StringEntry.h"
+#include "Legacy_StringEntry.r"
 
 /**
  * @brief `Destructs`s the given legacy_stringEntry, and returns its

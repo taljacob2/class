@@ -2,7 +2,7 @@
 #define MEMBERLIST_H
 
 #include "AutoDestructableV2.r"
-#include "Legacy_StringEntry.h"
+#include "Legacy_StringEntry.r"
 
 
 // Forward declaration of incomplete type
