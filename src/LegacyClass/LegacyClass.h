@@ -1,6 +1,6 @@
 #ifndef LEGACYCLASS_H
 #define LEGACYCLASS_H
 
-#include "Class1.r"
+#include "Class.r"
 
 #endif //LEGACYCLASS_H

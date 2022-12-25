@@ -1,5 +1,5 @@
 #include "Legacy_AllocationTable.r"
-#include "Class1.r"
+#include "Class.r"
 
 /// @attention This is **not** generic.
 void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
@@ -9,11 +9,11 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
         if (iterationNodePrev != NULL) {
-            Class1 *class1 =
+            Class *class =
                     iterationNodePrev->thisObjectBase->destructable->destructor(
                             iterationNodePrev);
-            free(class1->thisObjectBase);
-            free(class1);
+            free(class->thisObjectBase);
+            free(class);
         }
 
         iterationNodePrev = iterationNode;
@@ -21,11 +21,11 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
 
     // `iterationNodePrev` is `legacy_list->tail`.
     if (iterationNodePrev != NULL) {
-        Class1 *class1 =
+        Class *class =
                 iterationNodePrev->thisObjectBase->destructable->destructor(
                         iterationNodePrev);
-        free(class1->thisObjectBase);
-        free(class1);
+        free(class->thisObjectBase);
+        free(class);
     }
 
     free(list->thisObjectBase);

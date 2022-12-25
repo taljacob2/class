@@ -1,47 +1,47 @@
-#include "Class1.r"
+#include "Class.r"
 
-void print(Class1 *class1) { printf("x = %d\n", class1->x); }
+void print(Class *class) { printf("x = %d\n", class->x); }
 
-void addOneToX(Class1 *class1) { class1->x += 1; }
+void addOneToX(Class *class) { class->x += 1; }
 
-void *Class1Destructor(Class1 *class1) {
-    if (class1 == NULL) { return NULL; }
+void *ClassDestructor(Class *class) {
+    if (class == NULL) { return NULL; }
 
-    class1->CLASS_ALLOCATION_TABLE->allocationAddressList
+    class->CLASS_ALLOCATION_TABLE->allocationAddressList
             ->deleteNodeThatHasTheGivenData(
-                    class1->CLASS_ALLOCATION_TABLE->allocationAddressList,
-                    class1);
+                    class->CLASS_ALLOCATION_TABLE->allocationAddressList,
+                    class);
 
-    free(class1->thisObjectBase);
+    free(class->thisObjectBase);
 
     // Destruct self.
-    free(class1);
+    free(class);
 
     return NULL;
 }
 
-void constructor_Class1_fields(Class1 *class1) {
-    class1->thisObjectBase = ObjectBaseConstructor();
+void constructor_Class_fields(Class *class) {
+    class->thisObjectBase = ObjectBaseConstructor();
 
     static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&Class1Constructor)};
-    class1->thisObjectBase->constructable = &constructable;
+            .constructor = (void *(*const)(void) )(&ClassConstructor)};
+    class->thisObjectBase->constructable = &constructable;
 
     static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&Class1Destructor)};
-    class1->thisObjectBase->destructable = &destructable;
+            .destructor = (void *(*const)(void *) )(&ClassDestructor)};
+    class->thisObjectBase->destructable = &destructable;
 
-    class1->x         = 1;
-    class1->print     = &print;
-    class1->addOneToX = &addOneToX;
+    class->x         = 1;
+    class->print     = &print;
+    class->addOneToX = &addOneToX;
 }
 
-Class1 *Class1ConstructorWithClassName(const char *className) {
-    Class1 *obj = malloc(sizeof *obj);
+Class *ClassConstructorWithClassName(const char *className) {
+    Class *obj = malloc(sizeof *obj);
     if (obj == NULL) { /* error handling here */
     }
 
-    constructor_Class1_fields(obj);
+    constructor_Class_fields(obj);
 
     obj->thisObjectBase->CLASS_NAME = className;
     obj->CLASS_ALLOCATION_TABLE =
@@ -77,4 +77,4 @@ Class1 *Class1ConstructorWithClassName(const char *className) {
     return obj;
 }
 
-Class1 *Class1Constructor() { return Class1ConstructorWithClassName("Class1"); }
+Class *ClassConstructor() { return ClassConstructorWithClassName("Class"); }

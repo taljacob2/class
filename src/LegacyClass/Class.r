@@ -1,5 +1,5 @@
-#ifndef CLASS1_H
-#define CLASS1_H
+#ifndef CLASS_H
+#define CLASS_H
 
 #include "Constructable.r"
 #include "Destructable.r"
@@ -10,11 +10,11 @@
 #include <stdlib.h>
 
 // Forward declaration of incomplete type
-typedef struct class1 Class1;
+typedef struct class Class;
 
-struct class1 {
+struct class {
 
-    /// `Class1` implements `ObjectBase`.
+    /// `Class` implements `ObjectBase`.
     ObjectBase *thisObjectBase;
 
     /// Singleton for the whole class. Sensitive data. DO NOT TOUCH!
@@ -29,10 +29,10 @@ struct class1 {
     void (*addOneToX)();
 };
 
-Class1 *Class1ConstructorWithClassName(const char *className);
+Class *ClassConstructorWithClassName(const char *className);
 
 /**
- * @brief Creates a `new` "heap-allocated" instance of `Class1` and initializes
+ * @brief Creates a `new` "heap-allocated" instance of `Class` and initializes
  *        it.
  *
  * @attention Remember to `free` the returned value of this function.
@@ -41,19 +41,19 @@ Class1 *Class1ConstructorWithClassName(const char *className);
  * @code
  *
  * // Construct.
- * Class1 *class1 = Class1Constructor();
+ * Class *class = ClassConstructor();
  *
  * // Do something...
- * (*class1->print)(class1);
- * (*class1->addOneToX)(class1);
- * (*class1->print)(class1);
+ * (*class->print)(class);
+ * (*class->addOneToX)(class);
+ * (*class->print)(class);
  *
  * // Remember to `free`.
- * free(class1);
+ * free(class);
  * @endcode
  *
- * @return A pointer to a `new` "heap-allocated" instance of `Class1`.
+ * @return A pointer to a `new` "heap-allocated" instance of `Class`.
  */
-Class1 *Class1Constructor();
+Class *ClassConstructor();
 
-#endif //CLASS1_H
+#endif //CLASS_H
