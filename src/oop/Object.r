@@ -3,6 +3,7 @@
 
 #include "Constructable.r"
 #include "Destructable.r"
+#include "InvocationStatus.r"
 #include <stdlib.h>
 
 // Forward declaration of incomplete type
@@ -14,8 +15,12 @@ struct object {
     const Constructable *constructable;
 
     const Destructable *destructable;
+
+    enum InvocationStatus destructorInvocationStatus;
+
+    enum InvocationStatus deleteFromAllocationTableInvocationStatus;
 };
 
-Object *ObjectBaseConstructor();
+Object *ObjectConstructor();
 
 #endif //OBJECT_H

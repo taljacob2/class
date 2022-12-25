@@ -21,14 +21,14 @@ int main() {
     //    free(class_2);
 
 
-    //    Object *object = ObjectBaseConstructor();
+    //    Object *object = ObjectConstructor();
     //    object->destructable->destructor(object);
 
     //    AutoDestructable *autoDestructable = ClassConstructor();
     //    autoDestructable->object->destructable->destructor(autoDestructable);
 
 
-    Circle *classInheritor = CircleConstructor();
+    Circle *circle = CircleConstructor();
 
 
     return 0;

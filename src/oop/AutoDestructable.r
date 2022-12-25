@@ -7,6 +7,7 @@
 #include "Legacy_AllocationTable.r"
 #include "Legacy_AllocationTableList.r"
 #include "Object.r"
+#include "ObjectContainer.r"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -22,11 +23,7 @@ struct autoDestructable {
     Legacy_AllocationTable *OBJECT_ALLOCATION_TABLE;
 
     /// Sensitive data. DO NOT TOUCH!
-    void *allocatedAddress;
-
-    enum InvocationStatus destructorInvocationStatus;
-
-    enum InvocationStatus deleteFromAllocationTableInvocationStatus;
+    ObjectContainer *allocatedAddress;
 
     int x;
 
@@ -37,8 +34,9 @@ struct autoDestructable {
     void (*addOneToX)();
 };
 
-AutoDestructable *AutoDestructableConstructorWithClassName(void *objectToSaveItsAddressToAllocationTable,
-                              const char *className);
+AutoDestructable *AutoDestructableConstructorWithClassName(
+        ObjectContainer *objectContainerToSaveItsAddressToAllocationTable,
+        const char *     className);
 
 /**
  * @brief Creates a `new` "heap-allocated" instance of `AutoDestructable` and initializes
@@ -65,6 +63,6 @@ AutoDestructable *AutoDestructableConstructorWithClassName(void *objectToSaveIts
  */
 AutoDestructable *ClassConstructor();
 
-void *AutoDestructableDestructor(AutoDestructable *autoDestructable);
+ObjectContainer *AutoDestructableDestructor(AutoDestructable *autoDestructable);
 
 #endif //AUTODESTRUCTABLE_H

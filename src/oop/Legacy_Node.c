@@ -19,7 +19,7 @@ void *Legacy_NodeDestructor(Legacy_Node *node) {
 }
 
 void constructor_Legacy_Node_fields(Legacy_Node *node) {
-    node->object = ObjectBaseConstructor();
+    node->object = ObjectConstructor();
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&Legacy_NodeConstructor)};

@@ -94,7 +94,7 @@ findLegacy_AllocationTableByClassName(const char *allocationTableClassName) {
 
 void constructor_Legacy_AllocationTableList_fields(
         Legacy_AllocationTableList *allocationTableList) {
-    allocationTableList->object = ObjectBaseConstructor();
+    allocationTableList->object = ObjectConstructor();
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(

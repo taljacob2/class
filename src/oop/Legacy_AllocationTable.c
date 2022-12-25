@@ -9,13 +9,12 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
         if (iterationNodePrev != NULL) {
-            AutoDestructable *autoDestructable =
+            ObjectContainer *objectContainer =
                     iterationNodePrev->object->destructable->destructor(
                             iterationNodePrev);
-            autoDestructable->deleteFromAllocationTableInvocationStatus =
+            objectContainer->object->deleteFromAllocationTableInvocationStatus =
                     WAS_INVOKED_ONCE;
-            autoDestructable->object->destructable->destructor(
-                    autoDestructable);
+            objectContainer->object->destructable->destructor(objectContainer);
         }
 
         iterationNodePrev = iterationNode;
@@ -23,12 +22,12 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
 
     // `iterationNodePrev` is `legacy_list->tail`.
     if (iterationNodePrev != NULL) {
-        AutoDestructable *autoDestructable =
+        ObjectContainer *objectContainer =
                 iterationNodePrev->object->destructable->destructor(
                         iterationNodePrev);
-        autoDestructable->deleteFromAllocationTableInvocationStatus =
+        objectContainer->object->deleteFromAllocationTableInvocationStatus =
                 WAS_INVOKED_ONCE;
-        autoDestructable->object->destructable->destructor(autoDestructable);
+        objectContainer->object->destructable->destructor(objectContainer);
     }
 
     free(list->object);
@@ -55,7 +54,7 @@ Legacy_AllocationTableDestructor(Legacy_AllocationTable *allocationTable) {
 
 void constructor_Legacy_AllocationTable_fields(
         Legacy_AllocationTable *allocationTable) {
-    allocationTable->object = ObjectBaseConstructor();
+    allocationTable->object = ObjectConstructor();
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(
