@@ -1,9 +1,9 @@
-#ifndef CONSTRUCTOR_H
-#define CONSTRUCTOR_H
+#ifndef CONSTRUCTABLE_H
+#define CONSTRUCTABLE_H
 
 /// Interface.
 typedef struct {
     void* (*const constructor)();
 } Constructable;
 
-#endif //CONSTRUCTOR_H
+#endif //CONSTRUCTABLE_H
