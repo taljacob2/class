@@ -6,7 +6,6 @@
 #include "Legacy_AllocationTable.h"
 #include "Legacy_AllocationTableList.h"
 #include "ObjectBase.h"
-#include "Quote.h"
 #include <stdio.h>
 #include <stdlib.h>
 
