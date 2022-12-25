@@ -1,4 +1,4 @@
-#include "ObjectBase.h"
+#include "ObjectBase.r"
 
 /**
  * @brief Destructs `ObjectBase`.

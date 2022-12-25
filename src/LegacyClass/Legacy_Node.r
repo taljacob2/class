@@ -1,9 +1,9 @@
-#ifndef CLASS_LEGACY_NODE_H
-#define CLASS_LEGACY_NODE_H
+#ifndef CLASS_LEGACY_NODE_R
+#define CLASS_LEGACY_NODE_R
 
-#include "Constructable.h"
-#include "Destructable.h"
-#include "ObjectBase.h"
+#include "Constructable.r"
+#include "Destructable.r"
+#include "ObjectBase.r"
 #include <stdlib.h>
 
 // Forward declaration of incomplete type
@@ -24,4 +24,4 @@ Legacy_Node *Legacy_NodeConstructor();
 Legacy_Node *Legacy_NodeConstructorWithDataAndDataSize(void * data,
                                                        size_t dataSize);
 
-#endif //CLASS_LEGACY_NODE_H
+#endif //CLASS_LEGACY_NODE_R

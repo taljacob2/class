@@ -1,4 +1,4 @@
-#include "Class1.h"
+#include "Class1.r"
 
 void print(Class1 *class1) { printf("x = %d\n", class1->x); }
 

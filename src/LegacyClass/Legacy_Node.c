@@ -1,4 +1,4 @@
-#include "Legacy_Node.h"
+#include "Legacy_Node.r"
 
 /**
  * @brief `Destructs`s the given legacy_node, and returns its `legacy_node->data`.

@@ -1,11 +1,11 @@
 #ifndef CLASS1_H
 #define CLASS1_H
 
-#include "Constructable.h"
-#include "Destructable.h"
-#include "Legacy_AllocationTable.h"
-#include "Legacy_AllocationTableList.h"
-#include "ObjectBase.h"
+#include "Constructable.r"
+#include "Destructable.r"
+#include "Legacy_AllocationTable.r"
+#include "Legacy_AllocationTableList.r"
+#include "ObjectBase.r"
 #include <stdio.h>
 #include <stdlib.h>
 

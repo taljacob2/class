@@ -1,8 +1,8 @@
-#ifndef CLASS_OBJECTBASE_H
-#define CLASS_OBJECTBASE_H
+#ifndef CLASS_OBJECTBASE_R
+#define CLASS_OBJECTBASE_R
 
-#include "Constructable.h"
-#include "Destructable.h"
+#include "Constructable.r"
+#include "Destructable.r"
 #include <stdlib.h>
 
 // Forward declaration of incomplete type
@@ -18,4 +18,4 @@ struct objectBase {
 
 ObjectBase *ObjectBaseConstructor();
 
-#endif //CLASS_OBJECTBASE_H
+#endif //CLASS_OBJECTBASE_R

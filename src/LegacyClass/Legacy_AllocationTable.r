@@ -1,7 +1,7 @@
 #ifndef ALLOCATIONTABLE_H
 #define ALLOCATIONTABLE_H
 
-#include "Legacy_List.h"
+#include "Legacy_List.r"
 #include <stdlib.h>
 
 // Forward declaration of incomplete type

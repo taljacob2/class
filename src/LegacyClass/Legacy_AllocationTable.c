@@ -1,5 +1,5 @@
-#include "Legacy_AllocationTable.h"
-#include "Class1.h"
+#include "Legacy_AllocationTable.r"
+#include "Class1.r"
 
 /// @attention This is **not** generic.
 void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {

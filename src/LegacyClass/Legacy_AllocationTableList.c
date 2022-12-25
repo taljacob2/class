@@ -1,4 +1,4 @@
-#include "Legacy_AllocationTableList.h"
+#include "Legacy_AllocationTableList.r"
 
 Legacy_AllocationTableList *getLegacy_AllocationTableList() {
     static Legacy_AllocationTableList *instance = NULL;

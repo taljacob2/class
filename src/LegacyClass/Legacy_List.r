@@ -1,8 +1,8 @@
-#ifndef CLASS_LEGACY_LIST_H
-#define CLASS_LEGACY_LIST_H
+#ifndef CLASS_LEGACY_LIST_R
+#define CLASS_LEGACY_LIST_R
 
 #include "Bool.h"
-#include "Legacy_Node.h"
+#include "Legacy_Node.r"
 #include <limits.h>
 #include <stdlib.h>
 
@@ -30,4 +30,4 @@ struct legacy_list {
 
 Legacy_List *Legacy_ListConstructor();
 
-#endif //CLASS_LEGACY_LIST_H
+#endif //CLASS_LEGACY_LIST_R

@@ -1,4 +1,4 @@
-#include "Legacy_List.h"
+#include "Legacy_List.r"
 
 void add(Legacy_List *list, Legacy_Node *node) {
     if (list == NULL) { return; }

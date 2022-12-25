@@ -1,8 +1,8 @@
 #ifndef ALLOCATIONTABLELIST_H
 #define ALLOCATIONTABLELIST_H
 
-#include "Legacy_AllocationTable.h"
-#include "Legacy_List.h"
+#include "Legacy_AllocationTable.r"
+#include "Legacy_List.r"
 
 #include <stdio.h>
 #include <string.h>
