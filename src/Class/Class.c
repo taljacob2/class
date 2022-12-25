@@ -13,14 +13,8 @@ void *deleteAllocationAddressNodeFromAllocationTable(
                     allocatedAddress);
 }
 
-void *ClassDestructor(Class *class) {
+void *deleteAllocationAddressIfNeeded(Class *class) {
     if (class == NULL) { return NULL; }
-
-    if (!(class->destructorInvocationStatus == WAS_NOT_INVOKED)) {
-        return NULL;
-    }
-
-    class->destructorInvocationStatus == WAS_INVOKED_ONCE;
 
     if (class->deleteFromAllocationTableInvocationStatus == WAS_NOT_INVOKED) {
         class->deleteFromAllocationTableInvocationStatus = WAS_INVOKED_ONCE;
@@ -40,6 +34,12 @@ void *ClassDestructor(Class *class) {
         }
     }
 
+    return class->allocatedAddress;
+}
+
+void *destructAllocatedAddressUnsafe(Class *class) {
+    if (class == NULL) { return NULL; }
+
     void * returnValue             = NULL;
     Class *allocatedAddressAsClass = class->allocatedAddress;
     if (allocatedAddressAsClass->thisObjectBase->CLASS_NAME != "Class") {
@@ -51,6 +51,20 @@ void *ClassDestructor(Class *class) {
     free(allocatedAddressAsClass);
 
     return returnValue;
+}
+
+void *ClassDestructor(Class *class) {
+    if (class == NULL) { return NULL; }
+
+    if (!(class->destructorInvocationStatus == WAS_NOT_INVOKED)) {
+        return NULL;
+    }
+
+    class->destructorInvocationStatus == WAS_INVOKED_ONCE;
+
+    deleteAllocationAddressIfNeeded(class);
+
+    return destructAllocatedAddressUnsafe(class);
 }
 
 void constructor_Class_fields(Class *class) {
