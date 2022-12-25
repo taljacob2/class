@@ -19,7 +19,7 @@ struct autoDestructable {
     Object *object;
 
     /// Singleton for the whole autoDestructable. Sensitive data. DO NOT TOUCH!
-    Legacy_AllocationTable *CLASS_ALLOCATION_TABLE;
+    Legacy_AllocationTable *OBJECT_ALLOCATION_TABLE;
 
     /// Sensitive data. DO NOT TOUCH!
     void *allocatedAddress;
@@ -37,8 +37,7 @@ struct autoDestructable {
     void (*addOneToX)();
 };
 
-AutoDestructable *
-ClassConstructorWithClassName(void *objectToSaveItsAddressToAllocationTable,
+AutoDestructable *AutoDestructableConstructorWithClassName(void *objectToSaveItsAddressToAllocationTable,
                               const char *className);
 
 /**
@@ -66,6 +65,6 @@ ClassConstructorWithClassName(void *objectToSaveItsAddressToAllocationTable,
  */
 AutoDestructable *ClassConstructor();
 
-void *ClassDestructor(AutoDestructable *autoDestructable);
+void *AutoDestructableDestructor(AutoDestructable *autoDestructable);
 
 #endif //AUTODESTRUCTABLE_H

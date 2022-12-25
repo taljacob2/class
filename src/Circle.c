@@ -1,7 +1,7 @@
 #include "Circle.h"
 
 void *ClassInheritorDestructor(Circle *classInheritor) {
-    ClassDestructor(classInheritor->autoDestructable);
+    AutoDestructableDestructor(classInheritor->autoDestructable);
 
     // ... Continue destructing `Circle` here ...
     free(classInheritor);
@@ -14,7 +14,8 @@ Circle *CircleConstructor() {
     if (obj == NULL) { /* error handling here */
     }
 
-    obj->autoDestructable = ClassConstructorWithClassName(obj, "Circle");
+    obj->autoDestructable =
+            AutoDestructableConstructorWithClassName(obj, "Circle");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&CircleConstructor)};

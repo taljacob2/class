@@ -7,11 +7,11 @@ void print(AutoDestructable *autoDestructable) {
 void addOneToX(AutoDestructable *autoDestructable) { autoDestructable->x += 1; }
 
 void *deleteAllocationAddressNodeFromAllocationTable(
-        Legacy_AllocationTable *CLASS_ALLOCATION_TABLE,
+        Legacy_AllocationTable *OBJECT_ALLOCATION_TABLE,
         void *                  allocatedAddress) {
-    return CLASS_ALLOCATION_TABLE->allocationAddressList
+    return OBJECT_ALLOCATION_TABLE->allocationAddressList
             ->deleteNodeThatHasTheGivenData(
-                    CLASS_ALLOCATION_TABLE->allocationAddressList,
+                    OBJECT_ALLOCATION_TABLE->allocationAddressList,
                     allocatedAddress);
 }
 
@@ -25,14 +25,14 @@ void *deleteAllocationAddressIfNeeded(AutoDestructable *autoDestructable) {
 
         AutoDestructable *allocatedAddressReturnValue =
                 deleteAllocationAddressNodeFromAllocationTable(
-                        autoDestructable->CLASS_ALLOCATION_TABLE,
+                        autoDestructable->OBJECT_ALLOCATION_TABLE,
                         autoDestructable->allocatedAddress);
 
         if (allocatedAddressReturnValue == NULL) {
 
             /*
              * The address was already deleted from
-             * `autoDestructable->CLASS_ALLOCATION_TABLE`, and thus had probably already
+             * `autoDestructable->OBJECT_ALLOCATION_TABLE`, and thus had probably already
              * been freed too.
              */
             return NULL;
@@ -48,7 +48,8 @@ void *destructAllocatedAddressUnsafe(AutoDestructable *autoDestructable) {
     void *            returnValue = NULL;
     AutoDestructable *allocatedAddressAsClass =
             autoDestructable->allocatedAddress;
-    if (allocatedAddressAsClass->object->CLASS_NAME != "AutoDestructable") {
+    if (strcmp(allocatedAddressAsClass->object->CLASS_NAME,
+               "AutoDestructable") != 0) {
         returnValue = allocatedAddressAsClass->object->destructable->destructor(
                 allocatedAddressAsClass);
     }
@@ -59,7 +60,7 @@ void *destructAllocatedAddressUnsafe(AutoDestructable *autoDestructable) {
     return returnValue;
 }
 
-void *ClassDestructor(AutoDestructable *autoDestructable) {
+void *AutoDestructableDestructor(AutoDestructable *autoDestructable) {
     if (autoDestructable == NULL) { return NULL; }
 
     if (!(autoDestructable->destructorInvocationStatus == WAS_NOT_INVOKED)) {
@@ -73,7 +74,7 @@ void *ClassDestructor(AutoDestructable *autoDestructable) {
     return destructAllocatedAddressUnsafe(autoDestructable);
 }
 
-void constructor_Class_fields(AutoDestructable *autoDestructable) {
+void constructor_AutoDestructable_fields(AutoDestructable *autoDestructable) {
     autoDestructable->object = ObjectBaseConstructor();
 
     static Constructable const constructable = {
@@ -81,7 +82,8 @@ void constructor_Class_fields(AutoDestructable *autoDestructable) {
     autoDestructable->object->constructable = &constructable;
 
     static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&ClassDestructor)};
+            .destructor =
+                    (void *(*const)(void *) )(&AutoDestructableDestructor)};
     autoDestructable->object->destructable = &destructable;
 
     autoDestructable->destructorInvocationStatus = WAS_NOT_INVOKED;
@@ -94,20 +96,20 @@ void constructor_Class_fields(AutoDestructable *autoDestructable) {
     autoDestructable->addOneToX = &addOneToX;
 }
 
-void saveClassToAllocationTable(AutoDestructable *obj) {
-    obj->CLASS_ALLOCATION_TABLE =
+void saveObjectToAllocationTable(AutoDestructable *obj) {
+    obj->OBJECT_ALLOCATION_TABLE =
             getLegacy_AllocationTableList()
                     ->findLegacy_AllocationTableByClassName(
                             obj->object->CLASS_NAME);
-    if (obj->CLASS_ALLOCATION_TABLE == NULL) {
-        obj->CLASS_ALLOCATION_TABLE =
+    if (obj->OBJECT_ALLOCATION_TABLE == NULL) {
+        obj->OBJECT_ALLOCATION_TABLE =
                 Legacy_AllocationTableConstructorWithClassName(
                         (char *) obj->object->CLASS_NAME);
 
-        // Create a legacy_node that its data points to `obj->CLASS_ALLOCATION_TABLE`.
+        // Create a legacy_node that its data points to `obj->OBJECT_ALLOCATION_TABLE`.
         Legacy_Node *nodeThatItsDataPointsClassAllocationTable =
                 Legacy_NodeConstructorWithDataAndDataSize(
-                        obj->CLASS_ALLOCATION_TABLE,
+                        obj->OBJECT_ALLOCATION_TABLE,
                         sizeof(Legacy_AllocationTable *));
 
         // Add this legacy_node to `GLOBAL_ALLOCATION_TABLE_LIST->legacy_allocationTableList`.
@@ -120,20 +122,19 @@ void saveClassToAllocationTable(AutoDestructable *obj) {
     Legacy_Node *nodeThatItsDataPointsToThePointerOfObj =
             Legacy_NodeConstructorWithDataAndDataSize(obj, sizeof(void *));
 
-    // Add this legacy_node to `obj->CLASS_ALLOCATION_TABLE->allocationAddressList`.
-    obj->CLASS_ALLOCATION_TABLE->allocationAddressList->add(
-            obj->CLASS_ALLOCATION_TABLE->allocationAddressList,
+    // Add this legacy_node to `obj->OBJECT_ALLOCATION_TABLE->allocationAddressList`.
+    obj->OBJECT_ALLOCATION_TABLE->allocationAddressList->add(
+            obj->OBJECT_ALLOCATION_TABLE->allocationAddressList,
             nodeThatItsDataPointsToThePointerOfObj);
 }
 
-AutoDestructable *
-ClassConstructorWithClassName(void *objectToSaveItsAddressToAllocationTable,
-                              const char *className) {
+AutoDestructable *AutoDestructableConstructorWithClassName(
+        void *objectToSaveItsAddressToAllocationTable, const char *className) {
     AutoDestructable *obj = calloc(1, sizeof *obj);
     if (obj == NULL) { /* error handling here */
     }
 
-    constructor_Class_fields(obj);
+    constructor_AutoDestructable_fields(obj);
 
     obj->object->CLASS_NAME = className;
 
@@ -141,11 +142,11 @@ ClassConstructorWithClassName(void *objectToSaveItsAddressToAllocationTable,
     obj->allocatedAddress = objectToSaveItsAddressToAllocationTable == NULL
                                     ? obj
                                     : objectToSaveItsAddressToAllocationTable;
-    saveClassToAllocationTable(obj->allocatedAddress);
+    saveObjectToAllocationTable(obj->allocatedAddress);
 
     return obj;
 }
 
 AutoDestructable *ClassConstructor() {
-    return ClassConstructorWithClassName(NULL, "AutoDestructable");
+    return AutoDestructableConstructorWithClassName(NULL, "AutoDestructable");
 }
