@@ -1,4 +1,5 @@
 #include "Class/Class.h"
+#include "ClassInheritor.h"
 
 /// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 int main() {
@@ -25,6 +26,9 @@ int main() {
 
     Class *class = ClassConstructor();
     //    class->thisObjectBase->destructable->destructor(class);
+
+
+    ClassInheritor *classInheritor = ClassInheritorConstructor();
 
 
     return 0;

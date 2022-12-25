@@ -7,7 +7,7 @@
 #cd "$PWD"
 
 # Build program.
-gcc -g -Wall -Wpedantic src/main.c -L. src/Class/Class.a
+gcc -g -Wall -Wpedantic src/main.c src/ClassInheritor.c -L. src/Class/Class.a
 
 
 ## Compile *.c to *.o.

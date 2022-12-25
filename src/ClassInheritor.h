@@ -8,26 +8,9 @@
 typedef struct classInheritor ClassInheritor;
 
 struct classInheritor {
-
     Class *class;
 };
 
-ClassInheritor *ClassInheritorConstructor() {
-    ClassInheritor *obj = calloc(1, sizeof *obj);
-    if (obj == NULL) { /* error handling here */
-    }
-
-    obj->class = ClassConstructorWithClassName(obj, "ClassInheritor");
-
-    return obj;
-}
-
-void *ClassInheritorDestructor(ClassInheritor *classInheritor) {
-    ClassDestructor(classInheritor->class);
-
-    // ... Continue destructing `ClassInheritor` here...
-
-    return NULL;
-}
+ClassInheritor *ClassInheritorConstructor();
 
 #endif //CLASSINHERITOR_H
