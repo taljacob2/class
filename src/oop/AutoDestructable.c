@@ -89,11 +89,6 @@ void constructor_AutoDestructable_fields(AutoDestructable *autoDestructable) {
     autoDestructable->object->destructorInvocationStatus = WAS_NOT_INVOKED;
     autoDestructable->object->deleteFromAllocationTableInvocationStatus =
             WAS_NOT_INVOKED;
-
-    // TODO: Remove redundant fields.
-    autoDestructable->x         = 1;
-    autoDestructable->print     = &print;
-    autoDestructable->addOneToX = &addOneToX;
 }
 
 void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
@@ -142,8 +137,6 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
     instance->object->CLASS_NAME = className;
 
     // If `objectContainerToSaveItsAddressToAllocationTable` is `NULL` use `instance`.
-
-    // TODO: CHECK THIS LINE
     instance->allocatedAddress =
             objectContainerToSaveItsAddressToAllocationTable == NULL
                     ? (ObjectContainer *) instance
