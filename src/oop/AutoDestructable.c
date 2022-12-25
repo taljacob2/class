@@ -1,11 +1,5 @@
 #include "AutoDestructable.r"
 
-void print(AutoDestructable *autoDestructable) {
-    printf("x = %d\n", autoDestructable->x);
-}
-
-void addOneToX(AutoDestructable *autoDestructable) { autoDestructable->x += 1; }
-
 void *deleteAllocationAddressNodeFromAllocationTable(
         Legacy_AllocationTable *OBJECT_ALLOCATION_TABLE,
         void *                  allocatedAddress) {

@@ -24,14 +24,6 @@ struct autoDestructable {
 
     /// Sensitive data. DO NOT TOUCH!
     ObjectContainer *allocatedAddress;
-
-    int x;
-
-    /// Printing method.
-    void (*print)();
-
-    /// A logic method.
-    void (*addOneToX)();
 };
 
 AutoDestructable *AutoDestructableConstructorWithClassName(

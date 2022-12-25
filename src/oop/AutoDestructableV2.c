@@ -1,6 +1,6 @@
 #include "AutoDestructableV2.r"
 
-void *deleteAllocationAddressNodeFromAllocationTable(
+void *deleteAllocationAddressNodeFromAllocationTableV2(
         Legacy_AllocationTable *OBJECT_ALLOCATION_TABLE,
         void *                  allocatedAddress) {
     return OBJECT_ALLOCATION_TABLE->allocationAddressList
@@ -10,7 +10,7 @@ void *deleteAllocationAddressNodeFromAllocationTable(
 }
 
 Object *
-deleteAllocationAddressIfNeeded(AutoDestructableV2 *autoDestructableV2) {
+deleteAllocationAddressIfNeededV2(AutoDestructableV2 *autoDestructableV2) {
     if (autoDestructableV2 == NULL) { return NULL; }
 
     Object *object = autoDestructableV2->allocatedAddress;
@@ -19,7 +19,7 @@ deleteAllocationAddressIfNeeded(AutoDestructableV2 *autoDestructableV2) {
         object->deleteFromAllocationTableInvocationStatus = WAS_INVOKED_ONCE;
 
         Object *allocatedAddressReturnValue =
-                deleteAllocationAddressNodeFromAllocationTable(
+                deleteAllocationAddressNodeFromAllocationTableV2(
                         autoDestructableV2->OBJECT_ALLOCATION_TABLE,
                         autoDestructableV2->allocatedAddress);
 
@@ -37,7 +37,7 @@ deleteAllocationAddressIfNeeded(AutoDestructableV2 *autoDestructableV2) {
     return object;
 }
 
-void destructAllocatedAddressUnsafe(AutoDestructableV2 *autoDestructableV2) {
+void destructAllocatedAddressUnsafeV2(AutoDestructableV2 *autoDestructableV2) {
     if (autoDestructableV2 == NULL) { return; }
 
     free(autoDestructableV2->object);
@@ -52,7 +52,7 @@ Object *AutoDestructableV2Destructor(AutoDestructableV2 *autoDestructableV2) {
         autoDestructableV2->object->destructorInvocationStatus ==
                 WAS_INVOKED_ONCE;
 
-        deleteAllocationAddressIfNeeded(autoDestructableV2);
+        deleteAllocationAddressIfNeededV2(autoDestructableV2);
     }
 
     if (autoDestructableV2->object->destructorInvocationStatus ==
@@ -60,7 +60,7 @@ Object *AutoDestructableV2Destructor(AutoDestructableV2 *autoDestructableV2) {
         autoDestructableV2->object->destructorInvocationStatus ==
                 WAS_INVOKED_ONCE;
 
-        destructAllocatedAddressUnsafe(autoDestructableV2);
+        destructAllocatedAddressUnsafeV2(autoDestructableV2);
     }
     return NULL;
 }
@@ -84,7 +84,7 @@ void constructor_AutoDestructableV2_fields(
             WAS_NOT_INVOKED;
 }
 
-void saveObjectToAllocationTable(AutoDestructableV2 *autoDestructableV2) {
+void saveObjectToAllocationTableV2(AutoDestructableV2 *autoDestructableV2) {
     autoDestructableV2->OBJECT_ALLOCATION_TABLE =
             getLegacy_AllocationTableList()
                     ->findLegacy_AllocationTableByClassName(
@@ -135,7 +135,7 @@ AutoDestructableV2 *AutoDestructableV2ConstructorWithClassName(
             objectToSaveItsAddressToAllocationTable == NULL
                     ? (Object *) instance
                     : objectToSaveItsAddressToAllocationTable;
-    saveObjectToAllocationTable(instance);
+    saveObjectToAllocationTableV2(instance);
 
     return instance;
 }
