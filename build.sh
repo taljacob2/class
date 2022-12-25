@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Build "Class.a".
+# Build "oop.a".
 #PWD=$(pwd)
-#cd src/Class
+#cd src/oop
 #./build-library.sh
 #cd "$PWD"
 
 # Build program.
-gcc -g -Wall -Wpedantic src/main.c -L. src/Class/Class.a
+gcc -g -Wall -Wpedantic src/main.c src/Circle.c -L. src/oop/oop.a
 
 
 ## Compile *.c to *.o.

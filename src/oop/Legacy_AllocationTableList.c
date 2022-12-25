@@ -33,15 +33,15 @@ void DestructLegacy_AllocationTableListNonGeneric(
 
             // Destruct Node and retrieve the data.
             Legacy_AllocationTable *prevAllocationTable =
-                    iterationNodePrev->thisObjectBase->destructable->destructor(
+                    iterationNodePrev->object->destructable->destructor(
                             iterationNodePrev);
 
             // Destruct data.
-            prevAllocationTable->thisObjectBase->destructable->destructor(
+            prevAllocationTable->object->destructable->destructor(
                     prevAllocationTable);
         }
 
-        iterationNodePrev        = iterationNode;
+        iterationNodePrev = iterationNode;
     }
 
     // `iterationNodePrev` is `legacy_allocationTableList->tail`.
@@ -49,15 +49,15 @@ void DestructLegacy_AllocationTableListNonGeneric(
 
         // Destruct Node and retrieve the data.
         Legacy_AllocationTable *prevAllocationTable =
-                iterationNodePrev->thisObjectBase->destructable->destructor(
+                iterationNodePrev->object->destructable->destructor(
                         iterationNodePrev);
 
         // Destruct data.
-        prevAllocationTable->thisObjectBase->destructable->destructor(
+        prevAllocationTable->object->destructable->destructor(
                 prevAllocationTable);
     }
 
-    free(allocationTableList->thisObjectBase);
+    free(allocationTableList->object);
 
     free(allocationTableList);
 }
@@ -70,7 +70,7 @@ void Legacy_AllocationTableListDestructor(
     DestructLegacy_AllocationTableListNonGeneric(
             allocationTableList->allocationTableList);
 
-    free(allocationTableList->thisObjectBase);
+    free(allocationTableList->object);
 
     free(allocationTableList);
 }
@@ -94,17 +94,17 @@ findLegacy_AllocationTableByClassName(const char *allocationTableClassName) {
 
 void constructor_Legacy_AllocationTableList_fields(
         Legacy_AllocationTableList *allocationTableList) {
-    allocationTableList->thisObjectBase = ObjectBaseConstructor();
+    allocationTableList->object = ObjectConstructor();
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(
                     &Legacy_AllocationTableListConstructor)};
-    allocationTableList->thisObjectBase->constructable = &constructable;
+    allocationTableList->object->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(
                     &Legacy_AllocationTableListDestructor)};
-    allocationTableList->thisObjectBase->destructable = &destructable;
+    allocationTableList->object->destructable = &destructable;
 
     allocationTableList->allocationTableList = Legacy_ListConstructor();
 

@@ -17,8 +17,8 @@ void *delete (Legacy_List *list, Legacy_Node *node) {
 
     Legacy_Node *iterationNodePrev = NULL;
     void *       deletedNodeData   = NULL;
-    for (Legacy_Node *iterationNode    = list->head; iterationNode != NULL;
-         iterationNode                 = iterationNode->next) {
+    for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
+         iterationNode              = iterationNode->next) {
         if (iterationNode == node) {
             if (iterationNodePrev != NULL) {
 
@@ -34,9 +34,8 @@ void *delete (Legacy_List *list, Legacy_Node *node) {
                 // `iterationNode` is `legacy_list->tail`.
                 list->tail = iterationNodePrev;
             }
-            deletedNodeData =
-                    iterationNode->thisObjectBase->destructable->destructor(
-                            iterationNode);
+            deletedNodeData = iterationNode->object->destructable->destructor(
+                    iterationNode);
             list->size--;
             break;
         }
@@ -53,8 +52,8 @@ void *deleteNodeThatHasTheGivenData(Legacy_List *list,
 
     Legacy_Node *iterationNodePrev = NULL;
     void *       deletedNodeData   = NULL;
-    for (Legacy_Node *iterationNode    = list->head; iterationNode != NULL;
-         iterationNode                 = iterationNode->next) {
+    for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
+         iterationNode              = iterationNode->next) {
         if (iterationNode->data == dataOfTheNodeToDelete) {
             if (iterationNodePrev != NULL) {
 
@@ -71,9 +70,8 @@ void *deleteNodeThatHasTheGivenData(Legacy_List *list,
                 list->tail = iterationNodePrev;
             }
 
-            deletedNodeData =
-                    iterationNode->thisObjectBase->destructable->destructor(
-                            iterationNode);
+            deletedNodeData = iterationNode->object->destructable->destructor(
+                    iterationNode);
             list->size--;
             break;
         }
@@ -104,10 +102,10 @@ void *Legacy_ListDestructor(Legacy_List *list) {
     if (list == NULL) { return NULL; }
 
     Legacy_Node *iterationNodePrev = NULL;
-    for (Legacy_Node *iterationNode    = list->head; iterationNode != NULL;
-         iterationNode                 = iterationNode->next) {
-        if (iterationNodePrev!= NULL) {
-            iterationNodePrev->thisObjectBase->destructable->destructor(
+    for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
+         iterationNode              = iterationNode->next) {
+        if (iterationNodePrev != NULL) {
+            iterationNodePrev->object->destructable->destructor(
                     iterationNodePrev);
         }
 
@@ -116,11 +114,10 @@ void *Legacy_ListDestructor(Legacy_List *list) {
 
     // `iterationNodePrev` is `legacy_list->tail`.
     if (iterationNodePrev != NULL) {
-        iterationNodePrev->thisObjectBase->destructable->destructor(
-                iterationNodePrev);
+        iterationNodePrev->object->destructable->destructor(iterationNodePrev);
     }
 
-    free(list->thisObjectBase);
+    free(list->object);
 
     free(list);
 
@@ -128,15 +125,15 @@ void *Legacy_ListDestructor(Legacy_List *list) {
 }
 
 void constructor_Legacy_List_fields(Legacy_List *list) {
-    list->thisObjectBase = ObjectBaseConstructor();
+    list->object = ObjectConstructor();
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&Legacy_ListConstructor)};
-    list->thisObjectBase->constructable = &constructable;
+    list->object->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&Legacy_ListDestructor)};
-    list->thisObjectBase->destructable = &destructable;
+    list->object->destructable = &destructable;
 
     list->head = NULL;
     list->tail = NULL;

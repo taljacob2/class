@@ -1,5 +1,5 @@
 #include "Legacy_AllocationTable.r"
-#include "Class.r"
+#include "AutoDestructable.r"
 
 /// @attention This is **not** generic.
 void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
@@ -9,11 +9,12 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
         if (iterationNodePrev != NULL) {
-            Class *class =
-                    iterationNodePrev->thisObjectBase->destructable->destructor(
+            ObjectContainer *objectContainer =
+                    iterationNodePrev->object->destructable->destructor(
                             iterationNodePrev);
-            free(class->thisObjectBase);
-            free(class);
+            objectContainer->object->deleteFromAllocationTableInvocationStatus =
+                    WAS_INVOKED_ONCE;
+            objectContainer->object->destructable->destructor(objectContainer);
         }
 
         iterationNodePrev = iterationNode;
@@ -21,14 +22,15 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
 
     // `iterationNodePrev` is `legacy_list->tail`.
     if (iterationNodePrev != NULL) {
-        Class *class =
-                iterationNodePrev->thisObjectBase->destructable->destructor(
+        ObjectContainer *objectContainer =
+                iterationNodePrev->object->destructable->destructor(
                         iterationNodePrev);
-        free(class->thisObjectBase);
-        free(class);
+        objectContainer->object->deleteFromAllocationTableInvocationStatus =
+                WAS_INVOKED_ONCE;
+        objectContainer->object->destructable->destructor(objectContainer);
     }
 
-    free(list->thisObjectBase);
+    free(list->object);
 
     free(list);
 
@@ -43,7 +45,7 @@ Legacy_AllocationTableDestructor(Legacy_AllocationTable *allocationTable) {
     Legacy_ListDestructorWhileFreeAllNodeData(
             allocationTable->allocationAddressList);
 
-    free(allocationTable->thisObjectBase);
+    free(allocationTable->object);
 
     free(allocationTable);
 
@@ -52,17 +54,17 @@ Legacy_AllocationTableDestructor(Legacy_AllocationTable *allocationTable) {
 
 void constructor_Legacy_AllocationTable_fields(
         Legacy_AllocationTable *allocationTable) {
-    allocationTable->thisObjectBase = ObjectBaseConstructor();
+    allocationTable->object = ObjectConstructor();
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(
                     &Legacy_AllocationTableConstructor)};
-    allocationTable->thisObjectBase->constructable = &constructable;
+    allocationTable->object->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(
                     &Legacy_AllocationTableDestructor)};
-    allocationTable->thisObjectBase->destructable = &destructable;
+    allocationTable->object->destructable = &destructable;
 
     allocationTable->className             = "";
     allocationTable->allocationAddressList = Legacy_ListConstructor();

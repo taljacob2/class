@@ -11,7 +11,7 @@ void *Legacy_NodeDestructor(Legacy_Node *node) {
 
     void *nodeData = node->data;
 
-    free(node->thisObjectBase);
+    free(node->object);
 
     free(node);
 
@@ -19,15 +19,15 @@ void *Legacy_NodeDestructor(Legacy_Node *node) {
 }
 
 void constructor_Legacy_Node_fields(Legacy_Node *node) {
-    node->thisObjectBase = ObjectBaseConstructor();
+    node->object = ObjectConstructor();
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&Legacy_NodeConstructor)};
-    node->thisObjectBase->constructable = &constructable;
+    node->object->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&Legacy_NodeDestructor)};
-    node->thisObjectBase->destructable = &destructable;
+    node->object->destructable = &destructable;
 
     node->data     = NULL;
     node->dataSize = 0;

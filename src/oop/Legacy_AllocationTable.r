@@ -9,8 +9,8 @@ typedef struct legacy_allocationTable Legacy_AllocationTable;
 
 struct legacy_allocationTable {
 
-    /// `Legacy_AllocationTable` implements `ObjectBase`.
-    ObjectBase *thisObjectBase;
+    /// `Legacy_AllocationTable` implements `Object`.
+    Object *object;
 
     const char *className;
 
