@@ -22,23 +22,22 @@ void *ClassDestructor(Class *class) {
 
     class->destructorInvocationStatus == WAS_INVOKED_ONCE;
 
-    Class *allocatedAddressReturnValue = NULL;
     if (class->deleteFromAllocationTableInvocationStatus == WAS_NOT_INVOKED) {
         class->deleteFromAllocationTableInvocationStatus = WAS_INVOKED_ONCE;
 
-        allocatedAddressReturnValue =
+        Class *allocatedAddressReturnValue =
                 deleteAllocationAddressNodeFromAllocationTable(
                         class->CLASS_ALLOCATION_TABLE, class->allocatedAddress);
-    }
 
-    if (allocatedAddressReturnValue == NULL) {
+        if (allocatedAddressReturnValue == NULL) {
 
-        /*
-         * The address was already deleted from
-         * `class->CLASS_ALLOCATION_TABLE`, and thus had probably already
-         * been freed too.
-         */
-        return NULL;
+            /*
+             * The address was already deleted from
+             * `class->CLASS_ALLOCATION_TABLE`, and thus had probably already
+             * been freed too.
+             */
+            return NULL;
+        }
     }
 
     void * returnValue             = NULL;
