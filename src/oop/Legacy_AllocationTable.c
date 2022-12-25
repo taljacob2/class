@@ -9,6 +9,8 @@ void *Legacy_ListDestructorWhileFreeAllNodeDataV2(Legacy_List *list) {
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
         if (iterationNodePrev != NULL) {
+
+            // TODO: The problem is it must be ObjectContainer and not Object so you could use the polymorphism of the destructor!!!
             Object *object =
                     iterationNodePrev->object->destructable->destructor(
                             iterationNodePrev);
@@ -22,6 +24,8 @@ void *Legacy_ListDestructorWhileFreeAllNodeDataV2(Legacy_List *list) {
 
     // `iterationNodePrev` is `legacy_list->tail`.
     if (iterationNodePrev != NULL) {
+
+        // TODO: The problem is it must be ObjectContainer and not Object so you could use the polymorphism of the destructor!!!
         Object *object = iterationNodePrev->object->destructable->destructor(
                 iterationNodePrev);
         object->deleteFromAllocationTableInvocationStatus = WAS_INVOKED_ONCE;
