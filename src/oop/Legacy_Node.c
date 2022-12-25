@@ -35,13 +35,13 @@ void constructor_Legacy_Node_fields(Legacy_Node *node) {
 }
 
 Legacy_Node *Legacy_NodeConstructor() {
-    Legacy_Node *obj = calloc(1, sizeof *obj);
-    if (obj == NULL) { /* error handling here */
+    Legacy_Node *instance = calloc(1, sizeof *instance);
+    if (instance == NULL) { /* error handling here */
     }
 
-    constructor_Legacy_Node_fields(obj);
+    constructor_Legacy_Node_fields(instance);
 
-    return obj;
+    return instance;
 }
 
 Legacy_Node *Legacy_NodeConstructorWithDataAndDataSize(void * data,

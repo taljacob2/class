@@ -71,13 +71,13 @@ void constructor_Legacy_AllocationTable_fields(
 }
 
 Legacy_AllocationTable *Legacy_AllocationTableConstructor() {
-    Legacy_AllocationTable *obj = calloc(1, sizeof *obj);
-    if (obj == NULL) { /* error handling here */
+    Legacy_AllocationTable *instance = calloc(1, sizeof *instance);
+    if (instance == NULL) { /* error handling here */
     }
 
-    constructor_Legacy_AllocationTable_fields(obj);
+    constructor_Legacy_AllocationTable_fields(instance);
 
-    return obj;
+    return instance;
 }
 
 Legacy_AllocationTable *

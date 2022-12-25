@@ -114,13 +114,13 @@ void constructor_Legacy_AllocationTableList_fields(
 
 
 Legacy_AllocationTableList *Legacy_AllocationTableListConstructor() {
-    Legacy_AllocationTableList *obj = calloc(1, sizeof *obj);
-    if (obj == NULL) { /* error handling here */
+    Legacy_AllocationTableList *instance = calloc(1, sizeof *instance);
+    if (instance == NULL) { /* error handling here */
     }
 
-    constructor_Legacy_AllocationTableList_fields(obj);
+    constructor_Legacy_AllocationTableList_fields(instance);
 
-    return obj;
+    return instance;
 }
 
 // -----------------------------------------------------------------------------

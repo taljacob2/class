@@ -12,22 +12,22 @@ void *CircleDestructor(Circle *circle) {
 }
 
 Circle *CircleConstructor() {
-    Circle *obj = calloc(1, sizeof *obj);
-    if (obj == NULL) { /* error handling here */
+    Circle *instance = calloc(1, sizeof *instance);
+    if (instance == NULL) { /* error handling here */
     }
 
-    obj->object = ObjectConstructor();
+    instance->object = ObjectConstructor();
 
-    obj->autoDestructable = AutoDestructableConstructorWithClassName(
-            (ObjectContainer *) obj, "Circle");
+    instance->autoDestructable = AutoDestructableConstructorWithClassName(
+            (ObjectContainer *) instance, "Circle");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&CircleConstructor)};
-    obj->object->constructable = &constructable;
+    instance->object->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&CircleDestructor)};
-    obj->object->destructable = &destructable;
+    instance->object->destructable = &destructable;
 
-    return obj;
+    return instance;
 }

@@ -22,13 +22,13 @@ void constructor_Object_fields(Object *object) {
 }
 
 Object *ObjectConstructor() {
-    Object *obj = calloc(1, sizeof *obj);
-    if (obj == NULL) { /* error handling here */
+    Object *instance = calloc(1, sizeof *instance);
+    if (instance == NULL) { /* error handling here */
     }
 
-    obj->CLASS_NAME = "Object";
+    instance->CLASS_NAME = "Object";
 
-    constructor_Object_fields(obj);
+    constructor_Object_fields(instance);
 
-    return obj;
+    return instance;
 }
