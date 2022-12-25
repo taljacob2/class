@@ -35,7 +35,7 @@ void constructor_Legacy_Node_fields(Legacy_Node *node) {
 }
 
 Legacy_Node *Legacy_NodeConstructor() {
-    Legacy_Node *obj = malloc(sizeof *obj);
+    Legacy_Node *obj = calloc(1, sizeof *obj);
     if (obj == NULL) { /* error handling here */
     }
 

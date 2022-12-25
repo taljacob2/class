@@ -149,7 +149,7 @@ void constructor_Legacy_List_fields(Legacy_List *list) {
 }
 
 Legacy_List *Legacy_ListConstructor() {
-    Legacy_List *obj = malloc(sizeof *obj);
+    Legacy_List *obj = calloc(1, sizeof *obj);
     if (obj == NULL) { /* error handling here */
     }
 

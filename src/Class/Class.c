@@ -37,7 +37,7 @@ void constructor_Class_fields(Class *class) {
 }
 
 Class *ClassConstructorWithClassName(const char *className) {
-    Class *obj = malloc(sizeof *obj);
+    Class *obj = calloc(1, sizeof *obj);
     if (obj == NULL) { /* error handling here */
     }
 

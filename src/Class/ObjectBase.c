@@ -21,7 +21,7 @@ void constructor_ObjectBase_fields(ObjectBase *objectBase) {
 }
 
 ObjectBase *ObjectBaseConstructor() {
-    ObjectBase *obj = malloc(sizeof *obj);
+    ObjectBase *obj = calloc(1, sizeof *obj);
     if (obj == NULL) { /* error handling here */
     }
 

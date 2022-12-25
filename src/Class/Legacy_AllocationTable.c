@@ -69,7 +69,7 @@ void constructor_Legacy_AllocationTable_fields(
 }
 
 Legacy_AllocationTable *Legacy_AllocationTableConstructor() {
-    Legacy_AllocationTable *obj = malloc(sizeof *obj);
+    Legacy_AllocationTable *obj = calloc(1, sizeof *obj);
     if (obj == NULL) { /* error handling here */
     }
 

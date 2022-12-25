@@ -114,7 +114,7 @@ void constructor_Legacy_AllocationTableList_fields(
 
 
 Legacy_AllocationTableList *Legacy_AllocationTableListConstructor() {
-    Legacy_AllocationTableList *obj = malloc(sizeof *obj);
+    Legacy_AllocationTableList *obj = calloc(1, sizeof *obj);
     if (obj == NULL) { /* error handling here */
     }
 
