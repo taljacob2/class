@@ -1,24 +1,24 @@
-#ifndef CLASS_H
-#define CLASS_H
+#ifndef AUTODESTRUCTABLE_H
+#define AUTODESTRUCTABLE_H
 
 #include "Constructable.r"
 #include "Destructable.r"
 #include "InvocationStatus.r"
 #include "Legacy_AllocationTable.r"
 #include "Legacy_AllocationTableList.r"
-#include "ObjectBase.r"
+#include "Object.r"
 #include <stdio.h>
 #include <stdlib.h>
 
 // Forward declaration of incomplete type
-typedef struct class Class;
+typedef struct autoDestructable AutoDestructable;
 
-struct class {
+struct autoDestructable {
 
-    /// `Class` implements `ObjectBase`.
-    ObjectBase *thisObjectBase;
+    /// `AutoDestructable` implements `Object`.
+    Object *object;
 
-    /// Singleton for the whole class. Sensitive data. DO NOT TOUCH!
+    /// Singleton for the whole autoDestructable. Sensitive data. DO NOT TOUCH!
     Legacy_AllocationTable *CLASS_ALLOCATION_TABLE;
 
     /// Sensitive data. DO NOT TOUCH!
@@ -37,12 +37,12 @@ struct class {
     void (*addOneToX)();
 };
 
-Class *
+AutoDestructable *
 ClassConstructorWithClassName(void *objectToSaveItsAddressToAllocationTable,
                               const char *className);
 
 /**
- * @brief Creates a `new` "heap-allocated" instance of `Class` and initializes
+ * @brief Creates a `new` "heap-allocated" instance of `AutoDestructable` and initializes
  *        it.
  *
  * @attention Remember to `free` the returned value of this function.
@@ -51,21 +51,21 @@ ClassConstructorWithClassName(void *objectToSaveItsAddressToAllocationTable,
  * @code
  *
  * // Construct.
- * Class *class = ClassConstructor();
+ * AutoDestructable *autoDestructable = ClassConstructor();
  *
  * // Do something...
- * (*class->print)(class);
- * (*class->addOneToX)(class);
- * (*class->print)(class);
+ * (*autoDestructable->print)(autoDestructable);
+ * (*autoDestructable->addOneToX)(autoDestructable);
+ * (*autoDestructable->print)(autoDestructable);
  *
  * // Remember to `free`.
- * free(class);
+ * free(autoDestructable);
  * @endcode
  *
- * @return A pointer to a `new` "heap-allocated" instance of `Class`.
+ * @return A pointer to a `new` "heap-allocated" instance of `AutoDestructable`.
  */
-Class *ClassConstructor();
+AutoDestructable *ClassConstructor();
 
-void *ClassDestructor(Class *class);
+void *ClassDestructor(AutoDestructable *autoDestructable);
 
-#endif //CLASS_H
+#endif //AUTODESTRUCTABLE_H

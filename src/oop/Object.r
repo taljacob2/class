@@ -1,14 +1,14 @@
-#ifndef CLASS_OBJECTBASE_R
-#define CLASS_OBJECTBASE_R
+#ifndef OBJECT_H
+#define OBJECT_H
 
 #include "Constructable.r"
 #include "Destructable.r"
 #include <stdlib.h>
 
 // Forward declaration of incomplete type
-typedef struct objectBase ObjectBase;
+typedef struct object Object;
 
-struct objectBase {
+struct object {
     const char *CLASS_NAME;
 
     const Constructable *constructable;
@@ -16,6 +16,6 @@ struct objectBase {
     const Destructable *destructable;
 };
 
-ObjectBase *ObjectBaseConstructor();
+Object *ObjectBaseConstructor();
 
-#endif //CLASS_OBJECTBASE_R
+#endif //OBJECT_H

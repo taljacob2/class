@@ -3,7 +3,7 @@
 
 #include "Constructable.r"
 #include "Destructable.r"
-#include "ObjectBase.r"
+#include "Object.r"
 #include <stdlib.h>
 
 // Forward declaration of incomplete type
@@ -11,8 +11,8 @@ typedef struct legacy_node Legacy_Node;
 
 struct legacy_node {
 
-    /// `Legacy_Node` implements `ObjectBase`.
-    ObjectBase *thisObjectBase;
+    /// `Legacy_Node` implements `Object`.
+    Object *object;
 
     void *       data;
     size_t       dataSize;

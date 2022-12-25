@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LIBRARY_NAME="Class"
+LIBRARY_NAME="oop"
 
 # Compile *.c to *.o.
 for file in *.c; do

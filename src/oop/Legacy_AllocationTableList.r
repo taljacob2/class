@@ -12,8 +12,8 @@ typedef struct legacy_allocationTableList Legacy_AllocationTableList;
 
 struct legacy_allocationTableList {
 
-    /// `Legacy_AllocationTableList` implements `ObjectBase`.
-    ObjectBase *thisObjectBase;
+    /// `Legacy_AllocationTableList` implements `Object`.
+    Object *object;
 
     Legacy_List *allocationTableList;
 

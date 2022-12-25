@@ -1,34 +1,34 @@
-#include "Class/Class.h"
-#include "ClassInheritor.h"
+#include "Circle.h"
+#include "oop/oop.h"
 
 /// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 int main() {
-    //    Class *class = ClassConstructor();
+    //    AutoDestructable *autoDestructable = ClassConstructor();
 
-    //    (*class->print)(class);
-    //    (*class->addOneToX)(class);
-    //    (*class->print)(class);
+    //    (*autoDestructable->print)(autoDestructable);
+    //    (*autoDestructable->addOneToX)(autoDestructable);
+    //    (*autoDestructable->print)(autoDestructable);
     //
-    //    Class *class_2 = ClassConstructor();
+    //    AutoDestructable *class_2 = ClassConstructor();
     //    (*class_2->print)();
     //    (*class_2->addOneToX)();
     //    (*class_2->print)();
 
 
-    //    class->destructable->destructor(class);
+    //    autoDestructable->destructable->destructor(autoDestructable);
 
 
     //    free(class_2);
 
 
-    ObjectBase *objectBase = ObjectBaseConstructor();
-    objectBase->destructable->destructor(objectBase);
+    //    Object *object = ObjectBaseConstructor();
+    //    object->destructable->destructor(object);
 
-    Class *class = ClassConstructor();
-    //    class->thisObjectBase->destructable->destructor(class);
+    //    AutoDestructable *autoDestructable = ClassConstructor();
+    //    autoDestructable->object->destructable->destructor(autoDestructable);
 
 
-    ClassInheritor *classInheritor = ClassInheritorConstructor();
+    Circle *classInheritor = CircleConstructor();
 
 
     return 0;

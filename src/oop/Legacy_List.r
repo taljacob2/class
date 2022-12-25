@@ -11,8 +11,8 @@ typedef struct legacy_list Legacy_List;
 
 struct legacy_list {
 
-    /// `Legacy_List` implements `ObjectBase`.
-    ObjectBase *thisObjectBase;
+    /// `Legacy_List` implements `Object`.
+    Object *object;
 
     Legacy_Node *head;
     Legacy_Node *tail;
