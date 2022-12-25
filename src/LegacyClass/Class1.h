@@ -29,6 +29,8 @@ struct class1 {
     void (*addOneToX)();
 };
 
+Class1 *Class1ConstructorWithClassName(const char *className);
+
 /**
  * @brief Creates a `new` "heap-allocated" instance of `Class1` and initializes
  *        it.

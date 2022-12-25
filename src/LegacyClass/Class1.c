@@ -36,14 +36,14 @@ void constructor_Class1_fields(Class1 *class1) {
     class1->addOneToX = &addOneToX;
 }
 
-Class1 *Class1Constructor() {
+Class1 *Class1ConstructorWithClassName(const char *className) {
     Class1 *obj = malloc(sizeof *obj);
     if (obj == NULL) { /* error handling here */
     }
 
     constructor_Class1_fields(obj);
 
-    obj->thisObjectBase->CLASS_NAME = "Class1";
+    obj->thisObjectBase->CLASS_NAME = className;
     obj->CLASS_ALLOCATION_TABLE =
             getLegacy_AllocationTableList()
                     ->findLegacy_AllocationTableByClassName(
@@ -76,3 +76,5 @@ Class1 *Class1Constructor() {
 
     return obj;
 }
+
+Class1 *Class1Constructor() { return Class1ConstructorWithClassName("Class1"); }
