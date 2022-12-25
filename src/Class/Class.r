@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+enum StatusCode { DESTRUCTOR_WAS_NOT_INVOKED, DESTRUCTOR_WAS_INVOKED_ONCE };
+
 // Forward declaration of incomplete type
 typedef struct class Class;
 
@@ -20,6 +22,11 @@ struct class {
     /// Singleton for the whole class. Sensitive data. DO NOT TOUCH!
     Legacy_AllocationTable *CLASS_ALLOCATION_TABLE;
 
+    /// Sensitive data. DO NOT TOUCH!
+    void *allocatedAddress;
+
+    enum StatusCode statusCode;
+
     int x;
 
     /// Printing method.
@@ -29,7 +36,9 @@ struct class {
     void (*addOneToX)();
 };
 
-Class *ClassConstructorWithClassName(const char *className);
+Class *
+ClassConstructorWithClassName(void *objectToSaveItsAddressToAllocationTable,
+                              const char *className);
 
 /**
  * @brief Creates a `new` "heap-allocated" instance of `Class` and initializes
@@ -55,5 +64,7 @@ Class *ClassConstructorWithClassName(const char *className);
  * @return A pointer to a `new` "heap-allocated" instance of `Class`.
  */
 Class *ClassConstructor();
+
+void *ClassDestructor(Class *class);
 
 #endif //CLASS_H

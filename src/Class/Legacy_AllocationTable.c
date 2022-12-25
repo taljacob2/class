@@ -12,8 +12,7 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
             Class *class =
                     iterationNodePrev->thisObjectBase->destructable->destructor(
                             iterationNodePrev);
-            free(class->thisObjectBase);
-            free(class);
+            class->thisObjectBase->destructable->destructor(class);
         }
 
         iterationNodePrev = iterationNode;
@@ -24,8 +23,7 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
         Class *class =
                 iterationNodePrev->thisObjectBase->destructable->destructor(
                         iterationNodePrev);
-        free(class->thisObjectBase);
-        free(class);
+        class->thisObjectBase->destructable->destructor(class);
     }
 
     free(list->thisObjectBase);
