@@ -1,4 +1,4 @@
-#include "LegacyClass/LegacyClass.h"
+#include "Class/Class.h"
 
 /// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 int main() {

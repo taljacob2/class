@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LIBRARY_NAME="LegacyClass"
+LIBRARY_NAME="Class"
 
 # Compile *.c to *.o.
 for file in *.c; do

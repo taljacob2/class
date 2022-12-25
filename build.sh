@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Build "LegacyClass.a".
+# Build "Class.a".
 #PWD=$(pwd)
-#cd src/LegacyClass
+#cd src/Class
 #./build-library.sh
 #cd "$PWD"
 
 # Build program.
-gcc -g -Wall -Wpedantic src/main.c -L. src/LegacyClass/LegacyClass.a
+gcc -g -Wall -Wpedantic src/main.c -L. src/Class/Class.a
 
 
 ## Compile *.c to *.o.
