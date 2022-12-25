@@ -16,14 +16,22 @@ void *deleteAllocationAddressNodeFromAllocationTable(
 void *ClassDestructor(Class *class) {
     if (class == NULL) { return NULL; }
 
-    if (!(class->statusCode == DESTRUCTOR_WAS_NOT_INVOKED)) { return NULL; }
+    if (!(class->destructorInvocationStatus == WAS_NOT_INVOKED)) {
+        return NULL;
+    }
 
-    class->statusCode == DESTRUCTOR_WAS_INVOKED_ONCE;
+    class->destructorInvocationStatus == WAS_INVOKED_ONCE;
 
-    Class *allocatedAddress = deleteAllocationAddressNodeFromAllocationTable(
-            class->CLASS_ALLOCATION_TABLE, class->allocatedAddress);
+    Class *allocatedAddressReturnValue = NULL;
+    if (class->deleteFromAllocationTableInvocationStatus == WAS_NOT_INVOKED) {
+        class->deleteFromAllocationTableInvocationStatus = WAS_INVOKED_ONCE;
 
-    if (allocatedAddress == NULL) {
+        allocatedAddressReturnValue =
+                deleteAllocationAddressNodeFromAllocationTable(
+                        class->CLASS_ALLOCATION_TABLE, class->allocatedAddress);
+    }
+
+    if (allocatedAddressReturnValue == NULL) {
 
         /*
          * The address was already deleted from
@@ -33,16 +41,15 @@ void *ClassDestructor(Class *class) {
         return NULL;
     }
 
-    void *returnValue = NULL;
-
-    if (allocatedAddress->thisObjectBase->CLASS_NAME != "Class") {
-        returnValue =
-                allocatedAddress->thisObjectBase->destructable->destructor(
-                        allocatedAddress);
+    void * returnValue             = NULL;
+    Class *allocatedAddressAsClass = class->allocatedAddress;
+    if (allocatedAddressAsClass->thisObjectBase->CLASS_NAME != "Class") {
+        returnValue = allocatedAddressAsClass->thisObjectBase->destructable
+                              ->destructor(allocatedAddressAsClass);
     }
 
-    free(allocatedAddress->thisObjectBase);
-    free(allocatedAddress);
+    free(allocatedAddressAsClass->thisObjectBase);
+    free(allocatedAddressAsClass);
 
     return returnValue;
 }
@@ -58,7 +65,8 @@ void constructor_Class_fields(Class *class) {
             .destructor = (void *(*const)(void *) )(&ClassDestructor)};
     class->thisObjectBase->destructable = &destructable;
 
-    class->statusCode = DESTRUCTOR_WAS_NOT_INVOKED;
+    class->destructorInvocationStatus                = WAS_NOT_INVOKED;
+    class->deleteFromAllocationTableInvocationStatus = WAS_NOT_INVOKED;
 
     // TODO: Remove redundant fields.
     class->x         = 1;

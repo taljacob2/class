@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-enum StatusCode { DESTRUCTOR_WAS_NOT_INVOKED, DESTRUCTOR_WAS_INVOKED_ONCE };
+enum InvocationStatus { WAS_NOT_INVOKED, WAS_INVOKED_ONCE };
 
 // Forward declaration of incomplete type
 typedef struct class Class;
@@ -25,7 +25,9 @@ struct class {
     /// Sensitive data. DO NOT TOUCH!
     void *allocatedAddress;
 
-    enum StatusCode statusCode;
+    enum InvocationStatus destructorInvocationStatus;
+
+    enum InvocationStatus deleteFromAllocationTableInvocationStatus;
 
     int x;
 

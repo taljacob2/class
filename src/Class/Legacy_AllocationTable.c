@@ -12,6 +12,7 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
             Class *class =
                     iterationNodePrev->thisObjectBase->destructable->destructor(
                             iterationNodePrev);
+            class->deleteFromAllocationTableInvocationStatus = WAS_INVOKED_ONCE;
             class->thisObjectBase->destructable->destructor(class);
         }
 
@@ -23,6 +24,7 @@ void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
         Class *class =
                 iterationNodePrev->thisObjectBase->destructable->destructor(
                         iterationNodePrev);
+        class->deleteFromAllocationTableInvocationStatus = WAS_INVOKED_ONCE;
         class->thisObjectBase->destructable->destructor(class);
     }
 
