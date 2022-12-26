@@ -7,7 +7,7 @@
 #cd "$PWD"
 
 # Build program.
-gcc -g -Wall -Wpedantic src/main.c src/Circle.c -L. src/oop/oop.a
+gcc -g -Wall -Wpedantic src/main.c src/Circle.c src/CircleV2.c -L. src/oop/oop.a
 
 
 ## Compile *.c to *.o.
