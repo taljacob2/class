@@ -117,9 +117,7 @@ void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
                     autoDestructable->allocatedAddress,
                     sizeof(ObjectContainer *));
 
-
     // Add this legacy_node to `autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList`.
-    // TODO: best practice to change `add` to `addAsUnique`.
     autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList->add(
             autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList,
             nodeThatItsDataPointsToThePointerOfObj);
