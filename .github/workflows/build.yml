@@ -1,6 +1,9 @@
 name: Build And Test
 
-on: [push]
+on:
+  push:
+    branches:
+      - '**'
 
 jobs:
   build-and-run:
