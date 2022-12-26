@@ -15,15 +15,12 @@ jobs:
       - name: Build oop.a static library
         run: |
           ./src/oop/build-library.sh
-        continue-on-error: true
       - name: Build main.c
         run: |
           ./build.sh
-        continue-on-error: true
       - name: Install Valgrind
         run: |
           sudo apt install valgrind
       - name: Run With Valgrind
         run: |
           valgrind --leak-check=full --show-leak-kinds=all ./a.out
-        continue-on-error: true
