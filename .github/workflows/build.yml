@@ -1,12 +1,9 @@
 name: Build And Test
 
-on:
-  push:
-    branches:
-      - '**'
+on: [push]
 
 jobs:
-  build:
+  build-and-run:
     name: Build And Test
     runs-on: ubuntu-latest
     steps:
