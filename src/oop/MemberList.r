@@ -11,8 +11,8 @@ typedef struct memberList MemberList;
 
 struct memberList {
 
-    /// `MemberList` implements `Object`.
-    Object *object;
+    /// `MemberList` implements `Legacy_Object`.
+    Legacy_Object *object;
 
     Legacy_List *memberEntryList;
 

@@ -68,7 +68,7 @@ MemberList *MemberListConstructor() {
 
     instance->memberEntryList = Legacy_ListConstructor();
 
-    instance->object = ObjectConstructorClassName("MemberList");
+    instance->object = Legacy_ObjectConstructorClassName("MemberList");
 
     addMember(instance, "autoDestructable",
               (ObjectContainer *) AutoDestructableConstructorWithClassName(
@@ -97,7 +97,7 @@ MemberList *MemberListConstructorWithObjectContainer(
 
     instance->memberEntryList = Legacy_ListConstructor();
 
-    instance->object = ObjectConstructorClassName("MemberList");
+    instance->object = Legacy_ObjectConstructorClassName("MemberList");
 
     addMember(instance, "autoDestructable",
               (ObjectContainer *) AutoDestructableConstructorWithClassName(

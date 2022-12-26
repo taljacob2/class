@@ -17,7 +17,7 @@ CircleV2 *CircleV2Constructor() {
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->object = ObjectConstructorClassName("CircleV2");
+    instance->object = Legacy_ObjectConstructorClassName("CircleV2");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&CircleV2Constructor)};

@@ -9,8 +9,8 @@ typedef struct legacy_stringEntry Legacy_StringEntry;
 
 struct legacy_stringEntry {
 
-    /// `Legacy_StringEntry` implements `Object`.
-    Object *object;
+    /// `Legacy_StringEntry` implements `Legacy_Object`.
+    Legacy_Object *object;
 
     char *           key;
     ObjectContainer *value;

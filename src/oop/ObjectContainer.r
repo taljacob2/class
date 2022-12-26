@@ -1,13 +1,13 @@
 #ifndef OBJECTCONTAINER_H
 #define OBJECTCONTAINER_H
 
-#include "Object.r"
+#include "Legacy_Object.r"
 
 // Forward declaration of incomplete type
 typedef struct objectContainer ObjectContainer;
 
 struct objectContainer {
-    Object *object;
+    Legacy_Object *object;
 };
 
 

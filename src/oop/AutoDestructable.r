@@ -6,7 +6,7 @@
 #include "InvocationStatus.r"
 #include "Legacy_AllocationTable.r"
 #include "Legacy_AllocationTableList.r"
-#include "Object.r"
+#include "Legacy_Object.r"
 #include "ObjectContainer.r"
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,8 +16,8 @@ typedef struct autoDestructable AutoDestructable;
 
 struct autoDestructable {
 
-    /// `AutoDestructable` implements `Object`.
-    Object *object;
+    /// `AutoDestructable` implements `Legacy_Object`.
+    Legacy_Object *object;
 
     /// Singleton for the whole autoDestructable. Sensitive data. DO NOT TOUCH!
     Legacy_AllocationTable *OBJECT_ALLOCATION_TABLE;
