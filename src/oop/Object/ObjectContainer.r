@@ -3,8 +3,10 @@
 
 #include "Object.r"
 
-#define __OBJECT_CONSTRUCTABLE__ObjectContainer__ "objectConstructable"
-#define __OBJECT_DESTRUCTABLE__ObjectContainer__  "objectDestructable"
+#define __LEGACY_OBJECT_CONSTRUCTABLE__ObjectContainer__ \
+    "legacyObjectConstructable"
+#define __LEGACY_OBJECT_DESTRUCTABLE__ObjectContainer__ \
+    "legacyObjectDestructable"
 
 
 // Forward declaration of incomplete type
@@ -12,11 +14,13 @@ typedef struct objectContainer ObjectContainer;
 
 /// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 struct objectContainer {
-    Object *object;
+    Legacy_Object *legacyObject;
+    Object *       object;
 };
 
-void storeObjectConstructorAndDestructor(ObjectContainer *objectContainer);
+void storeLegacyObjectConstructorAndDestructor(
+        ObjectContainer *objectContainer);
 
-void invokeObjectDestructor(ObjectContainer *objectContainer);
+void *invokeStoredLegacyObjectDestructor(ObjectContainer *objectContainer);
 
 #endif //OBJECTCONTAINER_H

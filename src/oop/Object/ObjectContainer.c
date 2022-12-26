@@ -1,29 +1,43 @@
 #include "ObjectContainer.r"
 
-void storeObjectConstructorAndDestructor(ObjectContainer *objectContainer) {
+void storeLegacyObjectConstructorAndDestructor(
+        ObjectContainer *objectContainer) {
 
-    // `objectConstructable` is stored.
-    const Constructable **objectConstructable =
+    // `__LEGACY_OBJECT_CONSTRUCTABLE__ObjectContainer__` is stored.
+    const Constructable **legacyObjectConstructable =
             malloc(sizeof(const Constructable *));
-    *objectConstructable = objectContainer->object->object->constructable;
+    *legacyObjectConstructable = objectContainer->legacyObject->constructable;
     objectContainer->object->addMemberWhichIsPrimitive(
-            objectContainer->object, __OBJECT_CONSTRUCTABLE__ObjectContainer__,
-            objectConstructable);
+            objectContainer->object,
+            __LEGACY_OBJECT_CONSTRUCTABLE__ObjectContainer__,
+            legacyObjectConstructable);
 
-    // `objectDestructable` is stored.
-    const Destructable **objectDestructable =
+    // `__LEGACY_OBJECT_DESTRUCTABLE__ObjectContainer__` is stored.
+    const Destructable **legacyObjectDestructable =
             malloc(sizeof(const Destructable *));
-    *objectDestructable = objectContainer->object->object->destructable;
+    *legacyObjectDestructable = objectContainer->object->object->destructable;
     objectContainer->object->addMemberWhichIsPrimitive(
-            objectContainer->object, __OBJECT_DESTRUCTABLE__ObjectContainer__,
-            objectDestructable);
+            objectContainer->object,
+            __LEGACY_OBJECT_DESTRUCTABLE__ObjectContainer__,
+            legacyObjectDestructable);
 }
 
-void invokeObjectDestructor(ObjectContainer *objectContainer) {
+void *invokeStoredLegacyObjectDestructor(ObjectContainer *objectContainer) {
 
-    // Invoke destructor of atomicInteger->object, which destructs everything.
-    (*((Destructable **) objectContainer->object->getMemberByName(
-            objectContainer->object,
-            __OBJECT_DESTRUCTABLE__ObjectContainer__)))
-            ->destructor(objectContainer->object);
+    // Invoke destructor of `legacyObjectDestructable`.
+    return (*((Destructable **) objectContainer->object->getMemberByName(
+                    objectContainer->object,
+                    __LEGACY_OBJECT_DESTRUCTABLE__ObjectContainer__)))
+            ->destructor(objectContainer->legacyObject);
+}
+
+/// @deprecated No need to use this. But it should work.
+Legacy_Object *
+invokeStoredLegacyObjectConstructor(ObjectContainer *objectContainer) {
+
+    // Invoke constructor of `legacyObjectConstructable`.
+    return (*((Constructable **) objectContainer->object->getMemberByName(
+                    objectContainer->object,
+                    __LEGACY_OBJECT_CONSTRUCTABLE__ObjectContainer__)))
+            ->constructor(objectContainer->legacyObject);
 }

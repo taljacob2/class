@@ -34,7 +34,7 @@ void *AtomicIntegerDestructor(AtomicInteger *atomicInteger) {
             getLegacy_AtomicFreer(atomicInteger);
     legacyAtomicFreer->object->destructable->destructor(legacyAtomicFreer);
 
-    invokeObjectDestructor((ObjectContainer *) atomicInteger);
+    invokeStoredLegacyObjectDestructor((ObjectContainer *) atomicInteger);
 
     free(atomicInteger);
 
@@ -50,7 +50,7 @@ AtomicInteger *AtomicIntegerConstructor() {
 
     initValue(instance, 0);
 
-    storeObjectConstructorAndDestructor((ObjectContainer *) instance);
+    storeLegacyObjectConstructorAndDestructor((ObjectContainer *) instance);
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&AtomicIntegerConstructor)};
