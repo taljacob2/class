@@ -115,7 +115,7 @@ void *Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
         if (iterationNodePrev != NULL) {
-            ObjectContainer *objectContainer =
+            Legacy_ObjectContainer *objectContainer =
                     iterationNodePrev->object->destructable->destructor(
                             iterationNodePrev);
             objectContainer->object->deleteFromAllocationTableInvocationStatus =
@@ -128,7 +128,7 @@ void *Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
 
     // `iterationNodePrev` is `legacy_list->tail`.
     if (iterationNodePrev != NULL) {
-        ObjectContainer *objectContainer =
+        Legacy_ObjectContainer *objectContainer =
                 iterationNodePrev->object->destructable->destructor(
                         iterationNodePrev);
         objectContainer->object->deleteFromAllocationTableInvocationStatus =
@@ -170,7 +170,7 @@ void *Legacy_ListDestructor(Legacy_List *list) {
 }
 
 void constructor_Legacy_List_fields(Legacy_List *list) {
-    list->object = ObjectConstructorClassName("Legacy_List");
+    list->object = Legacy_ObjectConstructorClassName("Legacy_List");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&Legacy_ListConstructor)};

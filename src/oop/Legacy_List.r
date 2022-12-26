@@ -3,7 +3,7 @@
 
 #include "Bool.h"
 #include "Legacy_Node.r"
-#include "ObjectContainer.r"
+#include "Legacy_ObjectContainer.r"
 #include <limits.h>
 #include <stdlib.h>
 
@@ -12,8 +12,8 @@ typedef struct legacy_list Legacy_List;
 
 struct legacy_list {
 
-    /// `Legacy_List` implements `Object`.
-    Object *object;
+    /// `Legacy_List` implements `Legacy_Object`.
+    Legacy_Object *object;
 
     Legacy_Node *head;
     Legacy_Node *tail;
@@ -33,9 +33,9 @@ struct legacy_list {
                         const char *stringToSearch);
 
     /**
-     * @attention This is generic for all **Object** implementors
-     *            ( = ObjectContainer). Can work only if the `Legacy_Node->data`
-     *            is implements **Object** ( = ObjectContainer).
+     * @attention This is generic for all **Legacy_Object** implementors
+     *            ( = Legacy_ObjectContainer). Can work only if the `Legacy_Node->data`
+     *            is implements **Legacy_Object** ( = Legacy_ObjectContainer).
      */
     void *(*Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData)(Legacy_List *list);
 };

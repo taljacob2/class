@@ -9,18 +9,18 @@ void *deleteAllocationAddressNodeFromAllocationTable(
                     allocatedAddress);
 }
 
-ObjectContainer *
+Legacy_ObjectContainer *
 deleteAllocationAddressIfNeeded(AutoDestructable *autoDestructable) {
     if (autoDestructable == NULL) { return NULL; }
 
-    ObjectContainer *objectContainer = autoDestructable->allocatedAddress;
+    Legacy_ObjectContainer *objectContainer = autoDestructable->allocatedAddress;
 
     if (objectContainer->object->deleteFromAllocationTableInvocationStatus ==
         WAS_NOT_INVOKED) {
         objectContainer->object->deleteFromAllocationTableInvocationStatus =
                 WAS_INVOKED_ONCE;
 
-        ObjectContainer *allocatedAddressReturnValue =
+        Legacy_ObjectContainer *allocatedAddressReturnValue =
                 deleteAllocationAddressNodeFromAllocationTable(
                         autoDestructable->OBJECT_ALLOCATION_TABLE,
                         autoDestructable->allocatedAddress);
@@ -46,7 +46,7 @@ void destructAllocatedAddressUnsafe(AutoDestructable *autoDestructable) {
     free(autoDestructable);
 }
 
-ObjectContainer *
+Legacy_ObjectContainer *
 AutoDestructableDestructor(AutoDestructable *autoDestructable) {
     if (autoDestructable == NULL) { return NULL; }
 
@@ -69,7 +69,8 @@ AutoDestructableDestructor(AutoDestructable *autoDestructable) {
 }
 
 void constructor_AutoDestructable_fields(AutoDestructable *autoDestructable) {
-    autoDestructable->object = ObjectConstructorClassName("AutoDestructable");
+    autoDestructable->object =
+            Legacy_ObjectConstructorClassName("AutoDestructable");
 
     static Constructable const constructable = {
             .constructor =
@@ -98,9 +99,8 @@ void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
 
         // Create a legacy_node that its data points to `autoDestructable->OBJECT_ALLOCATION_TABLE`.
         Legacy_Node *nodeThatItsDataPointsClassAllocationTable =
-                Legacy_NodeConstructorWithDataAndDataSize(
-                        autoDestructable->OBJECT_ALLOCATION_TABLE,
-                        sizeof(Legacy_AllocationTable *));
+                Legacy_NodeConstructorWithData(
+                        autoDestructable->OBJECT_ALLOCATION_TABLE);
 
         // Add this legacy_node to `GLOBAL_ALLOCATION_TABLE_LIST->legacy_allocationTableList`.
         getLegacy_AllocationTableList()->allocationTableList->addAsUnique(
@@ -113,9 +113,7 @@ void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
 
     // Create a legacy_node that its data points to the "pointer of `autoDestructable->allocatedAddress`".
     Legacy_Node *nodeThatItsDataPointsToThePointerOfObj =
-            Legacy_NodeConstructorWithDataAndDataSize(
-                    autoDestructable->allocatedAddress,
-                    sizeof(ObjectContainer *));
+            Legacy_NodeConstructorWithData(autoDestructable->allocatedAddress);
 
     // Add this legacy_node to `autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList`.
     autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList->add(
@@ -124,7 +122,8 @@ void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
 }
 
 AutoDestructable *AutoDestructableConstructorWithClassName(
-        ObjectContainer *objectContainerToSaveItsAddressToAllocationTable,
+        Legacy_ObjectContainer
+                *objectContainerToSaveItsAddressToAllocationTable,
         const char *     className) {
     AutoDestructable *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
@@ -137,7 +136,7 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
     // If `objectContainerToSaveItsAddressToAllocationTable` is `NULL` use `instance`.
     instance->allocatedAddress =
             objectContainerToSaveItsAddressToAllocationTable == NULL
-                    ? (ObjectContainer *) instance
+                    ? (Legacy_ObjectContainer *) instance
                     : objectContainerToSaveItsAddressToAllocationTable;
     saveObjectContainerToAllocationTable(instance);
 

@@ -3,7 +3,7 @@
 
 #include "AutoDestructable.r"
 #include "Legacy_AtomicFreer.r"
-#include "Legacy_StringEntry.r"
+#include "Legacy_StringObjectContainerEntry.r"
 
 
 // Forward declaration of incomplete type
@@ -11,18 +11,18 @@ typedef struct memberList MemberList;
 
 struct memberList {
 
-    /// `MemberList` implements `Object`.
-    Object *object;
+    /// `MemberList` implements `Legacy_Object`.
+    Legacy_Object *object;
 
     Legacy_List *memberEntryList;
 
-    ObjectContainer *(*addMember)(MemberList *memberList, char *memberName,
-                                  ObjectContainer *member);
-    ObjectContainer *(*getMemberByName)(MemberList *memberList,
+    Legacy_ObjectContainer *(*addMember)(MemberList *memberList, char *memberName,
+                                         Legacy_ObjectContainer *member);
+    Legacy_ObjectContainer *(*getMemberByName)(MemberList *memberList,
                                         char *      memberName);
 };
 
 MemberList *MemberListConstructorWithObjectContainer(
-        ObjectContainer *objectContainerThatContainsThisMemberList);
+        Legacy_ObjectContainer *objectContainerThatContainsThisMemberList);
 
 #endif //MEMBERLIST_H

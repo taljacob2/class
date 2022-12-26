@@ -8,8 +8,8 @@ typedef struct circlev2 CircleV2;
 
 struct circlev2 {
 
-    /// `Circle` implements `Object`.
-    Object *object;
+    /// `Circle` implements `Legacy_Object`.
+    Legacy_Object *object;
 
     MemberList *memberList;
 };

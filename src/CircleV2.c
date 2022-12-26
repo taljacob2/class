@@ -17,7 +17,7 @@ CircleV2 *CircleV2Constructor() {
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->object = ObjectConstructorClassName("CircleV2");
+    instance->object = Legacy_ObjectConstructorClassName("CircleV2");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&CircleV2Constructor)};
@@ -28,11 +28,11 @@ CircleV2 *CircleV2Constructor() {
     instance->object->destructable = &destructable;
 
     instance->memberList = MemberListConstructorWithObjectContainer(
-            (ObjectContainer *) instance);
+            (Legacy_ObjectContainer *) instance);
 
     instance->memberList->addMember(
             instance->memberList, "radius",
-            (ObjectContainer *) Legacy_AtomicFreerConstructorWithData(
+            (Legacy_ObjectContainer *) Legacy_AtomicFreerConstructorWithData(
                     calloc(1, sizeof(int))));
 
     return instance;
