@@ -6,7 +6,7 @@ A static library in C, that allows the use of oop.
 
 Build [oop.a](src/oop/oop.a) library (which is composed from all its sub-libraries)
 ```
-./build-library.sh
+./src/oop/build-library.sh
 ```
 
 Build [main.c](src/main.c) (while linking the "oop" library to it)
