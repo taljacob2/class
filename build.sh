@@ -7,7 +7,7 @@
 #cd "$PWD"
 
 # Build program.
-gcc -g -Wall -Wpedantic \
+gcc -g -Wall \
 src/main.c \
 src/Circle.c \
 src/CircleV2.c \
