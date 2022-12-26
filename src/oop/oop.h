@@ -1,6 +1,6 @@
-#ifndef OOP_H
-#define OOP_H
+#ifndef __LIBRARY_OOP_H__
+#define __LIBRARY_OOP_H__
 
-#include "MemberList.r"
+#include "Object/Object.h"
 
-#endif //OOP_H
+#endif //__LIBRARY_OOP_H__
