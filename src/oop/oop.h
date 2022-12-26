@@ -1,6 +1,6 @@
 #ifndef OOP_H
 #define OOP_H
 
-#include "MemberList.r"
+#include "Object.r"
 
 #endif //OOP_H
