@@ -9,19 +9,32 @@ BOOLEAN predicateFindLegacy_StringEntryByMemberName(
                   memberName) == 0;
 }
 
-Legacy_Node *getNodeMemberByName(MemberList *memberList, char *memberName) {
+Legacy_Node *getMemberNodeByName(MemberList *memberList, char *memberName) {
     return memberList->memberEntryList->findNodeByPredicateOfConstString(
             memberList->memberEntryList,
             predicateFindLegacy_StringEntryByMemberName, memberName);
 }
 
-void *getMemberByName(MemberList *memberList, char *memberName) {
-    return ((Legacy_StringEntry
-                     *) ((getNodeMemberByName(memberList, memberName))->data))
+Legacy_StringEntry *
+getMemberStringObjectContainerEntryByName(MemberList *memberList,
+                                          char *      memberName) {
+    return (getMemberNodeByName(memberList, memberName))->data;
+}
+
+ObjectContainer *
+getMemberStringObjectContainerEntryValueByName(MemberList *memberList,
+                                               char *      memberName) {
+    return getMemberStringObjectContainerEntryByName(memberList, memberName)
             ->value;
 }
 
-void *addMember(MemberList *memberList, char *memberName, void *member) {
+ObjectContainer *getMemberByName(MemberList *memberList, char *memberName) {
+    return getMemberStringObjectContainerEntryValueByName(memberList,
+                                                          memberName);
+}
+
+ObjectContainer *addMember(MemberList *memberList, char *memberName,
+                           ObjectContainer *member) {
     Legacy_Node *objectEntryNode = Legacy_NodeConstructorWithDataAndDataSize(
             Legacy_StringEntryConstructorWithKeyAndValue(memberName, member),
             sizeof(Legacy_StringEntry *));
@@ -57,7 +70,7 @@ MemberList *MemberListConstructor() {
     instance->object = ObjectConstructorClassName("MemberList");
 
     addMember(instance, "autoDestructable",
-              AutoDestructableConstructorWithClassName(
+              (ObjectContainer *) AutoDestructableConstructorWithClassName(
                       (ObjectContainer *) instance,
                       instance->object->CLASS_NAME));
 

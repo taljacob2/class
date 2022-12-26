@@ -29,8 +29,10 @@ CircleV2 *CircleV2Constructor() {
 
     instance->memberList = MemberListConstructor();
 
-    instance->memberList->addMember(instance->memberList, "radius",
-                                    calloc(1, sizeof(int)));
+    instance->memberList->addMember(
+            instance->memberList, "radius",
+            (ObjectContainer *) Legacy_AtomicFreerConstructorWithData(
+                    calloc(1, sizeof(int))));
 
     return instance;
 }

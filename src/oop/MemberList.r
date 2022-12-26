@@ -16,8 +16,10 @@ struct memberList {
 
     Legacy_List *memberEntryList;
 
-    void *(*addMember)(MemberList *memberList, char *memberName, void *member);
-    void *(*getMemberByName)(MemberList *memberList, char *memberName);
+    ObjectContainer *(*addMember)(MemberList *memberList, char *memberName,
+                                  ObjectContainer *member);
+    ObjectContainer *(*getMemberByName)(MemberList *memberList,
+                                        char *      memberName);
 };
 
 MemberList *MemberListConstructor();
