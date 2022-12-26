@@ -19,8 +19,6 @@ CircleV2 *CircleV2Constructor() {
 
     instance->object = ObjectConstructorClassName("CircleV2");
 
-    instance->memberList = MemberListConstructor();
-
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&CircleV2Constructor)};
     instance->object->constructable = &constructable;
@@ -28,6 +26,11 @@ CircleV2 *CircleV2Constructor() {
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&CircleV2Destructor)};
     instance->object->destructable = &destructable;
+
+    instance->memberList = MemberListConstructor();
+
+    instance->memberList->addMember(instance->memberList, "radius",
+                                    calloc(1, sizeof(int)));
 
     return instance;
 }

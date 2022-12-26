@@ -32,7 +32,11 @@ struct legacy_list {
                                              const char *const),
                         const char *stringToSearch);
 
-    /// @attention This is generic for all **Object** implementors ( = ObjectContainer).
+    /**
+     * @attention This is generic for all **Object** implementors
+     *            ( = ObjectContainer). Can work only if the `Legacy_Node->data`
+     *            is implements **Object** ( = ObjectContainer).
+     */
     void *(*Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData)(Legacy_List *list);
 };
 
