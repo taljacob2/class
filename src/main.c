@@ -9,7 +9,11 @@ int main() {
 
     Object *object = ObjectConstructor("Object");
 
+//    object->object->destructable->destructor(object);
+
     AtomicInteger *atomicInteger = AtomicIntegerConstructor();
+
+//    atomicInteger->object->object->destructable->destructor(atomicInteger);
 
     return 0;
 }
