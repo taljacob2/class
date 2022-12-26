@@ -31,7 +31,7 @@ int main() {
 
     Circle *circle = CircleConstructor();
 
-    MemberList *memberList = MemberListConstructor();
+//    MemberList *memberList = MemberListConstructor();
 
     CircleV2 *circleV2 = CircleV2Constructor();
 

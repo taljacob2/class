@@ -22,6 +22,7 @@ struct memberList {
                                         char *      memberName);
 };
 
-MemberList *MemberListConstructor();
+MemberList *MemberListConstructorWithObjectContainer(
+        ObjectContainer *objectContainerThatContainsThisMemberList);
 
 #endif //MEMBERLIST_H

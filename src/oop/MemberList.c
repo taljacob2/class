@@ -57,6 +57,7 @@ MemberList *MemberListDestructor(MemberList *memberList) {
     return NULL;
 }
 
+/// @deprecated
 MemberList *MemberListConstructor() {
     MemberList *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
@@ -73,6 +74,35 @@ MemberList *MemberListConstructor() {
               (ObjectContainer *) AutoDestructableConstructorWithClassName(
                       (ObjectContainer *) instance,
                       instance->object->CLASS_NAME));
+
+    static Constructable const constructable = {
+            .constructor = (void *(*const)(void) )(&MemberListConstructor)};
+    instance->object->constructable = &constructable;
+
+    static Destructable const destructable = {
+            .destructor = (void *(*const)(void *) )(&MemberListDestructor)};
+    instance->object->destructable = &destructable;
+
+    return instance;
+}
+
+MemberList *MemberListConstructorWithObjectContainer(
+        ObjectContainer *objectContainerThatContainsThisMemberList){
+    MemberList *instance = calloc(1, sizeof *instance);
+    if (instance == NULL) { /* error handling here */
+    }
+
+    instance->addMember       = &addMember;
+    instance->getMemberByName = &getMemberByName;
+
+    instance->memberEntryList = Legacy_ListConstructor();
+
+    instance->object = ObjectConstructorClassName("MemberList");
+
+    addMember(instance, "autoDestructable",
+              (ObjectContainer *) AutoDestructableConstructorWithClassName(
+                      (ObjectContainer *) objectContainerThatContainsThisMemberList,
+                      objectContainerThatContainsThisMemberList->object->CLASS_NAME));
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&MemberListConstructor)};

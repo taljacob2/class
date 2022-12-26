@@ -27,7 +27,8 @@ CircleV2 *CircleV2Constructor() {
             .destructor = (void *(*const)(void *) )(&CircleV2Destructor)};
     instance->object->destructable = &destructable;
 
-    instance->memberList = MemberListConstructor();
+    instance->memberList = MemberListConstructorWithObjectContainer(
+            (ObjectContainer *) instance);
 
     instance->memberList->addMember(
             instance->memberList, "radius",
