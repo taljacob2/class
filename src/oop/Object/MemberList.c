@@ -28,8 +28,8 @@ getMemberStringObjectContainerEntryValueByName(MemberList *memberList,
             ->value;
 }
 
-Legacy_ObjectContainer *getMemberByName(MemberList *memberList,
-                                        char *      memberName) {
+Legacy_ObjectContainer *getMemberByName_MemberList(MemberList *memberList,
+                                                   char *      memberName) {
     return getMemberStringObjectContainerEntryValueByName(memberList,
                                                           memberName);
 }
@@ -67,7 +67,7 @@ MemberList *MemberListConstructor() {
     }
 
     instance->addMember       = &addMember;
-    instance->getMemberByName = &getMemberByName;
+    instance->getMemberByName = &getMemberByName_MemberList;
 
     instance->memberEntryList = Legacy_ListConstructor();
 
@@ -97,7 +97,7 @@ MemberList *MemberListConstructorWithObjectContainer(
     }
 
     instance->addMember       = &addMember;
-    instance->getMemberByName = &getMemberByName;
+    instance->getMemberByName = &getMemberByName_MemberList;
 
     instance->memberEntryList = Legacy_ListConstructor();
 
