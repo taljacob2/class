@@ -28,15 +28,15 @@ void *addMember(MemberList *memberList, char *memberName, void *member) {
 }
 
 MemberList *MemberListDestructor(MemberList *memberList) {
-    AutoDestructableV2Destructor(
-            memberList->getMemberByName(memberList, "autoDestructableV2"));
+    AutoDestructableDestructor(
+            memberList->getMemberByName(memberList, "autoDestructable"));
 
-    // ... Continue destructing `Circle` here ...
+    // ... Continue destructing `MemberList` here ...
 
     memberList->memberEntryList->object->destructable->destructor(
             memberList->memberEntryList);
 
-    free(memberList->getMemberByName(memberList, "object"));
+    free(memberList->object);
     free(memberList);
 
     return NULL;
@@ -52,18 +52,19 @@ MemberList *MemberListConstructor() {
 
     instance->memberEntryList = Legacy_ListConstructor();
 
-    Object *object = addMember(instance, "object", ObjectConstructor());
+    instance->object = ObjectConstructor();
 
-    addMember(instance, "autoDestructableV2",
-              AutoDestructableV2ConstructorWithClassName(object, "MemberList"));
+    addMember(instance, "autoDestructable",
+              AutoDestructableConstructorWithClassName(
+                      (ObjectContainer *) instance, "MemberList"));
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&MemberListConstructor)};
-    object->constructable = &constructable;
+    instance->object->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&MemberListDestructor)};
-    object->destructable = &destructable;
+    instance->object->destructable = &destructable;
 
     return instance;
 }

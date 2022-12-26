@@ -30,6 +30,8 @@ int main() {
 
     Circle *circle = CircleConstructor();
 
+    MemberList *memberList = MemberListConstructor();
+
 
     return 0;
 }
