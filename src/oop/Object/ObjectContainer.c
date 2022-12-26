@@ -54,7 +54,7 @@ invokeStoredLegacyObjectConstructor(ObjectContainer *objectContainer) {
 
 
 /// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
-///     it will be still okay.
+///     it will be still okay. maybe rename to something secret.
 void destruct(ObjectContainer *objectContainer) {
 
     // Destruct `object`.
@@ -68,7 +68,7 @@ void destruct(ObjectContainer *objectContainer) {
     free(objectContainer);
 }
 
-/// TODO: public.
+/// TODO: public. maybe rename to something secret.
 /**
  * memory allocating `sizeof(ObjectContainer)`, then invoking legacy_Object's
  * constructor, and Object's constructor.

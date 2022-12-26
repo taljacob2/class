@@ -36,7 +36,9 @@
 /// MemberList
 #define FIELDS "___fields___"
 
-#define ____CLASS_STRUCT_NAME_EXTENSION___ ___
+#define ____CLASS_STRUCT_NAME_EXTENSION___            ___
+#define ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___ Constructor
+#define ___CLASS_DESTRUCTOR_METHOD_NAME_EXTENSION___  Destructor
 
 #define DEFINE_CLASS_H(className)                                           \
                                                                             \
@@ -46,11 +48,10 @@
     struct CONCAT_SURROUND(className, ____CLASS_STRUCT_NAME_EXTENSION___) { \
                                                                             \
         OBJECT_CONTAINER_FIELDS                                             \
-    };
-
-
-#define ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___ Constructor
-#define ___CLASS_DESTRUCTOR_METHOD_NAME_EXTENSION___  Destructor
+    };                                                                      \
+                                                                            \
+    className *CONCAT(className,                                            \
+                      ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___)();
 
 
 #define DEFINE_CLASS_C(className)                                         \
