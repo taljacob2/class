@@ -4,6 +4,6 @@
 
 #include "oop/Object/Object.h"
 
-CLASS(CircleV4)
+DEFINE_CLASS_H(CircleV4)
 
 #endif //CIRCLEV4_H
