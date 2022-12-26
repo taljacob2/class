@@ -55,8 +55,7 @@ invokeStoredLegacyObjectConstructor(ObjectContainer *objectContainer) {
 
 /// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
 ///     it will be still okay. maybe rename to something secret.
-void destruct(ObjectContainer *objectContainer) {
-
+void *destruct(ObjectContainer *objectContainer) {
     if (objectContainer->legacyObject->destructorInvocationStatus ==
         WAS_NOT_INVOKED) {
         objectContainer->legacyObject->destructorInvocationStatus =
@@ -82,6 +81,8 @@ void destruct(ObjectContainer *objectContainer) {
 
         free(objectContainer);
     }
+
+    return NULL;
 }
 
 /**
