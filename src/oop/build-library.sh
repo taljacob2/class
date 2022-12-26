@@ -12,16 +12,6 @@ https://stackoverflow.com/a/27676016/14427765
 
 LIBRARY_NAME="oop"
 
-## Compile *.c to *.o.
-#for file in *.c; do
-#
-#  # Continue if file was not found.
-#  [ -f "$file" ] || continue
-#
-#  # Compile .c to .o.
-#  gcc -c "$file" -o "$file.o"
-#done
-
 staticLibraryList=()
 
 for f in *; do
@@ -34,9 +24,6 @@ for f in *; do
         # Add paths of all static libraries to the list.
         for staticLibraryName in *.a; do
           if [ -f "$staticLibraryName" ]; then
-
-            ## TODO: DEBUG
-            echo "$staticLibraryName"
             staticLibraryList+=("$f/$staticLibraryName")
           fi
         done
@@ -50,13 +37,6 @@ rm -f "$LIBRARY_NAME.a" > /dev/null 2>&1
 
 ## Collect all *.a to a library file.
 ar crsT "$LIBRARY_NAME.a" "${staticLibraryList[@]}"
-
-## TODO: DEBUG
-printf '%s\0' "${staticLibraryList[@]}"
-
-#
-## Remove *.o
-#rm *.o
 
 # free
 unset staticLibraryList
