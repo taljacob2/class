@@ -9,5 +9,7 @@ int main() {
 
     Object *object = ObjectConstructor("Object");
 
+    AtomicInteger *atomicInteger = AtomicIntegerConstructor();
+
     return 0;
 }
