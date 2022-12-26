@@ -72,7 +72,8 @@ void constructor_AutoDestructable_fields(AutoDestructable *autoDestructable) {
     autoDestructable->object = ObjectConstructor();
 
     static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&AutoDestructableConstructor)};
+            .constructor =
+                    (void *(*const)(void) )(&AutoDestructableConstructor)};
     autoDestructable->object->constructable = &constructable;
 
     static Destructable const destructable = {
@@ -102,10 +103,12 @@ void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
                         sizeof(Legacy_AllocationTable *));
 
         // Add this legacy_node to `GLOBAL_ALLOCATION_TABLE_LIST->legacy_allocationTableList`.
-        // TODO: best practice to change `add` to `addAsUnique`.
-        getLegacy_AllocationTableList()->allocationTableList->add(
+        getLegacy_AllocationTableList()->allocationTableList->addAsUnique(
                 getLegacy_AllocationTableList()->allocationTableList,
-                nodeThatItsDataPointsClassAllocationTable);
+                nodeThatItsDataPointsClassAllocationTable,
+                getLegacy_AllocationTableList()
+                        ->predicateFindLegacy_AllocationTableByClassName,
+                autoDestructable->object->CLASS_NAME);
     }
 
     // Create a legacy_node that its data points to the "pointer of `autoDestructable->allocatedAddress`".
