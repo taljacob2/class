@@ -30,7 +30,17 @@ for f in *; do
         # "$f" is a directory. Will not run if no directories are available.
         cd "$f"
         ./build-library.sh  # Build the static library.
-        staticLibraryList+=("$f/*.a")  # Add the current folder name.
+
+        # Add paths of all static libraries to the list.
+        for staticLibraryName in *.a; do
+          if [ -f "$staticLibraryName" ]; then
+
+            ## TODO: DEBUG
+            echo "$staticLibraryName"
+            staticLibraryList+=("$f/$staticLibraryName")
+          fi
+        done
+
         cd ..
     fi
 done
@@ -40,6 +50,9 @@ rm -f "$LIBRARY_NAME.a" > /dev/null 2>&1
 
 ## Collect all *.a to a library file.
 ar crsT "$LIBRARY_NAME.a" "${staticLibraryList[@]}"
+
+## TODO: DEBUG
+printf '%s\0' "${staticLibraryList[@]}"
 
 #
 ## Remove *.o
