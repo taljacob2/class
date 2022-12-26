@@ -50,11 +50,5 @@ Object *ObjectConstructor(const char *className) {
     instance->memberList = MemberListConstructorWithObjectContainer(
             (Legacy_ObjectContainer *) instance);
 
-    // TODO: delete
-    instance->memberList->addMember(
-            instance->memberList, "radius",
-            (Legacy_ObjectContainer *) Legacy_AtomicFreerConstructorWithData(
-                    calloc(1, sizeof(int))));
-
     return instance;
 }
