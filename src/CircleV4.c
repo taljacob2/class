@@ -1,7 +1,9 @@
 #include "CircleV4.h"
 
-ObjectContainer *CircleV4Constructor() { return construct(QUOTE(CircleV4)); }
+CircleV4 *CircleV4Constructor() {
+    return (CircleV4 *) construct(QUOTE(CircleV4));
+}
 
-void CircleV4Destructor(ObjectContainer *objectContainer) {
-    destruct(objectContainer);
+void CircleV4Destructor(CircleV4 *objectContainer) {
+    destruct((ObjectContainer *) objectContainer);
 }
