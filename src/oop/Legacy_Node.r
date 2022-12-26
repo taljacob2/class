@@ -15,13 +15,11 @@ struct legacy_node {
     Legacy_Object *object;
 
     void *       data;
-    size_t       dataSize;
     Legacy_Node *next;
 };
 
 Legacy_Node *Legacy_NodeConstructor();
 
-Legacy_Node *Legacy_NodeConstructorWithDataAndDataSize(void * data,
-                                                       size_t dataSize);
+Legacy_Node *Legacy_NodeConstructorWithData(void * data);
 
 #endif //CLASS_LEGACY_NODE_R

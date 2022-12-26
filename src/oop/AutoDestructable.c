@@ -99,9 +99,8 @@ void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
 
         // Create a legacy_node that its data points to `autoDestructable->OBJECT_ALLOCATION_TABLE`.
         Legacy_Node *nodeThatItsDataPointsClassAllocationTable =
-                Legacy_NodeConstructorWithDataAndDataSize(
-                        autoDestructable->OBJECT_ALLOCATION_TABLE,
-                        sizeof(Legacy_AllocationTable *));
+                Legacy_NodeConstructorWithData(
+                        autoDestructable->OBJECT_ALLOCATION_TABLE);
 
         // Add this legacy_node to `GLOBAL_ALLOCATION_TABLE_LIST->legacy_allocationTableList`.
         getLegacy_AllocationTableList()->allocationTableList->addAsUnique(
@@ -114,9 +113,7 @@ void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
 
     // Create a legacy_node that its data points to the "pointer of `autoDestructable->allocatedAddress`".
     Legacy_Node *nodeThatItsDataPointsToThePointerOfObj =
-            Legacy_NodeConstructorWithDataAndDataSize(
-                    autoDestructable->allocatedAddress,
-                    sizeof(Legacy_ObjectContainer *));
+            Legacy_NodeConstructorWithData(autoDestructable->allocatedAddress);
 
     // Add this legacy_node to `autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList`.
     autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList->add(

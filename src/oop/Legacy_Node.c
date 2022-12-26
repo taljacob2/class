@@ -30,7 +30,6 @@ void constructor_Legacy_Node_fields(Legacy_Node *node) {
     node->object->destructable = &destructable;
 
     node->data     = NULL;
-    node->dataSize = 0;
     node->next     = NULL;
 }
 
@@ -44,12 +43,10 @@ Legacy_Node *Legacy_NodeConstructor() {
     return instance;
 }
 
-Legacy_Node *Legacy_NodeConstructorWithDataAndDataSize(void * data,
-                                                       size_t dataSize) {
+Legacy_Node *Legacy_NodeConstructorWithData(void * data) {
     Legacy_Node *obj = Legacy_NodeConstructor();
 
     obj->data     = data;
-    obj->dataSize = dataSize;
 
     return obj;
 }
