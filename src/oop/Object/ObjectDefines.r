@@ -2,6 +2,7 @@
 #define OBJECTDEFINES_H
 
 #include "AnonymousPointer.h"
+#include "Quote.h"
 
 #define OBJECT_CONTAINER_FIELDS \
     ANONYMOUS_POINTER;          \
