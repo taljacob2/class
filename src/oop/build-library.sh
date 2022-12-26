@@ -1,5 +1,11 @@
 #!/bin/bash
 
+: '
+Read more about creating a static library here:
+https://youtu.be/P2vaRhWNilw
+https://medium.com/@valentina.rua123/static-and-dynamic-library-in-c-fc4f168ae71d
+'
+
 LIBRARY_NAME="oop"
 
 # Compile *.c to *.o.
