@@ -1,6 +1,6 @@
 # OOP For C Language
 
-A static library in C, that allows the use of oop.
+[oop.a](src/oop/oop.a) is a static library in C, that allows the use of OOP.
 
 ## Build & Use
 
