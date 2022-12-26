@@ -1,7 +1,7 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
 
-#include "oop/oop.h"
+#include "oop/Object/Object.h"
 
 
 // Forward declaration of incomplete type
