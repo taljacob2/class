@@ -1,10 +1,7 @@
 #include "CircleV4.h"
 
-void test(){
+ObjectContainer *CircleV4Constructor() { return construct(QUOTE(CircleV4)); }
 
-    const char * quote;
-
-    quote = QUOTE(CircleV4);
-
+void CircleV4Destructor(ObjectContainer *objectContainer) {
+    destruct(objectContainer);
 }
-

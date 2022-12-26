@@ -87,7 +87,9 @@ TODO:
 At the end:
 
 
-typedef ObjectContainer AUTO;
+// typedef ObjectContainer AUTO;
+
+typedef ObjectContainer VAR;
 
 
 --------------------------------------------

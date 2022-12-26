@@ -53,32 +53,33 @@ invokeStoredLegacyObjectConstructor(ObjectContainer *objectContainer) {
 //getPrivate();
 
 
+/// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
+///     it will be still okay.
+void destruct(ObjectContainer *objectContainer) {
+
+    // Destruct `object`.
+    objectContainer->object->object->destructable->destructor(
+            objectContainer->object);
+
+    // Destruct `legacyObject`.
+    objectContainer->legacyObject->destructable->destructor(
+            objectContainer->legacyObject);
+
+    free(objectContainer);
+}
+
 /// TODO: public.
-ObjectContainer *create() {
-    // memory allocating `sizeof(ObjectContainer)`, then invoking
-    // legacy_Object's constructor, and Object's constructor.
-
-
+/**
+ * memory allocating `sizeof(ObjectContainer)`, then invoking legacy_Object's
+ * constructor, and Object's constructor.
+ */
+ObjectContainer *construct(char *className) {
     ObjectContainer *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->object->object =
-            Legacy_ObjectConstructorClassName("ObjectContainer");
-    instance->object = ObjectConstructor("ObjectContainer");
-
-
-    storeLegacyObjectConstructorAndDestructor((ObjectContainer *) instance);
-
-    static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&AtomicIntegerConstructor)};
-    instance->object->object->constructable = &constructable;
-
-    static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&AtomicIntegerDestructor)};
-    instance->object->object->destructable = &destructable;
+    instance->object->object = Legacy_ObjectConstructorClassName(className);
+    instance->object         = ObjectConstructor(className);
 
     return instance;
-
-    storeLegacyObjectConstructorAndDestructor()
 }

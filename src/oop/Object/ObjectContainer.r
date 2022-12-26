@@ -23,4 +23,8 @@ void storeLegacyObjectConstructorAndDestructor(
 
 void *invokeStoredLegacyObjectDestructor(ObjectContainer *objectContainer);
 
+void destruct(ObjectContainer *objectContainer);
+
+ObjectContainer *construct(char *className);
+
 #endif //OBJECTCONTAINER_H
