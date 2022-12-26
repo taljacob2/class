@@ -8,7 +8,7 @@ typedef struct object Object;
 
 struct object {
 
-    /// `Circle` implements `Legacy_Object`.
+    /// `Object` implements `Legacy_Object`.
     Legacy_Object *object;
 
     MemberList *memberList;
