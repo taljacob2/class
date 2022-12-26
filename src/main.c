@@ -1,6 +1,7 @@
 #include "Circle.h"
 #include "CircleV2.h"
 #include "oop/oop.h"
+#include "CircleV4.h"
 #include "CircleV5.h"
 
 int main() {
@@ -16,7 +17,9 @@ int main() {
 
 //    atomicInteger->object->object->destructable->destructor(atomicInteger);
 
-    CircleV5 *circleV5 = CircleV5Constructor();
+    CircleV4 *circleV4 = CircleV4Constructor();
+
+//    CircleV5 *circleV5 = CircleV5Constructor();
 
 
 

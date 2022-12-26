@@ -78,8 +78,8 @@ ObjectContainer *construct(char *className) {
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->object->object = Legacy_ObjectConstructorClassName(className);
-    instance->object         = ObjectConstructor(className);
+    instance->legacyObject = Legacy_ObjectConstructorClassName(className);
+    instance->object       = ObjectConstructor(className);
 
     return instance;
 }
