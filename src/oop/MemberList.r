@@ -2,6 +2,7 @@
 #define MEMBERLIST_H
 
 #include "AutoDestructable.r"
+#include "Legacy_AtomicFreer.r"
 #include "Legacy_StringEntry.r"
 
 
