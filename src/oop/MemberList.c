@@ -34,11 +34,6 @@ void *addMember(MemberList *memberList, char *memberName, void *member) {
 }
 
 MemberList *MemberListDestructor(MemberList *memberList) {
-    AutoDestructableDestructor(
-            memberList->getMemberByName(memberList, "autoDestructable"));
-
-    // ... Continue destructing `MemberList` here ...
-
     memberList->memberEntryList
             ->Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
                     memberList->memberEntryList);

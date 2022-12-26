@@ -33,7 +33,7 @@ int main() {
 
     MemberList *memberList = MemberListConstructor();
 
-    CircleV2 *circleV2 = CircleV2Constructor();
+//    CircleV2 *circleV2 = CircleV2Constructor();
 
 
     return 0;
