@@ -24,4 +24,7 @@ struct object {
 
 Object *ObjectConstructor(const char *className);
 
+/// Add Object `#define`s for users.
+#include "ObjectDefines.r"
+
 #endif //OBJECT_H
