@@ -22,13 +22,15 @@ LIBRARY_NAME="oop"
 #  gcc -c "$file" -o "$file.o"
 #done
 
+staticLibraryList=()
+
 for f in *; do
     if [ -d "$f" ]; then
 
         # "$f" is a directory. Will not run if no directories are available.
-        echo "$f"
         cd "$f"
-        ./build-library.sh
+        ./build-library.sh  # Build the static library.
+        staticLibraryList+=("$f/*.a")  # Add the current folder name.
         cd ..
     fi
 done
@@ -37,8 +39,11 @@ done
 rm -f "$LIBRARY_NAME.a" > /dev/null 2>&1
 
 ## Collect all *.a to a library file.
-ar crsT "$LIBRARY_NAME.a" Object/Object.a
+ar crsT "$LIBRARY_NAME.a" "${staticLibraryList[@]}"
 
 #
 ## Remove *.o
 #rm *.o
+
+# free
+unset staticLibraryList

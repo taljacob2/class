@@ -10,7 +10,7 @@ Linking static libraries to other static libraries:
 https://stackoverflow.com/a/27676016/14427765
 '
 
-LIBRARY_NAME="Object"
+LIBRARY_NAME="Atomic"
 
 # Compile *.c to *.o.
 for file in *.c; do
