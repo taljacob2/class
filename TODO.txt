@@ -48,3 +48,33 @@ TODO:
 if `build.sh` in `build.yml` is on error on GitHub then exit `build.yml`
 
 
+---------------------------------------------------------------
+
+TODO:
+
+#define _OBJECT_FIELDS_ (bitfield that contains *Legacy_Object and *Object)
+
+
+and include in every future object.
+
+--------------------------------------------------------------
+
+
+TODO:
+
+if you make all methods in MemberList, then the `sizeof` every future object
+will be the same (and will be `sizeof(ObjectContainer)`),
+
+and then you could dynamically allocate ObjectContainer with a constant size,
+
+so you could make a generic constructor that is:
+
+```
+ObjectContainer *Constructor("className"){
+
+    // ...
+    ObjectContainer *instance = calloc(1, sizeof(ObjectContainer));
+    // ...
+
+}
+```

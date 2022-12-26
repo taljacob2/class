@@ -41,3 +41,4 @@ invokeStoredLegacyObjectConstructor(ObjectContainer *objectContainer) {
                     __LEGACY_OBJECT_CONSTRUCTABLE__ObjectContainer__)))
             ->constructor(objectContainer->legacyObject);
 }
+
