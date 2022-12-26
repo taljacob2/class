@@ -3,13 +3,13 @@
 
 /// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 int main() {
-    //    AutoDestructable *autoDestructable = ClassConstructor();
+    //    AutoDestructable *autoDestructable = AutoDestructableConstructor();
 
     //    (*autoDestructable->print)(autoDestructable);
     //    (*autoDestructable->addOneToX)(autoDestructable);
     //    (*autoDestructable->print)(autoDestructable);
     //
-    //    AutoDestructable *class_2 = ClassConstructor();
+    //    AutoDestructable *class_2 = AutoDestructableConstructor();
     //    (*class_2->print)();
     //    (*class_2->addOneToX)();
     //    (*class_2->print)();
@@ -24,11 +24,13 @@ int main() {
     //    Object *object = ObjectConstructor();
     //    object->destructable->destructor(object);
 
-    //    AutoDestructable *autoDestructable = ClassConstructor();
+    //    AutoDestructable *autoDestructable = AutoDestructableConstructor();
     //    autoDestructable->object->destructable->destructor(autoDestructable);
 
 
     Circle *circle = CircleConstructor();
+
+    MemberList *memberList = MemberListConstructor();
 
 
     return 0;

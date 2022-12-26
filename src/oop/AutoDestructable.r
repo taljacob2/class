@@ -24,14 +24,6 @@ struct autoDestructable {
 
     /// Sensitive data. DO NOT TOUCH!
     ObjectContainer *allocatedAddress;
-
-    int x;
-
-    /// Printing method.
-    void (*print)();
-
-    /// A logic method.
-    void (*addOneToX)();
 };
 
 AutoDestructable *AutoDestructableConstructorWithClassName(
@@ -48,7 +40,7 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
  * @code
  *
  * // Construct.
- * AutoDestructable *autoDestructable = ClassConstructor();
+ * AutoDestructable *autoDestructable = AutoDestructableConstructor();
  *
  * // Do something...
  * (*autoDestructable->print)(autoDestructable);
@@ -61,7 +53,7 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
  *
  * @return A pointer to a `new` "heap-allocated" instance of `AutoDestructable`.
  */
-AutoDestructable *ClassConstructor();
+AutoDestructable *AutoDestructableConstructor();
 
 ObjectContainer *AutoDestructableDestructor(AutoDestructable *autoDestructable);
 

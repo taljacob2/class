@@ -1,6 +1,6 @@
 #ifndef OOP_H
 #define OOP_H
 
-#include "AutoDestructable.r"
+#include "MemberList.r"
 
 #endif //OOP_H

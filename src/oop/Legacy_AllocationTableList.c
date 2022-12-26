@@ -110,6 +110,8 @@ void constructor_Legacy_AllocationTableList_fields(
 
     allocationTableList->findLegacy_AllocationTableByClassName =
             &findLegacy_AllocationTableByClassName;
+    allocationTableList->predicateFindLegacy_AllocationTableByClassName =
+            &predicateFindLegacy_AllocationTableByClassName;
 }
 
 
