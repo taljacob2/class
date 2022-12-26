@@ -10,13 +10,15 @@
 void *Legacy_StringEntryDestructor(Legacy_StringEntry *stringEntry) {
     if (stringEntry == NULL) { return NULL; }
 
-    void *stringEntryValue = stringEntry->value;
+    void *valueDestructorReturnValue =
+            stringEntry->value->object->destructable->destructor(
+                    stringEntry->value);
 
     free(stringEntry->object);
 
     free(stringEntry);
 
-    return stringEntryValue;
+    return valueDestructorReturnValue;
 }
 
 void constructor_Legacy_StringEntry_fields(Legacy_StringEntry *stringEntry) {
@@ -46,8 +48,9 @@ Legacy_StringEntry *Legacy_StringEntryConstructor() {
     return instance;
 }
 
-Legacy_StringEntry *Legacy_StringEntryConstructorWithKeyAndValue(char *key,
-                                                                 void *value) {
+Legacy_StringEntry *
+Legacy_StringEntryConstructorWithKeyAndValue(char *           key,
+                                             ObjectContainer *value) {
     Legacy_StringEntry *instance = Legacy_StringEntryConstructor();
 
     instance->key   = key;

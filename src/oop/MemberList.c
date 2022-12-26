@@ -9,19 +9,32 @@ BOOLEAN predicateFindLegacy_StringEntryByMemberName(
                   memberName) == 0;
 }
 
-Legacy_Node *getNodeMemberByName(MemberList *memberList, char *memberName) {
+Legacy_Node *getMemberNodeByName(MemberList *memberList, char *memberName) {
     return memberList->memberEntryList->findNodeByPredicateOfConstString(
             memberList->memberEntryList,
             predicateFindLegacy_StringEntryByMemberName, memberName);
 }
 
-void *getMemberByName(MemberList *memberList, char *memberName) {
-    return ((Legacy_StringEntry
-                     *) ((getNodeMemberByName(memberList, memberName))->data))
+Legacy_StringEntry *
+getMemberStringObjectContainerEntryByName(MemberList *memberList,
+                                          char *      memberName) {
+    return (getMemberNodeByName(memberList, memberName))->data;
+}
+
+ObjectContainer *
+getMemberStringObjectContainerEntryValueByName(MemberList *memberList,
+                                               char *      memberName) {
+    return getMemberStringObjectContainerEntryByName(memberList, memberName)
             ->value;
 }
 
-void *addMember(MemberList *memberList, char *memberName, void *member) {
+ObjectContainer *getMemberByName(MemberList *memberList, char *memberName) {
+    return getMemberStringObjectContainerEntryValueByName(memberList,
+                                                          memberName);
+}
+
+ObjectContainer *addMember(MemberList *memberList, char *memberName,
+                           ObjectContainer *member) {
     Legacy_Node *objectEntryNode = Legacy_NodeConstructorWithDataAndDataSize(
             Legacy_StringEntryConstructorWithKeyAndValue(memberName, member),
             sizeof(Legacy_StringEntry *));
@@ -34,11 +47,6 @@ void *addMember(MemberList *memberList, char *memberName, void *member) {
 }
 
 MemberList *MemberListDestructor(MemberList *memberList) {
-    AutoDestructableDestructor(
-            memberList->getMemberByName(memberList, "autoDestructable"));
-
-    // ... Continue destructing `MemberList` here ...
-
     memberList->memberEntryList
             ->Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
                     memberList->memberEntryList);
@@ -49,6 +57,7 @@ MemberList *MemberListDestructor(MemberList *memberList) {
     return NULL;
 }
 
+/// @deprecated
 MemberList *MemberListConstructor() {
     MemberList *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
@@ -62,9 +71,38 @@ MemberList *MemberListConstructor() {
     instance->object = ObjectConstructorClassName("MemberList");
 
     addMember(instance, "autoDestructable",
-              AutoDestructableConstructorWithClassName(
+              (ObjectContainer *) AutoDestructableConstructorWithClassName(
                       (ObjectContainer *) instance,
                       instance->object->CLASS_NAME));
+
+    static Constructable const constructable = {
+            .constructor = (void *(*const)(void) )(&MemberListConstructor)};
+    instance->object->constructable = &constructable;
+
+    static Destructable const destructable = {
+            .destructor = (void *(*const)(void *) )(&MemberListDestructor)};
+    instance->object->destructable = &destructable;
+
+    return instance;
+}
+
+MemberList *MemberListConstructorWithObjectContainer(
+        ObjectContainer *objectContainerThatContainsThisMemberList){
+    MemberList *instance = calloc(1, sizeof *instance);
+    if (instance == NULL) { /* error handling here */
+    }
+
+    instance->addMember       = &addMember;
+    instance->getMemberByName = &getMemberByName;
+
+    instance->memberEntryList = Legacy_ListConstructor();
+
+    instance->object = ObjectConstructorClassName("MemberList");
+
+    addMember(instance, "autoDestructable",
+              (ObjectContainer *) AutoDestructableConstructorWithClassName(
+                      (ObjectContainer *) objectContainerThatContainsThisMemberList,
+                      objectContainerThatContainsThisMemberList->object->CLASS_NAME));
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&MemberListConstructor)};
