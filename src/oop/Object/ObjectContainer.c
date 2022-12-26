@@ -42,3 +42,43 @@ invokeStoredLegacyObjectConstructor(ObjectContainer *objectContainer) {
             ->constructor(objectContainer->legacyObject);
 }
 
+//
+//// TODO:
+///// Returns all the "public" fields / methods.
+//getPublic();
+//
+//
+//// TODO:
+///// Returns all the "private" fields / methods.
+//getPrivate();
+
+
+/// TODO: public.
+ObjectContainer *create() {
+    // memory allocating `sizeof(ObjectContainer)`, then invoking
+    // legacy_Object's constructor, and Object's constructor.
+
+
+    ObjectContainer *instance = calloc(1, sizeof *instance);
+    if (instance == NULL) { /* error handling here */
+    }
+
+    instance->object->object =
+            Legacy_ObjectConstructorClassName("ObjectContainer");
+    instance->object = ObjectConstructor("ObjectContainer");
+
+
+    storeLegacyObjectConstructorAndDestructor((ObjectContainer *) instance);
+
+    static Constructable const constructable = {
+            .constructor = (void *(*const)(void) )(&AtomicIntegerConstructor)};
+    instance->object->object->constructable = &constructable;
+
+    static Destructable const destructable = {
+            .destructor = (void *(*const)(void *) )(&AtomicIntegerDestructor)};
+    instance->object->object->destructable = &destructable;
+
+    return instance;
+
+    storeLegacyObjectConstructorAndDestructor()
+}
