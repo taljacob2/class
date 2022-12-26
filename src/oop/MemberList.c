@@ -9,10 +9,16 @@ BOOLEAN predicateFindLegacy_StringEntryByMemberName(
                   memberName) == 0;
 }
 
-void *getMemberByName(MemberList *memberList, char *memberName) {
+Legacy_Node *getNodeMemberByName(MemberList *memberList, char *memberName) {
     return memberList->memberEntryList->findNodeByPredicateOfConstString(
             memberList->memberEntryList,
             predicateFindLegacy_StringEntryByMemberName, memberName);
+}
+
+void *getMemberByName(MemberList *memberList, char *memberName) {
+    return ((Legacy_StringEntry
+                     *) ((getNodeMemberByName(memberList, memberName))->data))
+            ->value;
 }
 
 void *addMember(MemberList *memberList, char *memberName, void *member) {
@@ -33,7 +39,7 @@ MemberList *MemberListDestructor(MemberList *memberList) {
 
     // ... Continue destructing `MemberList` here ...
 
-    memberList->memberEntryList->object->destructable->destructor(
+    memberList->memberEntryList->Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
             memberList->memberEntryList);
 
     free(memberList->object);

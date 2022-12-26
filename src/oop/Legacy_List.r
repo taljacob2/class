@@ -3,6 +3,7 @@
 
 #include "Bool.h"
 #include "Legacy_Node.r"
+#include "ObjectContainer.r"
 #include <limits.h>
 #include <stdlib.h>
 
@@ -30,6 +31,9 @@ struct legacy_list {
                         BOOLEAN (*predicate)(const Legacy_Node *,
                                              const char *const),
                         const char *stringToSearch);
+
+    /// @attention This is generic for all **Object** implementors ( = ObjectContainer).
+    void *(*Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData)(Legacy_List *list);
 };
 
 Legacy_List *Legacy_ListConstructor();

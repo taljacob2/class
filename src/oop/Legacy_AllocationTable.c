@@ -41,49 +41,14 @@
 //    return NULL;
 //}
 
-/// @attention This is **not** generic.
-void *Legacy_ListDestructorWhileFreeAllNodeData(Legacy_List *list) {
-    if (list == NULL) { return NULL; }
-
-    Legacy_Node *iterationNodePrev = NULL;
-    for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
-         iterationNode              = iterationNode->next) {
-        if (iterationNodePrev != NULL) {
-            ObjectContainer *objectContainer =
-                    iterationNodePrev->object->destructable->destructor(
-                            iterationNodePrev);
-            objectContainer->object->deleteFromAllocationTableInvocationStatus =
-                    WAS_INVOKED_ONCE;
-            objectContainer->object->destructable->destructor(objectContainer);
-        }
-
-        iterationNodePrev = iterationNode;
-    }
-
-    // `iterationNodePrev` is `legacy_list->tail`.
-    if (iterationNodePrev != NULL) {
-        ObjectContainer *objectContainer =
-                iterationNodePrev->object->destructable->destructor(
-                        iterationNodePrev);
-        objectContainer->object->deleteFromAllocationTableInvocationStatus =
-                WAS_INVOKED_ONCE;
-        objectContainer->object->destructable->destructor(objectContainer);
-    }
-
-    free(list->object);
-
-    free(list);
-
-    return NULL;
-}
-
-/// @attention This is **not** generic.
+/// @attention This is generic for all **Object** implementors ( = ObjectContainer).
 void *
 Legacy_AllocationTableDestructor(Legacy_AllocationTable *allocationTable) {
     if (allocationTable == NULL) { return NULL; }
 
-    Legacy_ListDestructorWhileFreeAllNodeData(
-            allocationTable->allocationAddressList);
+    allocationTable->allocationAddressList
+            ->Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
+                    allocationTable->allocationAddressList);
 
     free(allocationTable->object);
 

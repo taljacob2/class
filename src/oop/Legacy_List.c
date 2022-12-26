@@ -107,6 +107,42 @@ void addAsUnique(Legacy_List *list, Legacy_Node *node,
     }
 }
 
+void *Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
+        Legacy_List *list) {
+    if (list == NULL) { return NULL; }
+
+    Legacy_Node *iterationNodePrev = NULL;
+    for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
+         iterationNode              = iterationNode->next) {
+        if (iterationNodePrev != NULL) {
+            ObjectContainer *objectContainer =
+                    iterationNodePrev->object->destructable->destructor(
+                            iterationNodePrev);
+            objectContainer->object->deleteFromAllocationTableInvocationStatus =
+                    WAS_INVOKED_ONCE;
+            objectContainer->object->destructable->destructor(objectContainer);
+        }
+
+        iterationNodePrev = iterationNode;
+    }
+
+    // `iterationNodePrev` is `legacy_list->tail`.
+    if (iterationNodePrev != NULL) {
+        ObjectContainer *objectContainer =
+                iterationNodePrev->object->destructable->destructor(
+                        iterationNodePrev);
+        objectContainer->object->deleteFromAllocationTableInvocationStatus =
+                WAS_INVOKED_ONCE;
+        objectContainer->object->destructable->destructor(objectContainer);
+    }
+
+    free(list->object);
+
+    free(list);
+
+    return NULL;
+}
+
 void *Legacy_ListDestructor(Legacy_List *list) {
     if (list == NULL) { return NULL; }
 
@@ -153,6 +189,8 @@ void constructor_Legacy_List_fields(Legacy_List *list) {
     list->deleteNodeThatHasTheGivenData    = &deleteNodeThatHasTheGivenData;
     list->findNodeByPredicateOfConstString = &findNodeByPredicateOfConstString;
     list->addAsUnique                      = &addAsUnique;
+    list->Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData =
+            &Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData;
 }
 
 Legacy_List *Legacy_ListConstructor() {
