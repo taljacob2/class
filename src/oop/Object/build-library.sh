@@ -5,6 +5,9 @@ Read more about creating a static library here:
 https://youtu.be/P2vaRhWNilw
 https://medium.com/@valentina.rua123/static-and-dynamic-library-in-c-fc4f168ae71d
 https://docencia.ac.upc.edu/FIB/USO/Bibliografia/unix-c-libraries.html
+
+Linking static libraries to other static libraries:
+https://stackoverflow.com/a/27676016/14427765
 '
 
 LIBRARY_NAME="Object"
