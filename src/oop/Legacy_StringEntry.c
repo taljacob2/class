@@ -20,7 +20,7 @@ void *Legacy_StringEntryDestructor(Legacy_StringEntry *stringEntry) {
 }
 
 void constructor_Legacy_StringEntry_fields(Legacy_StringEntry *stringEntry) {
-    stringEntry->object = ObjectConstructor();
+    stringEntry->object = ObjectConstructorClassName("Legacy_StringEntry");
 
     static Constructable const constructable = {
             .constructor =

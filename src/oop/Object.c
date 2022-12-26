@@ -1,5 +1,8 @@
 #include "Object.r"
 
+// Pre-declare privately.
+Object *ObjectConstructor();
+
 /**
  * @brief Destructs `Object`.
  *
@@ -21,6 +24,10 @@ void constructor_Object_fields(Object *object) {
     object->deleteFromAllocationTableInvocationStatus = WAS_NOT_INVOKED;
 }
 
+/**
+ * @deprecated Do not use this implementation, because then you could probably
+ * neglect not initializing `CLASS_NAME`.
+ */
 Object *ObjectConstructor() {
     Object *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
@@ -29,6 +36,14 @@ Object *ObjectConstructor() {
     instance->CLASS_NAME = "Object";
 
     constructor_Object_fields(instance);
+
+    return instance;
+}
+
+Object *ObjectConstructorClassName(const char *className) {
+    Object *instance = ObjectConstructor();
+
+    instance->CLASS_NAME = className;
 
     return instance;
 }

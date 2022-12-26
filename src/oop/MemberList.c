@@ -39,8 +39,9 @@ MemberList *MemberListDestructor(MemberList *memberList) {
 
     // ... Continue destructing `MemberList` here ...
 
-    memberList->memberEntryList->Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
-            memberList->memberEntryList);
+    memberList->memberEntryList
+            ->Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
+                    memberList->memberEntryList);
 
     free(memberList->object);
     free(memberList);
@@ -58,11 +59,12 @@ MemberList *MemberListConstructor() {
 
     instance->memberEntryList = Legacy_ListConstructor();
 
-    instance->object = ObjectConstructor();
+    instance->object = ObjectConstructorClassName("MemberList");
 
     addMember(instance, "autoDestructable",
               AutoDestructableConstructorWithClassName(
-                      (ObjectContainer *) instance, "MemberList"));
+                      (ObjectContainer *) instance,
+                      instance->object->CLASS_NAME));
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&MemberListConstructor)};

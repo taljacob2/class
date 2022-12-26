@@ -170,7 +170,7 @@ void *Legacy_ListDestructor(Legacy_List *list) {
 }
 
 void constructor_Legacy_List_fields(Legacy_List *list) {
-    list->object = ObjectConstructor();
+    list->object = ObjectConstructorClassName("Legacy_List");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&Legacy_ListConstructor)};

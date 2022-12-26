@@ -21,6 +21,6 @@ struct object {
     enum InvocationStatus deleteFromAllocationTableInvocationStatus;
 };
 
-Object *ObjectConstructor();
+Object *ObjectConstructorClassName(const char *className);
 
 #endif //OBJECT_H

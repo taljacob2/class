@@ -69,7 +69,7 @@ AutoDestructableDestructor(AutoDestructable *autoDestructable) {
 }
 
 void constructor_AutoDestructable_fields(AutoDestructable *autoDestructable) {
-    autoDestructable->object = ObjectConstructor();
+    autoDestructable->object = ObjectConstructorClassName("AutoDestructable");
 
     static Constructable const constructable = {
             .constructor =

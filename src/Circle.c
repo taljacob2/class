@@ -16,10 +16,10 @@ Circle *CircleConstructor() {
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->object = ObjectConstructor();
+    instance->object = ObjectConstructorClassName("Circle");
 
     instance->autoDestructable = AutoDestructableConstructorWithClassName(
-            (ObjectContainer *) instance, "Circle");
+            (ObjectContainer *) instance, instance->object->CLASS_NAME);
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&CircleConstructor)};
