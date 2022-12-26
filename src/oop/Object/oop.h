@@ -1,6 +1,6 @@
 #ifndef OOP_H
 #define OOP_H
 
-#include "Object.r"
+#include "ObjectContainer.h"
 
 #endif //OOP_H
