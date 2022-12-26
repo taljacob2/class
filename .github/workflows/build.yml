@@ -1,0 +1,36 @@
+name: Build And Test
+
+on:
+  push:
+
+jobs:
+  build:
+    name: Build And Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build oop.a static library # This would actually build your project.
+        id: buildOopa
+        run: |
+          ./src/oop/build-library.sh
+        continue-on-error: true
+      - name: Check on failures
+          if: steps.buildOopa.outcome != 'success'
+          run: exit 1
+      - name: Build main.c # This would actually build your project.
+        id: buildMain
+        run: |
+          ./build.sh
+        continue-on-error: true
+      - name: Check on failures
+          if: steps.buildMain.outcome != 'success'
+          run: exit 1
+      - name: Run With Valgrind # This would actually build your project.
+        id: valgrind
+        run: |
+          valgrind --leak-check=full --show-leak-kinds=all ./a.out
+        continue-on-error: true
+      - name: Check on failures
+          if: steps.valgrind.outcome != 'success'
+          run: exit 1

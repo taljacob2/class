@@ -17,7 +17,6 @@ jobs:
         run: |
           ./src/oop/build-library.sh
       - name: Create Release
-        if: startsWith(github.event.ref, 'refs/tags/v') # if tag starts with "v".
         id: create_release
         uses: actions/create-release@v1
         env:
