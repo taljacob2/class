@@ -1,7 +1,7 @@
 #include "Legacy_AllocationTable.r"
 #include "AutoDestructable.r"
 
-/// @attention This is generic for all **Legacy_Object** implementors ( = ObjectContainer).
+/// @attention This is generic for all **Legacy_Object** implementors ( = Legacy_ObjectContainer).
 void *
 Legacy_AllocationTableDestructor(Legacy_AllocationTable *allocationTable) {
     if (allocationTable == NULL) { return NULL; }

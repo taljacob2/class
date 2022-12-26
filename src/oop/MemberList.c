@@ -21,20 +21,20 @@ getMemberStringObjectContainerEntryByName(MemberList *memberList,
     return (getMemberNodeByName(memberList, memberName))->data;
 }
 
-ObjectContainer *
+Legacy_ObjectContainer *
 getMemberStringObjectContainerEntryValueByName(MemberList *memberList,
                                                char *      memberName) {
     return getMemberStringObjectContainerEntryByName(memberList, memberName)
             ->value;
 }
 
-ObjectContainer *getMemberByName(MemberList *memberList, char *memberName) {
+Legacy_ObjectContainer *getMemberByName(MemberList *memberList, char *memberName) {
     return getMemberStringObjectContainerEntryValueByName(memberList,
                                                           memberName);
 }
 
-ObjectContainer *addMember(MemberList *memberList, char *memberName,
-                           ObjectContainer *member) {
+Legacy_ObjectContainer *addMember(MemberList *memberList, char *memberName,
+                                  Legacy_ObjectContainer *member) {
     Legacy_Node *objectEntryNode = Legacy_NodeConstructorWithDataAndDataSize(
             Legacy_StringEntryConstructorWithKeyAndValue(memberName, member),
             sizeof(Legacy_StringEntry *));
@@ -71,8 +71,8 @@ MemberList *MemberListConstructor() {
     instance->object = Legacy_ObjectConstructorClassName("MemberList");
 
     addMember(instance, "autoDestructable",
-              (ObjectContainer *) AutoDestructableConstructorWithClassName(
-                      (ObjectContainer *) instance,
+              (Legacy_ObjectContainer *) AutoDestructableConstructorWithClassName(
+                      (Legacy_ObjectContainer *) instance,
                       instance->object->CLASS_NAME));
 
     static Constructable const constructable = {
@@ -87,7 +87,7 @@ MemberList *MemberListConstructor() {
 }
 
 MemberList *MemberListConstructorWithObjectContainer(
-        ObjectContainer *objectContainerThatContainsThisMemberList){
+        Legacy_ObjectContainer *objectContainerThatContainsThisMemberList){
     MemberList *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
     }
@@ -100,8 +100,8 @@ MemberList *MemberListConstructorWithObjectContainer(
     instance->object = Legacy_ObjectConstructorClassName("MemberList");
 
     addMember(instance, "autoDestructable",
-              (ObjectContainer *) AutoDestructableConstructorWithClassName(
-                      (ObjectContainer *) objectContainerThatContainsThisMemberList,
+              (Legacy_ObjectContainer *) AutoDestructableConstructorWithClassName(
+                      (Legacy_ObjectContainer *) objectContainerThatContainsThisMemberList,
                       objectContainerThatContainsThisMemberList->object->CLASS_NAME));
 
     static Constructable const constructable = {

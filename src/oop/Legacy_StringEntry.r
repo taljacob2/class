@@ -2,7 +2,7 @@
 #define LEGACYSTRINGENTRY_H
 
 
-#include "ObjectContainer.r"
+#include "Legacy_ObjectContainer.r"
 
 // Forward declaration of incomplete type
 typedef struct legacy_stringEntry Legacy_StringEntry;
@@ -13,13 +13,14 @@ struct legacy_stringEntry {
     Legacy_Object *object;
 
     char *           key;
-    ObjectContainer *value;
+    Legacy_ObjectContainer *value;
 };
 
 
 Legacy_StringEntry *Legacy_StringEntryConstructor();
 
 Legacy_StringEntry *
-Legacy_StringEntryConstructorWithKeyAndValue(char *key, ObjectContainer *value);
+Legacy_StringEntryConstructorWithKeyAndValue(char *key,
+                                             Legacy_ObjectContainer *value);
 
 #endif //LEGACYSTRINGENTRY_H

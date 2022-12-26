@@ -7,7 +7,7 @@
 #include "Legacy_AllocationTable.r"
 #include "Legacy_AllocationTableList.r"
 #include "Legacy_Object.r"
-#include "ObjectContainer.r"
+#include "Legacy_ObjectContainer.r"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -23,11 +23,12 @@ struct autoDestructable {
     Legacy_AllocationTable *OBJECT_ALLOCATION_TABLE;
 
     /// Sensitive data. DO NOT TOUCH!
-    ObjectContainer *allocatedAddress;
+    Legacy_ObjectContainer *allocatedAddress;
 };
 
 AutoDestructable *AutoDestructableConstructorWithClassName(
-        ObjectContainer *objectContainerToSaveItsAddressToAllocationTable,
+        Legacy_ObjectContainer
+                *objectContainerToSaveItsAddressToAllocationTable,
         const char *     className);
 
 /**
@@ -55,6 +56,6 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
  */
 AutoDestructable *AutoDestructableConstructor();
 
-ObjectContainer *AutoDestructableDestructor(AutoDestructable *autoDestructable);
+Legacy_ObjectContainer *AutoDestructableDestructor(AutoDestructable *autoDestructable);
 
 #endif //AUTODESTRUCTABLE_H

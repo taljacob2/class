@@ -1,5 +1,5 @@
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef LEGACY_OBJECT_H
+#define LEGACY_OBJECT_H
 
 #include "Constructable.r"
 #include "Destructable.r"
@@ -23,4 +23,4 @@ struct legacy_Object {
 
 Legacy_Object *Legacy_ObjectConstructorClassName(const char *className);
 
-#endif //OBJECT_H
+#endif //LEGACY_OBJECT_H

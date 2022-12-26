@@ -16,13 +16,13 @@ struct memberList {
 
     Legacy_List *memberEntryList;
 
-    ObjectContainer *(*addMember)(MemberList *memberList, char *memberName,
-                                  ObjectContainer *member);
-    ObjectContainer *(*getMemberByName)(MemberList *memberList,
+    Legacy_ObjectContainer *(*addMember)(MemberList *memberList, char *memberName,
+                                         Legacy_ObjectContainer *member);
+    Legacy_ObjectContainer *(*getMemberByName)(MemberList *memberList,
                                         char *      memberName);
 };
 
 MemberList *MemberListConstructorWithObjectContainer(
-        ObjectContainer *objectContainerThatContainsThisMemberList);
+        Legacy_ObjectContainer *objectContainerThatContainsThisMemberList);
 
 #endif //MEMBERLIST_H

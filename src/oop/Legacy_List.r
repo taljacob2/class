@@ -3,7 +3,7 @@
 
 #include "Bool.h"
 #include "Legacy_Node.r"
-#include "ObjectContainer.r"
+#include "Legacy_ObjectContainer.r"
 #include <limits.h>
 #include <stdlib.h>
 
@@ -34,8 +34,8 @@ struct legacy_list {
 
     /**
      * @attention This is generic for all **Legacy_Object** implementors
-     *            ( = ObjectContainer). Can work only if the `Legacy_Node->data`
-     *            is implements **Legacy_Object** ( = ObjectContainer).
+     *            ( = Legacy_ObjectContainer). Can work only if the `Legacy_Node->data`
+     *            is implements **Legacy_Object** ( = Legacy_ObjectContainer).
      */
     void *(*Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData)(Legacy_List *list);
 };

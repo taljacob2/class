@@ -9,18 +9,18 @@ void *deleteAllocationAddressNodeFromAllocationTable(
                     allocatedAddress);
 }
 
-ObjectContainer *
+Legacy_ObjectContainer *
 deleteAllocationAddressIfNeeded(AutoDestructable *autoDestructable) {
     if (autoDestructable == NULL) { return NULL; }
 
-    ObjectContainer *objectContainer = autoDestructable->allocatedAddress;
+    Legacy_ObjectContainer *objectContainer = autoDestructable->allocatedAddress;
 
     if (objectContainer->object->deleteFromAllocationTableInvocationStatus ==
         WAS_NOT_INVOKED) {
         objectContainer->object->deleteFromAllocationTableInvocationStatus =
                 WAS_INVOKED_ONCE;
 
-        ObjectContainer *allocatedAddressReturnValue =
+        Legacy_ObjectContainer *allocatedAddressReturnValue =
                 deleteAllocationAddressNodeFromAllocationTable(
                         autoDestructable->OBJECT_ALLOCATION_TABLE,
                         autoDestructable->allocatedAddress);
@@ -46,7 +46,7 @@ void destructAllocatedAddressUnsafe(AutoDestructable *autoDestructable) {
     free(autoDestructable);
 }
 
-ObjectContainer *
+Legacy_ObjectContainer *
 AutoDestructableDestructor(AutoDestructable *autoDestructable) {
     if (autoDestructable == NULL) { return NULL; }
 
@@ -116,7 +116,7 @@ void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
     Legacy_Node *nodeThatItsDataPointsToThePointerOfObj =
             Legacy_NodeConstructorWithDataAndDataSize(
                     autoDestructable->allocatedAddress,
-                    sizeof(ObjectContainer *));
+                    sizeof(Legacy_ObjectContainer *));
 
     // Add this legacy_node to `autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList`.
     autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList->add(
@@ -125,7 +125,8 @@ void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
 }
 
 AutoDestructable *AutoDestructableConstructorWithClassName(
-        ObjectContainer *objectContainerToSaveItsAddressToAllocationTable,
+        Legacy_ObjectContainer
+                *objectContainerToSaveItsAddressToAllocationTable,
         const char *     className) {
     AutoDestructable *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
@@ -138,7 +139,7 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
     // If `objectContainerToSaveItsAddressToAllocationTable` is `NULL` use `instance`.
     instance->allocatedAddress =
             objectContainerToSaveItsAddressToAllocationTable == NULL
-                    ? (ObjectContainer *) instance
+                    ? (Legacy_ObjectContainer *) instance
                     : objectContainerToSaveItsAddressToAllocationTable;
     saveObjectContainerToAllocationTable(instance);
 
