@@ -41,3 +41,10 @@ void *Legacy_AtomicFreerDestructor(Legacy_AtomicFreer *atomicFreer) {
 
 
 ----------------------------------------------------------------
+
+
+TODO:
+
+if `build.sh` in `build.yml` is on error on GitHub then exit `build.yml`
+
+
