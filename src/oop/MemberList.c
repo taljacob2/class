@@ -3,7 +3,8 @@
 BOOLEAN predicateFindLegacy_StringEntryByMemberName(
         const Legacy_Node *nodeThatPointsToAllocationTable,
         const char *const  memberName) {
-    return strcmp(((Legacy_StringEntry *) (nodeThatPointsToAllocationTable
+    return strcmp(((Legacy_StringObjectContainerEntry
+                            *) (nodeThatPointsToAllocationTable
                                                    ->data))
                           ->key,
                   memberName) == 0;
@@ -15,7 +16,7 @@ Legacy_Node *getMemberNodeByName(MemberList *memberList, char *memberName) {
             predicateFindLegacy_StringEntryByMemberName, memberName);
 }
 
-Legacy_StringEntry *
+Legacy_StringObjectContainerEntry *
 getMemberStringObjectContainerEntryByName(MemberList *memberList,
                                           char *      memberName) {
     return (getMemberNodeByName(memberList, memberName))->data;
@@ -36,8 +37,9 @@ Legacy_ObjectContainer *getMemberByName(MemberList *memberList, char *memberName
 Legacy_ObjectContainer *addMember(MemberList *memberList, char *memberName,
                                   Legacy_ObjectContainer *member) {
     Legacy_Node *objectEntryNode = Legacy_NodeConstructorWithDataAndDataSize(
-            Legacy_StringEntryConstructorWithKeyAndValue(memberName, member),
-            sizeof(Legacy_StringEntry *));
+            Legacy_StringObjectContainerEntryConstructorWithKeyAndValue(
+                    memberName, member),
+            sizeof(Legacy_StringObjectContainerEntry *));
 
     memberList->memberEntryList->addAsUnique(
             memberList->memberEntryList, objectEntryNode,

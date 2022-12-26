@@ -3,7 +3,7 @@
 
 #include "AutoDestructable.r"
 #include "Legacy_AtomicFreer.r"
-#include "Legacy_StringEntry.r"
+#include "Legacy_StringObjectContainerEntry.r"
 
 
 // Forward declaration of incomplete type
