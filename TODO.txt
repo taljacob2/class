@@ -1,0 +1,43 @@
+TODO:
+
+add a MUST to Object constructor to add Constructor and Destructor functions.
+cargo new --bin project_name
+
+
+-------------------------------------------------------------
+TODO:
+
+
+Think of a way to implement Constructor / Destructor in an easier way than static interfaces.
+
+Maybe add to memberList somehow.
+
+
+-----------------------------------------------------------------
+TODO:
+
+do this for every object:
+
+for safety if you have a pointer to the object and could possibly free more than once.
+
+```
+
+void *Legacy_AtomicFreerDestructor(Legacy_AtomicFreer *atomicFreer) {
+    if (atomicFreer == NULL) { return NULL; }
+
+    if (atomicFreer->object->destructorInvocationStatus == WAS_NOT_INVOKED) {
+        atomicFreer->object->destructorInvocationStatus = WAS_INVOKED_ONCE;
+        free(atomicFreer->data);
+
+        free(atomicFreer->object);
+
+        free(atomicFreer);
+    }
+
+    return NULL;
+}
+
+```
+
+
+----------------------------------------------------------------

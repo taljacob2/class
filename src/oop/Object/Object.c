@@ -16,6 +16,10 @@ addMemberWhichIsPrimitive(Object *self, char *memberName,
                     dynamicallyAllocatedPrimitive));
 }
 
+Legacy_ObjectContainer *getMemberByName(Object *self, char *memberName) {
+    return self->memberList->getMemberByName(self->memberList, memberName);
+}
+
 void *ObjectDestructor(Object *object) {
     object->memberList->object->destructable->destructor(object->memberList);
 
@@ -36,6 +40,7 @@ Object *ObjectConstructor(const char *className) {
     instance->addMemberWhichIsLegacy_ObjectContainer =
             &addMemberWhichIsLegacy_ObjectContainer;
     instance->addMemberWhichIsPrimitive = &addMemberWhichIsPrimitive;
+    instance->getMemberByName           = &getMemberByName;
 
     instance->object = Legacy_ObjectConstructorClassName(className);
 

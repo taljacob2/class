@@ -47,6 +47,8 @@ Legacy_ObjectContainer *addMember(MemberList *memberList, char *memberName,
     return member;
 }
 
+// TODO: "public" "setMember".
+
 MemberList *MemberListDestructor(MemberList *memberList) {
     memberList->memberEntryList
             ->Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(

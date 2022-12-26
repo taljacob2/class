@@ -10,11 +10,11 @@ void *Legacy_AtomicFreerDestructor(Legacy_AtomicFreer *atomicFreer) {
     if (atomicFreer->object->destructorInvocationStatus == WAS_NOT_INVOKED) {
         atomicFreer->object->destructorInvocationStatus = WAS_INVOKED_ONCE;
         free(atomicFreer->data);
+
+        free(atomicFreer->object);
+
+        free(atomicFreer);
     }
-
-    free(atomicFreer->object);
-
-    free(atomicFreer);
 
     return NULL;
 }

@@ -19,6 +19,7 @@ struct object {
     Legacy_ObjectContainer *(*addMemberWhichIsPrimitive)(
             Object *self, char *memberName,
             void *dynamicallyAllocatedPrimitive);
+    Legacy_ObjectContainer *(*getMemberByName)(Object *self, char *memberName);
 };
 
 Object *ObjectConstructor(const char *className);
