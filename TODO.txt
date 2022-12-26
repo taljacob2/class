@@ -90,3 +90,17 @@ At the end:
 typedef ObjectContainer AUTO;
 
 
+--------------------------------------------
+
+TODO:
+
+at the end:
+
+make a script that extends the compiler:
+
+when it runs, it scans through the code, and turns it into objects with the form
+of the `ObjectDefines.r`
+
+For example when a user creates a class like so:
+
+

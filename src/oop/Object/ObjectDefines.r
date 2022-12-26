@@ -34,5 +34,16 @@
 /// MemberList
 #define FIELDS "___fields___"
 
+#define ____CLASS_STRUCT_NAME_EXTENSION___ ___
+
+#define CLASS(className)                                                    \
+                                                                            \
+    typedef struct className##____CLASS_STRUCT_NAME_EXTENSION___ className; \
+                                                                            \
+    struct className##____CLASS_STRUCT_NAME_EXTENSION___ {                  \
+                                                                            \
+        OBJECT_CONTAINER_FIELDS                                             \
+    };
+
 
 #endif //OBJECTDEFINES_H
