@@ -9,8 +9,7 @@ typedef struct circlev3 CircleV3;
 
 struct circlev3 {
 
-    OBJECT_CONTAINER_FIELDS
-
+    OBJECT_FIELDS
 };
 
 

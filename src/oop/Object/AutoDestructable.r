@@ -7,7 +7,7 @@
 #include "Legacy_AllocationTable.r"
 #include "Legacy_AllocationTableList.r"
 #include "Legacy_Object.r"
-#include "Legacy_ObjectContainer.r"
+#include "Legacy_ObjectComponent.r"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -16,20 +16,19 @@ typedef struct autoDestructable AutoDestructable;
 
 struct autoDestructable {
 
-    /// `AutoDestructable` implements `Legacy_Object`.
-    Legacy_Object *object;
+    /// `AutoDestructable` implements `Legacy_ObjectComponent`.
+    Legacy_ObjectComponent *legacyObjectComponent;
 
     /// Singleton for the whole autoDestructable. Sensitive data. DO NOT TOUCH!
     Legacy_AllocationTable *OBJECT_ALLOCATION_TABLE;
 
     /// Sensitive data. DO NOT TOUCH!
-    Legacy_ObjectContainer *allocatedAddress;
+    Legacy_Object *allocatedAddress;
 };
 
 AutoDestructable *AutoDestructableConstructorWithClassName(
-        Legacy_ObjectContainer
-                *objectContainerToSaveItsAddressToAllocationTable,
-        const char *     className);
+        Legacy_Object *legacyObjectToSaveItsAddressToAllocationTable,
+        const char *   className);
 
 /**
  * @brief Creates a `new` "heap-allocated" instance of `AutoDestructable` and initializes
@@ -56,6 +55,6 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
  */
 AutoDestructable *AutoDestructableConstructor();
 
-Legacy_ObjectContainer *AutoDestructableDestructor(AutoDestructable *autoDestructable);
+Legacy_Object *AutoDestructableDestructor(AutoDestructable *autoDestructable);
 
 #endif //AUTODESTRUCTABLE_H

@@ -34,8 +34,8 @@ void *delete (Legacy_List *list, Legacy_Node *node) {
                 // `iterationNode` is `legacy_list->tail`.
                 list->tail = iterationNodePrev;
             }
-            deletedNodeData = iterationNode->object->destructable->destructor(
-                    iterationNode);
+            deletedNodeData = iterationNode->legacyObjectComponent->destructable
+                                      ->destructor(iterationNode);
             list->size--;
             break;
         }
@@ -70,8 +70,8 @@ void *deleteNodeThatHasTheGivenData(Legacy_List *list,
                 list->tail = iterationNodePrev;
             }
 
-            deletedNodeData = iterationNode->object->destructable->destructor(
-                    iterationNode);
+            deletedNodeData = iterationNode->legacyObjectComponent->destructable
+                                      ->destructor(iterationNode);
             list->size--;
             break;
         }
@@ -115,12 +115,14 @@ void *Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
         if (iterationNodePrev != NULL) {
-            Legacy_ObjectContainer *objectContainer =
-                    iterationNodePrev->object->destructable->destructor(
-                            iterationNodePrev);
-            objectContainer->object->deleteFromAllocationTableInvocationStatus =
+            Legacy_Object *legacyObject =
+                    iterationNodePrev->legacyObjectComponent->destructable
+                            ->destructor(iterationNodePrev);
+            legacyObject->legacyObjectComponent
+                    ->deleteFromAllocationTableInvocationStatus =
                     WAS_INVOKED_ONCE;
-            objectContainer->object->destructable->destructor(objectContainer);
+            legacyObject->legacyObjectComponent->destructable->destructor(
+                    legacyObject);
         }
 
         iterationNodePrev = iterationNode;
@@ -128,15 +130,16 @@ void *Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
 
     // `iterationNodePrev` is `legacy_list->tail`.
     if (iterationNodePrev != NULL) {
-        Legacy_ObjectContainer *objectContainer =
-                iterationNodePrev->object->destructable->destructor(
-                        iterationNodePrev);
-        objectContainer->object->deleteFromAllocationTableInvocationStatus =
-                WAS_INVOKED_ONCE;
-        objectContainer->object->destructable->destructor(objectContainer);
+        Legacy_Object *legacyObject =
+                iterationNodePrev->legacyObjectComponent->destructable
+                        ->destructor(iterationNodePrev);
+        legacyObject->legacyObjectComponent
+                ->deleteFromAllocationTableInvocationStatus = WAS_INVOKED_ONCE;
+        legacyObject->legacyObjectComponent->destructable->destructor(
+                legacyObject);
     }
 
-    free(list->object);
+    free(list->legacyObjectComponent);
 
     free(list);
 
@@ -150,7 +153,7 @@ void *Legacy_ListDestructor(Legacy_List *list) {
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
         if (iterationNodePrev != NULL) {
-            iterationNodePrev->object->destructable->destructor(
+            iterationNodePrev->legacyObjectComponent->destructable->destructor(
                     iterationNodePrev);
         }
 
@@ -159,10 +162,11 @@ void *Legacy_ListDestructor(Legacy_List *list) {
 
     // `iterationNodePrev` is `legacy_list->tail`.
     if (iterationNodePrev != NULL) {
-        iterationNodePrev->object->destructable->destructor(iterationNodePrev);
+        iterationNodePrev->legacyObjectComponent->destructable->destructor(
+                iterationNodePrev);
     }
 
-    free(list->object);
+    free(list->legacyObjectComponent);
 
     free(list);
 
@@ -170,15 +174,16 @@ void *Legacy_ListDestructor(Legacy_List *list) {
 }
 
 void constructor_Legacy_List_fields(Legacy_List *list) {
-    list->object = Legacy_ObjectConstructorClassName("Legacy_List");
+    list->legacyObjectComponent =
+            Legacy_ObjectComponentConstructorClassName("Legacy_List");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&Legacy_ListConstructor)};
-    list->object->constructable = &constructable;
+    list->legacyObjectComponent->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&Legacy_ListDestructor)};
-    list->object->destructable = &destructable;
+    list->legacyObjectComponent->destructable = &destructable;
 
     list->head = NULL;
     list->tail = NULL;

@@ -1,26 +1,25 @@
 #include "Circle.h"
 #include "CircleV2.h"
-#include "oop/oop.h"
 #include "CircleV4.h"
 #include "CircleV5.h"
+#include "oop/oop.h"
 
 int main() {
     Circle *circle = CircleConstructor();
 
     CircleV2 *circleV2 = CircleV2Constructor();
 
-    Object *object = ObjectConstructor("Object");
+    MemberList *memberList = MemberListConstructor("MemberList");
 
-//    object->object->destructable->destructor(object);
+    //    memberList->memberList->destructable->destructor(memberList);
 
-//    AtomicInteger *atomicInteger = AtomicIntegerConstructor();
+    //    AtomicInteger *atomicInteger = AtomicIntegerConstructor();
 
-//    atomicInteger->object->object->destructable->destructor(atomicInteger);
+    //    atomicInteger->memberList->memberList->destructable->destructor(atomicInteger);
 
     CircleV4 *circleV4 = CircleV4Constructor();
 
-//    CircleV5 *circleV5 = CircleV5Constructor();
-
+    //    CircleV5 *circleV5 = CircleV5Constructor();
 
 
     return 0;

@@ -8,10 +8,10 @@ typedef struct circlev2 CircleV2;
 
 struct circlev2 {
 
-    /// `Circle` implements `Legacy_Object`.
-    Legacy_Object *object;
+    /// `Circle` implements `Legacy_ObjectComponent`.
+    Legacy_ObjectComponent *legacyObjectComponent;
 
-    MemberList *memberList;
+    Legacy_MemberList *legacyMemberList;
 };
 
 CircleV2 *CircleV2Constructor();

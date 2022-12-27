@@ -1,12 +1,12 @@
 #include "CircleV2.h"
 
 void *CircleV2Destructor(CircleV2 *circlev2) {
-    circlev2->memberList->object->destructable->destructor(
-            circlev2->memberList);
+    circlev2->legacyMemberList->legacyObjectComponent->destructable->destructor(
+            circlev2->legacyMemberList);
 
     // ... Continue destructing `CircleV2` here ...
 
-    free(circlev2->object);
+    free(circlev2->legacyObjectComponent);
     free(circlev2);
 
     return NULL;
@@ -17,22 +17,23 @@ CircleV2 *CircleV2Constructor() {
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->object = Legacy_ObjectConstructorClassName("CircleV2");
+    instance->legacyObjectComponent =
+            Legacy_ObjectComponentConstructorClassName("CircleV2");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&CircleV2Constructor)};
-    instance->object->constructable = &constructable;
+    instance->legacyObjectComponent->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&CircleV2Destructor)};
-    instance->object->destructable = &destructable;
+    instance->legacyObjectComponent->destructable = &destructable;
 
-    instance->memberList = MemberListConstructorWithObjectContainer(
-            (Legacy_ObjectContainer *) instance);
+    instance->legacyMemberList = Legacy_MemberListConstructorWithLegacy_Object(
+            (Legacy_Object *) instance);
 
-    instance->memberList->addMember(
-            instance->memberList, "radius",
-            (Legacy_ObjectContainer *) Legacy_AtomicFreerConstructorWithData(
+    instance->legacyMemberList->addMember(
+            instance->legacyMemberList, "radius",
+            (Legacy_Object *) Legacy_AtomicFreerConstructorWithData(
                     calloc(1, sizeof(int))));
 
     return instance;

@@ -12,14 +12,14 @@ typedef struct legacy_allocationTableList Legacy_AllocationTableList;
 
 struct legacy_allocationTableList {
 
-    /// `Legacy_AllocationTableList` implements `Legacy_Object`.
-    Legacy_Object *object;
+    /// `Legacy_AllocationTableList` implements `Legacy_ObjectComponent`.
+    Legacy_ObjectComponent *object;
 
     Legacy_List *allocationTableList;
 
     Legacy_AllocationTable *(*findLegacy_AllocationTableByClassName)(
             const char *allocationTableClassName);
-    BOOLEAN (*predicateFindLegacy_AllocationTableByClassName)
+    BOOLEAN(*predicateFindLegacy_AllocationTableByClassName)
     (const Legacy_Node *nodeThatPointsToAllocationTable,
      const char *const  allocationTableClassName);
 };

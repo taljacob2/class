@@ -12,8 +12,9 @@ void *Legacy_StringObjectContainerEntryDestructor(
     if (stringObjectContainerEntry == NULL) { return NULL; }
 
     void *valueDestructorReturnValue =
-            stringObjectContainerEntry->value->object->destructable->destructor(
-                    stringObjectContainerEntry->value);
+            stringObjectContainerEntry->value->legacyObjectComponent
+                    ->destructable->destructor(
+                            stringObjectContainerEntry->value);
 
     free(stringObjectContainerEntry->object);
 
@@ -24,8 +25,9 @@ void *Legacy_StringObjectContainerEntryDestructor(
 
 void constructor_Legacy_StringObjectContainerEntry_fields(
         Legacy_StringObjectContainerEntry *stringObjectContainerEntry) {
-    stringObjectContainerEntry->object = Legacy_ObjectConstructorClassName(
-            "Legacy_StringObjectContainerEntry");
+    stringObjectContainerEntry->object =
+            Legacy_ObjectComponentConstructorClassName(
+                    "Legacy_StringObjectContainerEntry");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(
@@ -54,7 +56,7 @@ Legacy_StringObjectContainerEntryConstructor() {
 
 Legacy_StringObjectContainerEntry *
 Legacy_StringObjectContainerEntryConstructorWithKeyAndValue(
-        char *key, Legacy_ObjectContainer *value) {
+        char *key, Legacy_Object *value) {
     Legacy_StringObjectContainerEntry *instance =
             Legacy_StringObjectContainerEntryConstructor();
 

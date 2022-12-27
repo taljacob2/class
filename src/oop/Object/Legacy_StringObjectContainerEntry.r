@@ -2,7 +2,7 @@
 #define LEGACY_STRINGOBJECTCONTAINERENTRY_H
 
 
-#include "Legacy_ObjectContainer.r"
+#include "Legacy_Object.r"
 
 // Forward declaration of incomplete type
 typedef struct legacy_stringObjectContainerEntry
@@ -10,11 +10,11 @@ typedef struct legacy_stringObjectContainerEntry
 
 struct legacy_stringObjectContainerEntry {
 
-    /// `Legacy_StringObjectContainerEntry` implements `Legacy_Object`.
-    Legacy_Object *object;
+    /// `Legacy_StringObjectContainerEntry` implements `Legacy_ObjectComponent`.
+    Legacy_ObjectComponent *object;
 
-    char *                  key;
-    Legacy_ObjectContainer *value;
+    char *         key;
+    Legacy_Object *value;
 };
 
 
@@ -23,6 +23,6 @@ Legacy_StringObjectContainerEntryConstructor();
 
 Legacy_StringObjectContainerEntry *
 Legacy_StringObjectContainerEntryConstructorWithKeyAndValue(
-        char *key, Legacy_ObjectContainer *value);
+        char *key, Legacy_Object *value);
 
 #endif //LEGACY_STRINGOBJECTCONTAINERENTRY_H

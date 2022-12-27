@@ -4,17 +4,18 @@
 #include "../Object/Object.h"
 #include "Atomic.h"
 
-// Forward declaration of incomplete type
-typedef struct atomicInteger AtomicInteger;
-
-struct atomicInteger {
-
-    /// `AtomicInteger` implements `Object`.
-    Object *object;
-
-};
-
-AtomicInteger *AtomicIntegerConstructor();
+//TODO:
+//// Forward declaration of incomplete type
+//typedef struct atomicInteger AtomicInteger;
+//
+//struct atomicInteger {
+//
+//    /// `AtomicInteger` implements `MemberList`.
+//    MemberList *memberList;
+//
+//};
+//
+//AtomicInteger *AtomicIntegerConstructor();
 
 
 #endif //ATOMICINTEGER_H

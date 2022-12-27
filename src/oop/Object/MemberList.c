@@ -1,123 +1,65 @@
 #include "MemberList.r"
 
-BOOLEAN predicateFindLegacy_StringEntryByMemberName(
-        const Legacy_Node *nodeThatPointsToAllocationTable,
-        const char *const  memberName) {
-    return strcmp(((Legacy_StringObjectContainerEntry
-                            *) (nodeThatPointsToAllocationTable->data))
-                          ->key,
-                  memberName) == 0;
+Legacy_Object *
+addMemberWhichIsLegacy_ObjectContainer(MemberList *self, char *memberName,
+                                       Legacy_Object *legacyObjectContainer) {
+    return self->legacyMemberList->addMember(self->legacyMemberList, memberName,
+                                             legacyObjectContainer);
 }
 
-Legacy_Node *getMemberNodeByName(MemberList *memberList, char *memberName) {
-    return memberList->memberEntryList->findNodeByPredicateOfConstString(
-            memberList->memberEntryList,
-            predicateFindLegacy_StringEntryByMemberName, memberName);
+Legacy_Object *addMemberWhichIsPrimitive(MemberList *self, char *memberName,
+                                         void *dynamicallyAllocatedPrimitive) {
+    return addMemberWhichIsLegacy_ObjectContainer(
+            self, memberName,
+            (Legacy_Object *) Legacy_AtomicFreerConstructorWithData(
+                    dynamicallyAllocatedPrimitive));
 }
 
-Legacy_StringObjectContainerEntry *
-getMemberStringObjectContainerEntryByName(MemberList *memberList,
-                                          char *      memberName) {
-    return (getMemberNodeByName(memberList, memberName))->data;
+//// TODO: maybe remove. could be redundant.
+//Legacy_Object *
+//addMemberWhichIsPrimitiveAnonymousPointer(MemberList *self, char *memberName) {
+//    return self->addMemberWhichIsPrimitive(
+//            self, memberName, calloc(1, sizeof(TYPEOF_ANONYMOUS_POINTER)));
+//}
+
+Legacy_Object *getMemberByName_MemberList(MemberList *self, char *memberName) {
+    return self->legacyMemberList->getMemberByName(self->legacyMemberList,
+                                                   memberName);
 }
 
-Legacy_ObjectContainer *
-getMemberStringObjectContainerEntryValueByName(MemberList *memberList,
-                                               char *      memberName) {
-    return getMemberStringObjectContainerEntryByName(memberList, memberName)
-            ->value;
-}
+void *MemberListDestructor(MemberList *object) {
+    object->legacyMemberList->legacyObjectComponent->destructable->destructor(
+            object->legacyMemberList);
 
-Legacy_ObjectContainer *getMemberByName_MemberList(MemberList *memberList,
-                                                   char *      memberName) {
-    return getMemberStringObjectContainerEntryValueByName(memberList,
-                                                          memberName);
-}
-
-Legacy_ObjectContainer *addMember(MemberList *memberList, char *memberName,
-                                  Legacy_ObjectContainer *member) {
-    Legacy_Node *objectEntryNode = Legacy_NodeConstructorWithData(
-            Legacy_StringObjectContainerEntryConstructorWithKeyAndValue(
-                    memberName, member));
-
-    memberList->memberEntryList->addAsUnique(
-            memberList->memberEntryList, objectEntryNode,
-            predicateFindLegacy_StringEntryByMemberName, memberName);
-
-    return member;
-}
-
-// TODO: "public" "setMember".
-
-MemberList *MemberListDestructor(MemberList *memberList) {
-    memberList->memberEntryList
-            ->Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
-                    memberList->memberEntryList);
-
-    free(memberList->object);
-    free(memberList);
+    free(object->legacyObjectComponent);
+    free(object);
 
     return NULL;
 }
 
-/// @deprecated
 MemberList *MemberListConstructor() {
     MemberList *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->addMember       = &addMember;
-    instance->getMemberByName = &getMemberByName_MemberList;
+    instance->addMemberWhichIsLegacy_ObjectContainer =
+            &addMemberWhichIsLegacy_ObjectContainer;
+    instance->addMemberWhichIsPrimitive = &addMemberWhichIsPrimitive;
+    instance->getMemberByName           = &getMemberByName_MemberList;
 
-    instance->memberEntryList = Legacy_ListConstructor();
-
-    instance->object = Legacy_ObjectConstructorClassName("MemberList");
-
-    addMember(
-            instance, "autoDestructable",
-            (Legacy_ObjectContainer *) AutoDestructableConstructorWithClassName(
-                    (Legacy_ObjectContainer *) instance,
-                    instance->object->CLASS_NAME));
+    instance->legacyObjectComponent =
+            Legacy_ObjectComponentConstructorClassName("MemberList");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&MemberListConstructor)};
-    instance->object->constructable = &constructable;
+    instance->legacyObjectComponent->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&MemberListDestructor)};
-    instance->object->destructable = &destructable;
+    instance->legacyObjectComponent->destructable = &destructable;
 
-    return instance;
-}
-
-MemberList *MemberListConstructorWithObjectContainer(
-        Legacy_ObjectContainer *objectContainerThatContainsThisMemberList) {
-    MemberList *instance = calloc(1, sizeof *instance);
-    if (instance == NULL) { /* error handling here */
-    }
-
-    instance->addMember       = &addMember;
-    instance->getMemberByName = &getMemberByName_MemberList;
-
-    instance->memberEntryList = Legacy_ListConstructor();
-
-    instance->object = Legacy_ObjectConstructorClassName("MemberList");
-
-    addMember(
-            instance, "autoDestructable",
-            (Legacy_ObjectContainer *) AutoDestructableConstructorWithClassName(
-                    (Legacy_ObjectContainer *)
-                            objectContainerThatContainsThisMemberList,
-                    objectContainerThatContainsThisMemberList->object
-                            ->CLASS_NAME));
-
-    static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&MemberListConstructor)};
-    instance->object->constructable = &constructable;
-
-    static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&MemberListDestructor)};
-    instance->object->destructable = &destructable;
+    instance->legacyMemberList = Legacy_MemberListConstructorWithLegacy_Object(
+            (Legacy_Object *) instance);
 
     return instance;
 }

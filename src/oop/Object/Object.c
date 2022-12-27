@@ -1,66 +1,87 @@
 #include "Object.r"
 
-Legacy_ObjectContainer *addMemberWhichIsLegacy_ObjectContainer(
-        Object *self, char *memberName,
-        Legacy_ObjectContainer *legacyObjectContainer) {
-    return self->memberList->addMember(self->memberList, memberName,
-                                       legacyObjectContainer);
-}
+/// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
+///     it will be still okay. maybe rename to something secret.
+void *destruct(Object *object) {
+    if (object->legacyObject->destructorInvocationStatus == WAS_NOT_INVOKED) {
+        object->legacyObject->destructorInvocationStatus = WAS_INVOKED_ONCE;
 
-Legacy_ObjectContainer *
-addMemberWhichIsPrimitive(Object *self, char *memberName,
-                          void *dynamicallyAllocatedPrimitive) {
-    return addMemberWhichIsLegacy_ObjectContainer(
-            self, memberName,
-            (Legacy_ObjectContainer *) Legacy_AtomicFreerConstructorWithData(
-                    dynamicallyAllocatedPrimitive));
-}
+        if (object->memberList->legacyObjectComponent
+                    ->destructorInvocationStatus == WAS_NOT_INVOKED) {
+            object->memberList->legacyObjectComponent
+                    ->destructorInvocationStatus = WAS_INVOKED_ONCE;
 
-//// TODO: maybe remove. could be redundant.
-//Legacy_ObjectContainer *
-//addMemberWhichIsPrimitiveAnonymousPointer(Object *self, char *memberName) {
-//    return self->addMemberWhichIsPrimitive(
-//            self, memberName, calloc(1, sizeof(TYPEOF_ANONYMOUS_POINTER)));
-//}
+            // Destruct `memberList`.
+            object->memberList->legacyObjectComponent->destructable->destructor(
+                    object->memberList);
+        }
 
-Legacy_ObjectContainer *getMemberByName_Object(Object *self, char *memberName) {
-    return self->memberList->getMemberByName(self->memberList, memberName);
-}
+        // Destruct `legacyObject`.
+        object->legacyObject->destructable->destructor(object->legacyObject);
 
-void *ObjectDestructor(Object *object) {
-    object->memberList->object->destructable->destructor(object->memberList);
 
-    free(object->object);
-    free(object);
+        // TODO: DEBUG
+        printf("\n\nFREEEEEEE\n\n");
+
+        free(object);
+    }
 
     return NULL;
 }
 
-/// @deprecated
-Object *ObjectConstructorEmpty() { return ObjectConstructor("Object"); }
-
-Object *ObjectConstructor(const char *className) {
+/**
+ * @deprecated private. Do not use this. It is only used for the
+ *             `Constructable` assignment. Use `construct` instead.
+ *
+ * memory allocating `sizeof(Object)`, then invoking legacy_ObjectComponent's
+ * constructor, and MemberList's constructor.
+ */
+Object *constructNoClass() {
     Object *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->addMemberWhichIsLegacy_ObjectContainer =
-            &addMemberWhichIsLegacy_ObjectContainer;
-    instance->addMemberWhichIsPrimitive = &addMemberWhichIsPrimitive;
-    instance->getMemberByName           = &getMemberByName_Object;
-
-    instance->object = Legacy_ObjectConstructorClassName(className);
+    instance->legacyObject =
+            Legacy_ObjectComponentConstructorClassName("Object");
+    instance->memberList = MemberListConstructor("Object");
 
     static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&ObjectConstructorEmpty)};
-    instance->object->constructable = &constructable;
+            .constructor = (void *(*const)(void) )(&constructNoClass)};
+    instance->legacyObject->constructable = &constructable;
 
     static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&ObjectDestructor)};
-    instance->object->destructable = &destructable;
+            .destructor = (void *(*const)(void *) )(&destruct)};
+    instance->legacyObject->destructable = &destructable;
 
-    instance->memberList = MemberListConstructorWithObjectContainer(
-            (Legacy_ObjectContainer *) instance);
+    return instance;
+}
+
+/// TODO: public. maybe rename to something secret.
+/**
+ * memory allocating `sizeof(Object)`, then invoking legacy_ObjectComponent's
+ * constructor, and MemberList's constructor.
+ */
+Object *construct(char *className) {
+    Object *instance = calloc(1, sizeof *instance);
+    if (instance == NULL) { /* error handling here */
+    }
+
+    instance->legacyObject =
+            Legacy_ObjectComponentConstructorClassName(className);
+    instance->memberList = MemberListConstructor(className);
+
+    // TODO: after rename
+    //    instance->memberList->addMemberWhichIsLegacy_ObjectContainer(
+    //            instance->memberList, FIELDS,
+    //            MemberListConstructor("")));
+
+    static Constructable const constructable = {
+            .constructor = (void *(*const)(void) )(&constructNoClass)};
+    instance->legacyObject->constructable = &constructable;
+
+    static Destructable const destructable = {
+            .destructor = (void *(*const)(void *) )(&destruct)};
+    instance->legacyObject->destructable = &destructable;
 
     return instance;
 }

@@ -16,20 +16,20 @@ Maybe add to memberList somehow.
 -----------------------------------------------------------------
 TODO:
 
-do this for every object:
+do this for every legacyObjectComponent:
 
-for safety if you have a pointer to the object and could possibly free more than once.
+for safety if you have a pointer to the legacyObjectComponent and could possibly free more than once.
 
 ```
 
 void *Legacy_AtomicFreerDestructor(Legacy_AtomicFreer *atomicFreer) {
     if (atomicFreer == NULL) { return NULL; }
 
-    if (atomicFreer->object->destructorInvocationStatus == WAS_NOT_INVOKED) {
-        atomicFreer->object->destructorInvocationStatus = WAS_INVOKED_ONCE;
+    if (atomicFreer->legacyObjectComponent->destructorInvocationStatus == WAS_NOT_INVOKED) {
+        atomicFreer->legacyObjectComponent->destructorInvocationStatus = WAS_INVOKED_ONCE;
         free(atomicFreer->data);
 
-        free(atomicFreer->object);
+        free(atomicFreer->legacyObjectComponent);
 
         free(atomicFreer);
     }
@@ -55,14 +55,14 @@ TODO:
 #define _OBJECT_FIELDS_ (bitfield that contains *Legacy_Object and *Object)
 
 
-and include in every future object.
+and include in every future legacyObjectComponent.
 
 --------------------------------------------------------------
 
 
 TODO:
 
-if you make all methods in MemberList, then the `sizeof` every future object
+if you make all methods in MemberList, then the `sizeof` every future legacyObjectComponent
 will be the same (and will be `sizeof(ObjectContainer)`),
 
 and then you could dynamically allocate ObjectContainer with a constant size,
@@ -110,16 +110,17 @@ For example when a user creates a class like so:
 
 TODO:
 
-rename `MemberList` to `Legacy_MemberList`
+DONE: rename `MemberList` to `Legacy_MemberList`
 
-rename `Object` to `MemberList`
+DONE: rename `Object` to `MemberList`
 
-rename `ObjectContainer` to `Object`
+DONE: rename `ObjectContainer` to `Object`
 
-rename `Legacy_Object` to `Legacy_ObjectComponent`
+DONE: rename `Legacy_Object` to `Legacy_ObjectComponent`
 
-rename `Legacy_ObjectContainer` to `Legacy_Object`
-
+DONE: rename `Legacy_ObjectContainer` to `Legacy_Object`
+----
+DONE: Then reformat-code of all project.
 -----
 
 Then, show the `MemberList` field pointer in `Object` (so it won't be anonymous
@@ -131,9 +132,39 @@ anymore) -----> so you need to edit in "ObjectDefines.r":
     MemberList *memberList;
 ```
 
-and rename `OBJECT_CONTAINER_FIELDS` to `OBJECT_FIELDS`
+DONE: and rename `OBJECT_CONTAINER_FIELDS` to `OBJECT_FIELDS`
 
 
 
 ---------------------------------------
+
+TODO:
+
+Let "c89" / "-Wpedantic" users be supported by `oop.a`:
+
+- change all line comments of (// ... ) to ( /* ... */ )
+- compile the `oop.a` library with the most restricted `-Wpedantic ...` and `-std=c89`
+
+------------------------------------
+
+TODO:
+
+when you release the library, you must include ALL the `.h` (and `.r`) files.
+
+So when you release: you MUST "zip" the whole "src/oop" folder, so it would the
+`.h` / `.r` files and `oop.a`.
+
+
+------------------------------
+
+
+TODO:
+
+in README.md:
+in `Dynamic Allocation` section:
+
+tell the user that he can also destruct the object implicitly by himself if he
+wants to destruct immediately.
+Also, tell him that every object is "multiple free safe": so he could destruct
+multiple times the same object and it won't crash.
 

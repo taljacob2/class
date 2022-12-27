@@ -6,25 +6,14 @@
 // Forward declaration of incomplete type
 typedef struct object Object;
 
+/// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 struct object {
-
-    /// `Object` implements `Legacy_Object`.
-    Legacy_Object *object;
-
-    MemberList *memberList;
-
-    Legacy_ObjectContainer *(*addMemberWhichIsLegacy_ObjectContainer)(
-            Object *self, char *memberName,
-            Legacy_ObjectContainer *legacyObjectContainer);
-    Legacy_ObjectContainer *(*addMemberWhichIsPrimitive)(
-            Object *self, char *memberName,
-            void *dynamicallyAllocatedPrimitive);
-    Legacy_ObjectContainer *(*getMemberByName)(Object *self, char *memberName);
+    Legacy_ObjectComponent *legacyObject;
+    MemberList *            memberList;
 };
 
-Object *ObjectConstructor(const char *className);
+void *destruct(Object *object);
 
-/// Add Object `#define`s for users.
-#include "ObjectDefines.r"
+Object *construct(char *className);
 
 #endif //OBJECT_H
