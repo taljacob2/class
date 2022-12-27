@@ -138,3 +138,11 @@ DONE: and rename `OBJECT_CONTAINER_FIELDS` to `OBJECT_FIELDS`
 
 ---------------------------------------
 
+TODO:
+
+Let "c89" / "-Wpedantic" users be supported by `oop.a`:
+
+- change all line comments of (// ... ) to ( /* ... */ )
+- compile the `oop.a` library with the most restricted `-Wpedantic ...` and `-std=c89`
+
+
