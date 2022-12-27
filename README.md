@@ -6,40 +6,43 @@
 
 ### Import `oop.a` To Your Program
 
+In your project's path, create an empty file named `main.c`.
+
 #### Download The Latest Release Of `oop.a` [Here](https://github.com/taljacob2/oop/releases/)
 
+Place the "oop" directory in your project's path.
 ```
-    .
-    ├── main.c
-    └── oop
-        ├── Atomic
-        │   ├── Atomic.h
-        │   ├── AtomicInteger.h
-        ├── Object
-        │   ├── AnonymousPointer.h
-        │   ├── AutoDestructable.r
-        │   ├── Bool.h
-        │   ├── Concat.h
-        │   ├── Constructable.r
-        │   ├── Destructable.r
-        │   ├── InvocationStatus.r
-        │   ├── Legacy_AllocationTable.r
-        │   ├── Legacy_AllocationTableList.r
-        │   ├── Legacy_AtomicFreer.r
-        │   ├── Legacy_List.r
-        │   ├── Legacy_MemberList.r
-        │   ├── Legacy_Node.r
-        │   ├── Legacy_Object.r
-        │   ├── Legacy_ObjectComponent.r
-        │   ├── Legacy_StringObjectContainerEntry.r
-        │   ├── MemberList.r
-        │   ├── Object.a
-        │   ├── Object.h
-        │   ├── Object.r
-        │   ├── ObjectDefines.r
-        │   ├── Quote.h
-        ├── oop.a
-        └── oop.h
+.
+├── main.c
+└── oop
+    ├── Atomic
+    │   ├── Atomic.h
+    │   ├── AtomicInteger.h
+    ├── Object
+    │   ├── AnonymousPointer.h
+    │   ├── AutoDestructable.r
+    │   ├── Bool.h
+    │   ├── Concat.h
+    │   ├── Constructable.r
+    │   ├── Destructable.r
+    │   ├── InvocationStatus.r
+    │   ├── Legacy_AllocationTable.r
+    │   ├── Legacy_AllocationTableList.r
+    │   ├── Legacy_AtomicFreer.r
+    │   ├── Legacy_List.r
+    │   ├── Legacy_MemberList.r
+    │   ├── Legacy_Node.r
+    │   ├── Legacy_Object.r
+    │   ├── Legacy_ObjectComponent.r
+    │   ├── Legacy_StringObjectContainerEntry.r
+    │   ├── MemberList.r
+    │   ├── Object.a
+    │   ├── Object.h
+    │   ├── Object.r
+    │   ├── ObjectDefines.r
+    │   ├── Quote.h
+    ├── oop.a
+    └── oop.h
 ```
 
 ### Define Your Own New Object
@@ -86,7 +89,7 @@ For example, you wish to define a new object with the "class name" of `Circle`:
       Circle *circle = CircleConstructor();
 
       /* `circle` is automatically freed */
-      
+
       return 0;
   }
   ```
