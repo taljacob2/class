@@ -7,8 +7,10 @@
 void *Legacy_AtomicFreerDestructor(Legacy_AtomicFreer *atomicFreer) {
     if (atomicFreer == NULL) { return NULL; }
 
-    if (atomicFreer->legacyObjectComponent->destructorInvocationStatus == WAS_NOT_INVOKED) {
-        atomicFreer->legacyObjectComponent->destructorInvocationStatus = WAS_INVOKED_ONCE;
+    if (atomicFreer->legacyObjectComponent->destructorInvocationStatus ==
+        WAS_NOT_INVOKED) {
+        atomicFreer->legacyObjectComponent->destructorInvocationStatus =
+                WAS_INVOKED_ONCE;
         free(atomicFreer->data);
 
         free(atomicFreer->legacyObjectComponent);

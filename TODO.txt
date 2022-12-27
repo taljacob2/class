@@ -118,9 +118,9 @@ DONE: rename `ObjectContainer` to `Object`
 
 DONE: rename `Legacy_Object` to `Legacy_ObjectComponent`
 
-rename `Legacy_ObjectContainer` to `Legacy_Object`
+DONE: rename `Legacy_ObjectContainer` to `Legacy_Object`
 ----
-Then reformat-code of all project.
+DONE: Then reformat-code of all project.
 -----
 
 Then, show the `MemberList` field pointer in `Object` (so it won't be anonymous
@@ -132,7 +132,7 @@ anymore) -----> so you need to edit in "ObjectDefines.r":
     MemberList *memberList;
 ```
 
-and rename `OBJECT_CONTAINER_FIELDS` to `OBJECT_FIELDS`
+DONE: and rename `OBJECT_CONTAINER_FIELDS` to `OBJECT_FIELDS`
 
 
 

@@ -28,7 +28,7 @@ struct autoDestructable {
 
 AutoDestructable *AutoDestructableConstructorWithClassName(
         Legacy_Object *legacyObjectToSaveItsAddressToAllocationTable,
-        const char *className);
+        const char *   className);
 
 /**
  * @brief Creates a `new` "heap-allocated" instance of `AutoDestructable` and initializes
@@ -55,7 +55,6 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
  */
 AutoDestructable *AutoDestructableConstructor();
 
-Legacy_Object *
-AutoDestructableDestructor(AutoDestructable *autoDestructable);
+Legacy_Object *AutoDestructableDestructor(AutoDestructable *autoDestructable);
 
 #endif //AUTODESTRUCTABLE_H

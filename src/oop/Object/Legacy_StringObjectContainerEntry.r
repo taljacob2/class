@@ -13,7 +13,7 @@ struct legacy_stringObjectContainerEntry {
     /// `Legacy_StringObjectContainerEntry` implements `Legacy_ObjectComponent`.
     Legacy_ObjectComponent *object;
 
-    char *                  key;
+    char *         key;
     Legacy_Object *value;
 };
 

@@ -9,7 +9,7 @@ typedef struct object Object;
 /// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 struct object {
     Legacy_ObjectComponent *legacyObject;
-    MemberList *   memberList;
+    MemberList *            memberList;
 };
 
 void storeLegacyObjectConstructorAndDestructor(Object *object);

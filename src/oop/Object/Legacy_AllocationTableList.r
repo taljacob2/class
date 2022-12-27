@@ -19,7 +19,7 @@ struct legacy_allocationTableList {
 
     Legacy_AllocationTable *(*findLegacy_AllocationTableByClassName)(
             const char *allocationTableClassName);
-    BOOLEAN (*predicateFindLegacy_AllocationTableByClassName)
+    BOOLEAN(*predicateFindLegacy_AllocationTableByClassName)
     (const Legacy_Node *nodeThatPointsToAllocationTable,
      const char *const  allocationTableClassName);
 };

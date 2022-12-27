@@ -19,8 +19,7 @@ struct memberList {
     Legacy_Object *(*addMemberWhichIsPrimitive)(
             MemberList *self, char *memberName,
             void *dynamicallyAllocatedPrimitive);
-    Legacy_Object *(*getMemberByName)(MemberList *self,
-                                               char *      memberName);
+    Legacy_Object *(*getMemberByName)(MemberList *self, char *memberName);
 };
 
 MemberList *MemberListConstructor();

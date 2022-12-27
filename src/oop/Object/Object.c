@@ -3,20 +3,17 @@
 /// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
 ///     it will be still okay. maybe rename to something secret.
 void *destruct(Object *object) {
-    if (object->legacyObject->destructorInvocationStatus ==
-        WAS_NOT_INVOKED) {
-        object->legacyObject->destructorInvocationStatus =
-                WAS_INVOKED_ONCE;
+    if (object->legacyObject->destructorInvocationStatus == WAS_NOT_INVOKED) {
+        object->legacyObject->destructorInvocationStatus = WAS_INVOKED_ONCE;
 
         if (object->memberList->legacyObjectComponent
-                    ->destructorInvocationStatus ==
-            WAS_NOT_INVOKED) {
+                    ->destructorInvocationStatus == WAS_NOT_INVOKED) {
             object->memberList->legacyObjectComponent
-                    ->destructorInvocationStatus =
-                    WAS_INVOKED_ONCE;
+                    ->destructorInvocationStatus = WAS_INVOKED_ONCE;
 
             // Destruct `memberList`.
-            object->memberList->legacyObjectComponent->destructable->destructor(object->memberList);
+            object->memberList->legacyObjectComponent->destructable->destructor(
+                    object->memberList);
         }
 
         // Destruct `legacyObject`.
@@ -71,12 +68,12 @@ Object *construct(char *className) {
 
     instance->legacyObject =
             Legacy_ObjectComponentConstructorClassName(className);
-    instance->memberList   = MemberListConstructor(className);
+    instance->memberList = MemberListConstructor(className);
 
     // TODO: after rename
-//    instance->memberList->addMemberWhichIsLegacy_ObjectContainer(
-//            instance->memberList, FIELDS,
-//            MemberListConstructor("")));
+    //    instance->memberList->addMemberWhichIsLegacy_ObjectContainer(
+    //            instance->memberList, FIELDS,
+    //            MemberListConstructor("")));
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};

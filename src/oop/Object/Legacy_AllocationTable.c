@@ -19,8 +19,9 @@ Legacy_AllocationTableDestructor(Legacy_AllocationTable *allocationTable) {
 
 void constructor_Legacy_AllocationTable_fields(
         Legacy_AllocationTable *allocationTable) {
-    allocationTable->legacyObjectComponent = Legacy_ObjectComponentConstructorClassName(
-            "Legacy_AllocationTable");
+    allocationTable->legacyObjectComponent =
+            Legacy_ObjectComponentConstructorClassName(
+                    "Legacy_AllocationTable");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(

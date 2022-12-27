@@ -1,15 +1,14 @@
 #include "MemberList.r"
 
-Legacy_Object *addMemberWhichIsLegacy_ObjectContainer(
-        MemberList *self, char *memberName,
+Legacy_Object *
+addMemberWhichIsLegacy_ObjectContainer(MemberList *self, char *memberName,
                                        Legacy_Object *legacyObjectContainer) {
-    return self->legacyMemberList->addMember(
-            self->legacyMemberList, memberName, legacyObjectContainer);
+    return self->legacyMemberList->addMember(self->legacyMemberList, memberName,
+                                             legacyObjectContainer);
 }
 
-Legacy_Object *
-addMemberWhichIsPrimitive(MemberList *self, char *memberName,
-                          void *dynamicallyAllocatedPrimitive) {
+Legacy_Object *addMemberWhichIsPrimitive(MemberList *self, char *memberName,
+                                         void *dynamicallyAllocatedPrimitive) {
     return addMemberWhichIsLegacy_ObjectContainer(
             self, memberName,
             (Legacy_Object *) Legacy_AtomicFreerConstructorWithData(
@@ -23,10 +22,9 @@ addMemberWhichIsPrimitive(MemberList *self, char *memberName,
 //            self, memberName, calloc(1, sizeof(TYPEOF_ANONYMOUS_POINTER)));
 //}
 
-Legacy_Object *getMemberByName_MemberList(MemberList *self,
-                                                   char *      memberName) {
+Legacy_Object *getMemberByName_MemberList(MemberList *self, char *memberName) {
     return self->legacyMemberList->getMemberByName(self->legacyMemberList,
-                                                    memberName);
+                                                   memberName);
 }
 
 void *MemberListDestructor(MemberList *object) {
@@ -49,7 +47,8 @@ MemberList *MemberListConstructor() {
     instance->addMemberWhichIsPrimitive = &addMemberWhichIsPrimitive;
     instance->getMemberByName           = &getMemberByName_MemberList;
 
-    instance->legacyObjectComponent = Legacy_ObjectComponentConstructorClassName("MemberList");
+    instance->legacyObjectComponent =
+            Legacy_ObjectComponentConstructorClassName("MemberList");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&MemberListConstructor)};
