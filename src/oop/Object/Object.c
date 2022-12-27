@@ -3,6 +3,10 @@
 /// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
 ///     it will be still okay. maybe rename to something secret.
 void *destruct(Object *object) {
+
+    // TODO: DEBUG
+    printf("\n\ndestruct invoked\n\n");
+
     if (object->legacyObject->destructorInvocationStatus == WAS_NOT_INVOKED) {
         object->legacyObject->destructorInvocationStatus = WAS_INVOKED_ONCE;
 
