@@ -27,7 +27,7 @@ struct autoDestructable {
 };
 
 AutoDestructable *AutoDestructableConstructorWithClassName(
-        Legacy_Object *   objectContainerToSaveItsAddressToAllocationTable,
+        Legacy_Object *legacyObjectToSaveItsAddressToAllocationTable,
         const char *className);
 
 /**

@@ -27,7 +27,7 @@ CircleV2 *CircleV2Constructor() {
             .destructor = (void *(*const)(void *) )(&CircleV2Destructor)};
     instance->legacyObjectComponent->destructable = &destructable;
 
-    instance->legacyMemberList = Legacy_MemberListConstructorWithObjectContainer(
+    instance->legacyMemberList = Legacy_MemberListConstructorWithLegacy_Object(
             (Legacy_Object *) instance);
 
     instance->legacyMemberList->addMember(

@@ -59,9 +59,8 @@ MemberList *MemberListConstructor() {
             .destructor = (void *(*const)(void *) )(&MemberListDestructor)};
     instance->legacyObjectComponent->destructable = &destructable;
 
-    instance->legacyMemberList =
-            Legacy_MemberListConstructorWithObjectContainer(
-                    (Legacy_Object *) instance);
+    instance->legacyMemberList = Legacy_MemberListConstructorWithLegacy_Object(
+            (Legacy_Object *) instance);
 
     return instance;
 }
