@@ -98,7 +98,7 @@ Legacy_Object *getAccessModifierMember(Legacy_List *accessModifierLegacyList,
     return findMemberInMemberListByMemberNameReturnValue;
 }
 
-/* ---------------------- Specific Access Modifier -------------------------- */
+/* -------------- Specific Access Modifier ------------- */
 
 // "private" function.
 Legacy_Object *getPrivateMember(Object *object, MemberList *memberList,
@@ -114,9 +114,9 @@ Legacy_Object *getPublicMember(Object *object, MemberList *memberList,
                                    memberList, memberName);
 }
 
-/* ------------ Specific Access Modifier & Specific MemberList -------------- */
+/* --- Specific Access Modifier & Specific MemberList --- */
 
-/* ------------- Methods ------------- */
+/* --------------- Methods --------------- */
 
 // "public" function.
 Legacy_Object *getPrivateMethod(Object *object, char *memberName) {
@@ -160,7 +160,7 @@ Legacy_Object *getPublicDestructor(Object *object, char *memberName) {
                                    getDestructorMemberList(object), memberName);
 }
 
-/* ------------- Fields ------------- */
+/* --------------- Fields --------------- */
 
 // "public" function.
 Legacy_Object *getPrivateField(Object *object, char *memberName) {
@@ -192,7 +192,7 @@ void addAccessModifierMemberList(Legacy_List *accessModifierLegacyList,
                                               memberToAdd);
 }
 
-/* ---------------------- Specific Access Modifier -------------------------- */
+/* -------------- Specific Access Modifier ------------- */
 
 // "private" function.
 void addPrivateMemberList(Object *object, MemberList *memberList,
@@ -208,9 +208,9 @@ void addPublicMemberList(Object *object, MemberList *memberList,
                                 memberList, memberName, memberToAdd);
 }
 
-/* ------------ Specific Access Modifier & Specific MemberList -------------- */
+/* --- Specific Access Modifier & Specific MemberList --- */
 
-/* ------------- Methods ------------- */
+/* --------------- Methods --------------- */
 
 // "public" function.
 void addPrivateMethod(Object *object, char *memberName,
@@ -264,7 +264,7 @@ void addPublicDestructor(Object *object, char *memberName,
                                 memberToAdd);
 }
 
-/* ------------- Fields ------------- */
+/* --------------- Fields --------------- */
 
 // "public" function.
 void addPrivateField(Object *object, char *memberName,
@@ -282,7 +282,7 @@ void addPublicField(Object *object, char *memberName,
                                 memberToAdd);
 }
 
-
+/* -------------------------------------------------------------------------- */
 
 /// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
 ///     it will be still okay. maybe rename to something secret.
