@@ -115,7 +115,7 @@ void *Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
         if (iterationNodePrev != NULL) {
-            Legacy_ObjectContainer *objectContainer =
+            Legacy_Object *objectContainer =
                     iterationNodePrev->legacyObjectComponent->destructable->destructor(
                             iterationNodePrev);
             objectContainer->legacyObjectComponent
@@ -129,7 +129,7 @@ void *Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
 
     // `iterationNodePrev` is `legacy_list->tail`.
     if (iterationNodePrev != NULL) {
-        Legacy_ObjectContainer *objectContainer =
+        Legacy_Object *objectContainer =
                 iterationNodePrev->legacyObjectComponent->destructable->destructor(
                         iterationNodePrev);
         objectContainer->legacyObjectComponent

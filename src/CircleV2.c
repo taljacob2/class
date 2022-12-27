@@ -28,11 +28,11 @@ CircleV2 *CircleV2Constructor() {
     instance->legacyObjectComponent->destructable = &destructable;
 
     instance->legacyMemberList = Legacy_MemberListConstructorWithObjectContainer(
-            (Legacy_ObjectContainer *) instance);
+            (Legacy_Object *) instance);
 
     instance->legacyMemberList->addMember(
             instance->legacyMemberList, "radius",
-            (Legacy_ObjectContainer *) Legacy_AtomicFreerConstructorWithData(
+            (Legacy_Object *) Legacy_AtomicFreerConstructorWithData(
                     calloc(1, sizeof(int))));
 
     return instance;

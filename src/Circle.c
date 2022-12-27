@@ -19,7 +19,7 @@ Circle *CircleConstructor() {
     instance->legacyObjectComponent = Legacy_ObjectComponentConstructorClassName("Circle");
 
     instance->autoDestructable = AutoDestructableConstructorWithClassName(
-            (Legacy_ObjectContainer *) instance, instance->legacyObjectComponent->CLASS_NAME);
+            (Legacy_Object *) instance, instance->legacyObjectComponent->CLASS_NAME);
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&CircleConstructor)};

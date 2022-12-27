@@ -23,12 +23,11 @@ struct autoDestructable {
     Legacy_AllocationTable *OBJECT_ALLOCATION_TABLE;
 
     /// Sensitive data. DO NOT TOUCH!
-    Legacy_ObjectContainer *allocatedAddress;
+    Legacy_Object *allocatedAddress;
 };
 
 AutoDestructable *AutoDestructableConstructorWithClassName(
-        Legacy_ObjectContainer
-                *   objectContainerToSaveItsAddressToAllocationTable,
+        Legacy_Object *   objectContainerToSaveItsAddressToAllocationTable,
         const char *className);
 
 /**
@@ -56,7 +55,7 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
  */
 AutoDestructable *AutoDestructableConstructor();
 
-Legacy_ObjectContainer *
+Legacy_Object *
 AutoDestructableDestructor(AutoDestructable *autoDestructable);
 
 #endif //AUTODESTRUCTABLE_H

@@ -119,7 +119,8 @@ DONE: rename `ObjectContainer` to `Object`
 DONE: rename `Legacy_Object` to `Legacy_ObjectComponent`
 
 rename `Legacy_ObjectContainer` to `Legacy_Object`
-
+----
+Then reformat-code of all project.
 -----
 
 Then, show the `MemberList` field pointer in `Object` (so it won't be anonymous

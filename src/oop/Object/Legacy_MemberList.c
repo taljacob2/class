@@ -21,21 +21,21 @@ getMemberStringObjectContainerEntryByName(Legacy_MemberList *legacy_memberList,
     return (getMemberNodeByName(legacy_memberList, memberName))->data;
 }
 
-Legacy_ObjectContainer *
+Legacy_Object *
 getMemberStringObjectContainerEntryValueByName(Legacy_MemberList *legacy_memberList,
                                                char *      memberName) {
     return getMemberStringObjectContainerEntryByName(legacy_memberList, memberName)
             ->value;
 }
 
-Legacy_ObjectContainer *getMemberByName_Legacy_MemberList(Legacy_MemberList *legacy_memberList,
+Legacy_Object *getMemberByName_Legacy_MemberList(Legacy_MemberList *legacy_memberList,
                                                    char *      memberName) {
     return getMemberStringObjectContainerEntryValueByName(legacy_memberList,
                                                           memberName);
 }
 
-Legacy_ObjectContainer *addMember(Legacy_MemberList *legacy_memberList, char *memberName,
-                                  Legacy_ObjectContainer *member) {
+Legacy_Object *addMember(Legacy_MemberList *legacy_memberList, char *memberName,
+                         Legacy_Object *member) {
     Legacy_Node *objectEntryNode = Legacy_NodeConstructorWithData(
             Legacy_StringObjectContainerEntryConstructorWithKeyAndValue(
                     memberName, member));
@@ -76,8 +76,8 @@ Legacy_MemberList *Legacy_MemberListConstructor() {
 
     addMember(
             instance, "autoDestructable",
-            (Legacy_ObjectContainer *) AutoDestructableConstructorWithClassName(
-                    (Legacy_ObjectContainer *) instance,
+            (Legacy_Object *) AutoDestructableConstructorWithClassName(
+                    (Legacy_Object *) instance,
                     instance->legacyObjectComponent->CLASS_NAME));
 
     static Constructable const constructable = {
@@ -92,7 +92,7 @@ Legacy_MemberList *Legacy_MemberListConstructor() {
 }
 
 Legacy_MemberList *Legacy_MemberListConstructorWithObjectContainer(
-        Legacy_ObjectContainer *objectContainerThatContainsThisLegacy_MemberList) {
+        Legacy_Object *objectContainerThatContainsThisLegacy_MemberList) {
     Legacy_MemberList *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
     }
@@ -107,8 +107,8 @@ Legacy_MemberList *Legacy_MemberListConstructorWithObjectContainer(
 
     addMember(
             instance, "autoDestructable",
-            (Legacy_ObjectContainer *) AutoDestructableConstructorWithClassName(
-                    (Legacy_ObjectContainer *)
+            (Legacy_Object *) AutoDestructableConstructorWithClassName(
+                    (Legacy_Object *)
                             objectContainerThatContainsThisLegacy_MemberList,
                     objectContainerThatContainsThisLegacy_MemberList->legacyObjectComponent->CLASS_NAME));
 

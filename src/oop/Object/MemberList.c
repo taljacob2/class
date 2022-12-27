@@ -1,29 +1,29 @@
 #include "MemberList.r"
 
-Legacy_ObjectContainer *addMemberWhichIsLegacy_ObjectContainer(
+Legacy_Object *addMemberWhichIsLegacy_ObjectContainer(
         MemberList *self, char *memberName,
-        Legacy_ObjectContainer *legacyObjectContainer) {
+                                       Legacy_Object *legacyObjectContainer) {
     return self->legacyMemberList->addMember(
             self->legacyMemberList, memberName, legacyObjectContainer);
 }
 
-Legacy_ObjectContainer *
+Legacy_Object *
 addMemberWhichIsPrimitive(MemberList *self, char *memberName,
                           void *dynamicallyAllocatedPrimitive) {
     return addMemberWhichIsLegacy_ObjectContainer(
             self, memberName,
-            (Legacy_ObjectContainer *) Legacy_AtomicFreerConstructorWithData(
+            (Legacy_Object *) Legacy_AtomicFreerConstructorWithData(
                     dynamicallyAllocatedPrimitive));
 }
 
 //// TODO: maybe remove. could be redundant.
-//Legacy_ObjectContainer *
+//Legacy_Object *
 //addMemberWhichIsPrimitiveAnonymousPointer(MemberList *self, char *memberName) {
 //    return self->addMemberWhichIsPrimitive(
 //            self, memberName, calloc(1, sizeof(TYPEOF_ANONYMOUS_POINTER)));
 //}
 
-Legacy_ObjectContainer *getMemberByName_MemberList(MemberList *self,
+Legacy_Object *getMemberByName_MemberList(MemberList *self,
                                                    char *      memberName) {
     return self->legacyMemberList->getMemberByName(self->legacyMemberList,
                                                     memberName);
@@ -61,7 +61,7 @@ MemberList *MemberListConstructor() {
 
     instance->legacyMemberList =
             Legacy_MemberListConstructorWithObjectContainer(
-                    (Legacy_ObjectContainer *) instance);
+                    (Legacy_Object *) instance);
 
     return instance;
 }

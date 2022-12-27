@@ -14,7 +14,7 @@ struct legacy_stringObjectContainerEntry {
     Legacy_ObjectComponent *object;
 
     char *                  key;
-    Legacy_ObjectContainer *value;
+    Legacy_Object *value;
 };
 
 
@@ -23,6 +23,6 @@ Legacy_StringObjectContainerEntryConstructor();
 
 Legacy_StringObjectContainerEntry *
 Legacy_StringObjectContainerEntryConstructorWithKeyAndValue(
-        char *key, Legacy_ObjectContainer *value);
+        char *key, Legacy_Object *value);
 
 #endif //LEGACY_STRINGOBJECTCONTAINERENTRY_H

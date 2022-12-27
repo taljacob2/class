@@ -13,13 +13,13 @@ struct memberList {
 
     Legacy_MemberList *legacyMemberList;
 
-    Legacy_ObjectContainer *(*addMemberWhichIsLegacy_ObjectContainer)(
+    Legacy_Object *(*addMemberWhichIsLegacy_ObjectContainer)(
             MemberList *self, char *memberName,
-            Legacy_ObjectContainer *legacyObjectContainer);
-    Legacy_ObjectContainer *(*addMemberWhichIsPrimitive)(
+            Legacy_Object *legacyObjectContainer);
+    Legacy_Object *(*addMemberWhichIsPrimitive)(
             MemberList *self, char *memberName,
             void *dynamicallyAllocatedPrimitive);
-    Legacy_ObjectContainer *(*getMemberByName)(MemberList *self,
+    Legacy_Object *(*getMemberByName)(MemberList *self,
                                                char *      memberName);
 };
 

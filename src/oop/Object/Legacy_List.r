@@ -34,8 +34,8 @@ struct legacy_list {
 
     /**
      * @attention This is generic for all **Legacy_ObjectComponent** implementors
-     *            ( = Legacy_ObjectContainer). Can work only if the `Legacy_Node->data`
-     *            is implements **Legacy_ObjectComponent** ( = Legacy_ObjectContainer).
+     *            ( = Legacy_Object). Can work only if the `Legacy_Node->data`
+     *            is implements **Legacy_ObjectComponent** ( = Legacy_Object).
      */
     void *(*Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData)(
             Legacy_List *list);

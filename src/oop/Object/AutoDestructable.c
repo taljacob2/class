@@ -9,11 +9,11 @@ void *deleteAllocationAddressNodeFromAllocationTable(
                     allocatedAddress);
 }
 
-Legacy_ObjectContainer *
+Legacy_Object *
 deleteAllocationAddressIfNeeded(AutoDestructable *autoDestructable) {
     if (autoDestructable == NULL) { return NULL; }
 
-    Legacy_ObjectContainer *objectContainer = autoDestructable->allocatedAddress;
+    Legacy_Object *objectContainer = autoDestructable->allocatedAddress;
 
     if (objectContainer->legacyObjectComponent
                 ->deleteFromAllocationTableInvocationStatus ==
@@ -22,7 +22,7 @@ deleteAllocationAddressIfNeeded(AutoDestructable *autoDestructable) {
                 ->deleteFromAllocationTableInvocationStatus =
                 WAS_INVOKED_ONCE;
 
-        Legacy_ObjectContainer *allocatedAddressReturnValue =
+        Legacy_Object *allocatedAddressReturnValue =
                 deleteAllocationAddressNodeFromAllocationTable(
                         autoDestructable->OBJECT_ALLOCATION_TABLE,
                         autoDestructable->allocatedAddress);
@@ -48,7 +48,7 @@ void destructAllocatedAddressUnsafe(AutoDestructable *autoDestructable) {
     free(autoDestructable);
 }
 
-Legacy_ObjectContainer *
+Legacy_Object *
 AutoDestructableDestructor(AutoDestructable *autoDestructable) {
     if (autoDestructable == NULL) { return NULL; }
 
@@ -127,8 +127,7 @@ void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
 }
 
 AutoDestructable *AutoDestructableConstructorWithClassName(
-        Legacy_ObjectContainer
-                *objectContainerToSaveItsAddressToAllocationTable,
+        Legacy_Object *objectContainerToSaveItsAddressToAllocationTable,
         const char *     className) {
     AutoDestructable *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
@@ -141,7 +140,7 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
     // If `objectContainerToSaveItsAddressToAllocationTable` is `NULL` use `instance`.
     instance->allocatedAddress =
             objectContainerToSaveItsAddressToAllocationTable == NULL
-                    ? (Legacy_ObjectContainer *) instance
+                    ? (Legacy_Object *) instance
                     : objectContainerToSaveItsAddressToAllocationTable;
     saveObjectContainerToAllocationTable(instance);
 

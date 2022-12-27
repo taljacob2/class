@@ -16,15 +16,13 @@ struct legacy_memberList {
 
     Legacy_List *memberEntryList;
 
-    Legacy_ObjectContainer *(*addMember)(Legacy_MemberList *legacy_memberList,
-                                         char *             memberName,
-                                         Legacy_ObjectContainer *member);
-    Legacy_ObjectContainer *(*getMemberByName)(
+    Legacy_Object *(*addMember)(Legacy_MemberList *legacy_memberList,
+                                         char *             memberName, Legacy_Object *member);
+    Legacy_Object *(*getMemberByName)(
             Legacy_MemberList *legacy_memberList, char *memberName);
 };
 
 Legacy_MemberList *Legacy_MemberListConstructorWithObjectContainer(
-        Legacy_ObjectContainer
-                *objectContainerThatContainsThisLegacy_MemberList);
+        Legacy_Object *objectContainerThatContainsThisLegacy_MemberList);
 
 #endif //LEGACY_MEMBERLIST_H

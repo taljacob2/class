@@ -56,7 +56,7 @@ Legacy_StringObjectContainerEntryConstructor() {
 
 Legacy_StringObjectContainerEntry *
 Legacy_StringObjectContainerEntryConstructorWithKeyAndValue(
-        char *key, Legacy_ObjectContainer *value) {
+        char *key, Legacy_Object *value) {
     Legacy_StringObjectContainerEntry *instance =
             Legacy_StringObjectContainerEntryConstructor();
 
