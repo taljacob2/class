@@ -176,6 +176,113 @@ Legacy_Object *getPublicField(Object *object, char *memberName) {
 
 /* ----------------------------- ADD MEMBER --------------------------------- */
 
+// "private" function.
+void addAccessModifierMemberList(Legacy_List *accessModifierLegacyList,
+                                 MemberList *memberList, char *memberName,
+                                 Legacy_Object *memberToAdd) {
+
+    // Add `memberName` to accessModifierList.
+    accessModifierLegacyList->addAsUnique(
+            accessModifierLegacyList,
+            Legacy_NodeConstructorWithData(memberName),
+            predicateFindAccessModifierMemberNameByMemberName, memberName);
+
+    // Add member to MemberList.
+    memberList->addMemberWhichIsLegacy_Object(memberList, memberName,
+                                              memberToAdd);
+}
+
+/* ---------------------- Specific Access Modifier -------------------------- */
+
+// "private" function.
+void addPrivateMemberList(Object *object, MemberList *memberList,
+                          char *memberName, Legacy_Object *memberToAdd) {
+    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(object),
+                                memberList, memberName, memberToAdd);
+}
+
+// "private" function.
+void addPublicMemberList(Object *object, MemberList *memberList,
+                         char *memberName, Legacy_Object *memberToAdd) {
+    addAccessModifierMemberList(getPublicMemberNameLegacy_List(object),
+                                memberList, memberName, memberToAdd);
+}
+
+/* ------------ Specific Access Modifier & Specific MemberList -------------- */
+
+/* ------------- Methods ------------- */
+
+// "public" function.
+void addPrivateMethod(Object *object, char *memberName,
+                      Legacy_Object *memberToAdd) {
+    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(object),
+                                getMethodsMemberList(object), memberName,
+                                memberToAdd);
+}
+
+// "public" function.
+void addPublicMethod(Object *object, char *memberName,
+                     Legacy_Object *memberToAdd) {
+    addAccessModifierMemberList(getPublicMemberNameLegacy_List(object),
+                                getMethodsMemberList(object), memberName,
+                                memberToAdd);
+}
+
+/* ------------- Constructor ------------- */
+
+// "public" function.
+void addPrivateConstructor(Object *object, char *memberName,
+                           Legacy_Object *memberToAdd) {
+    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(object),
+                                getConstructorMemberList(object), memberName,
+                                memberToAdd);
+}
+
+// "public" function.
+void addPublicConstructor(Object *object, char *memberName,
+                          Legacy_Object *memberToAdd) {
+    addAccessModifierMemberList(getPublicMemberNameLegacy_List(object),
+                                getConstructorMemberList(object), memberName,
+                                memberToAdd);
+}
+
+/* ------------- Destructor ------------- */
+
+// "public" function.
+void addPrivateDestructor(Object *object, char *memberName,
+                          Legacy_Object *memberToAdd) {
+    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(object),
+                                getDestructorMemberList(object), memberName,
+                                memberToAdd);
+}
+
+// "public" function.
+void addPublicDestructor(Object *object, char *memberName,
+                         Legacy_Object *memberToAdd) {
+    addAccessModifierMemberList(getPublicMemberNameLegacy_List(object),
+                                getDestructorMemberList(object), memberName,
+                                memberToAdd);
+}
+
+/* ------------- Fields ------------- */
+
+// "public" function.
+void addPrivateField(Object *object, char *memberName,
+                     Legacy_Object *memberToAdd) {
+    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(object),
+                                getFieldsMemberList(object), memberName,
+                                memberToAdd);
+}
+
+// "public" function.
+void addPublicField(Object *object, char *memberName,
+                    Legacy_Object *memberToAdd) {
+    addAccessModifierMemberList(getPublicMemberNameLegacy_List(object),
+                                getFieldsMemberList(object), memberName,
+                                memberToAdd);
+}
+
+
 
 /// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
 ///     it will be still okay. maybe rename to something secret.
