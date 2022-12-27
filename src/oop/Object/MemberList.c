@@ -42,7 +42,7 @@ MemberList *MemberListConstructor() {
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->addMemberWhichIsLegacy_ObjectContainer =
+    instance->addMemberWhichIsLegacy_Object =
             &addMemberWhichIsLegacy_ObjectContainer;
     instance->addMemberWhichIsPrimitive = &addMemberWhichIsPrimitive;
     instance->getMemberByName           = &getMemberByName_MemberList;

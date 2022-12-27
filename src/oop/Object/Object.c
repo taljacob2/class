@@ -75,9 +75,10 @@ Object *construct(char *className) {
     instance->memberList = MemberListConstructor(className);
 
     // TODO: after rename
-    //    instance->memberList->addMemberWhichIsLegacy_ObjectContainer(
-    //            instance->memberList, FIELDS,
-    //            MemberListConstructor("")));
+    instance->memberList->addMemberWhichIsLegacy_Object(
+            instance->memberList, FIELDS,
+            (Legacy_Object *) MemberListConstructor());
+
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};
