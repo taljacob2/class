@@ -114,7 +114,7 @@ DONE: rename `MemberList` to `Legacy_MemberList`
 
 DONE: rename `Object` to `MemberList`
 
-rename `ObjectContainer` to `Object`
+DONE: rename `ObjectContainer` to `Object`
 
 rename `Legacy_Object` to `Legacy_ObjectComponent`
 
