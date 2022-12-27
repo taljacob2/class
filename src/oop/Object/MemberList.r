@@ -1,5 +1,5 @@
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef MEMBERLIST_H
+#define MEMBERLIST_H
 
 #include "Legacy_MemberList.r"
 
@@ -28,4 +28,4 @@ MemberList *MemberListConstructor();
 /// Add MemberList `#define`s for users.
 #include "ObjectDefines.r"
 
-#endif //OBJECT_H
+#endif //MEMBERLIST_H

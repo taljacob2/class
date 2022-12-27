@@ -1,5 +1,5 @@
-#ifndef OBJECTCONTAINER_H
-#define OBJECTCONTAINER_H
+#ifndef OBJECT_H
+#define OBJECT_H
 
 #include "MemberList.r"
 
@@ -20,4 +20,4 @@ void *destruct(Object *object);
 
 Object *construct(char *className);
 
-#endif //OBJECTCONTAINER_H
+#endif //OBJECT_H
