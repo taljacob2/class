@@ -72,7 +72,7 @@ Object *construct(char *className) {
 
     instance->legacyObject =
             Legacy_ObjectComponentConstructorClassName(className);
-    instance->memberList = MemberListConstructor(className);
+    instance->memberList = MemberListConstructor();
 
 //    // TODO: after rename
 //    instance->memberList->addMemberWhichIsLegacy_Object(
