@@ -2,7 +2,7 @@
 #define LEGACY_STRINGOBJECTCONTAINERENTRY_H
 
 
-#include "Legacy_ObjectContainer.r"
+#include "Legacy_Object.r"
 
 // Forward declaration of incomplete type
 typedef struct legacy_stringObjectContainerEntry

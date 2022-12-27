@@ -6,8 +6,8 @@
 #include "InvocationStatus.r"
 #include "Legacy_AllocationTable.r"
 #include "Legacy_AllocationTableList.r"
+#include "Legacy_Object.r"
 #include "Legacy_ObjectComponent.r"
-#include "Legacy_ObjectContainer.r"
 #include <stdio.h>
 #include <stdlib.h>
 

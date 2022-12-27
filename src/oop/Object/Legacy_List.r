@@ -3,7 +3,7 @@
 
 #include "Bool.h"
 #include "Legacy_Node.r"
-#include "Legacy_ObjectContainer.r"
+#include "Legacy_Object.r"
 #include <limits.h>
 #include <stdlib.h>
 
