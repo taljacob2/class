@@ -145,4 +145,11 @@ Let "c89" / "-Wpedantic" users be supported by `oop.a`:
 - change all line comments of (// ... ) to ( /* ... */ )
 - compile the `oop.a` library with the most restricted `-Wpedantic ...` and `-std=c89`
 
+------------------------------------
 
+TODO:
+
+when you release the library, you must include ALL the `.h` (and `.r`) files.
+
+So when you release: you MUST "zip" the whole "src/oop" folder, so it would the
+`.h` / `.r` files and `oop.a`.
