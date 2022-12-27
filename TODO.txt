@@ -153,3 +153,18 @@ when you release the library, you must include ALL the `.h` (and `.r`) files.
 
 So when you release: you MUST "zip" the whole "src/oop" folder, so it would the
 `.h` / `.r` files and `oop.a`.
+
+
+------------------------------
+
+
+TODO:
+
+in README.md:
+in `Dynamic Allocation` section:
+
+tell the user that he can also destruct the object implicitly by himself if he
+wants to destruct immediately.
+Also, tell him that every object is "multiple free safe": so he could destruct
+multiple times the same object and it won't crash.
+
