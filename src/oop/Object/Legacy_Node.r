@@ -3,7 +3,7 @@
 
 #include "Constructable.r"
 #include "Destructable.r"
-#include "Legacy_Object.r"
+#include "Legacy_ObjectComponent.r"
 #include <stdlib.h>
 
 // Forward declaration of incomplete type

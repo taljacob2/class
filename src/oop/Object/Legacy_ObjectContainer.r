@@ -1,7 +1,7 @@
 #ifndef LEGACY_OBJECTCONTAINER_H
 #define LEGACY_OBJECTCONTAINER_H
 
-#include "Legacy_Object.r"
+#include "Legacy_ObjectComponent.r"
 
 // Forward declaration of incomplete type
 typedef struct legacy_objectContainer Legacy_ObjectContainer;
