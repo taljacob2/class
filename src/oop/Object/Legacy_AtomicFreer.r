@@ -9,7 +9,7 @@ typedef struct legacy_atomicFreer Legacy_AtomicFreer;
 struct legacy_atomicFreer {
 
     /// `Legacy_AtomicFreer` implements `Legacy_ObjectComponent`.
-    Legacy_ObjectComponent *object;
+    Legacy_ObjectComponent *legacyObjectComponent;
 
     void *data;
 };

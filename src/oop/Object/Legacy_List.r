@@ -13,7 +13,7 @@ typedef struct legacy_list Legacy_List;
 struct legacy_list {
 
     /// `Legacy_List` implements `Legacy_ObjectComponent`.
-    Legacy_ObjectComponent *object;
+    Legacy_ObjectComponent *legacyObjectComponent;
 
     Legacy_Node *head;
     Legacy_Node *tail;
@@ -37,7 +37,8 @@ struct legacy_list {
      *            ( = Legacy_ObjectContainer). Can work only if the `Legacy_Node->data`
      *            is implements **Legacy_ObjectComponent** ( = Legacy_ObjectContainer).
      */
-    void *(*Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData)(Legacy_List *list);
+    void *(*Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData)(
+            Legacy_List *list);
 };
 
 Legacy_List *Legacy_ListConstructor();

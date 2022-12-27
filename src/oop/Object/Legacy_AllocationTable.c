@@ -10,7 +10,7 @@ Legacy_AllocationTableDestructor(Legacy_AllocationTable *allocationTable) {
             ->Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
                     allocationTable->allocationAddressList);
 
-    free(allocationTable->object);
+    free(allocationTable->legacyObjectComponent);
 
     free(allocationTable);
 
@@ -19,18 +19,18 @@ Legacy_AllocationTableDestructor(Legacy_AllocationTable *allocationTable) {
 
 void constructor_Legacy_AllocationTable_fields(
         Legacy_AllocationTable *allocationTable) {
-    allocationTable->object = Legacy_ObjectComponentConstructorClassName(
+    allocationTable->legacyObjectComponent = Legacy_ObjectComponentConstructorClassName(
             "Legacy_AllocationTable");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(
                     &Legacy_AllocationTableConstructor)};
-    allocationTable->object->constructable = &constructable;
+    allocationTable->legacyObjectComponent->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(
                     &Legacy_AllocationTableDestructor)};
-    allocationTable->object->destructable = &destructable;
+    allocationTable->legacyObjectComponent->destructable = &destructable;
 
     allocationTable->className             = "";
     allocationTable->allocationAddressList = Legacy_ListConstructor();

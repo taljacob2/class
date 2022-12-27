@@ -3,8 +3,8 @@
 Legacy_ObjectContainer *addMemberWhichIsLegacy_ObjectContainer(
         MemberList *self, char *memberName,
         Legacy_ObjectContainer *legacyObjectContainer) {
-    return self->legacy_memberList->addMember(
-            self->legacy_memberList, memberName, legacyObjectContainer);
+    return self->legacyMemberList->addMember(
+            self->legacyMemberList, memberName, legacyObjectContainer);
 }
 
 Legacy_ObjectContainer *
@@ -25,15 +25,15 @@ addMemberWhichIsPrimitive(MemberList *self, char *memberName,
 
 Legacy_ObjectContainer *getMemberByName_MemberList(MemberList *self,
                                                    char *      memberName) {
-    return self->legacy_memberList->getMemberByName(self->legacy_memberList,
+    return self->legacyMemberList->getMemberByName(self->legacyMemberList,
                                                     memberName);
 }
 
 void *MemberListDestructor(MemberList *object) {
-    object->legacy_memberList->object->destructable->destructor(
-            object->legacy_memberList);
+    object->legacyMemberList->legacyObjectComponent->destructable->destructor(
+            object->legacyMemberList);
 
-    free(object->object);
+    free(object->legacyObjectComponent);
     free(object);
 
     return NULL;
@@ -49,17 +49,17 @@ MemberList *MemberListConstructor() {
     instance->addMemberWhichIsPrimitive = &addMemberWhichIsPrimitive;
     instance->getMemberByName           = &getMemberByName_MemberList;
 
-    instance->object = Legacy_ObjectComponentConstructorClassName("MemberList");
+    instance->legacyObjectComponent = Legacy_ObjectComponentConstructorClassName("MemberList");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&MemberListConstructor)};
-    instance->object->constructable = &constructable;
+    instance->legacyObjectComponent->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&MemberListDestructor)};
-    instance->object->destructable = &destructable;
+    instance->legacyObjectComponent->destructable = &destructable;
 
-    instance->legacy_memberList =
+    instance->legacyMemberList =
             Legacy_MemberListConstructorWithObjectContainer(
                     (Legacy_ObjectContainer *) instance);
 

@@ -12,7 +12,7 @@ typedef struct legacy_node Legacy_Node;
 struct legacy_node {
 
     /// `Legacy_Node` implements `Legacy_ObjectComponent`.
-    Legacy_ObjectComponent *object;
+    Legacy_ObjectComponent *legacyObjectComponent;
 
     void *       data;
     Legacy_Node *next;
@@ -20,6 +20,6 @@ struct legacy_node {
 
 Legacy_Node *Legacy_NodeConstructor();
 
-Legacy_Node *Legacy_NodeConstructorWithData(void * data);
+Legacy_Node *Legacy_NodeConstructorWithData(void *data);
 
 #endif //CLASS_LEGACY_NODE_R

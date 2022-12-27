@@ -10,7 +10,7 @@ typedef struct legacy_allocationTable Legacy_AllocationTable;
 struct legacy_allocationTable {
 
     /// `Legacy_AllocationTable` implements `Legacy_ObjectComponent`.
-    Legacy_ObjectComponent *object;
+    Legacy_ObjectComponent *legacyObjectComponent;
 
     const char *className;
 

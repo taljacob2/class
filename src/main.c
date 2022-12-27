@@ -9,7 +9,7 @@ int main() {
 
     CircleV2 *circleV2 = CircleV2Constructor();
 
-    MemberList *object = MemberListConstructor("MemberList");
+    MemberList *memberList = MemberListConstructor("MemberList");
 
 //    memberList->memberList->destructable->destructor(memberList);
 

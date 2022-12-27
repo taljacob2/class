@@ -9,9 +9,9 @@ typedef struct memberList MemberList;
 struct memberList {
 
     /// `MemberList` implements `Legacy_ObjectComponent`.
-    Legacy_ObjectComponent *object;
+    Legacy_ObjectComponent *legacyObjectComponent;
 
-    Legacy_MemberList *legacy_memberList;
+    Legacy_MemberList *legacyMemberList;
 
     Legacy_ObjectContainer *(*addMemberWhichIsLegacy_ObjectContainer)(
             MemberList *self, char *memberName,

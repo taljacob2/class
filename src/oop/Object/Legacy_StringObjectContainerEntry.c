@@ -12,7 +12,8 @@ void *Legacy_StringObjectContainerEntryDestructor(
     if (stringObjectContainerEntry == NULL) { return NULL; }
 
     void *valueDestructorReturnValue =
-            stringObjectContainerEntry->value->object->destructable->destructor(
+            stringObjectContainerEntry->value->legacyObjectComponent
+                    ->destructable->destructor(
                     stringObjectContainerEntry->value);
 
     free(stringObjectContainerEntry->object);

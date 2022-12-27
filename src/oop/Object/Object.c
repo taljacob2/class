@@ -8,13 +8,15 @@ void *destruct(Object *object) {
         object->legacyObject->destructorInvocationStatus =
                 WAS_INVOKED_ONCE;
 
-        if (object->memberList->object->destructorInvocationStatus ==
+        if (object->memberList->legacyObjectComponent
+                    ->destructorInvocationStatus ==
             WAS_NOT_INVOKED) {
-            object->memberList->object->destructorInvocationStatus =
+            object->memberList->legacyObjectComponent
+                    ->destructorInvocationStatus =
                     WAS_INVOKED_ONCE;
 
             // Destruct `memberList`.
-            object->memberList->object->destructable->destructor(object->memberList);
+            object->memberList->legacyObjectComponent->destructable->destructor(object->memberList);
         }
 
         // Destruct `legacyObject`.

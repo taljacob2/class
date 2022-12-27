@@ -16,20 +16,20 @@ Maybe add to memberList somehow.
 -----------------------------------------------------------------
 TODO:
 
-do this for every object:
+do this for every legacyObjectComponent:
 
-for safety if you have a pointer to the object and could possibly free more than once.
+for safety if you have a pointer to the legacyObjectComponent and could possibly free more than once.
 
 ```
 
 void *Legacy_AtomicFreerDestructor(Legacy_AtomicFreer *atomicFreer) {
     if (atomicFreer == NULL) { return NULL; }
 
-    if (atomicFreer->object->destructorInvocationStatus == WAS_NOT_INVOKED) {
-        atomicFreer->object->destructorInvocationStatus = WAS_INVOKED_ONCE;
+    if (atomicFreer->legacyObjectComponent->destructorInvocationStatus == WAS_NOT_INVOKED) {
+        atomicFreer->legacyObjectComponent->destructorInvocationStatus = WAS_INVOKED_ONCE;
         free(atomicFreer->data);
 
-        free(atomicFreer->object);
+        free(atomicFreer->legacyObjectComponent);
 
         free(atomicFreer);
     }
@@ -52,17 +52,17 @@ if `build.sh` in `build.yml` is on error on GitHub then exit `build.yml`
 
 TODO:
 
-#define _OBJECT_FIELDS_ (bitfield that contains *Legacy_ObjectComponent and *Object)
+#define _OBJECT_FIELDS_ (bitfield that contains *Legacy_Object and *Object)
 
 
-and include in every future object.
+and include in every future legacyObjectComponent.
 
 --------------------------------------------------------------
 
 
 TODO:
 
-if you make all methods in MemberList, then the `sizeof` every future object
+if you make all methods in MemberList, then the `sizeof` every future legacyObjectComponent
 will be the same (and will be `sizeof(ObjectContainer)`),
 
 and then you could dynamically allocate ObjectContainer with a constant size,
@@ -116,9 +116,9 @@ DONE: rename `Object` to `MemberList`
 
 DONE: rename `ObjectContainer` to `Object`
 
-rename `Legacy_ObjectComponent` to `Legacy_ObjectComponent`
+rename `Legacy_Object` to `Legacy_ObjectComponent`
 
-rename `Legacy_ObjectContainer` to `Legacy_ObjectComponent`
+rename `Legacy_ObjectContainer` to `Legacy_Object`
 
 -----
 

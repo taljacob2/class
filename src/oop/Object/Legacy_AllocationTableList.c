@@ -33,11 +33,11 @@ void DestructLegacy_AllocationTableListNonGeneric(
 
             // Destruct Node and retrieve the data.
             Legacy_AllocationTable *prevAllocationTable =
-                    iterationNodePrev->object->destructable->destructor(
+                    iterationNodePrev->legacyObjectComponent->destructable->destructor(
                             iterationNodePrev);
 
             // Destruct data.
-            prevAllocationTable->object->destructable->destructor(
+            prevAllocationTable->legacyObjectComponent->destructable->destructor(
                     prevAllocationTable);
         }
 
@@ -49,15 +49,15 @@ void DestructLegacy_AllocationTableListNonGeneric(
 
         // Destruct Node and retrieve the data.
         Legacy_AllocationTable *prevAllocationTable =
-                iterationNodePrev->object->destructable->destructor(
+                iterationNodePrev->legacyObjectComponent->destructable->destructor(
                         iterationNodePrev);
 
         // Destruct data.
-        prevAllocationTable->object->destructable->destructor(
+        prevAllocationTable->legacyObjectComponent->destructable->destructor(
                 prevAllocationTable);
     }
 
-    free(allocationTableList->object);
+    free(allocationTableList->legacyObjectComponent);
 
     free(allocationTableList);
 }

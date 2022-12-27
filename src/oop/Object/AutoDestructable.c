@@ -15,9 +15,11 @@ deleteAllocationAddressIfNeeded(AutoDestructable *autoDestructable) {
 
     Legacy_ObjectContainer *objectContainer = autoDestructable->allocatedAddress;
 
-    if (objectContainer->object->deleteFromAllocationTableInvocationStatus ==
+    if (objectContainer->legacyObjectComponent
+                ->deleteFromAllocationTableInvocationStatus ==
         WAS_NOT_INVOKED) {
-        objectContainer->object->deleteFromAllocationTableInvocationStatus =
+        objectContainer->legacyObjectComponent
+                ->deleteFromAllocationTableInvocationStatus =
                 WAS_INVOKED_ONCE;
 
         Legacy_ObjectContainer *allocatedAddressReturnValue =
@@ -42,7 +44,7 @@ deleteAllocationAddressIfNeeded(AutoDestructable *autoDestructable) {
 void destructAllocatedAddressUnsafe(AutoDestructable *autoDestructable) {
     if (autoDestructable == NULL) { return; }
 
-    free(autoDestructable->object);
+    free(autoDestructable->legacyObjectComponent);
     free(autoDestructable);
 }
 
@@ -50,17 +52,17 @@ Legacy_ObjectContainer *
 AutoDestructableDestructor(AutoDestructable *autoDestructable) {
     if (autoDestructable == NULL) { return NULL; }
 
-    if (autoDestructable->allocatedAddress->object
+    if (autoDestructable->allocatedAddress->legacyObjectComponent
                 ->destructorInvocationStatus == WAS_NOT_INVOKED) {
-        autoDestructable->object->destructorInvocationStatus ==
+        autoDestructable->legacyObjectComponent->destructorInvocationStatus ==
                 WAS_INVOKED_ONCE;
 
         deleteAllocationAddressIfNeeded(autoDestructable);
     }
 
-    if (autoDestructable->object->destructorInvocationStatus ==
+    if (autoDestructable->legacyObjectComponent->destructorInvocationStatus ==
         WAS_NOT_INVOKED) {
-        autoDestructable->object->destructorInvocationStatus ==
+        autoDestructable->legacyObjectComponent->destructorInvocationStatus ==
                 WAS_INVOKED_ONCE;
 
         destructAllocatedAddressUnsafe(autoDestructable);
@@ -69,21 +71,22 @@ AutoDestructableDestructor(AutoDestructable *autoDestructable) {
 }
 
 void constructor_AutoDestructable_fields(AutoDestructable *autoDestructable) {
-    autoDestructable->object =
+    autoDestructable->legacyObjectComponent =
             Legacy_ObjectComponentConstructorClassName("AutoDestructable");
 
     static Constructable const constructable = {
             .constructor =
                     (void *(*const)(void) )(&AutoDestructableConstructor)};
-    autoDestructable->object->constructable = &constructable;
+    autoDestructable->legacyObjectComponent->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor =
                     (void *(*const)(void *) )(&AutoDestructableDestructor)};
-    autoDestructable->object->destructable = &destructable;
+    autoDestructable->legacyObjectComponent->destructable = &destructable;
 
-    autoDestructable->object->destructorInvocationStatus = WAS_NOT_INVOKED;
-    autoDestructable->object->deleteFromAllocationTableInvocationStatus =
+    autoDestructable->legacyObjectComponent->destructorInvocationStatus = WAS_NOT_INVOKED;
+    autoDestructable->legacyObjectComponent
+            ->deleteFromAllocationTableInvocationStatus =
             WAS_NOT_INVOKED;
 }
 
@@ -91,11 +94,13 @@ void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
     autoDestructable->OBJECT_ALLOCATION_TABLE =
             getLegacy_AllocationTableList()
                     ->findLegacy_AllocationTableByClassName(
-                            autoDestructable->object->CLASS_NAME);
+                            autoDestructable->legacyObjectComponent
+                                    ->CLASS_NAME);
     if (autoDestructable->OBJECT_ALLOCATION_TABLE == NULL) {
         autoDestructable->OBJECT_ALLOCATION_TABLE =
                 Legacy_AllocationTableConstructorWithClassName(
-                        (char *) autoDestructable->object->CLASS_NAME);
+                        (char *) autoDestructable->legacyObjectComponent
+                                ->CLASS_NAME);
 
         // Create a legacy_node that its data points to `autoDestructable->OBJECT_ALLOCATION_TABLE`.
         Legacy_Node *nodeThatItsDataPointsClassAllocationTable =
@@ -108,7 +113,7 @@ void saveObjectContainerToAllocationTable(AutoDestructable *autoDestructable) {
                 nodeThatItsDataPointsClassAllocationTable,
                 getLegacy_AllocationTableList()
                         ->predicateFindLegacy_AllocationTableByClassName,
-                autoDestructable->object->CLASS_NAME);
+                autoDestructable->legacyObjectComponent->CLASS_NAME);
     }
 
     // Create a legacy_node that its data points to the "pointer of `autoDestructable->allocatedAddress`".
@@ -131,7 +136,7 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
 
     constructor_AutoDestructable_fields(instance);
 
-    instance->object->CLASS_NAME = className;
+    instance->legacyObjectComponent->CLASS_NAME = className;
 
     // If `objectContainerToSaveItsAddressToAllocationTable` is `NULL` use `instance`.
     instance->allocatedAddress =
