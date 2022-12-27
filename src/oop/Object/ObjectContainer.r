@@ -3,28 +3,21 @@
 
 #include "MemberList.r"
 
-#define __LEGACY_OBJECT_CONSTRUCTABLE__ObjectContainer__ \
-    "legacyObjectConstructable"
-#define __LEGACY_OBJECT_DESTRUCTABLE__ObjectContainer__ \
-    "legacyObjectDestructable"
-
-
 // Forward declaration of incomplete type
-typedef struct objectContainer ObjectContainer;
+typedef struct object Object;
 
 /// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
-struct objectContainer {
+struct object {
     Legacy_Object *legacyObject;
-    MemberList *       object;
+    MemberList *   memberList;
 };
 
-void storeLegacyObjectConstructorAndDestructor(
-        ObjectContainer *objectContainer);
+void storeLegacyObjectConstructorAndDestructor(Object *object);
 
-void *invokeStoredLegacyObjectDestructor(ObjectContainer *objectContainer);
+void *invokeStoredLegacyObjectDestructor(Object *object);
 
-void *destruct(ObjectContainer *objectContainer);
+void *destruct(Object *object);
 
-ObjectContainer *construct(char *className);
+Object *construct(char *className);
 
 #endif //OBJECTCONTAINER_H

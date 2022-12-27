@@ -3,8 +3,8 @@
 // TODO:
 //// TODO: "private".
 //Legacy_AtomicFreer *getLegacy_AtomicFreer(AtomicInteger *atomicInteger) {
-//    return ((Legacy_AtomicFreer *) atomicInteger->object->getMemberByName(
-//            atomicInteger->object, __ATOMIC_MEMBER_NAME__));
+//    return ((Legacy_AtomicFreer *) atomicInteger->memberList->getMemberByName(
+//            atomicInteger->memberList, __ATOMIC_MEMBER_NAME__));
 //}
 //
 //// TODO: "private". very dangerous.
@@ -26,16 +26,16 @@
 //void initValue(AtomicInteger *atomicInteger, int value) {
 //    int *valuePointer = malloc(sizeof(int));
 //    *valuePointer     = value;
-//    atomicInteger->object->addMemberWhichIsPrimitive(
-//            atomicInteger->object, __ATOMIC_MEMBER_NAME__, valuePointer);
+//    atomicInteger->memberList->addMemberWhichIsPrimitive(
+//            atomicInteger->memberList, __ATOMIC_MEMBER_NAME__, valuePointer);
 //}
 //
 //void *AtomicIntegerDestructor(AtomicInteger *atomicInteger) {
 //    Legacy_AtomicFreer *legacyAtomicFreer =
 //            getLegacy_AtomicFreer(atomicInteger);
-//    legacyAtomicFreer->object->destructable->destructor(legacyAtomicFreer);
+//    legacyAtomicFreer->memberList->destructable->destructor(legacyAtomicFreer);
 //
-//    invokeStoredLegacyObjectDestructor((ObjectContainer *) atomicInteger);
+//    invokeStoredLegacyObjectDestructor((Object *) atomicInteger);
 //
 //    free(atomicInteger);
 //
@@ -47,19 +47,19 @@
 //    if (instance == NULL) { /* error handling here */
 //    }
 //
-//    instance->object = ObjectConstructor("AtomicInteger");
+//    instance->memberList = ObjectConstructor("AtomicInteger");
 //
 //    initValue(instance, 0);
 //
-//    storeLegacyObjectConstructorAndDestructor((ObjectContainer *) instance);
+//    storeLegacyObjectConstructorAndDestructor((Object *) instance);
 //
 //    static Constructable const constructable = {
 //            .constructor = (void *(*const)(void) )(&AtomicIntegerConstructor)};
-//    instance->object->object->constructable = &constructable;
+//    instance->memberList->memberList->constructable = &constructable;
 //
 //    static Destructable const destructable = {
 //            .destructor = (void *(*const)(void *) )(&AtomicIntegerDestructor)};
-//    instance->object->object->destructable = &destructable;
+//    instance->memberList->memberList->destructable = &destructable;
 //
 //    return instance;
 //}

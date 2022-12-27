@@ -5,7 +5,7 @@
 #include "Concat.h"
 #include "Quote.h"
 
-#define OBJECT_CONTAINER_FIELDS \
+#define OBJECT_FIELDS           \
     ANONYMOUS_POINTER_AS_FIELD; \
     ANONYMOUS_POINTER_AS_FIELD;
 
@@ -47,7 +47,7 @@
                                                                             \
     struct CONCAT_SURROUND(className, ____CLASS_STRUCT_NAME_EXTENSION___) { \
                                                                             \
-        OBJECT_CONTAINER_FIELDS                                             \
+        OBJECT_FIELDS                                                       \
     };                                                                      \
                                                                             \
     className *CONCAT(className,                                            \
@@ -62,8 +62,8 @@
     }                                                                     \
                                                                           \
     void CONCAT(className, ___CLASS_DESTRUCTOR_METHOD_NAME_EXTENSION___)( \
-            className * objectContainer) {                                \
-        destruct((ObjectContainer *) objectContainer);                    \
+            className * object) {                                         \
+        destruct((Object *) object);                                      \
     }
 
 

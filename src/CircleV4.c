@@ -5,5 +5,5 @@ CircleV4 *CircleV4Constructor() {
 }
 
 void CircleV4Destructor(CircleV4 *objectContainer) {
-    destruct((ObjectContainer *) objectContainer);
+    destruct((Object *) objectContainer);
 }
