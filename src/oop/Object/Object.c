@@ -10,14 +10,66 @@ void *destruct(Object *object) {
     if (object->legacyObject->destructorInvocationStatus == WAS_NOT_INVOKED) {
         object->legacyObject->destructorInvocationStatus = WAS_INVOKED_ONCE;
 
-        if (object->memberList->legacyObjectComponent
+        if (object->privateMemberNameLegacy_List->legacyObjectComponent
                     ->destructorInvocationStatus == WAS_NOT_INVOKED) {
-            object->memberList->legacyObjectComponent
+            object->privateMemberNameLegacy_List->legacyObjectComponent
                     ->destructorInvocationStatus = WAS_INVOKED_ONCE;
 
-            // Destruct `memberList`.
-            object->memberList->legacyObjectComponent->destructable->destructor(
-                    object->memberList);
+            // Destruct `privateMemberNameLegacy_List`.
+            object->privateMemberNameLegacy_List->legacyObjectComponent
+                    ->destructable->destructor(
+                            object->privateMemberNameLegacy_List);
+        }
+
+        if (object->publicMemberNameLegacy_List->legacyObjectComponent
+                    ->destructorInvocationStatus == WAS_NOT_INVOKED) {
+            object->publicMemberNameLegacy_List->legacyObjectComponent
+                    ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+
+            // Destruct `publicMemberNameLegacy_List`.
+            object->publicMemberNameLegacy_List->legacyObjectComponent
+                    ->destructable->destructor(
+                            object->publicMemberNameLegacy_List);
+        }
+
+        if (object->methodsMemberList->legacyObjectComponent
+                    ->destructorInvocationStatus == WAS_NOT_INVOKED) {
+            object->methodsMemberList->legacyObjectComponent
+                    ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+
+            // Destruct `methodsMemberList`.
+            object->methodsMemberList->legacyObjectComponent->destructable
+                    ->destructor(object->methodsMemberList);
+        }
+
+        if (object->constructorMemberList->legacyObjectComponent
+                    ->destructorInvocationStatus == WAS_NOT_INVOKED) {
+            object->constructorMemberList->legacyObjectComponent
+                    ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+
+            // Destruct `constructorMemberList`.
+            object->constructorMemberList->legacyObjectComponent->destructable
+                    ->destructor(object->constructorMemberList);
+        }
+
+        if (object->destructorMemberList->legacyObjectComponent
+                    ->destructorInvocationStatus == WAS_NOT_INVOKED) {
+            object->destructorMemberList->legacyObjectComponent
+                    ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+
+            // Destruct `destructorMemberList`.
+            object->destructorMemberList->legacyObjectComponent->destructable
+                    ->destructor(object->destructorMemberList);
+        }
+
+        if (object->fieldsMemberList->legacyObjectComponent
+                    ->destructorInvocationStatus == WAS_NOT_INVOKED) {
+            object->fieldsMemberList->legacyObjectComponent
+                    ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+
+            // Destruct `fieldsMemberList`.
+            object->fieldsMemberList->legacyObjectComponent->destructable
+                    ->destructor(object->fieldsMemberList);
         }
 
         // Destruct `legacyObject`.
@@ -47,7 +99,7 @@ Object *constructNoClass() {
 
     instance->legacyObject =
             Legacy_ObjectComponentConstructorClassName("Object");
-    instance->memberList = MemberListConstructor("Object");
+    instance->methodsMemberList = MemberListConstructor("Object");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};
@@ -72,12 +124,17 @@ Object *construct(char *className) {
 
     instance->legacyObject =
             Legacy_ObjectComponentConstructorClassName(className);
-    instance->memberList = MemberListConstructor();
+    instance->privateMemberNameLegacy_List = Legacy_ListConstructor();
+    instance->publicMemberNameLegacy_List  = Legacy_ListConstructor();
+    instance->methodsMemberList            = MemberListConstructor();
+    instance->constructorMemberList        = MemberListConstructor();
+    instance->destructorMemberList         = MemberListConstructor();
+    instance->fieldsMemberList             = MemberListConstructor();
 
-//    // TODO: after rename
-//    instance->memberList->addMemberWhichIsLegacy_Object(
-//            instance->memberList, FIELDS,
-//            (Legacy_Object *) MemberListConstructor());
+    //    // TODO: after rename
+    //    instance->methodsMemberList->addMemberWhichIsLegacy_Object(
+    //            instance->methodsMemberList, FIELDS,
+    //            (Legacy_Object *) MemberListConstructor());
 
 
     static Constructable const constructable = {

@@ -11,11 +11,11 @@ int main() {
 
     MemberList *memberList = MemberListConstructor("MemberList");
 
-    //    memberList->memberList->destructable->destructor(memberList);
+    //    methodsMemberList->methodsMemberList->destructable->destructor(methodsMemberList);
 
     //    AtomicInteger *atomicInteger = AtomicIntegerConstructor();
 
-    //    atomicInteger->memberList->memberList->destructable->destructor(atomicInteger);
+    //    atomicInteger->methodsMemberList->methodsMemberList->destructable->destructor(atomicInteger);
 
     CircleV4 *circleV4 = CircleV4Constructor();
 

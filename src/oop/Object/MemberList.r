@@ -23,7 +23,4 @@ struct memberList {
 
 MemberList *MemberListConstructor();
 
-/// Add MemberList `#define`s for users.
-#include "ObjectDefines.r"
-
 #endif //MEMBERLIST_H

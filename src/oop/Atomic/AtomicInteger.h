@@ -11,7 +11,7 @@
 //struct atomicInteger {
 //
 //    /// `AtomicInteger` implements `MemberList`.
-//    MemberList *memberList;
+//    MemberList *methodsMemberList;
 //
 //};
 //
