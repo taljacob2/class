@@ -6,8 +6,8 @@
 #include "Quote.h"
 
 #define OBJECT_CONTAINER_FIELDS \
-    ANONYMOUS_POINTER;          \
-    ANONYMOUS_POINTER;
+    ANONYMOUS_POINTER_AS_FIELD; \
+    ANONYMOUS_POINTER_AS_FIELD;
 
 
 /**

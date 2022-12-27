@@ -16,6 +16,13 @@ addMemberWhichIsPrimitive(Object *self, char *memberName,
                     dynamicallyAllocatedPrimitive));
 }
 
+//// TODO: maybe remove. could be redundant.
+//Legacy_ObjectContainer *
+//addMemberWhichIsPrimitiveAnonymousPointer(Object *self, char *memberName) {
+//    return self->addMemberWhichIsPrimitive(
+//            self, memberName, calloc(1, sizeof(TYPEOF_ANONYMOUS_POINTER)));
+//}
+
 Legacy_ObjectContainer *getMemberByName_Object(Object *self, char *memberName) {
     return self->memberList->getMemberByName(self->memberList, memberName);
 }

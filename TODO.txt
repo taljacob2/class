@@ -106,3 +106,19 @@ of the `ObjectDefines.r`
 For example when a user creates a class like so:
 
 
+--------------------------------------
+
+TODO:
+
+rename `MemberList` to `Legacy_MemberList`
+
+rename `Object` to `MemberList`
+
+rename `ObjectContainer` to `Object`
+
+rename `Legacy_Object` to `Legacy_ObjectComponent`
+
+rename `Legacy_ObjectContainer` to `Legacy_Object`
+
+---------------------------------------
+
