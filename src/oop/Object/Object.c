@@ -1,4 +1,4 @@
-#include "ObjectContainer.r"
+#include "Object.r"
 
 /// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
 ///     it will be still okay. maybe rename to something secret.
