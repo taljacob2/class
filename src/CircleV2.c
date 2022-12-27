@@ -1,8 +1,8 @@
 #include "CircleV2.h"
 
 void *CircleV2Destructor(CircleV2 *circlev2) {
-    circlev2->memberList->object->destructable->destructor(
-            circlev2->memberList);
+    circlev2->legacy_memberList->object->destructable->destructor(
+            circlev2->legacy_memberList);
 
     // ... Continue destructing `CircleV2` here ...
 
@@ -27,11 +27,11 @@ CircleV2 *CircleV2Constructor() {
             .destructor = (void *(*const)(void *) )(&CircleV2Destructor)};
     instance->object->destructable = &destructable;
 
-    instance->memberList = MemberListConstructorWithObjectContainer(
+    instance->legacy_memberList = Legacy_MemberListConstructorWithObjectContainer(
             (Legacy_ObjectContainer *) instance);
 
-    instance->memberList->addMember(
-            instance->memberList, "radius",
+    instance->legacy_memberList->addMember(
+            instance->legacy_memberList, "radius",
             (Legacy_ObjectContainer *) Legacy_AtomicFreerConstructorWithData(
                     calloc(1, sizeof(int))));
 

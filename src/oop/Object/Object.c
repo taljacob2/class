@@ -3,7 +3,7 @@
 Legacy_ObjectContainer *addMemberWhichIsLegacy_ObjectContainer(
         Object *self, char *memberName,
         Legacy_ObjectContainer *legacyObjectContainer) {
-    return self->memberList->addMember(self->memberList, memberName,
+    return self->legacy_memberList->addMember(self->legacy_memberList, memberName,
                                        legacyObjectContainer);
 }
 
@@ -24,11 +24,11 @@ addMemberWhichIsPrimitive(Object *self, char *memberName,
 //}
 
 Legacy_ObjectContainer *getMemberByName_Object(Object *self, char *memberName) {
-    return self->memberList->getMemberByName(self->memberList, memberName);
+    return self->legacy_memberList->getMemberByName(self->legacy_memberList, memberName);
 }
 
 void *ObjectDestructor(Object *object) {
-    object->memberList->object->destructable->destructor(object->memberList);
+    object->legacy_memberList->object->destructable->destructor(object->legacy_memberList);
 
     free(object->object);
     free(object);
@@ -59,7 +59,7 @@ Object *ObjectConstructor(const char *className) {
             .destructor = (void *(*const)(void *) )(&ObjectDestructor)};
     instance->object->destructable = &destructable;
 
-    instance->memberList = MemberListConstructorWithObjectContainer(
+    instance->legacy_memberList = Legacy_MemberListConstructorWithObjectContainer(
             (Legacy_ObjectContainer *) instance);
 
     return instance;

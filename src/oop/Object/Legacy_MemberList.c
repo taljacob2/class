@@ -1,4 +1,4 @@
-#include "MemberList.r"
+#include "Legacy_MemberList.r"
 
 BOOLEAN predicateFindLegacy_StringEntryByMemberName(
         const Legacy_Node *nodeThatPointsToAllocationTable,
@@ -9,39 +9,39 @@ BOOLEAN predicateFindLegacy_StringEntryByMemberName(
                   memberName) == 0;
 }
 
-Legacy_Node *getMemberNodeByName(MemberList *memberList, char *memberName) {
-    return memberList->memberEntryList->findNodeByPredicateOfConstString(
-            memberList->memberEntryList,
+Legacy_Node *getMemberNodeByName(Legacy_MemberList *legacy_memberList, char *memberName) {
+    return legacy_memberList->memberEntryList->findNodeByPredicateOfConstString(
+            legacy_memberList->memberEntryList,
             predicateFindLegacy_StringEntryByMemberName, memberName);
 }
 
 Legacy_StringObjectContainerEntry *
-getMemberStringObjectContainerEntryByName(MemberList *memberList,
+getMemberStringObjectContainerEntryByName(Legacy_MemberList *legacy_memberList,
                                           char *      memberName) {
-    return (getMemberNodeByName(memberList, memberName))->data;
+    return (getMemberNodeByName(legacy_memberList, memberName))->data;
 }
 
 Legacy_ObjectContainer *
-getMemberStringObjectContainerEntryValueByName(MemberList *memberList,
+getMemberStringObjectContainerEntryValueByName(Legacy_MemberList *legacy_memberList,
                                                char *      memberName) {
-    return getMemberStringObjectContainerEntryByName(memberList, memberName)
+    return getMemberStringObjectContainerEntryByName(legacy_memberList, memberName)
             ->value;
 }
 
-Legacy_ObjectContainer *getMemberByName_MemberList(MemberList *memberList,
+Legacy_ObjectContainer *getMemberByName_Legacy_MemberList(Legacy_MemberList *legacy_memberList,
                                                    char *      memberName) {
-    return getMemberStringObjectContainerEntryValueByName(memberList,
+    return getMemberStringObjectContainerEntryValueByName(legacy_memberList,
                                                           memberName);
 }
 
-Legacy_ObjectContainer *addMember(MemberList *memberList, char *memberName,
+Legacy_ObjectContainer *addMember(Legacy_MemberList *legacy_memberList, char *memberName,
                                   Legacy_ObjectContainer *member) {
     Legacy_Node *objectEntryNode = Legacy_NodeConstructorWithData(
             Legacy_StringObjectContainerEntryConstructorWithKeyAndValue(
                     memberName, member));
 
-    memberList->memberEntryList->addAsUnique(
-            memberList->memberEntryList, objectEntryNode,
+    legacy_memberList->memberEntryList->addAsUnique(
+            legacy_memberList->memberEntryList, objectEntryNode,
             predicateFindLegacy_StringEntryByMemberName, memberName);
 
     return member;
@@ -49,29 +49,29 @@ Legacy_ObjectContainer *addMember(MemberList *memberList, char *memberName,
 
 // TODO: "public" "setMember".
 
-MemberList *MemberListDestructor(MemberList *memberList) {
-    memberList->memberEntryList
+Legacy_MemberList *Legacy_MemberListDestructor(Legacy_MemberList *legacy_memberList) {
+    legacy_memberList->memberEntryList
             ->Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
-                    memberList->memberEntryList);
+                    legacy_memberList->memberEntryList);
 
-    free(memberList->object);
-    free(memberList);
+    free(legacy_memberList->object);
+    free(legacy_memberList);
 
     return NULL;
 }
 
 /// @deprecated
-MemberList *MemberListConstructor() {
-    MemberList *instance = calloc(1, sizeof *instance);
+Legacy_MemberList *Legacy_MemberListConstructor() {
+    Legacy_MemberList *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
     }
 
     instance->addMember       = &addMember;
-    instance->getMemberByName = &getMemberByName_MemberList;
+    instance->getMemberByName = &getMemberByName_Legacy_MemberList;
 
     instance->memberEntryList = Legacy_ListConstructor();
 
-    instance->object = Legacy_ObjectConstructorClassName("MemberList");
+    instance->object = Legacy_ObjectConstructorClassName("Legacy_MemberList");
 
     addMember(
             instance, "autoDestructable",
@@ -80,43 +80,43 @@ MemberList *MemberListConstructor() {
                     instance->object->CLASS_NAME));
 
     static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&MemberListConstructor)};
+            .constructor = (void *(*const)(void) )(&Legacy_MemberListConstructor)};
     instance->object->constructable = &constructable;
 
     static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&MemberListDestructor)};
+            .destructor = (void *(*const)(void *) )(&Legacy_MemberListDestructor)};
     instance->object->destructable = &destructable;
 
     return instance;
 }
 
-MemberList *MemberListConstructorWithObjectContainer(
-        Legacy_ObjectContainer *objectContainerThatContainsThisMemberList) {
-    MemberList *instance = calloc(1, sizeof *instance);
+Legacy_MemberList *Legacy_MemberListConstructorWithObjectContainer(
+        Legacy_ObjectContainer *objectContainerThatContainsThisLegacy_MemberList) {
+    Legacy_MemberList *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
     }
 
     instance->addMember       = &addMember;
-    instance->getMemberByName = &getMemberByName_MemberList;
+    instance->getMemberByName = &getMemberByName_Legacy_MemberList;
 
     instance->memberEntryList = Legacy_ListConstructor();
 
-    instance->object = Legacy_ObjectConstructorClassName("MemberList");
+    instance->object = Legacy_ObjectConstructorClassName("Legacy_MemberList");
 
     addMember(
             instance, "autoDestructable",
             (Legacy_ObjectContainer *) AutoDestructableConstructorWithClassName(
                     (Legacy_ObjectContainer *)
-                            objectContainerThatContainsThisMemberList,
-                    objectContainerThatContainsThisMemberList->object
+                            objectContainerThatContainsThisLegacy_MemberList,
+                    objectContainerThatContainsThisLegacy_MemberList->object
                             ->CLASS_NAME));
 
     static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&MemberListConstructor)};
+            .constructor = (void *(*const)(void) )(&Legacy_MemberListConstructor)};
     instance->object->constructable = &constructable;
 
     static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&MemberListDestructor)};
+            .destructor = (void *(*const)(void *) )(&Legacy_MemberListDestructor)};
     instance->object->destructable = &destructable;
 
     return instance;

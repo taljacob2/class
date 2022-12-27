@@ -11,7 +11,7 @@ struct circlev2 {
     /// `Circle` implements `Legacy_Object`.
     Legacy_Object *object;
 
-    MemberList *memberList;
+    Legacy_MemberList *legacy_memberList;
 };
 
 CircleV2 *CircleV2Constructor();

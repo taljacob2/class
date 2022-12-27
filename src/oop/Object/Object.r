@@ -1,7 +1,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include "MemberList.r"
+#include "Legacy_MemberList.r"
 
 // Forward declaration of incomplete type
 typedef struct object Object;
@@ -11,7 +11,7 @@ struct object {
     /// `Object` implements `Legacy_Object`.
     Legacy_Object *object;
 
-    MemberList *memberList;
+    Legacy_MemberList *legacy_memberList;
 
     Legacy_ObjectContainer *(*addMemberWhichIsLegacy_ObjectContainer)(
             Object *self, char *memberName,
