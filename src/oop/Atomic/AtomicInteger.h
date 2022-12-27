@@ -9,8 +9,8 @@ typedef struct atomicInteger AtomicInteger;
 
 struct atomicInteger {
 
-    /// `AtomicInteger` implements `Object`.
-    Object *object;
+    /// `AtomicInteger` implements `MemberList`.
+    MemberList *object;
 
 };
 

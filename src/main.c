@@ -9,13 +9,13 @@ int main() {
 
     CircleV2 *circleV2 = CircleV2Constructor();
 
-    Object *object = ObjectConstructor("Object");
+    MemberList *object = ObjectConstructor("MemberList");
 
-//    object->object->destructable->destructor(object);
+//    memberList->memberList->destructable->destructor(memberList);
 
 //    AtomicInteger *atomicInteger = AtomicIntegerConstructor();
 
-//    atomicInteger->object->object->destructable->destructor(atomicInteger);
+//    atomicInteger->memberList->memberList->destructable->destructor(atomicInteger);
 
     CircleV4 *circleV4 = CircleV4Constructor();
 

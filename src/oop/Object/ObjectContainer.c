@@ -66,7 +66,7 @@ void *destruct(ObjectContainer *objectContainer) {
             objectContainer->object->object->destructorInvocationStatus =
                     WAS_INVOKED_ONCE;
 
-            // Destruct `object`.
+            // Destruct `memberList`.
             objectContainer->object->object->destructable->destructor(
                     objectContainer->object);
         }
@@ -90,7 +90,7 @@ void *destruct(ObjectContainer *objectContainer) {
  *             `Constructable` assignment. Use `construct` instead.
  *
  * memory allocating `sizeof(ObjectContainer)`, then invoking legacy_Object's
- * constructor, and Object's constructor.
+ * constructor, and MemberList's constructor.
  */
 ObjectContainer *constructNoClass() {
     ObjectContainer *instance = calloc(1, sizeof *instance);
@@ -115,7 +115,7 @@ ObjectContainer *constructNoClass() {
 /// TODO: public. maybe rename to something secret.
 /**
  * memory allocating `sizeof(ObjectContainer)`, then invoking legacy_Object's
- * constructor, and Object's constructor.
+ * constructor, and MemberList's constructor.
  */
 ObjectContainer *construct(char *className) {
     ObjectContainer *instance = calloc(1, sizeof *instance);
@@ -126,8 +126,8 @@ ObjectContainer *construct(char *className) {
     instance->object       = ObjectConstructor(className);
 
     // TODO: after rename
-//    instance->object->addMemberWhichIsLegacy_ObjectContainer(
-//            instance->object, FIELDS,
+//    instance->memberList->addMemberWhichIsLegacy_ObjectContainer(
+//            instance->memberList, FIELDS,
 //            ObjectConstructor("")));
 
     static Constructable const constructable = {

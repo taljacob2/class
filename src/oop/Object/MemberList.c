@@ -1,14 +1,14 @@
-#include "Object.r"
+#include "MemberList.r"
 
 Legacy_ObjectContainer *addMemberWhichIsLegacy_ObjectContainer(
-        Object *self, char *memberName,
+        MemberList *self, char *memberName,
         Legacy_ObjectContainer *legacyObjectContainer) {
     return self->legacy_memberList->addMember(self->legacy_memberList, memberName,
                                        legacyObjectContainer);
 }
 
 Legacy_ObjectContainer *
-addMemberWhichIsPrimitive(Object *self, char *memberName,
+addMemberWhichIsPrimitive(MemberList *self, char *memberName,
                           void *dynamicallyAllocatedPrimitive) {
     return addMemberWhichIsLegacy_ObjectContainer(
             self, memberName,
@@ -18,16 +18,16 @@ addMemberWhichIsPrimitive(Object *self, char *memberName,
 
 //// TODO: maybe remove. could be redundant.
 //Legacy_ObjectContainer *
-//addMemberWhichIsPrimitiveAnonymousPointer(Object *self, char *memberName) {
+//addMemberWhichIsPrimitiveAnonymousPointer(MemberList *self, char *memberName) {
 //    return self->addMemberWhichIsPrimitive(
 //            self, memberName, calloc(1, sizeof(TYPEOF_ANONYMOUS_POINTER)));
 //}
 
-Legacy_ObjectContainer *getMemberByName_Object(Object *self, char *memberName) {
+Legacy_ObjectContainer *getMemberByName_Object(MemberList *self, char *memberName) {
     return self->legacy_memberList->getMemberByName(self->legacy_memberList, memberName);
 }
 
-void *ObjectDestructor(Object *object) {
+void *ObjectDestructor(MemberList *object) {
     object->legacy_memberList->object->destructable->destructor(object->legacy_memberList);
 
     free(object->object);
@@ -37,10 +37,10 @@ void *ObjectDestructor(Object *object) {
 }
 
 /// @deprecated
-Object *ObjectConstructorEmpty() { return ObjectConstructor("Object"); }
+MemberList *ObjectConstructorEmpty() { return ObjectConstructor("MemberList"); }
 
-Object *ObjectConstructor(const char *className) {
-    Object *instance = calloc(1, sizeof *instance);
+MemberList *ObjectConstructor(const char *className) {
+    MemberList *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
     }
 

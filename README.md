@@ -21,17 +21,17 @@ Run [main.c](src/main.c)
 
 ## Introducion
 
-- Use the [Object](src/oop/Object/Object.r) object to implement your own
+- Use the [MemberList](src/oop/MemberList/MemberList.r) memberList to implement your own
  objects.
 
-- Every object is polymorphed with [Legacy_Object](src/oop/Object/Legacy_Object.r) (it is the most polymorhpic object).
+- Every memberList is polymorphed with [Legacy_Object](src/oop/MemberList/Legacy_Object.r) (it is the most polymorhpic memberList).
 
 ### Dynamic Allocation
 
 Do not worry again about dynamic allocation (eg. malloc, calloc...).
 
-Because every object that is composed of [AutoDestructable](src/oop/Object/AutoDestructable.r) is being handled automatically to be destructed. (see
- [Legacy_AllocationTableList](/src/oop/Object/Legacy_AllocationTableList.r))
+Because every memberList that is composed of [AutoDestructable](src/oop/MemberList/AutoDestructable.r) is being handled automatically to be destructed. (see
+ [Legacy_AllocationTableList](/src/oop/MemberList/Legacy_AllocationTableList.r))
 
-To do so, make sure you inject an implementation of [Destructable](src/oop/Object/Destructable.r) to your object's [Legacy_Object](src/oop/Object/Legacy_Object.r).
+To do so, make sure you inject an implementation of [Destructable](src/oop/MemberList/Destructable.r) to your memberList's [Legacy_Object](src/oop/MemberList/Legacy_Object.r).
 

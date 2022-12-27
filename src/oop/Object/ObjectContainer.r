@@ -1,7 +1,7 @@
 #ifndef OBJECTCONTAINER_H
 #define OBJECTCONTAINER_H
 
-#include "Object.r"
+#include "MemberList.r"
 
 #define __LEGACY_OBJECT_CONSTRUCTABLE__ObjectContainer__ \
     "legacyObjectConstructable"
@@ -15,7 +15,7 @@ typedef struct objectContainer ObjectContainer;
 /// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 struct objectContainer {
     Legacy_Object *legacyObject;
-    Object *       object;
+    MemberList *       object;
 };
 
 void storeLegacyObjectConstructorAndDestructor(
