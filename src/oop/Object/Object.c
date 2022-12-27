@@ -74,10 +74,10 @@ Object *construct(char *className) {
             Legacy_ObjectComponentConstructorClassName(className);
     instance->memberList = MemberListConstructor(className);
 
-    // TODO: after rename
-    instance->memberList->addMemberWhichIsLegacy_Object(
-            instance->memberList, FIELDS,
-            (Legacy_Object *) MemberListConstructor());
+//    // TODO: after rename
+//    instance->memberList->addMemberWhichIsLegacy_Object(
+//            instance->memberList, FIELDS,
+//            (Legacy_Object *) MemberListConstructor());
 
 
     static Constructable const constructable = {
