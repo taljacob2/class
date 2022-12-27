@@ -120,5 +120,20 @@ rename `Legacy_Object` to `Legacy_ObjectComponent`
 
 rename `Legacy_ObjectContainer` to `Legacy_Object`
 
+-----
+
+Then, show the `MemberList` field pointer in `Object` (so it won't be anonymous
+anymore) -----> so you need to edit in "ObjectDefines.r":
+
+```
+#define OBJECT_CONTAINER_FIELDS \
+    ANONYMOUS_POINTER_AS_FIELD; \
+    MemberList *memberList;
+```
+
+and rename `OBJECT_CONTAINER_FIELDS` to `OBJECT_FIELDS`
+
+
+
 ---------------------------------------
 
