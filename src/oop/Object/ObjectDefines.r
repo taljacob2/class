@@ -11,29 +11,29 @@
 
 
 /**
- * MemberList of raw-strings only. each string is a name of a "private" member
- * that should be found at one of the following MemberLists: (methods, fields,
+ * `Legacy_List` of raw-strings only. each string is a name of a "private" member
+ * that should be found at one of the following `MemberList`s: (methods, fields,
  * constructor, destructor).
  */
 #define PRIVATE "___private___"
 
 /**
- * MemberList of raw-strings only. each string is a name of a "public" member
- * that should be found at one of the following MemberLists: (methods, fields,
+ * `Legacy_List` of raw-strings only. each string is a name of a "public" member
+ * that should be found at one of the following `MemberList`s: (methods, fields,
  * constructor, destructor).
  */
 #define PUBLIC "___public___"
 
-/// MemberList
+/// `MemberList`
 #define METHODS "___methods___"
 
-/// MemberList
+/// `MemberList`
 #define CONSTRUCTOR "___constructor___"
 
-/// MemberList
+/// `MemberList`
 #define DESTRUCTOR "___destructor___"
 
-/// MemberList
+/// `MemberList`
 #define FIELDS "___fields___"
 
 #define ____CLASS_STRUCT_NAME_EXTENSION___            ___
