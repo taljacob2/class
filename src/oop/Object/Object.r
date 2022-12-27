@@ -12,10 +12,6 @@ struct object {
     MemberList *            memberList;
 };
 
-void storeLegacyObjectConstructorAndDestructor(Object *object);
-
-void *invokeStoredLegacyObjectDestructor(Object *object);
-
 void *destruct(Object *object);
 
 Object *construct(char *className);
