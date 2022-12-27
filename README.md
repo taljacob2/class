@@ -106,7 +106,7 @@ For example, you wish to define a new object with the "class name" of `Circle`:
   ./a.out
   ```
 
-> ##### NOTE 2 FOR DEVELOPERS ONLY
+> ##### NOTE 1 FOR DEVELOPERS ONLY
 > Every object is polymorphed with [Legacy_Object](src/oop/Object/Legacy_Object.r)
   (it is the most polymorhpic object).
 
@@ -114,8 +114,8 @@ For example, you wish to define a new object with the "class name" of `Circle`:
 
 Do not worry again about dynamic allocation (eg. malloc, calloc...).
 
-> ##### NOTE 3 FOR DEVELOPERS ONLY
-> As said in [NOTE 2 FOR DEVELOPERS ONLY](#NOTE-2-FOR-DEVELOPERS-ONLY),
+> ##### NOTE 2 FOR DEVELOPERS ONLY
+> As said in [NOTE 1 FOR DEVELOPERS ONLY](#NOTE-1-FOR-DEVELOPERS-ONLY),
 > 
 > Because every object that is composed of [AutoDestructable](src/oop/Object/AutoDestructable.r)
 > is being handled automatically to be destructed (see
