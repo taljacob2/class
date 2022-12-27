@@ -99,7 +99,7 @@ ObjectContainer *constructNoClass() {
 
     instance->legacyObject =
             Legacy_ObjectConstructorClassName("ObjectContainer");
-    instance->object = ObjectConstructor("ObjectContainer");
+    instance->object = MemberListConstructor("ObjectContainer");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};
@@ -123,12 +123,12 @@ ObjectContainer *construct(char *className) {
     }
 
     instance->legacyObject = Legacy_ObjectConstructorClassName(className);
-    instance->object       = ObjectConstructor(className);
+    instance->object       = MemberListConstructor(className);
 
     // TODO: after rename
 //    instance->memberList->addMemberWhichIsLegacy_ObjectContainer(
 //            instance->memberList, FIELDS,
-//            ObjectConstructor("")));
+//            MemberListConstructor("")));
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};

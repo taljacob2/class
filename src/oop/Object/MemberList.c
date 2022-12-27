@@ -3,8 +3,8 @@
 Legacy_ObjectContainer *addMemberWhichIsLegacy_ObjectContainer(
         MemberList *self, char *memberName,
         Legacy_ObjectContainer *legacyObjectContainer) {
-    return self->legacy_memberList->addMember(self->legacy_memberList, memberName,
-                                       legacyObjectContainer);
+    return self->legacy_memberList->addMember(
+            self->legacy_memberList, memberName, legacyObjectContainer);
 }
 
 Legacy_ObjectContainer *
@@ -23,12 +23,15 @@ addMemberWhichIsPrimitive(MemberList *self, char *memberName,
 //            self, memberName, calloc(1, sizeof(TYPEOF_ANONYMOUS_POINTER)));
 //}
 
-Legacy_ObjectContainer *getMemberByName_Object(MemberList *self, char *memberName) {
-    return self->legacy_memberList->getMemberByName(self->legacy_memberList, memberName);
+Legacy_ObjectContainer *getMemberByName_MemberList(MemberList *self,
+                                                   char *      memberName) {
+    return self->legacy_memberList->getMemberByName(self->legacy_memberList,
+                                                    memberName);
 }
 
-void *ObjectDestructor(MemberList *object) {
-    object->legacy_memberList->object->destructable->destructor(object->legacy_memberList);
+void *MemberListDestructor(MemberList *object) {
+    object->legacy_memberList->object->destructable->destructor(
+            object->legacy_memberList);
 
     free(object->object);
     free(object);
@@ -36,10 +39,7 @@ void *ObjectDestructor(MemberList *object) {
     return NULL;
 }
 
-/// @deprecated
-MemberList *ObjectConstructorEmpty() { return ObjectConstructor("MemberList"); }
-
-MemberList *ObjectConstructor(const char *className) {
+MemberList *MemberListConstructor() {
     MemberList *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
     }
@@ -47,20 +47,21 @@ MemberList *ObjectConstructor(const char *className) {
     instance->addMemberWhichIsLegacy_ObjectContainer =
             &addMemberWhichIsLegacy_ObjectContainer;
     instance->addMemberWhichIsPrimitive = &addMemberWhichIsPrimitive;
-    instance->getMemberByName           = &getMemberByName_Object;
+    instance->getMemberByName           = &getMemberByName_MemberList;
 
-    instance->object = Legacy_ObjectConstructorClassName(className);
+    instance->object = Legacy_ObjectConstructorClassName("MemberList");
 
     static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&ObjectConstructorEmpty)};
+            .constructor = (void *(*const)(void) )(&MemberListConstructor)};
     instance->object->constructable = &constructable;
 
     static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&ObjectDestructor)};
+            .destructor = (void *(*const)(void *) )(&MemberListDestructor)};
     instance->object->destructable = &destructable;
 
-    instance->legacy_memberList = Legacy_MemberListConstructorWithObjectContainer(
-            (Legacy_ObjectContainer *) instance);
+    instance->legacy_memberList =
+            Legacy_MemberListConstructorWithObjectContainer(
+                    (Legacy_ObjectContainer *) instance);
 
     return instance;
 }

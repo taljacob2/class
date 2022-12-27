@@ -23,7 +23,7 @@ struct memberList {
                                                char *      memberName);
 };
 
-MemberList *ObjectConstructor(const char *className);
+MemberList *MemberListConstructor();
 
 /// Add MemberList `#define`s for users.
 #include "ObjectDefines.r"
