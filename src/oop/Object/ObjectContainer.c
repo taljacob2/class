@@ -125,9 +125,10 @@ ObjectContainer *construct(char *className) {
     instance->legacyObject = Legacy_ObjectConstructorClassName(className);
     instance->object       = ObjectConstructor(className);
 
-    instance->object->addMemberWhichIsLegacy_ObjectContainer(
-            instance->object, FIELDS,
-            ObjectConstructor("")));
+    // TODO: after rename
+//    instance->object->addMemberWhichIsLegacy_ObjectContainer(
+//            instance->object, FIELDS,
+//            ObjectConstructor("")));
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};
