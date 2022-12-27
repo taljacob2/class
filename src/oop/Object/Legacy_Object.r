@@ -1,5 +1,5 @@
-#ifndef LEGACY_OBJECT_H
-#define LEGACY_OBJECT_H
+#ifndef LEGACY_OBJECTCOMPONENT_H
+#define LEGACY_OBJECTCOMPONENT_H
 
 #include "Constructable.r"
 #include "Destructable.r"
@@ -7,9 +7,9 @@
 #include <stdlib.h>
 
 // Forward declaration of incomplete type
-typedef struct legacy_Object Legacy_Object;
+typedef struct legacy_ObjectComponent Legacy_ObjectComponent;
 
-struct legacy_Object {
+struct legacy_ObjectComponent {
     const char *CLASS_NAME;
 
     const Constructable *constructable;
@@ -21,6 +21,7 @@ struct legacy_Object {
     enum InvocationStatus deleteFromAllocationTableInvocationStatus;
 };
 
-Legacy_Object *Legacy_ObjectConstructorClassName(const char *className);
+Legacy_ObjectComponent *
+Legacy_ObjectComponentConstructorClassName(const char *className);
 
-#endif //LEGACY_OBJECT_H
+#endif //LEGACY_OBJECTCOMPONENT_H

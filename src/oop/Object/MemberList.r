@@ -8,8 +8,8 @@ typedef struct memberList MemberList;
 
 struct memberList {
 
-    /// `MemberList` implements `Legacy_Object`.
-    Legacy_Object *object;
+    /// `MemberList` implements `Legacy_ObjectComponent`.
+    Legacy_ObjectComponent *object;
 
     Legacy_MemberList *legacy_memberList;
 

@@ -11,8 +11,8 @@ typedef struct legacy_memberList Legacy_MemberList;
 
 struct legacy_memberList {
 
-    /// `Legacy_MemberList` implements `Legacy_Object`.
-    Legacy_Object *object;
+    /// `Legacy_MemberList` implements `Legacy_ObjectComponent`.
+    Legacy_ObjectComponent *object;
 
     Legacy_List *memberEntryList;
 

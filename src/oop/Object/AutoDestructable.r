@@ -16,8 +16,8 @@ typedef struct autoDestructable AutoDestructable;
 
 struct autoDestructable {
 
-    /// `AutoDestructable` implements `Legacy_Object`.
-    Legacy_Object *object;
+    /// `AutoDestructable` implements `Legacy_ObjectComponent`.
+    Legacy_ObjectComponent *object;
 
     /// Singleton for the whole autoDestructable. Sensitive data. DO NOT TOUCH!
     Legacy_AllocationTable *OBJECT_ALLOCATION_TABLE;

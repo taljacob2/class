@@ -49,7 +49,7 @@ MemberList *MemberListConstructor() {
     instance->addMemberWhichIsPrimitive = &addMemberWhichIsPrimitive;
     instance->getMemberByName           = &getMemberByName_MemberList;
 
-    instance->object = Legacy_ObjectConstructorClassName("MemberList");
+    instance->object = Legacy_ObjectComponentConstructorClassName("MemberList");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&MemberListConstructor)};

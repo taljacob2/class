@@ -16,7 +16,7 @@ Circle *CircleConstructor() {
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->object = Legacy_ObjectConstructorClassName("Circle");
+    instance->object = Legacy_ObjectComponentConstructorClassName("Circle");
 
     instance->autoDestructable = AutoDestructableConstructorWithClassName(
             (Legacy_ObjectContainer *) instance, instance->object->CLASS_NAME);

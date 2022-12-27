@@ -71,7 +71,8 @@ Legacy_MemberList *Legacy_MemberListConstructor() {
 
     instance->memberEntryList = Legacy_ListConstructor();
 
-    instance->object = Legacy_ObjectConstructorClassName("Legacy_MemberList");
+    instance->object =
+            Legacy_ObjectComponentConstructorClassName("Legacy_MemberList");
 
     addMember(
             instance, "autoDestructable",
@@ -101,7 +102,8 @@ Legacy_MemberList *Legacy_MemberListConstructorWithObjectContainer(
 
     instance->memberEntryList = Legacy_ListConstructor();
 
-    instance->object = Legacy_ObjectConstructorClassName("Legacy_MemberList");
+    instance->object =
+            Legacy_ObjectComponentConstructorClassName("Legacy_MemberList");
 
     addMember(
             instance, "autoDestructable",

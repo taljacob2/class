@@ -34,7 +34,7 @@ void *destruct(Object *object) {
  * @deprecated private. Do not use this. It is only used for the
  *             `Constructable` assignment. Use `construct` instead.
  *
- * memory allocating `sizeof(Object)`, then invoking legacy_Object's
+ * memory allocating `sizeof(Object)`, then invoking legacy_ObjectComponent's
  * constructor, and MemberList's constructor.
  */
 Object *constructNoClass() {
@@ -43,7 +43,7 @@ Object *constructNoClass() {
     }
 
     instance->legacyObject =
-            Legacy_ObjectConstructorClassName("Object");
+            Legacy_ObjectComponentConstructorClassName("Object");
     instance->memberList = MemberListConstructor("Object");
 
     static Constructable const constructable = {
@@ -59,7 +59,7 @@ Object *constructNoClass() {
 
 /// TODO: public. maybe rename to something secret.
 /**
- * memory allocating `sizeof(Object)`, then invoking legacy_Object's
+ * memory allocating `sizeof(Object)`, then invoking legacy_ObjectComponent's
  * constructor, and MemberList's constructor.
  */
 Object *construct(char *className) {
@@ -67,7 +67,8 @@ Object *construct(char *className) {
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->legacyObject = Legacy_ObjectConstructorClassName(className);
+    instance->legacyObject =
+            Legacy_ObjectComponentConstructorClassName(className);
     instance->memberList   = MemberListConstructor(className);
 
     // TODO: after rename

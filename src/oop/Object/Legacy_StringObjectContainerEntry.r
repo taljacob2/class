@@ -10,8 +10,8 @@ typedef struct legacy_stringObjectContainerEntry
 
 struct legacy_stringObjectContainerEntry {
 
-    /// `Legacy_StringObjectContainerEntry` implements `Legacy_Object`.
-    Legacy_Object *object;
+    /// `Legacy_StringObjectContainerEntry` implements `Legacy_ObjectComponent`.
+    Legacy_ObjectComponent *object;
 
     char *                  key;
     Legacy_ObjectContainer *value;

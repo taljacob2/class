@@ -24,7 +24,8 @@ Legacy_AtomicFreer *Legacy_AtomicFreerConstructor() {
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->object = Legacy_ObjectConstructorClassName("Legacy_AtomicFreer");
+    instance->object =
+            Legacy_ObjectComponentConstructorClassName("Legacy_AtomicFreer");
 
     static Constructable const constructable = {
             .constructor =

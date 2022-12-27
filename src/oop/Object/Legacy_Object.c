@@ -1,47 +1,55 @@
 #include "Legacy_Object.r"
 
 // Pre-declare privately.
-Legacy_Object *Legacy_ObjectConstructor();
+Legacy_ObjectComponent *Legacy_ObjectComponentConstructor();
 
 /**
- * @brief Destructs `Legacy_Object`.
+ * @brief Destructs `Legacy_ObjectComponent`.
  *
- * @param object The `Legacy_Object` to destruct.
+ * @param legacyObjectComponent The `Legacy_ObjectComponent` to destruct.
  * @see Destructable
  */
-void Legacy_ObjectDestructor(Legacy_Object *object) { free(object); }
+void Legacy_ObjectComponentDestructor(
+        Legacy_ObjectComponent *legacyObjectComponent) {
+    free(legacyObjectComponent);
+}
 
-void constructor_Legacy_Object_fields(Legacy_Object *object) {
+void constructor_Legacy_Object_fields(
+        Legacy_ObjectComponent *legacyObjectComponent) {
     static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&Legacy_ObjectConstructor)};
-    object->constructable = &constructable;
+            .constructor = (void *(*const)(void) )(
+                    &Legacy_ObjectComponentConstructor)};
+    legacyObjectComponent->constructable = &constructable;
 
     static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&Legacy_ObjectDestructor)};
-    object->destructable = &destructable;
+            .destructor = (void *(*const)(void *) )(
+                    &Legacy_ObjectComponentDestructor)};
+    legacyObjectComponent->destructable = &destructable;
 
-    object->destructorInvocationStatus                = WAS_NOT_INVOKED;
-    object->deleteFromAllocationTableInvocationStatus = WAS_NOT_INVOKED;
+    legacyObjectComponent->destructorInvocationStatus = WAS_NOT_INVOKED;
+    legacyObjectComponent->deleteFromAllocationTableInvocationStatus =
+            WAS_NOT_INVOKED;
 }
 
 /**
  * @deprecated Do not use this implementation, because then you could probably
  * neglect not initializing `CLASS_NAME`.
  */
-Legacy_Object *Legacy_ObjectConstructor() {
-    Legacy_Object *instance = calloc(1, sizeof *instance);
+Legacy_ObjectComponent *Legacy_ObjectComponentConstructor() {
+    Legacy_ObjectComponent *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->CLASS_NAME = "Legacy_Object";
+    instance->CLASS_NAME = "Legacy_ObjectComponent";
 
     constructor_Legacy_Object_fields(instance);
 
     return instance;
 }
 
-Legacy_Object *Legacy_ObjectConstructorClassName(const char *className) {
-    Legacy_Object *instance = Legacy_ObjectConstructor();
+Legacy_ObjectComponent *
+Legacy_ObjectComponentConstructorClassName(const char *className) {
+    Legacy_ObjectComponent *instance = Legacy_ObjectComponentConstructor();
 
     instance->CLASS_NAME = className;
 

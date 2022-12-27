@@ -11,8 +11,8 @@ typedef struct legacy_node Legacy_Node;
 
 struct legacy_node {
 
-    /// `Legacy_Node` implements `Legacy_Object`.
-    Legacy_Object *object;
+    /// `Legacy_Node` implements `Legacy_ObjectComponent`.
+    Legacy_ObjectComponent *object;
 
     void *       data;
     Legacy_Node *next;

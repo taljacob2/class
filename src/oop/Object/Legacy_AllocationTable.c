@@ -1,7 +1,7 @@
 #include "Legacy_AllocationTable.r"
 #include "AutoDestructable.r"
 
-/// @attention This is generic for all **Legacy_Object** implementors ( = Legacy_ObjectContainer).
+/// @attention This is generic for all **Legacy_ObjectComponent** implementors ( = Legacy_ObjectContainer).
 void *
 Legacy_AllocationTableDestructor(Legacy_AllocationTable *allocationTable) {
     if (allocationTable == NULL) { return NULL; }
@@ -19,8 +19,8 @@ Legacy_AllocationTableDestructor(Legacy_AllocationTable *allocationTable) {
 
 void constructor_Legacy_AllocationTable_fields(
         Legacy_AllocationTable *allocationTable) {
-    allocationTable->object =
-            Legacy_ObjectConstructorClassName("Legacy_AllocationTable");
+    allocationTable->object = Legacy_ObjectComponentConstructorClassName(
+            "Legacy_AllocationTable");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(

@@ -8,7 +8,7 @@ typedef struct legacy_objectContainer Legacy_ObjectContainer;
 
 /// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 struct legacy_objectContainer {
-    Legacy_Object *object;
+    Legacy_ObjectComponent *object;
 };
 
 

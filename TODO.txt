@@ -52,7 +52,7 @@ if `build.sh` in `build.yml` is on error on GitHub then exit `build.yml`
 
 TODO:
 
-#define _OBJECT_FIELDS_ (bitfield that contains *Legacy_Object and *Object)
+#define _OBJECT_FIELDS_ (bitfield that contains *Legacy_ObjectComponent and *Object)
 
 
 and include in every future object.
@@ -116,9 +116,9 @@ DONE: rename `Object` to `MemberList`
 
 DONE: rename `ObjectContainer` to `Object`
 
-rename `Legacy_Object` to `Legacy_ObjectComponent`
+rename `Legacy_ObjectComponent` to `Legacy_ObjectComponent`
 
-rename `Legacy_ObjectContainer` to `Legacy_Object`
+rename `Legacy_ObjectContainer` to `Legacy_ObjectComponent`
 
 -----
 

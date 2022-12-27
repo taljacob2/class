@@ -24,8 +24,9 @@ void *Legacy_StringObjectContainerEntryDestructor(
 
 void constructor_Legacy_StringObjectContainerEntry_fields(
         Legacy_StringObjectContainerEntry *stringObjectContainerEntry) {
-    stringObjectContainerEntry->object = Legacy_ObjectConstructorClassName(
-            "Legacy_StringObjectContainerEntry");
+    stringObjectContainerEntry->object =
+            Legacy_ObjectComponentConstructorClassName(
+                    "Legacy_StringObjectContainerEntry");
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(

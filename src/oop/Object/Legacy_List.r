@@ -12,8 +12,8 @@ typedef struct legacy_list Legacy_List;
 
 struct legacy_list {
 
-    /// `Legacy_List` implements `Legacy_Object`.
-    Legacy_Object *object;
+    /// `Legacy_List` implements `Legacy_ObjectComponent`.
+    Legacy_ObjectComponent *object;
 
     Legacy_Node *head;
     Legacy_Node *tail;
@@ -33,9 +33,9 @@ struct legacy_list {
                         const char *stringToSearch);
 
     /**
-     * @attention This is generic for all **Legacy_Object** implementors
+     * @attention This is generic for all **Legacy_ObjectComponent** implementors
      *            ( = Legacy_ObjectContainer). Can work only if the `Legacy_Node->data`
-     *            is implements **Legacy_Object** ( = Legacy_ObjectContainer).
+     *            is implements **Legacy_ObjectComponent** ( = Legacy_ObjectContainer).
      */
     void *(*Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData)(Legacy_List *list);
 };
