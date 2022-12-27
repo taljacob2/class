@@ -1,5 +1,33 @@
 #include "Object.r"
 
+Legacy_ObjectComponent *getLegacyObject(Object *object) {
+    return (Legacy_ObjectComponent *) getAnonymousPointerByIndex(object, 0);
+}
+
+Legacy_List *getPrivateMemberNameLegacy_List(Object *object) {
+    return (Legacy_List *) getAnonymousPointerByIndex(object, 1);
+}
+
+Legacy_List *getPublicMemberNameLegacy_List(Object *object) {
+    return (Legacy_List *) getAnonymousPointerByIndex(object, 2);
+}
+
+MemberList *getMethodsMemberList(Object *object) {
+    return (MemberList *) getAnonymousPointerByIndex(object, 3);
+}
+
+MemberList *getConstructorMemberList(Object *object) {
+    return (MemberList *) getAnonymousPointerByIndex(object, 4);
+}
+
+MemberList *getDestructorMemberList(Object *object) {
+    return (MemberList *) getAnonymousPointerByIndex(object, 5);
+}
+
+MemberList *getFieldsMemberList(Object *object) {
+    return (MemberList *) getAnonymousPointerByIndex(object, 6);
+}
+
 /// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
 ///     it will be still okay. maybe rename to something secret.
 void *destruct(Object *object) {
