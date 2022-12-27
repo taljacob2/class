@@ -118,13 +118,13 @@ Legacy_Object *getPublicMember(Object *object, MemberList *memberList,
 
 /* ------------- Methods ------------- */
 
-// "private" function.
+// "public" function.
 Legacy_Object *getPrivateMethod(Object *object, char *memberName) {
     return getAccessModifierMember(getPrivateMemberNameLegacy_List(object),
                                    getMethodsMemberList(object), memberName);
 }
 
-// "private" function.
+// "public" function.
 Legacy_Object *getPublicMethod(Object *object, char *memberName) {
     return getAccessModifierMember(getPublicMemberNameLegacy_List(object),
                                    getMethodsMemberList(object), memberName);
@@ -132,14 +132,14 @@ Legacy_Object *getPublicMethod(Object *object, char *memberName) {
 
 /* ------------- Constructor ------------- */
 
-// "private" function.
+// "public" function.
 Legacy_Object *getPrivateConstructor(Object *object, char *memberName) {
     return getAccessModifierMember(getPrivateMemberNameLegacy_List(object),
                                    getConstructorMemberList(object),
                                    memberName);
 }
 
-// "private" function.
+// "public" function.
 Legacy_Object *getPublicConstructor(Object *object, char *memberName) {
     return getAccessModifierMember(getPublicMemberNameLegacy_List(object),
                                    getConstructorMemberList(object),
@@ -148,13 +148,13 @@ Legacy_Object *getPublicConstructor(Object *object, char *memberName) {
 
 /* ------------- Destructor ------------- */
 
-// "private" function.
+// "public" function.
 Legacy_Object *getPrivateDestructor(Object *object, char *memberName) {
     return getAccessModifierMember(getPrivateMemberNameLegacy_List(object),
                                    getDestructorMemberList(object), memberName);
 }
 
-// "private" function.
+// "public" function.
 Legacy_Object *getPublicDestructor(Object *object, char *memberName) {
     return getAccessModifierMember(getPublicMemberNameLegacy_List(object),
                                    getDestructorMemberList(object), memberName);
@@ -162,13 +162,13 @@ Legacy_Object *getPublicDestructor(Object *object, char *memberName) {
 
 /* ------------- Fields ------------- */
 
-// "private" function.
+// "public" function.
 Legacy_Object *getPrivateField(Object *object, char *memberName) {
     return getAccessModifierMember(getPrivateMemberNameLegacy_List(object),
                                    getFieldsMemberList(object), memberName);
 }
 
-// "private" function.
+// "public" function.
 Legacy_Object *getPublicField(Object *object, char *memberName) {
     return getAccessModifierMember(getPublicMemberNameLegacy_List(object),
                                    getFieldsMemberList(object), memberName);
