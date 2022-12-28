@@ -410,6 +410,7 @@ void init_fields(Object *object) {
     object->addPublicField        = &addPublicField;
 }
 
+// "public" function.
 /**
  * Adds the implementation to the `fieldsMemberList`, as a "public" field.
  *
@@ -420,16 +421,17 @@ void addImplementation(
         Legacy_Object *(
                 *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(
                 const char *) ) {
-    concat(IMPLEMENTATION, memberName);
+    const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
 
     addPublicField(
-            object, memberName,
+            object, (char *) implementationMemberName,
             constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter(
                     object->legacyObject->CLASS_NAME));
 
-
+    free((void *) implementationMemberName);
 }
 
+// "public" function.
 Legacy_Object *getImplementation(Object *object, char *memberName) {
     return getPublicField(object, memberName);
 }
