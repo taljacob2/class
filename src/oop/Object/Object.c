@@ -453,12 +453,6 @@ Object *construct(char *className) {
 
     init_fields(instance);
 
-    //    // TODO: after rename
-    //    instance->methodsMemberList->addMemberWhichIsLegacy_Object(
-    //            instance->methodsMemberList, FIELDS,
-    //            (Legacy_Object *) MemberListConstructor());
-
-
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};
     instance->legacyObject->constructable = &constructable;
