@@ -39,17 +39,17 @@ MemberList *getFieldsMemberList(Object *object) {
 
 /* ------------------ */
 
-// TODO: figure out how to return a function type
-//  READ MORE HERE:
-//  https://www.geeksforgeeks.org/returning-a-function-pointer-from-a-function-in-c-cpp/
-
-// "private" function.
-Legacy_Object *(*getPrivateMethod_FUNCTION)(Object *object,
-                                            char *memberName)(Object *object) {
-    return (Legacy_Object *
-            (*) (Object * object, char *memberName)(Object * object))
-            getAnonymousPointerByIndex(object, 7);
-}
+//// TODO: figure out how to return a function type
+////  READ MORE HERE:
+////  https://www.geeksforgeeks.org/returning-a-function-pointer-from-a-function-in-c-cpp/
+//
+//// "private" function.
+//Legacy_Object *(*getPrivateMethod_FUNCTION)(Object *object,
+//                                            char *memberName)(Object *object) {
+//    return (Legacy_Object *
+//            (*) (Object * object, char *memberName)(Object * object))
+//            getAnonymousPointerByIndex(object, 7);
+//}
 
 /* ----------------------------- GET MEMBER --------------------------------- */
 
@@ -383,6 +383,33 @@ void *destruct(Object *object) {
     return NULL;
 }
 
+void init_fields(Object *object) {
+    object->privateMemberNameLegacy_List = Legacy_ListConstructor();
+    object->publicMemberNameLegacy_List  = Legacy_ListConstructor();
+    object->methodsMemberList            = MemberListConstructor();
+    object->constructorMemberList        = MemberListConstructor();
+    object->destructorMemberList         = MemberListConstructor();
+    object->fieldsMemberList             = MemberListConstructor();
+
+    object->getPrivateMethod      = &getPrivateMethod;
+    object->getPublicMethod       = &getPublicMethod;
+    object->getPrivateConstructor = &getPrivateConstructor;
+    object->getPublicConstructor  = &getPublicConstructor;
+    object->getPrivateDestructor  = &getPrivateDestructor;
+    object->getPublicDestructor   = &getPublicDestructor;
+    object->getPrivateField       = &getPrivateField;
+    object->getPublicField        = &getPublicField;
+
+    object->addPrivateMethod      = &addPrivateMethod;
+    object->addPublicMethod       = &addPublicMethod;
+    object->addPrivateConstructor = &addPrivateConstructor;
+    object->addPublicConstructor  = &addPublicConstructor;
+    object->addPrivateDestructor  = &addPrivateDestructor;
+    object->addPublicDestructor   = &addPublicDestructor;
+    object->addPrivateField       = &addPrivateField;
+    object->addPublicField        = &addPublicField;
+}
+
 /**
  * @deprecated private. Do not use this. It is only used for the
  *             `Constructable` assignment. Use `construct` instead.
@@ -397,7 +424,8 @@ Object *constructNoClass() {
 
     instance->legacyObject =
             Legacy_ObjectComponentConstructorClassName("Object");
-    instance->methodsMemberList = MemberListConstructor("Object");
+
+    init_fields(instance);
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};
@@ -422,12 +450,8 @@ Object *construct(char *className) {
 
     instance->legacyObject =
             Legacy_ObjectComponentConstructorClassName(className);
-    instance->privateMemberNameLegacy_List = Legacy_ListConstructor();
-    instance->publicMemberNameLegacy_List  = Legacy_ListConstructor();
-    instance->methodsMemberList            = MemberListConstructor();
-    instance->constructorMemberList        = MemberListConstructor();
-    instance->destructorMemberList         = MemberListConstructor();
-    instance->fieldsMemberList             = MemberListConstructor();
+
+    init_fields(instance);
 
     //    // TODO: after rename
     //    instance->methodsMemberList->addMemberWhichIsLegacy_Object(
