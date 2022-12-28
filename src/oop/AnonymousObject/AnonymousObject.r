@@ -2,6 +2,7 @@
 #define ANONYMOUSOBJECT_H
 
 #include "../Object/Object.h"
+#include "BitDefines.h"
 
 #define ANONYMOUS_OBJECT_NAME __ANONYMOUS_OBJECT__
 
