@@ -1,6 +1,9 @@
 #ifndef CONCAT_H
 #define CONCAT_H
 
+#include <stdlib.h>
+#include <string.h>
+
 #define __CONCAT_NOT_EXPANDED__(A, B) A##B
 #define CONCAT(A, B)                  __CONCAT_NOT_EXPANDED__(A, B)
 #define CONCAT_SURROUND(middle, whatToSurround) \
