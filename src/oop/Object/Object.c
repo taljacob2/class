@@ -411,6 +411,30 @@ void init_fields(Object *object) {
 }
 
 /**
+ * Adds the implementation to the `fieldsMemberList`, as a "public" field.
+ *
+ * @param constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter
+ */
+void addImplementation(
+        Object *object, char *memberName,
+        Legacy_Object *(
+                *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(
+                const char *) ) {
+    concat(IMPLEMENTATION, memberName);
+
+    addPublicField(
+            object, memberName,
+            constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter(
+                    object->legacyObject->CLASS_NAME));
+
+
+}
+
+Legacy_Object *getImplementation(Object *object, char *memberName) {
+    return getPublicField(object, memberName);
+}
+
+/**
  * @deprecated private. Do not use this. It is only used for the
  *             `Constructable` assignment. Use `construct` instead.
  *

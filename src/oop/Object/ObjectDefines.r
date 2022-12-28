@@ -59,6 +59,8 @@
 /// `MemberList`
 #define FIELDS "___fields___"
 
+#define IMPLEMENTATION "__IMPLEMENTATION__"
+
 #define ____CLASS_STRUCT_NAME_EXTENSION___            ___
 #define ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___ Constructor
 #define ___CLASS_DESTRUCTOR_METHOD_NAME_EXTENSION___  Destructor
