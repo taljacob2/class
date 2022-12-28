@@ -1,6 +1,7 @@
 #ifndef CONCAT_H
 #define CONCAT_H
 
+#include "Quote.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -8,6 +9,11 @@
 #define CONCAT(A, B)                  __CONCAT_NOT_EXPANDED__(A, B)
 #define CONCAT_SURROUND(middle, whatToSurround) \
     CONCAT(whatToSurround, CONCAT(middle, whatToSurround))
+
+#define CREATE_LOCAL_CONST_STRING_VAR_FROM_CONCAT_MACRO_TEXT( \
+        _stringVarName_, FIRST_MACRO_TEXT, SECOND_MACRO_TEXT) \
+    CREATE_LOCAL_CONST_STRING_VAR_FROM_MACRO_TEXT(            \
+            _stringVarName_, CONCAT(FIRST_MACRO_TEXT, SECOND_MACRO_TEXT))
 
 
 /**
