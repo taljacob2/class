@@ -431,32 +431,10 @@ void addImplementation(
     free((void *) implementationMemberName);
 }
 
-#define ADD_IMPLEMENTATION(CLASS_NAME_TO_IMPLEMENT)                                                  \
-    void addImplementation(                                                                          \
-            Object *object,                                                                          \
-            Legacy_Object *(                                                                         \
-                    *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)( \
-                    const char *) ) {                                                                \
-                                                                                                     \
-        CREATE_LOCAL_CONST_STRING_VAR_FROM_CONCAT_MACRO_TEXT(                                        \
-                implementationMemberName, IMPLEMENTATION,                                            \
-                CLASS_NAME_TO_IMPLEMENT)                                                             \
-                                                                                                     \
-        addPublicField(                                                                              \
-                object, (char *) implementationMemberName,                                           \
-                constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter(       \
-                        object->legacyObject->CLASS_NAME));                                          \
-    }
-
 // "public" function.
 Legacy_Object *getImplementation(Object *object, char *memberName) {
     return getPublicField(object, memberName);
 }
-
-#define GET_IMPLEMENTATION(CLASS_NAME_THAT_WAS_IMPLEMENTED)                    \
-    Legacy_Object *getImplementation(Object *object) {                         \
-        return getPublicField(object, QUOTE(CLASS_NAME_THAT_WAS_IMPLEMENTED)); \
-    }
 
 /**
  * @deprecated private. Do not use this. It is only used for the

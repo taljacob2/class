@@ -46,6 +46,14 @@ struct object {
                            Legacy_Object *memberToAdd);
 };
 
+void addImplementation(
+        Object *object, char *memberName,
+        Legacy_Object *(
+                *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(
+                const char *) );
+
+Legacy_Object *getImplementation(Object *object, char *memberName);
+
 void *destruct(Object *object);
 
 Object *construct(char *className);
