@@ -40,6 +40,9 @@ MemberList *getFieldsMemberList(Object *object) {
 /* ------------------ */
 
 // TODO: figure out how to return a function type
+//  READ MORE HERE:
+//  https://www.geeksforgeeks.org/returning-a-function-pointer-from-a-function-in-c-cpp/
+
 // "private" function.
 Legacy_Object *(*getPrivateMethod_FUNCTION)(Object *object,
                                             char *memberName)(Object *object) {
