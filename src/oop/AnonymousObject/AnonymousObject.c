@@ -1,10 +1,12 @@
 #include "AnonymousObject.r"
 
 /**
- * @brief Create an inline struct of type `Object`, with an "anonymous-generated"
- *        "className".
+ * @brief Create an inline struct of type `Object`, with an
+ *        "anonymous-inline-generated" "className".
  *
- * Prove of concept:
+ * -----------------------------------------------------------------------------
+ *
+ * Prove of concept: "inline-object":
  *
  * @code
  * #include <stdio.h>
@@ -24,11 +26,40 @@
  * }
  * @endcode
  *
+ * -----------------------------------------------------------------------------
+ *
+ * Prove of concept: "generate object name":
+ *
+ * @code
+ * #include <stdio.h>
+ *
+ * typedef char LINE_AFTER_INCLUDES[__LINE__];
+ * typedef char LINE_AFTER_INCLUDES2[__LINE__];
+ * typedef char LINE_AFTER_INCLUDES3[__LINE__];
+ *
+ * int main() {
+ *     printf("Hello World\n");
+ *
+ *     printf("%ld\n", sizeof(LINE_AFTER_INCLUDES));
+ *     printf("%ld\n", sizeof(LINE_AFTER_INCLUDES));
+ *     printf("%ld\n", sizeof(LINE_AFTER_INCLUDES));
+ *
+ *     printf("%ld\n", sizeof(LINE_AFTER_INCLUDES2));
+ *     printf("%ld\n", sizeof(LINE_AFTER_INCLUDES2));
+ *     printf("%ld\n", sizeof(LINE_AFTER_INCLUDES2));
+ *
+ *     printf("%ld\n", sizeof(LINE_AFTER_INCLUDES));
+ *     printf("%ld\n", sizeof(LINE_AFTER_INCLUDES));
+ *     printf("%ld\n", sizeof(LINE_AFTER_INCLUDES));
+ *
+ *     return 0;
+ * }
+ * @endcode
+ *
  * @return
  *
  * @see https://stackoverflow.com/questions/24850392/is-there-a-way-to-get-the-value-of-line-on-one-line-and-use-that-value-on-ot
- * @see More About Preventing A Macro-Expanding With This Trick:
- *      https://stackoverflow.com/a/11694231/14427765
+ * @see https://stackoverflow.com/a/24941973/14427765
  */
 Object *createAnonymousObject() {
     //    const char* thisAnonymousObjectClassName = QUOTE(ANONYMOUS_OBJECT___CONST_CLASS_NAME);
