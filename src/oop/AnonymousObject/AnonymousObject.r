@@ -9,8 +9,6 @@
 
 #define ANONYMOUS_OBJECT___CONST_CLASS_NAME ANONYMOUS_OBJECT___GENERATED_CLASS_NAME
 
-#define CONST_STRING_ANONYMOUSE_NAME const char * anonymousObjectClassName;
-
 Object *createAnonymousObject();
 
 #endif //ANONYMOUSOBJECT_H
