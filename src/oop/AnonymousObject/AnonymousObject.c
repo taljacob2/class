@@ -56,8 +56,7 @@
  * }
  * @endcode
  *
- * @return
- *
+ * @return Anonymous-inline-object of type `Object`.
  * @see https://stackoverflow.com/questions/24850392/is-there-a-way-to-get-the-value-of-line-on-one-line-and-use-that-value-on-ot
  * @see https://stackoverflow.com/a/24941973/14427765
  */
