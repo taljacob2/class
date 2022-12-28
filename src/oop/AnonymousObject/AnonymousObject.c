@@ -6,7 +6,7 @@
  *
  * -----------------------------------------------------------------------------
  *
- * Prove of concept: "inline-object":
+ * Proof of concept: "inline-object":
  *
  * @code
  * #include <stdio.h>
@@ -28,7 +28,7 @@
  *
  * -----------------------------------------------------------------------------
  *
- * Prove of concept: "generate object name":
+ * Proof of concept: "generate object name":
  *
  * @code
  * #include <stdio.h>
