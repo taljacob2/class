@@ -1,0 +1,6 @@
+#ifndef ANONYMOUSOBJECT_H
+#define ANONYMOUSOBJECT_H
+
+
+
+#endif //ANONYMOUSOBJECT_H
