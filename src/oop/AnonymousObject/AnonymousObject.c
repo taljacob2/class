@@ -61,6 +61,9 @@
  * @see https://stackoverflow.com/a/24941973/14427765
  */
 Object *createAnonymousObject() {
+
+    typedef char LINE_AFTER_INCLUDES11[__LINE__];
+
     //    const char* thisAnonymousObjectClassName = QUOTE(ANONYMOUS_OBJECT___CONST_CLASS_NAME);
     //    DEFINE_CLASS_H(thisAnonymousObjectClassName)
     //
