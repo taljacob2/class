@@ -37,6 +37,17 @@ MemberList *getFieldsMemberList(Object *object) {
     return (MemberList *) getAnonymousPointerByIndex(object, 6);
 }
 
+/* ------------------ */
+
+// TODO: figure out how to return a function type
+// "private" function.
+Legacy_Object *(*getPrivateMethod_FUNCTION)(Object *object,
+                                            char *memberName)(Object *object) {
+    return (Legacy_Object *
+            (*) (Object * object, char *memberName)(Object * object))
+            getAnonymousPointerByIndex(object, 7);
+}
+
 /* ----------------------------- GET MEMBER --------------------------------- */
 
 // "private" function.
