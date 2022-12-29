@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## Run test program.
-#./src/test/a.out
+#./"$TEST_PATH"/a.out
 
 # Run test program with Valgrind.
-valgrind --leak-check=full --show-leak-kinds=all ./src/test/a.out
+valgrind --leak-check=full --show-leak-kinds=all ./"$TEST_PATH"/a.out

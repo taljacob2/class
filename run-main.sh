@@ -3,7 +3,7 @@
 source ./config.sh
 
 ## Run main program.
-#./src/main/a.out
+#./"$MAIN_PATH"/a.out
 
 # Run main program with Valgrind.
-valgrind --leak-check=full --show-leak-kinds=all ./src/main/a.out
+valgrind --leak-check=full --show-leak-kinds=all ./"$MAIN_PATH"/a.out
