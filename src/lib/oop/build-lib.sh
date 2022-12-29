@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./../../../config.sh
+
 : '
 Read more about creating a static library here:
 https://youtu.be/P2vaRhWNilw
@@ -10,7 +12,7 @@ Linking static libraries to other static libraries:
 https://stackoverflow.com/a/27676016/14427765
 '
 
-LIBRARY_NAME="oop"
+LIBRARY_NAME="$LIB_FILE_NAME"
 
 staticLibraryList=()
 

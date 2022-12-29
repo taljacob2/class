@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./config.sh
+
 ## Run main program.
 #./src/main/a.out
 
