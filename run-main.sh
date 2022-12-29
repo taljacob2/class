@@ -2,8 +2,14 @@
 
 source ./config.sh
 
-## Run main program.
-#"$MAIN_PATH"/a.out
+if [ "$RUN_WITH_VALGRIND" == true ]; then
 
-## Run main program with Valgrind.
-#valgrind --leak-check=full --show-leak-kinds=all "$MAIN_PATH"/a.out
+  # Run program with Valgrind.
+  valgrind "$VALGRIND_OPTIONS" "$MAIN_PATH"/a.out
+
+  else
+
+  # Run program normally.
+  "$MAIN_PATH"/a.out
+
+fi

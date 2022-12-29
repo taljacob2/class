@@ -2,8 +2,14 @@
 
 source ./config.sh
 
-## Run test program.
-#"$TEST_PATH"/a.out
+if [ "$RUN_WITH_VALGRIND" == true ]; then
 
-# Run test program with Valgrind.
-valgrind --leak-check=full --show-leak-kinds=all "$TEST_PATH"/a.out
+  # Run program with Valgrind.
+  valgrind "$VALGRIND_OPTIONS" "$TEST_PATH"/a.out
+
+  else
+
+  # Run program normally.
+  "$TEST_PATH"/a.out
+
+fi
