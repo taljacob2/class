@@ -4,10 +4,10 @@ source ./config.sh
 
 # Build main program.
 gcc -g -Wall \
-src/main/main.c \
-src/main/Circle.c \
-src/main/CircleV2.c \
-src/main/CircleV4.c \
-src/main/CircleV5.c \
--L. src/lib/oop/"$LIB_FILE_NAME.a" \
--o src/main/a.out
+"$MAIN_PATH"/main.c \
+"$MAIN_PATH"/Circle.c \
+"$MAIN_PATH"/CircleV2.c \
+"$MAIN_PATH"/CircleV4.c \
+"$MAIN_PATH"/CircleV5.c \
+-L. "$LIB_PATH"/"$LIB_FILE_NAME.a" \
+-o "$MAIN_PATH"/a.out
