@@ -136,12 +136,12 @@ by executing the following script:
 ./build-lib.sh
 ```
 
-### Build Your Own Program With Linking `oop.a` To It (Maily For Testing `oop.a`)
+### Build Your Own Program With Linking `oop.a` To It (Mainly For Testing `oop.a`)
 
 Build your own program ([main.c](src/main/main.c) for example) while linking the
 `oop.a` library to it.
 ```
-./build.sh
+./build-main.sh
 ```
 
 ### Execute [main.c](src/main/main.c) With Valgrind
