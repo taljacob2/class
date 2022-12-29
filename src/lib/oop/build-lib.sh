@@ -12,7 +12,7 @@ Linking static libraries to other static libraries:
 https://stackoverflow.com/a/27676016/14427765
 '
 
-LIBRARY_NAME="$LIB_FILE_NAME"
+LIBRARY_NAME="$OUTPUT_LIB_FILE_NAME"
 
 staticLibraryList=()
 
