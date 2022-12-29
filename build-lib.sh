@@ -1,5 +1,7 @@
-PWD=`pwd`
+#!/bin/bash
 
-cd src/lib/oop
+source ./config.sh
+
+cd "$OUTPUT_LIB_PATH"
 ./build-lib.sh
-cd "$PWD"
+cd "$ROOT_PATH"

@@ -1,8 +1,12 @@
 #!/bin/bash
 
-SRC_PATH=src
-MAIN_PATH="$src"/main
-TEST_PATH="$src"/test
-LIB_PATH="$src"/lib
+ROOT_PATH=`pwd`
 
-LIB_FILE_NAME=oop
+SRC_PATH="$ROOT_PATH"/src
+MAIN_PATH="$SRC_PATH"/main
+TEST_PATH="$SRC_PATH"/test
+LIB_PATH="$SRC_PATH"/lib
+
+OUTPUT_LIB_PATH="$LIB_PATH"/oop
+
+OUTPUT_LIB_FILE_NAME=oop
