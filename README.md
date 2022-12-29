@@ -101,7 +101,7 @@ For example, you wish to define a new object with the "class name" of `Circle`:
   gcc main.c Circle.c -L. oop/oop.a
   ```
 
-- Execute the program:
+- Run the program:
   ```
   ./a.out
   ```
@@ -133,7 +133,7 @@ Do not worry again about dynamic allocation (eg. malloc, calloc...).
 Build [oop.a](src/lib/oop/oop.a) library (which is composed from all its sub-libraries)
 by executing the following script:
 ```
-./src/oop/build-library.sh
+./build-lib.sh
 ```
 
 ### Build Your Own Program With Linking `oop.a` To It (Maily For Testing `oop.a`)

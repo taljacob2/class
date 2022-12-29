@@ -1,5 +1,5 @@
 PWD=`pwd`
 
 cd src/lib/oop
-./build-library.sh
+./build-lib.sh
 cd "$PWD"
