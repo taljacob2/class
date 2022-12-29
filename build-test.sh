@@ -4,6 +4,6 @@ source ./config.sh
 
 # Build test program.
 gcc -g -Wall \
-src/test/main.c \
--L. src/lib/oop/"$LIB_FILE_NAME.a" \
--o src/test/a.out
+"$TEST_PATH"/main.c \
+-L. "$OUTPUT_LIB_PATH"/"$OUTPUT_LIB_FILE_NAME.a" \
+-o "$TEST_PATH"/a.out
