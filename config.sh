@@ -13,4 +13,4 @@ OUTPUT_LIB_FILE_NAME=oop
 # --------- Edit to you liking: ---------
 
 RUN_WITH_VALGRIND=true
-VALGRIND_OPTIONS="--leak-check=full --show-leak-kinds=all"
+VALGRIND_OPTIONS=--"leak-check=full --show-leak-kinds=all"
