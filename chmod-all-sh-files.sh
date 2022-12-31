@@ -27,30 +27,28 @@ for f in "${allFilesAndDirectoriesRecursivelySinceRootPathAsListOfStrings[@]}"; 
   printProgressBarOnceWithCalculatedPercentToPrint "$progressIndex" "$allFilesAndDirectoriesRecursivelySinceRootPathSize"
   progressIndex=$((progressIndex + 1))
 
-  fWithoutFirst2Chars=`echo "$f" | awk '{print substr($0,3)}'`
-  fullPathOfFile="$ROOT_PATH/$fWithoutFirst2Chars"
+  # "$f" without first 2 chars. (They are `./`).
+  file=`echo "$f" | awk '{print substr($0,3)}'`
+  fullPathOfFile="$ROOT_PATH/$file"
 
-  if [ -d "$f" ]; then
+  # if "$f" is contained within "${EXCLUDED_DIRECTORIES[@]}"
+  for excludedFileOrDirectory in "${EXCLUDED_DIRECTORIES[@]}"; do
+      if echo "$file" | grep "^$excludedFileOrDirectory" ; then
+          # TODO: debug
+          echo "excluded file found: $file"
+          continue
+      fi
+  done
 
-    # "$f" is a directory.
-
-    # if "$f" is contained within "${EXCLUDED_DIRECTORIES[@]}"
-    if printf '%s\0' "${EXCLUDED_DIRECTORIES[@]}" | grep -Fxqz -- "$f" ; then
-      # TODO: debug
-      echo "$f"
-      continue
-    fi
-
-  elif [ -f "$fWithoutFirst2Chars" ]; then
+  if [ -f "$file" ]; then
 
     # "$f" is a file.
 
-    currentFileExtension="${fWithoutFirst2Chars##*\.}"
-
+    currentFileExtension="${file##*\.}"
     if [ "$currentFileExtension" == "sh" ]; then
 
       # TODO: debug
-      echo "$fWithoutFirst2Chars"
+      echo "$file"
 #      git update-index --chmod=+x "$f"
     fi
 
