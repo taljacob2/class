@@ -2,12 +2,31 @@
 
 source ./config.sh
 
-cd "$ROOT_PATH"
+source ./progress-bar.sh
+
+# --------------------------- Edit to you liking: ------------------------------
 
 # Relative to `$ROOT_PATH`.
 EXCLUDED_DIRECTORIES=(".git" ".github")
 
-for f in $(find . -type f -print); do
+# ---------------------------------- Code --------------------------------------
+
+cd "$ROOT_PATH"
+
+
+allFilesAndDirectoriesRecursivelySinceRootPathAsOneLongString=$(find . -type f -print)
+
+# Convert long string to string list.
+allFilesAndDirectoriesRecursivelySinceRootPathAsListOfStrings=($allFilesAndDirectoriesRecursivelySinceRootPathAsOneLongString)
+allFilesAndDirectoriesRecursivelySinceRootPathSize=${#allFilesAndDirectoriesRecursivelySinceRootPathAsListOfStrings[@]}
+
+progressIndex=0
+for f in "${allFilesAndDirectoriesRecursivelySinceRootPathAsListOfStrings[@]}"; do
+
+  # Print progress bar.
+  printProgressBarOnceWithCalculatedPercentToPrint "$progressIndex" "$allFilesAndDirectoriesRecursivelySinceRootPathSize"
+  progressIndex=$((progressIndex + 1))
+
   fWithoutFirst2Chars=`echo "$f" | awk '{print substr($0,3)}'`
   fullPathOfFile="$ROOT_PATH/$fWithoutFirst2Chars"
 
@@ -37,3 +56,9 @@ for f in $(find . -type f -print); do
 
   fi
 done
+
+# Print progress bar.
+printProgressBarOnceWithCalculatedPercentToPrint "$progressIndex" "$allFilesAndDirectoriesRecursivelySinceRootPathSize"
+printf '\nCompleted Successfully!\n'
+
+exit 0
