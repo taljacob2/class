@@ -45,7 +45,7 @@ printProgressBarOnce() {
   printf '\n\n\n\n\n\n\n\n\e[8A\e7'
   progressBar "$percentToPrint" $barWidth bar;
   printf '%s\e[48;5;23;38;5;41m%s\e[0m%6.2f%%%b' \
-  'Progress: ' "$bar" "$percentToPrint"
+  'Progress: ' "$bar" "$percentToPrint" " "
 }
 
 : '
