@@ -55,43 +55,44 @@ createIncludedFiles() {
   echo "${includedFiles[@]}"
 }
 
-includedFiles=($(createIncludedFiles))
-
-# For debugs
-printf 'includedFiles = %s\n' "${includedFiles[@]}"
-
 # ------------------------------------------------------------------------------
 
-index=0
-for file in "${includedFiles[@]}"; do
+iterateOverSHFilesInIncludedFiles() {
+  declare -a includedFiles=("${@:2:$1}"); shift "$(($1 + 1))"
 
-  # TODO: debug
-#  echo "$file"
+  index=0
+  for file in "${includedFiles[@]}"; do
+
+    # Print progress bar.
+    printProgressBarOnceWithCalculatedPercentToPrint \
+    "(3/3): Iterating over .sh files... " "$index" ${#includedFiles[@]}
+
+    # If "$file" is a file.
+    if [ -f "$file" ]; then
+      currentFileExtension="${file##*\.}"
+      if [ "$currentFileExtension" == "sh" ]; then
+
+        # TODO: debug
+        echo "$file"
+  #      echo
+  #      git update-index --chmod=+x "$f"
+      fi
+
+    fi
+
+    ((index++))
+  done
 
   # Print progress bar.
   printProgressBarOnceWithCalculatedPercentToPrint \
   "(3/3): Iterating over .sh files... " "$index" ${#includedFiles[@]}
+  unset index
+}
 
-  # If "$file" is a file.
-  if [ -f "$file" ]; then
-    currentFileExtension="${file##*\.}"
-    if [ "$currentFileExtension" == "sh" ]; then
+includedFiles=($(createIncludedFiles))
 
-      # TODO: debug
-      echo "$file"
-#      echo
-#      git update-index --chmod=+x "$f"
-    fi
+iterateOverSHFilesInIncludedFiles "${#includedFiles[@]}" "${includedFiles[@]}"
 
-  fi
-
-  ((index++))
-done
-
-# Print progress bar.
-printProgressBarOnceWithCalculatedPercentToPrint \
-"(3/3): Iterating over .sh files... " "$index" ${#includedFiles[@]}
-unset index
 printf '\nCompleted Successfully!\n'
 
 exit 0
