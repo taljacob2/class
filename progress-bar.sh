@@ -79,5 +79,5 @@ printProgressBarOnceWithCalculatedPercentToPrint() {
   size="$3"
 
   percentToPrint=$(bc -l <<< "100 * $index/$size")
-  printProgressBarOnce "$title" "$percentToPrint"
+  printProgressBarOnce "$title" "$percentToPrint" > /dev/tty
 }

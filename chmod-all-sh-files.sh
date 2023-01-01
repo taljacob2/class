@@ -13,43 +13,49 @@ EXCLUDED_WILDCARDS=(".git" ".github")
 
 # ---------------------------------- Code --------------------------------------
 
-cd "$ROOT_PATH"
+createIncludedFiles() {
+  cd "$ROOT_PATH"
 
-# Set `excludedFiles`.
-excludedFiles=()
-for wildCard in "${EXCLUDED_WILDCARDS[@]}" ; do
-    excludedFiles+=($(find "$wildCard" -type f))
-done
+  # Set `excludedFiles`.
+  excludedFiles=()
+  for wildCard in "${EXCLUDED_WILDCARDS[@]}" ; do
+      excludedFiles+=($(find "$wildCard" -type f))
+  done
 
-# Add all files.
-allFiles=($(find -type f))
+  # Add all files.
+  allFiles=($(find -type f))
 
-index=0
-for f in "${allFiles[@]}"; do
+  index=0
+  for f in "${allFiles[@]}"; do
+
+    # Print progress bar.
+    printProgressBarOnceWithCalculatedPercentToPrint \
+    "(1/3): Scanning all files... " "$index" "${#allFiles[@]}"
+
+    # "$f" without first 2 chars. (They are `./`).
+    file=`echo "$f" | awk '{print substr($0,3)}'`
+    allFiles[$index]="$file"
+    ((index++))
+  done
 
   # Print progress bar.
   printProgressBarOnceWithCalculatedPercentToPrint \
   "(1/3): Scanning all files... " "$index" "${#allFiles[@]}"
+  unset index
 
-  # "$f" without first 2 chars. (They are `./`).
-  file=`echo "$f" | awk '{print substr($0,3)}'`
-  allFiles[$index]="$file"
-  ((index++))
-done
+  # Set `includedFiles`.
+  includedFiles=($(deleteSmallListFromLargeList \
+  "(2/3): Removing excluded files... " \
+  "${#allFiles[@]}" "${allFiles[@]}" \
+  "${#excludedFiles[@]}" "${excludedFiles[@]}"))
 
-# Print progress bar.
-printProgressBarOnceWithCalculatedPercentToPrint \
-"(1/3): Scanning all files... " "$index" "${#allFiles[@]}"
-unset index
+  unset allFiles
+  unset excludedFiles
 
-# Set `includedFiles`.
-includedFiles=($(deleteSmallListFromLargeList \
-"(2/3): Removing excluded files... " \
-"${#allFiles[@]}" "${allFiles[@]}" \
-"${#excludedFiles[@]}" "${excludedFiles[@]}"))
+  echo "${includedFiles[@]}"
+}
 
-unset allFiles
-unset excludedFiles
+includedFiles=($(createIncludedFiles))
 
 # For debugs
 printf 'includedFiles = %s\n' "${includedFiles[@]}"
