@@ -24,14 +24,14 @@ contains () {
 }
 
 deleteSmallListFromLargeList () {
-#  # TODO: debug
-#    printf '%s\n' "$1"
-#
+  # TODO: debug
+    printf '%q\n' "$@"
+
     declare -a largeList=("${@:2:$1}"); shift "$(($1 + 1))"
     declare -a smallList=("${@:2:$1}"); shift "$(($1 + 1))"
 
     # TODO: debug
-    printf '$s\n' "${largeList[@]}"
+    printf '%q\n' "${largeList[@]}"
 #
 #    index=0
 #    for element in "${largeList[@]}" ; do
