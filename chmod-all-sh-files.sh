@@ -85,6 +85,7 @@ done
 # Print progress bar.
 printProgressBarOnceWithCalculatedPercentToPrint \
 "(3/3): Iterating over .sh files... " "$index" ${#includedFiles[@]}
+unset index
 printf '\nCompleted Successfully!\n'
 
 exit 0
