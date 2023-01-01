@@ -61,16 +61,8 @@
  * @see https://stackoverflow.com/a/24941973/14427765
  */
 Object *createAnonymousObject() {
+    DEFINE_CLASS_H(ANONYMOUS_OBJECT___GENERATED_CLASS_NAME)
 
-    typedef char LINE_AFTER_INCLUDES11[__LINE__];
+//    const char *thisAnonymousObjectClassName =
 
-    //    const char* thisAnonymousObjectClassName = QUOTE(ANONYMOUS_OBJECT___CONST_CLASS_NAME);
-    //    DEFINE_CLASS_H(thisAnonymousObjectClassName)
-    //
-
-//    CREATE_LOCAL_CONST_STRING_VAR_FROM_MACRO_TEXT(
-//            thisAnonymousObjectClassName, ANONYMOUS_OBJECT___CONST_CLASS_NAME)
-
-
-    DEFINE_CLASS_H(ANONYMOUS_OBJECT___CONST_CLASS_NAME)
 }
