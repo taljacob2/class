@@ -53,15 +53,18 @@ unset index
 #printf 'allFiles = %s\n' "${allFiles[@]}"
 
 # Set `includedFiles`.
-includedFiles=$(deleteSmallListFromLargeList \
+tempFind=$(deleteSmallListFromLargeList \
 "(2/3): Removing excluded files... " \
 "${#allFiles[@]}" "${allFiles[@]}" "${#excludedFiles[@]}" "${excludedFiles[@]}")
+
+includedFiles=($tempFind)
+unset tempFind
 
 unset allFiles
 unset excludedFiles
 
 # For debugs
-#printf 'includedFiles = %s\n' "${includedFiles[@]}"
+printf 'includedFiles = %s\n' "${includedFiles[@]}"
 
 # ------------------------------------------------------------------------------
 
@@ -81,8 +84,8 @@ for file in "${includedFiles[@]}"; do
     if [ "$currentFileExtension" == "sh" ]; then
 
       # TODO: debug
-#      echo "$file"
-      echo
+      echo "$file"
+#      echo
 #      git update-index --chmod=+x "$f"
     fi
 
