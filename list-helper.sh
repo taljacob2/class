@@ -27,7 +27,7 @@ deleteSmallListFromLargeList () {
 
     # Print progress bar.
     printProgressBarOnceWithCalculatedPercentToPrint \
-    "$progressBarMessage" "$index" "${#largeList[@]}" >&2
+    "$progressBarMessage" "$index" "${#largeList[@]}" > /dev/tty
 
     if contains "${#smallList[@]}" "${smallList[@]}" "$element" ; then
       unset largeList[$index]
@@ -38,7 +38,7 @@ deleteSmallListFromLargeList () {
 
   # Print progress bar.
   printProgressBarOnceWithCalculatedPercentToPrint \
-  "$progressBarMessage" "$index" "${#largeList[@]}" >&2
+  "$progressBarMessage" "$index" "${#largeList[@]}" > /dev/tty
   unset index
 
   echo "${largeList[@]}"
