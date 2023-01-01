@@ -45,7 +45,7 @@ createIncludedFiles() {
 
   # Set `includedFiles`.
   includedFiles=($(deleteSmallListFromLargeList \
-  "(2/3): Removing excluded files... " \
+  "(2/3): Removing excluded wildcards... " \
   "${#allFiles[@]}" "${allFiles[@]}" \
   "${#excludedFiles[@]}" "${excludedFiles[@]}"))
 
@@ -69,11 +69,8 @@ iterateOverSHFilesInList() {
     if [ -f "$file" ]; then
       currentFileExtension="${file##*\.}"
       if [ "$currentFileExtension" == "sh" ]; then
-
-        # TODO: debug
         echo "$file"
-  #      echo
-  #      git update-index --chmod=+x "$f"
+        git update-index --chmod=+x "$file"
       fi
 
     fi
