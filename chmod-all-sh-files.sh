@@ -18,18 +18,11 @@ cd "$ROOT_PATH"
 # Set `excludedFiles`.
 excludedFiles=()
 for wildCard in "${EXCLUDED_WILDCARDS[@]}" ; do
-    tempFind=$(find "$wildCard" -type f)
-    excludedFiles+=($tempFind)
-    unset tempFind
+    excludedFiles+=($(find "$wildCard" -type f))
 done
 
-# TODO: debug
-#printf 'excludedFiles = %s\n' "${excludedFiles[@]}"
-
 # Add all files.
-tempFind=$(find -type f)
-allFiles=($tempFind)
-unset tempFind
+allFiles=($(find -type f))
 
 index=0
 for f in "${allFiles[@]}"; do
@@ -49,16 +42,11 @@ printProgressBarOnceWithCalculatedPercentToPrint \
 "(1/3): Scanning all files... " "$index" "${#allFiles[@]}"
 unset index
 
-## TODO: debug
-#printf 'allFiles = %s\n' "${allFiles[@]}"
-
 # Set `includedFiles`.
-tempFind=$(deleteSmallListFromLargeList \
+includedFiles=($(deleteSmallListFromLargeList \
 "(2/3): Removing excluded files... " \
-"${#allFiles[@]}" "${allFiles[@]}" "${#excludedFiles[@]}" "${excludedFiles[@]}")
-
-includedFiles=($tempFind)
-unset tempFind
+"${#allFiles[@]}" "${allFiles[@]}" \
+"${#excludedFiles[@]}" "${excludedFiles[@]}"))
 
 unset allFiles
 unset excludedFiles
