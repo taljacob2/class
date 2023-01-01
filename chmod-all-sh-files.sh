@@ -13,33 +13,67 @@ EXCLUDED_WILDCARDS=(".git" ".github")
 
 # ---------------------------------- Code --------------------------------------
 
+cd "$ROOT_PATH"
+
 # Set `excludedFiles`.
 excludedFiles=()
 for wildCard in "${EXCLUDED_WILDCARDS[@]}" ; do
-    excludedFiles+=($(find "$ROOT_PATH" -type f -wholename "$ROOT_PATH/$wildCard"))
+    tempFind=$(find "$wildCard" -type f)
+    excludedFiles+=($tempFind)
+    unset tempFind
 done
 
+# TODO: debug
+#printf 'excludedFiles = %s\n' "${excludedFiles[@]}"
+
 # Add all files.
-allFiles=$(find "$ROOT_PATH" -type f)
+tempFind=$(find -type f)
+allFiles=($tempFind)
+unset tempFind
+
+index=0
+for f in "${allFiles[@]}"; do
+
+  # Print progress bar.
+  printProgressBarOnceWithCalculatedPercentToPrint \
+  "Scanning all files..." "$index" "${#allFiles[@]}"
+
+  # "$f" without first 2 chars. (They are `./`).
+  file=`echo "$f" | awk '{print substr($0,3)}'`
+  allFiles[$index]="$file"
+  ((index++))
+done
+
+# Print progress bar.
+printProgressBarOnceWithCalculatedPercentToPrint \
+"Scanning all files..." "$index" "${#allFiles[@]}"
+unset index
+
+## TODO: debug
+#printf 'allFiles = %s\n' "${allFiles[@]}"
 
 # Set `includedFiles`.
-includedFiles=$(deleteSmallListFromLargeList "${allFiles[@]}" "${excludedFiles[@]}")
+includedFiles=$(deleteSmallListFromLargeList \
+"${#allFiles[@]}" "${allFiles[@]}" \
+"${#excludedFiles[@]}" "${excludedFiles[@]}")
 
 unset allFiles
 unset excludedFiles
 
 # For debugs
-# printf 'includedFiles = %s\n' ${includedFiles[@]}
+#printf 'includedFiles = %s\n' "${includedFiles[@]}"
 
 # ------------------------------------------------------------------------------
-
-includedFilesSize=${#includedFiles[@]}
 
 index=0
 for file in "${includedFiles[@]}"; do
 
+  # TODO: debug
+#  echo "$file"
+
   # Print progress bar.
-  printProgressBarOnceWithCalculatedPercentToPrint "$index" "$includedFilesSize"
+  printProgressBarOnceWithCalculatedPercentToPrint \
+  "Iterating over .sh files..." "$index" ${#includedFiles[@]}
 
   # If "$file" is a file.
   if [ -f "$file" ]; then
@@ -47,7 +81,8 @@ for file in "${includedFiles[@]}"; do
     if [ "$currentFileExtension" == "sh" ]; then
 
       # TODO: debug
-      echo "$file"
+#      echo "$file"
+      echo
 #      git update-index --chmod=+x "$f"
     fi
 
@@ -57,7 +92,8 @@ for file in "${includedFiles[@]}"; do
 done
 
 # Print progress bar.
-printProgressBarOnceWithCalculatedPercentToPrint "$index" "$includedFilesSize"
+printProgressBarOnceWithCalculatedPercentToPrint \
+"Iterating over .sh files..." "$index" ${#includedFiles[@]}
 printf '\nCompleted Successfully!\n'
 
 exit 0
