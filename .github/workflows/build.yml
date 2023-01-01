@@ -14,13 +14,13 @@ jobs:
         uses: actions/checkout@v2
       - name: Build oop.a static library
         run: |
-          ./src/oop/build-library.sh
+          ./build-lib.sh
       - name: Build main.c
         run: |
-          ./build.sh
+          ./build-main.sh
       - name: Install Valgrind
         run: |
           sudo apt install valgrind
       - name: Run With Valgrind
         run: |
-          valgrind --leak-check=full --show-leak-kinds=all ./a.out
+          valgrind --leak-check=full --show-leak-kinds=all ./src/main/a.out

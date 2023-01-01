@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./../../../config.sh
+
 : '
 Read more about creating a static library here:
 https://youtu.be/P2vaRhWNilw
@@ -10,7 +12,7 @@ Linking static libraries to other static libraries:
 https://stackoverflow.com/a/27676016/14427765
 '
 
-LIBRARY_NAME="oop"
+LIBRARY_NAME="$OUTPUT_LIB_FILE_NAME"
 
 staticLibraryList=()
 
@@ -19,7 +21,7 @@ for f in *; do
 
         # "$f" is a directory. Will not run if no directories are available.
         cd "$f"
-        ./build-library.sh  # Build the static library.
+        ./build-lib.sh  # Build the static library.
 
         # Add paths of all static libraries to the list.
         for staticLibraryName in *.a; do

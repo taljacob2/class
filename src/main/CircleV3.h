@@ -1,7 +1,7 @@
 #ifndef CIRCLEV3_H
 #define CIRCLEV3_H
 
-#include "oop/Object/Object.h"
+#include "../lib/oop/Object/Object.h"
 
 
 // Forward declaration of incomplete type
