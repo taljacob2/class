@@ -36,7 +36,7 @@ for f in "${allFiles[@]}"; do
 
   # Print progress bar.
   printProgressBarOnceWithCalculatedPercentToPrint \
-  "(1/2): Scanning all files... " "$index" "${#allFiles[@]}"
+  "(1/3): Scanning all files... " "$index" "${#allFiles[@]}"
 
   # "$f" without first 2 chars. (They are `./`).
   file=`echo "$f" | awk '{print substr($0,3)}'`
@@ -46,14 +46,16 @@ done
 
 # Print progress bar.
 printProgressBarOnceWithCalculatedPercentToPrint \
-"(1/2): Scanning all files... " "$index" "${#allFiles[@]}"
+"(1/3): Scanning all files... " "$index" "${#allFiles[@]}"
 unset index
 
 ## TODO: debug
 #printf 'allFiles = %s\n' "${allFiles[@]}"
 
 # Set `includedFiles`.
-includedFiles=$(deleteSmallListFromLargeList "${#allFiles[@]}" "${allFiles[@]}" "${#excludedFiles[@]}" "${excludedFiles[@]}")
+includedFiles=$(deleteSmallListFromLargeList \
+"(2/3): Removing excluded files... " \
+"${#allFiles[@]}" "${allFiles[@]}" "${#excludedFiles[@]}" "${excludedFiles[@]}")
 
 unset allFiles
 unset excludedFiles
@@ -71,7 +73,7 @@ for file in "${includedFiles[@]}"; do
 
   # Print progress bar.
   printProgressBarOnceWithCalculatedPercentToPrint \
-  "(2/2): Iterating over .sh files... " "$index" ${#includedFiles[@]}
+  "(3/3): Iterating over .sh files... " "$index" ${#includedFiles[@]}
 
   # If "$file" is a file.
   if [ -f "$file" ]; then
@@ -91,7 +93,7 @@ done
 
 # Print progress bar.
 printProgressBarOnceWithCalculatedPercentToPrint \
-"(2/2): Iterating over .sh files... " "$index" ${#includedFiles[@]}
+"(3/3): Iterating over .sh files... " "$index" ${#includedFiles[@]}
 printf '\nCompleted Successfully!\n'
 
 exit 0

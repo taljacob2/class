@@ -1,52 +1,45 @@
 #!/bin/bash
 
+source ./progress-bar.sh
+
 contains () {
-    sourceList="$1"
-    valueToSearch="$2"
+  declare -a sourceList=("${@:2:$1}"); shift "$(($1 + 1))"
+  declare -a valueToSearch="$1"
 
-    for element in "${sourceList[@]}" ; do
+  for element in "${sourceList[@]}" ; do
+    if [ "$element" == "$valueToSearch" ] ; then
+      true
+      return
+    fi
+  done
 
-        # TODO: DEBUG
-        echo "$element"
-
-      if [ "$element" == "$valueToSearch" ] ; then
-
-        # TODO: DEBUG
-        echo "$element"
-
-        echo true
-        return
-      fi
-    done
-
-    echo false
-    return
+  false
+  return
 }
 
 deleteSmallListFromLargeList () {
-  # TODO: debug
-    printf '%q\n' "$@"
+  declare -a progressBarMessage="$1"; shift
+  declare -a largeList=("${@:2:$1}"); shift "$(($1 + 1))"
+  declare -a smallList=("${@:2:$1}"); shift "$(($1 + 1))"
 
-    declare -a largeList=("${@:2:$1}"); shift "$(($1 + 1))"
-    declare -a smallList=("${@:2:$1}"); shift "$(($1 + 1))"
+  declare -a index=0
+  for element in "${largeList[@]}" ; do
 
-    # TODO: debug
-    printf '%q\n' "${largeList[@]}"
-#
-#    index=0
-#    for element in "${largeList[@]}" ; do
-#
-#        # TODO: DEBUG
-#        echo "$element"
-#
-#      if [ "$(contains ${smallList[@]} $element)" == "true" ] ; then
-##        # TODO: DEBUG
-##        echo "$element"
-#        unset largeList[$index]
-#      fi
-#
-#    ((index++))
-#    done
-#
-#    echo "${largeList[@]}"
+    # Print progress bar.
+    printProgressBarOnceWithCalculatedPercentToPrint \
+    "$progressBarMessage" "$index" "${#largeList[@]}" >&2
+
+    if contains "${#smallList[@]}" "${smallList[@]}" "$element" ; then
+      unset largeList[$index]
+    fi
+
+    ((index++))
+  done
+
+  # Print progress bar.
+  printProgressBarOnceWithCalculatedPercentToPrint \
+  "$progressBarMessage" "$index" "${#largeList[@]}" >&2
+  unset index
+
+  echo "${largeList[@]}"
 }
