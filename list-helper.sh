@@ -22,12 +22,13 @@ deleteSmallListFromLargeList () {
   declare -a largeList=("${@:2:$1}"); shift "$(($1 + 1))"
   declare -a smallList=("${@:2:$1}"); shift "$(($1 + 1))"
 
+  declare -a largeListOriginalSize="${#largeList[@]}"
   declare -a index=0
   for element in "${largeList[@]}" ; do
 
     # Print progress bar.
     printProgressBarOnceWithCalculatedPercentToPrint \
-    "$progressBarMessage" "$index" "${#largeList[@]}"
+    "$progressBarMessage" "$index" "$largeListOriginalSize"
 
     if contains "${#smallList[@]}" "${smallList[@]}" "$element" ; then
       unset largeList[$index]
@@ -38,7 +39,7 @@ deleteSmallListFromLargeList () {
 
   # Print progress bar.
   printProgressBarOnceWithCalculatedPercentToPrint \
-  "$progressBarMessage" "$index" "${#largeList[@]}"
+  "$progressBarMessage" "$index" "$largeListOriginalSize"
   unset index
 
   echo "${largeList[@]}"
