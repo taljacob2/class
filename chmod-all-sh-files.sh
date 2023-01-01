@@ -55,8 +55,6 @@ createIncludedFiles() {
   echo "${includedFiles[@]}"
 }
 
-# ------------------------------------------------------------------------------
-
 iterateOverSHFilesInIncludedFiles() {
   declare -a includedFiles=("${@:2:$1}"); shift "$(($1 + 1))"
 
