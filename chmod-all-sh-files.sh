@@ -55,7 +55,7 @@ createIncludedFiles() {
   echo "${includedFiles[@]}"
 }
 
-iterateOverSHFilesInIncludedFiles() {
+iterateOverSHFilesInList() {
   declare -a includedFiles=("${@:2:$1}"); shift "$(($1 + 1))"
 
   index=0
@@ -89,7 +89,7 @@ iterateOverSHFilesInIncludedFiles() {
 
 includedFiles=($(createIncludedFiles))
 
-iterateOverSHFilesInIncludedFiles "${#includedFiles[@]}" "${includedFiles[@]}"
+iterateOverSHFilesInList "${#includedFiles[@]}" "${includedFiles[@]}"
 
 printf '\nCompleted Successfully!\n'
 
