@@ -32,7 +32,6 @@ unsigned char getRandomNumberLetter() {
     return getRandomChar(range, baseChar);
 }
 
-
 /**
  * @attention Remember to `free` the returned value.
  */
@@ -79,9 +78,3 @@ void runBeforeMain_Random(void) {
     // TODO: test
     printf("rand test\n");
 }
-
-/**
- * Does nothing. But is an excuse to link this `.c` file, and call the
- * `runBeforeMain_Random` function.
- */
-void ConstructRandom(){}

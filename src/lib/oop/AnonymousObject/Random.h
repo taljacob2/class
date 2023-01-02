@@ -4,6 +4,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-void ConstructRandom();
+unsigned char getRandomLowercaseLetter();
+
+unsigned char getRandomUppercaseLetter();
+
+unsigned char getRandomNumberLetter();
+
+unsigned char *getRandomString(size_t stringLenToGenerate);
 
 #endif //RANDOM_H
