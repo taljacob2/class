@@ -5,6 +5,6 @@
 #include "Random.r"
 
 
-Object *createAnonymousObject();
+Object *AnonymousObjectConstructor();
 
 #endif //ANONYMOUSOBJECT_H
