@@ -65,6 +65,6 @@ Object *createAnonymousObject() {
 
 //    const char *thisAnonymousObjectClassName =
 
-    Object *object = construct();
+    Object *object = construct("test");
 
 }

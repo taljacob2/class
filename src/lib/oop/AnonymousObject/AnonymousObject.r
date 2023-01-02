@@ -3,6 +3,7 @@
 
 #include "../Object/Object.h"
 #include "BitDefines.h"
+#include "Random.h"
 
 #define ANONYMOUS_OBJECT_NAME __ANONYMOUS_OBJECT__
 
