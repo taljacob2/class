@@ -60,18 +60,27 @@ unsigned char *getRandomString(size_t stringLenToGenerate) {
     return string;
 }
 
+// -----------------------------------------------------------------------------
+
 /*
  * See more here: https://www.geeksforgeeks.org/functions-that-are-executed-before-and-after-main-in-c/
  */
 
-/* Apply the constructor attribute to runBeforeMain() so that it
-    is executed before main() */
-void runBeforeMain(void) __attribute__((constructor));
+/*
+ * Apply the constructor attribute to runBeforeMain_Random() so that it is
+ * executed before main()
+ */
+void runBeforeMain_Random(void) __attribute__((constructor));
 
-/* implementation of runBeforeMain */
-void runBeforeMain(void) {
+/* implementation of runBeforeMain_Random */
+void runBeforeMain_Random(void) {
     initRand();
 
     // TODO: test
-    printf("rand test");
+    printf("rand test\n");
 }
+
+/**
+ * Does nothing. But is a
+ */
+void ConstructRandom(){}

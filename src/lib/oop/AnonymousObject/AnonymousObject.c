@@ -61,10 +61,13 @@
  * @see https://stackoverflow.com/a/24941973/14427765
  */
 Object *createAnonymousObject() {
+    ConstructRandom();
 //    DEFINE_CLASS_H(ANONYMOUS_OBJECT___GENERATED_CLASS_NAME)
 
 //    const char *thisAnonymousObjectClassName =
 
     Object *object = construct("test");
+
+    return object;
 
 }

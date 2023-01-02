@@ -4,4 +4,6 @@
 #include <stdlib.h>
 #include <time.h>
 
+void ConstructRandom();
+
 #endif //RANDOM_H

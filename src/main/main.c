@@ -22,5 +22,7 @@ int main() {
     //    CircleV5 *circleV5 = CircleV5Constructor();
 
 
+    createAnonymousObject();
+
     return 0;
 }
