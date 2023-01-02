@@ -2,7 +2,7 @@
 #include "CircleV2.h"
 #include "CircleV4.h"
 #include "CircleV5.h"
-#include "oop/oop.h"
+#include "../lib/oop/oop.h"
 
 int main() {
     Circle *circle = CircleConstructor();
@@ -21,6 +21,8 @@ int main() {
 
     //    CircleV5 *circleV5 = CircleV5Constructor();
 
+
+//    AnonymousObjectConstructor();
 
     return 0;
 }

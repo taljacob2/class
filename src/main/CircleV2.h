@@ -1,7 +1,7 @@
 #ifndef CIRCLEV2_H
 #define CIRCLEV2_H
 
-#include "oop/Object/Object.h"
+#include "../lib/oop/Object/Object.h"
 
 // Forward declaration of incomplete type
 typedef struct circlev2 CircleV2;

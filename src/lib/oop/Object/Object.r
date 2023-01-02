@@ -3,9 +3,6 @@
 
 #include "MemberList.r"
 
-/// Add MemberList `#define`s for users.
-#include "ObjectDefines.r"
-
 // Forward declaration of incomplete type
 typedef struct object Object;
 
@@ -46,8 +43,19 @@ struct object {
                            Legacy_Object *memberToAdd);
 };
 
+void addImplementation(
+        Object *object, char *memberName,
+        Legacy_Object *(
+                *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(
+                const char *) );
+
+Legacy_Object *getImplementation(Object *object, char *memberName);
+
 void *destruct(Object *object);
 
 Object *construct(char *className);
+
+/// Add MemberList `#define`s for users.
+#include "ObjectDefines.r"
 
 #endif //OBJECT_H

@@ -1,6 +1,6 @@
 # OOP For C Language
 
-[oop.a](src/oop/oop.a) is a static library in C, that allows the use of OOP.
+[oop.a](src/lib/oop/oop.a) is a static library in C, that allows the use of OOP.
 
 ## Introduction
 
@@ -47,7 +47,7 @@ Place the "oop" directory in your project's path.
 
 ### Define Your Own New Object
 
-Use the [Object](src/oop/Object/Object.r) object to implement your own objects.
+Use the [Object](src/lib/oop/Object/Object.r) object to implement your own objects.
 
 To do so, you need to create 2 files.
 - One with `.h` extension.
@@ -101,13 +101,13 @@ For example, you wish to define a new object with the "class name" of `Circle`:
   gcc main.c Circle.c -L. oop/oop.a
   ```
 
-- Execute the program:
+- Run the program:
   ```
   ./a.out
   ```
 
 > ##### NOTE 1 FOR DEVELOPERS ONLY
-> Every object is polymorphed with [Legacy_Object](src/oop/Object/Legacy_Object.r)
+> Every object is polymorphed with [Legacy_Object](src/lib/oop/Object/Legacy_Object.r)
   (it is the most polymorhpic object).
 
 ### Dynamic Allocation
@@ -117,36 +117,71 @@ Do not worry again about dynamic allocation (eg. malloc, calloc...).
 > ##### NOTE 2 FOR DEVELOPERS ONLY
 > As said in [NOTE 1 FOR DEVELOPERS ONLY](#NOTE-1-FOR-DEVELOPERS-ONLY),
 > 
-> Because every object that is composed of [AutoDestructable](src/oop/Object/AutoDestructable.r)
+> Because every object that is composed of [AutoDestructable](src/lib/oop/Object/AutoDestructable.r)
 > is being handled automatically to be destructed (see
-> [Legacy_AllocationTableList](/src/oop/Object/Legacy_AllocationTableList.r)).
+> [Legacy_AllocationTableList](/src/lib/oop/Object/Legacy_AllocationTableList.r)).
 > 
 > To do so, make sure you inject an implementation of
-> [Destructable](src/oop/Object/Destructable.r) to your object's
-> [Legacy_ObjectComponent](src/oop/Object/Legacy_ObjectComponent.r).
+> [Destructable](src/lib/oop/Object/Destructable.r) to your object's
+> [Legacy_ObjectComponent](src/lib/oop/Object/Legacy_ObjectComponent.r).
 
 
 ## Contributing
 
-### Build `oop.a` (When Developing `oop.a`)
+### Build & Run
 
-Build [oop.a](src/oop/oop.a) library (which is composed from all its sub-libraries)
+#### Build `oop.a` (When Developing `oop.a`)
+
+Build [oop.a](src/lib/oop/oop.a) library (which is composed from all its sub-libraries)
 by executing the following script:
 ```
-./src/oop/build-library.sh
+./build-lib.sh
 ```
 
-### Build Your Own Program With Linking `oop.a` To It (Maily For Testing `oop.a`)
+#### Main
 
-Build your own program ([main.c](src/main.c) for example) while linking the
+##### Build Your Own Program With Linking `oop.a` To It (Mainly For Testing `oop.a`)
+
+Build your own program ([main.c](src/main/main.c) for example) while linking the
 `oop.a` library to it.
 ```
-./build.sh
+./build-main.sh
 ```
 
-### Execute [main.c](src/main.c) With Valgrind
+##### Run [main.c](src/main/main.c)
+
+```
+./run-main.sh
+```
+
+#### Test (For automated tests)
+
+##### Build Your Own Program With Linking `oop.a` To It (Mainly For Testing `oop.a`)
+
+Build your own program ([test.c](src/test/main.c) for example) while linking the
+`oop.a` library to it.
+```
+./build-test.sh
+```
+
+##### Run [main.c](src/test/main.c)
+
+```
+./run-test.sh
+```
+
+### About [`config.sh`](config.sh)
+
+This file bundles variables that are used by other `.sh` files.
+
+Under the `# --------- Edit to you liking: ---------` comment, you are
+allowed to change the values of the variables to you liking.
+
+#### Run Settings
+
+##### Valgrind
 
 Valgrind allows us to check for memory leaks.
-```
-valgrind --leak-check=full --show-leak-kinds=all ./a.out
-```
+
+You can set `RUN_WITH_VALGRIND` to `true` or `false`, to set the run of the
+program with or without Valgrind.
