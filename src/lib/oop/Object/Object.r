@@ -24,6 +24,7 @@ struct object {
     Legacy_Object *(*getPublicDestructor)(Object *object, char *memberName);
     Legacy_Object *(*getPrivateField)(Object *object, char *memberName);
     Legacy_Object *(*getPublicField)(Object *object, char *memberName);
+    Legacy_Object *(*getImplementation)(Object *object, char *memberName);
 
     void (*addPrivateMethod)(Object *object, char *memberName,
                              Legacy_Object *memberToAdd);
@@ -41,6 +42,17 @@ struct object {
                             Legacy_Object *memberToAdd);
     void (*addPublicField)(Object *object, char *memberName,
                            Legacy_Object *memberToAdd);
+
+    /**
+     * Adds the implementation to the `fieldsMemberList`, as a "public" field.
+     *
+     * @param constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter
+     */
+    void (*addImplementation)(
+            Object *object, char *memberName,
+            Legacy_Object *(
+                    *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(
+                    const char *) );
 };
 
 void addImplementation(

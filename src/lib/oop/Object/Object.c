@@ -296,7 +296,34 @@ void addPublicField(Object *object, char *memberName,
                                 memberToAdd);
 }
 
-/* -------------------------------------------------------------------------- */
+/* ---------------------------- Implementation ------------------------------ */
+
+// "public" function.
+void addImplementation(
+        Object *object, char *memberName,
+        Legacy_Object *(
+                *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(
+                const char *) ) {
+    const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
+
+    addPublicField(
+            object, (char *) implementationMemberName,
+            constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter(
+                    object->legacyObject->CLASS_NAME));
+
+    free((void *) implementationMemberName);
+}
+
+// "public" function.
+Legacy_Object *getImplementation(Object *object, char *memberName) {
+    const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
+    Legacy_Object *returnValue =
+            getPublicField(object, (char *) implementationMemberName);
+    free((void *) implementationMemberName);
+    return returnValue;
+}
+
+/* ----------------------- Constructor & Destructor ------------------------= */
 
 /// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
 ///     it will be still okay. maybe rename to something secret.
@@ -399,6 +426,7 @@ void init_fields(Object *object) {
     object->getPublicDestructor   = &getPublicDestructor;
     object->getPrivateField       = &getPrivateField;
     object->getPublicField        = &getPublicField;
+    object->getImplementation     = &getImplementation;
 
     object->addPrivateMethod      = &addPrivateMethod;
     object->addPublicMethod       = &addPublicMethod;
@@ -408,36 +436,7 @@ void init_fields(Object *object) {
     object->addPublicDestructor   = &addPublicDestructor;
     object->addPrivateField       = &addPrivateField;
     object->addPublicField        = &addPublicField;
-}
-
-// "public" function.
-/**
- * Adds the implementation to the `fieldsMemberList`, as a "public" field.
- *
- * @param constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter
- */
-void addImplementation(
-        Object *object, char *memberName,
-        Legacy_Object *(
-                *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(
-                const char *) ) {
-    const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
-
-    addPublicField(
-            object, (char *) implementationMemberName,
-            constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter(
-                    object->legacyObject->CLASS_NAME));
-
-    free((void *) implementationMemberName);
-}
-
-// "public" function.
-Legacy_Object *getImplementation(Object *object, char *memberName) {
-    const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
-    Legacy_Object *returnValue =
-            getPublicField(object, (char *) implementationMemberName);
-    free((void *) implementationMemberName);
-    return returnValue;
+    object->addImplementation     = &addImplementation;
 }
 
 /**
