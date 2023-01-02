@@ -81,6 +81,7 @@ void runBeforeMain_Random(void) {
 }
 
 /**
- * Does nothing. But is a
+ * Does nothing. But is an excuse to link this `.c` file, and call the
+ * `runBeforeMain_Random` function.
  */
 void ConstructRandom(){}
