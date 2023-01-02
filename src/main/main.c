@@ -26,5 +26,10 @@ int main() {
     Object *object= construct("Object");
 
 
+    // TODO: FIXME:
+    //  Conclusion: allocationTableList doesn't receive the correct address!!!
+//    destruct(object);
+
+
     return 0;
 }
