@@ -1,5 +1,4 @@
 #include "Random.h"
-#include <stdio.h>
 
 void initRand() { srand(time(NULL)); }
 
@@ -72,9 +71,4 @@ unsigned char *getRandomString(size_t stringLenToGenerate) {
 void runBeforeMain_Random(void) __attribute__((constructor));
 
 /* implementation of runBeforeMain_Random */
-void runBeforeMain_Random(void) {
-    initRand();
-
-    // TODO: test
-    printf("rand test\n");
-}
+void runBeforeMain_Random(void) { initRand(); }
