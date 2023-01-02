@@ -1,9 +1,5 @@
-//
-// Created by Tal on 28-Dec-22.
-//
-
-#ifndef CLASS_BITDEFINES_H
-#define CLASS_BITDEFINES_H
+#ifndef BITDEFINES_H
+#define BITDEFINES_H
 
 
 #if ((UINT_MAX) == 0xffffffffu)
@@ -35,4 +31,4 @@
 #endif
 
 
-#endif //CLASS_BITDEFINES_H
+#endif //BITDEFINES_H
