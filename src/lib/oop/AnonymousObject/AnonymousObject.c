@@ -66,7 +66,7 @@ Object *createAnonymousObject() {
 
 //    const char *thisAnonymousObjectClassName =
 
-    unsigned char * randomString = getRandomString(10);
+    unsigned char * randomString = getRandomString(20);
     Object *object = construct((char *)randomString);
     free(randomString);
 
