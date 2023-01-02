@@ -433,7 +433,11 @@ void addImplementation(
 
 // "public" function.
 Legacy_Object *getImplementation(Object *object, char *memberName) {
-    return getPublicField(object, memberName);
+    const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
+    Legacy_Object *returnValue =
+            getPublicField(object, (char *) implementationMemberName);
+    free((void *) implementationMemberName);
+    return returnValue;
 }
 
 /**
