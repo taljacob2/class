@@ -2,7 +2,7 @@
 #define ANONYMOUSOBJECT_H
 
 #include "../Object/Object.h"
-#include "Random.h"
+#include "Random.r"
 
 
 Object *createAnonymousObject();
