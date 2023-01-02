@@ -21,7 +21,9 @@ int main() {
 
     //    AnonymousObjectConstructor();
 
-    CircleV5 *circleV5 = CircleV5Constructor();
+//    CircleV5 *circleV5 = CircleV5Constructor();
+
+    Object *object= construct("Object");
 
 
     return 0;
