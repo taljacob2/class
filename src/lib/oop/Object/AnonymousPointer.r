@@ -19,6 +19,13 @@
 
 TYPEOF_ANONYMOUS_POINTER *getAnonymousPointerByIndex(void *self, size_t index);
 
-void setAnonymousPointerByIndex(void *self, size_t index, void *valueToSet);
+TYPEOF_ANONYMOUS_POINTER getAnonymousPointerValueByIndex(void * self,
+                                                         size_t index);
+
+void setAnonymousPointerValueByIndex(void *self, size_t index,
+                                     void *valueToSet);
+
+void setAnonymousPointerValue(TYPEOF_ANONYMOUS_POINTER *anonymousPointer,
+                              void *                    valueToSet);
 
 #endif //ANONYMOUSPOINTER_H
