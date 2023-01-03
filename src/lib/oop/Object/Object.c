@@ -348,7 +348,7 @@ void addImplementation(
     addPublicField(
             object, (char *) implementationMemberName,
             constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter(
-                    object->legacyObject->CLASS_NAME));
+                    object->legacyObjectComponent->CLASS_NAME));
 
     free((void *) implementationMemberName);
 }
@@ -454,9 +454,9 @@ void *destruct(Object *object) {
                             object->fieldsMemberList);
         }
 
-        // Destruct `legacyObject`.
+        // Destruct `legacyObjectComponent`.
         getLegacyObjectComponent(object)->destructable->destructor(
-                object->legacyObject);
+                object->legacyObjectComponent);
 
 
         // TODO: DEBUG

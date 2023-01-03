@@ -8,7 +8,7 @@ typedef struct object Object;
 
 /// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 struct object {
-    Legacy_ObjectComponent *legacyObject;
+    Legacy_ObjectComponent *legacyObjectComponent;
     Legacy_List *           privateMemberNameLegacy_List;
     Legacy_List *           publicMemberNameLegacy_List;
     MemberList *            methodsMemberList;
