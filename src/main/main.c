@@ -21,14 +21,33 @@ int main() {
 
     //    AnonymousObjectConstructor();
 
-//    CircleV5 *circleV5 = CircleV5Constructor();
-
-    Object *object= construct("Object");
+    //    CircleV5 *circleV5 = CircleV5Constructor();
 
 
-    // TODO: FIXME:
-    //  Conclusion: allocationTableList doesn't receive the correct address!!!
-//    destruct(object);
+    //    Legacy_MemberList *legacyMemberList =
+    //            Legacy_MemberListConstructorWithLegacy_Object(
+    //                    (Legacy_Object *) MemberListConstructor());
+
+    //    Legacy_MemberList *legacyMemberList =
+    //            Legacy_MemberListConstructorWithLegacy_Object(
+    //                    (Legacy_Object *) Legacy_ListConstructor());
+    //    legacyMemberList->legacyObjectComponent->destructable->destructor(legacyMemberList);
+
+
+//    MemberList * memberList1 = MemberListConstructor();
+//    memberList1->legacyObjectComponent->destructable->destructor(memberList1);
+//
+//    Legacy_List *legacyList = Legacy_ListConstructor();
+//    legacyList->legacyObjectComponent->destructable->destructor(legacyList);
+
+
+
+        Object *object= construct("Object");
+
+
+    //    // TODO: FIXME:
+    //    //  Conclusion: allocationTableList doesn't receive the correct address!!!
+    //    destruct(object);
 
 
     return 0;
