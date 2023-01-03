@@ -2,6 +2,7 @@
 #define ANONYMOUSPOINTER_H
 
 #include <stddef.h>
+#include <limits.h>
 
 /*
  * Read more here:
