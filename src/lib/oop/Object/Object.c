@@ -376,70 +376,87 @@ void *destruct(Object *object) {
         getLegacyObjectComponent(object)->destructorInvocationStatus =
                 WAS_INVOKED_ONCE;
 
-        if (object->privateMemberNameLegacy_List->legacyObjectComponent
-                    ->destructorInvocationStatus == WAS_NOT_INVOKED) {
-            object->privateMemberNameLegacy_List->legacyObjectComponent
-                    ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+        if (getPrivateMemberNameLegacy_List(object)
+                    ->legacyObjectComponent->destructorInvocationStatus ==
+            WAS_NOT_INVOKED) {
+            getPrivateMemberNameLegacy_List(object)
+                    ->legacyObjectComponent->destructorInvocationStatus =
+                    WAS_INVOKED_ONCE;
 
             // Destruct `privateMemberNameLegacy_List`.
-            object->privateMemberNameLegacy_List->legacyObjectComponent
-                    ->destructable->destructor(
+            getPrivateMemberNameLegacy_List(object)
+                    ->legacyObjectComponent->destructable->destructor(
                             object->privateMemberNameLegacy_List);
         }
 
-        if (object->publicMemberNameLegacy_List->legacyObjectComponent
-                    ->destructorInvocationStatus == WAS_NOT_INVOKED) {
-            object->publicMemberNameLegacy_List->legacyObjectComponent
-                    ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+        if (getPublicMemberNameLegacy_List(object)
+                    ->legacyObjectComponent->destructorInvocationStatus ==
+            WAS_NOT_INVOKED) {
+            getPublicMemberNameLegacy_List(object)
+                    ->legacyObjectComponent->destructorInvocationStatus =
+                    WAS_INVOKED_ONCE;
 
             // Destruct `publicMemberNameLegacy_List`.
-            object->publicMemberNameLegacy_List->legacyObjectComponent
-                    ->destructable->destructor(
+            getPublicMemberNameLegacy_List(object)
+                    ->legacyObjectComponent->destructable->destructor(
                             object->publicMemberNameLegacy_List);
         }
 
-        if (object->methodsMemberList->legacyObjectComponent
-                    ->destructorInvocationStatus == WAS_NOT_INVOKED) {
-            object->methodsMemberList->legacyObjectComponent
-                    ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+        if (getMethodsMemberList(object)
+                    ->legacyObjectComponent->destructorInvocationStatus ==
+            WAS_NOT_INVOKED) {
+            getMethodsMemberList(object)
+                    ->legacyObjectComponent->destructorInvocationStatus =
+                    WAS_INVOKED_ONCE;
 
             // Destruct `methodsMemberList`.
-            object->methodsMemberList->legacyObjectComponent->destructable
-                    ->destructor(object->methodsMemberList);
+            getMethodsMemberList(object)
+                    ->legacyObjectComponent->destructable->destructor(
+                            object->methodsMemberList);
         }
 
-        if (object->constructorMemberList->legacyObjectComponent
-                    ->destructorInvocationStatus == WAS_NOT_INVOKED) {
-            object->constructorMemberList->legacyObjectComponent
-                    ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+        if (getConstructorMemberList(object)
+                    ->legacyObjectComponent->destructorInvocationStatus ==
+            WAS_NOT_INVOKED) {
+            getConstructorMemberList(object)
+                    ->legacyObjectComponent->destructorInvocationStatus =
+                    WAS_INVOKED_ONCE;
 
             // Destruct `constructorMemberList`.
-            object->constructorMemberList->legacyObjectComponent->destructable
-                    ->destructor(object->constructorMemberList);
+            getConstructorMemberList(object)
+                    ->legacyObjectComponent->destructable->destructor(
+                            object->constructorMemberList);
         }
 
-        if (object->destructorMemberList->legacyObjectComponent
-                    ->destructorInvocationStatus == WAS_NOT_INVOKED) {
-            object->destructorMemberList->legacyObjectComponent
-                    ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+        if (getDestructorMemberList(object)
+                    ->legacyObjectComponent->destructorInvocationStatus ==
+            WAS_NOT_INVOKED) {
+            getDestructorMemberList(object)
+                    ->legacyObjectComponent->destructorInvocationStatus =
+                    WAS_INVOKED_ONCE;
 
             // Destruct `destructorMemberList`.
-            object->destructorMemberList->legacyObjectComponent->destructable
-                    ->destructor(object->destructorMemberList);
+            getDestructorMemberList(object)
+                    ->legacyObjectComponent->destructable->destructor(
+                            object->destructorMemberList);
         }
 
-        if (object->fieldsMemberList->legacyObjectComponent
-                    ->destructorInvocationStatus == WAS_NOT_INVOKED) {
-            object->fieldsMemberList->legacyObjectComponent
-                    ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+        if (getFieldsMemberList(object)
+                    ->legacyObjectComponent->destructorInvocationStatus ==
+            WAS_NOT_INVOKED) {
+            getFieldsMemberList(object)
+                    ->legacyObjectComponent->destructorInvocationStatus =
+                    WAS_INVOKED_ONCE;
 
             // Destruct `fieldsMemberList`.
-            object->fieldsMemberList->legacyObjectComponent->destructable
-                    ->destructor(object->fieldsMemberList);
+            getFieldsMemberList(object)
+                    ->legacyObjectComponent->destructable->destructor(
+                            object->fieldsMemberList);
         }
 
         // Destruct `legacyObject`.
-        object->legacyObject->destructable->destructor(object->legacyObject);
+        getLegacyObjectComponent(object)->destructable->destructor(
+                object->legacyObject);
 
 
         // TODO: DEBUG
