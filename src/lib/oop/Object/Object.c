@@ -452,12 +452,12 @@ void *destruct(Object *object) {
 }
 
 void init_fields(Object *object) {
-    object->privateMemberNameLegacy_List = Legacy_ListConstructor();
-    object->publicMemberNameLegacy_List  = Legacy_ListConstructor();
-    object->methodsMemberList            = MemberListConstructor();
-    object->constructorMemberList        = MemberListConstructor();
-    object->destructorMemberList         = MemberListConstructor();
-    object->fieldsMemberList             = MemberListConstructor();
+    setPrivateMemberNameLegacy_List(object, Legacy_ListConstructor());
+    setPublicMemberNameLegacy_List(object, Legacy_ListConstructor());
+    setMethodsMemberList(object, MemberListConstructor());
+    setConstructorMemberList(object, MemberListConstructor());
+    setDestructorMemberList(object, MemberListConstructor());
+    setFieldsMemberList(object, MemberListConstructor());
 
     object->getPrivateMethod      = &getPrivateMethod;
     object->getPublicMethod       = &getPublicMethod;
@@ -492,18 +492,18 @@ Object *constructNoClass() {
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->legacyObject =
-            Legacy_ObjectComponentConstructorClassName("Object");
+    setLegacyObjectComponent(
+            instance, Legacy_ObjectComponentConstructorClassName("Object"));
 
     init_fields(instance);
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};
-    instance->legacyObject->constructable = &constructable;
+    getLegacyObjectComponent(instance)->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&destruct)};
-    instance->legacyObject->destructable = &destructable;
+    getLegacyObjectComponent(instance)->destructable = &destructable;
 
     return instance;
 }
@@ -518,19 +518,18 @@ Object *construct(char *className) {
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->legacyObject =
-            //    getLegacyObjectComponent(instance) =
-            Legacy_ObjectComponentConstructorClassName(className);
+    setLegacyObjectComponent(
+            instance, Legacy_ObjectComponentConstructorClassName(className));
 
     init_fields(instance);
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};
-    instance->legacyObject->constructable = &constructable;
+    getLegacyObjectComponent(instance)->constructable = &constructable;
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&destruct)};
-    instance->legacyObject->destructable = &destructable;
+    getLegacyObjectComponent(instance)->destructable = &destructable;
 
     return instance;
 }
