@@ -353,9 +353,25 @@ void addImplementation(
     free((void *) implementationMemberName);
 }
 
-// TODO: make public.
 // "public" function.
 void addImplementationThatIsConstructedWithLegacy_Object(
+        Object *object, char *memberName,
+        Legacy_Object *(
+                *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters)(
+                Legacy_Object *, const char *) ) {
+    const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
+
+    addPublicField(
+            object, (char *) implementationMemberName,
+            constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters(
+                    (Legacy_Object *) object,
+                    getLegacyObjectComponent(object)->CLASS_NAME));
+
+    free((void *) implementationMemberName);
+}
+
+/// @deprecated
+void addImplementationThatIsConstructedWithLegacy_ObjectAsParameter(
         Object *object, char *memberName,
         Legacy_Object *(
                 *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters)(
@@ -513,6 +529,8 @@ void init_fields(Object *object) {
     object->addPrivateField       = &addPrivateField;
     object->addPublicField        = &addPublicField;
     object->addImplementation     = &addImplementation;
+    object->addImplementationThatIsConstructedWithLegacy_Object =
+            &addImplementationThatIsConstructedWithLegacy_Object;
 }
 
 /**
@@ -535,8 +553,7 @@ Object *constructNoClass() {
     addImplementationThatIsConstructedWithLegacy_Object(
             instance, "AutoDestructable",
             (Legacy_Object * (*) (Legacy_Object *, const char *) )
-                    AutoDestructableConstructorWithClassName,
-            (Legacy_Object *) instance);
+                    AutoDestructableConstructorWithClassName);
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};
@@ -567,8 +584,7 @@ Object *construct(char *className) {
     addImplementationThatIsConstructedWithLegacy_Object(
             instance, "AutoDestructable",
             (Legacy_Object * (*) (Legacy_Object *, const char *) )
-                    AutoDestructableConstructorWithClassName,
-            (Legacy_Object *) instance);
+                    AutoDestructableConstructorWithClassName);
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};

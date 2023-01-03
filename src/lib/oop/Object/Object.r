@@ -46,13 +46,34 @@ struct object {
     /**
      * Adds the implementation to the `fieldsMemberList`, as a "public" field.
      *
+     * @param object The object to add the implementation to.
+     * @param memberName The member name you wish to call the implementation.
+     *                   A common name is the class name you wish to implement.
      * @param constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter
+     * The constructor to construct the class you wish to implement.
+     * It should have 1 parameter: (const char *).
      */
     void (*addImplementation)(
             Object *object, char *memberName,
             Legacy_Object *(
                     *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(
                     const char *) );
+
+    /**
+     * Adds the implementation to the `fieldsMemberList`, as a "public" field.
+     *
+     * @param object The object to add the implementation to.
+     * @param memberName The member name you wish to call the implementation.
+     *                   A common name is the class name you wish to implement.
+     * @param constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters
+     * The constructor to construct the class you wish to implement.
+     * It should have 2 parameters: (Legacy_Object *, const char *).
+     */
+    void (*addImplementationThatIsConstructedWithLegacy_Object)(
+            Object *object, char *memberName,
+            Legacy_Object *(
+            *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters)(
+                    Legacy_Object *, const char *) );
 };
 
 void *destruct(Object *object);
