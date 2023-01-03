@@ -455,9 +455,7 @@ void *destruct(Object *object) {
         }
 
         // Destruct `legacyObjectComponent`.
-        getLegacyObjectComponent(object)->destructable->destructor(
-                object->legacyObjectComponent);
-
+        free(getLegacyObjectComponent(object));
 
         // TODO: DEBUG
         printf("\n\nFREEEEEEE\n\n");
