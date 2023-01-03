@@ -3,38 +3,77 @@
 /* ------------------------------ GET LIST ---------------------------------- */
 
 // "private" function.
-Legacy_ObjectComponent *getLegacyObject(Object *object) {
-    return (Legacy_ObjectComponent *) getAnonymousPointerByIndex(object, 0);
+Legacy_ObjectComponent *getLegacyObjectComponent(Object *object) {
+    return (Legacy_ObjectComponent *) getAnonymousPointerValueByIndex(object,
+                                                                      0);
 }
 
 // "private" function.
 Legacy_List *getPrivateMemberNameLegacy_List(Object *object) {
-    return (Legacy_List *) getAnonymousPointerByIndex(object, 1);
+    return (Legacy_List *) getAnonymousPointerValueByIndex(object, 1);
 }
 
 // "private" function.
 Legacy_List *getPublicMemberNameLegacy_List(Object *object) {
-    return (Legacy_List *) getAnonymousPointerByIndex(object, 2);
+    return (Legacy_List *) getAnonymousPointerValueByIndex(object, 2);
 }
 
 // "private" function.
 MemberList *getMethodsMemberList(Object *object) {
-    return (MemberList *) getAnonymousPointerByIndex(object, 3);
+    return (MemberList *) getAnonymousPointerValueByIndex(object, 3);
 }
 
 // "private" function.
 MemberList *getConstructorMemberList(Object *object) {
-    return (MemberList *) getAnonymousPointerByIndex(object, 4);
+    return (MemberList *) getAnonymousPointerValueByIndex(object, 4);
 }
 
 // "private" function.
 MemberList *getDestructorMemberList(Object *object) {
-    return (MemberList *) getAnonymousPointerByIndex(object, 5);
+    return (MemberList *) getAnonymousPointerValueByIndex(object, 5);
 }
 
 // "private" function.
 MemberList *getFieldsMemberList(Object *object) {
-    return (MemberList *) getAnonymousPointerByIndex(object, 6);
+    return (MemberList *) getAnonymousPointerValueByIndex(object, 6);
+}
+
+/* ------------------------------ SET LIST ---------------------------------- */
+
+// "private" function.
+void setLegacyObjectComponent(Object *                object,
+                              Legacy_ObjectComponent *legacyObjectComponent) {
+    setAnonymousPointerValueByIndex(object, 0, legacyObjectComponent);
+}
+
+// "private" function.
+void setPrivateMemberNameLegacy_List(Object *object, Legacy_List *legacyList) {
+    setAnonymousPointerValueByIndex(object, 1, legacyList);
+}
+
+// "private" function.
+void setPublicMemberNameLegacy_List(Object *object, Legacy_List *legacyList) {
+    setAnonymousPointerValueByIndex(object, 2, legacyList);
+}
+
+// "private" function.
+void setMethodsMemberList(Object *object, MemberList *memberList) {
+    setAnonymousPointerValueByIndex(object, 3, memberList);
+}
+
+// "private" function.
+void setConstructorMemberList(Object *object, MemberList *memberList) {
+    setAnonymousPointerValueByIndex(object, 4, memberList);
+}
+
+// "private" function.
+void setDestructorMemberList(Object *object, MemberList *memberList) {
+    setAnonymousPointerValueByIndex(object, 5, memberList);
+}
+
+// "private" function.
+void setFieldsMemberList(Object *object, MemberList *memberList) {
+    setAnonymousPointerValueByIndex(object, 6, memberList);
 }
 
 /* ------------------ */
@@ -332,8 +371,10 @@ void *destruct(Object *object) {
     // TODO: DEBUG
     printf("\n\ndestruct invoked\n\n");
 
-    if (object->legacyObject->destructorInvocationStatus == WAS_NOT_INVOKED) {
-        object->legacyObject->destructorInvocationStatus = WAS_INVOKED_ONCE;
+    if (getLegacyObjectComponent(object)->destructorInvocationStatus ==
+        WAS_NOT_INVOKED) {
+        getLegacyObjectComponent(object)->destructorInvocationStatus =
+                WAS_INVOKED_ONCE;
 
         if (object->privateMemberNameLegacy_List->legacyObjectComponent
                     ->destructorInvocationStatus == WAS_NOT_INVOKED) {
@@ -478,6 +519,7 @@ Object *construct(char *className) {
     }
 
     instance->legacyObject =
+            //    getLegacyObjectComponent(instance) =
             Legacy_ObjectComponentConstructorClassName(className);
 
     init_fields(instance);
