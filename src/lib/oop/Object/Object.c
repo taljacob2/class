@@ -353,6 +353,7 @@ void addImplementation(
     free((void *) implementationMemberName);
 }
 
+// TODO: make public.
 // "public" function.
 void addImplementationThatIsConstructedWithLegacy_Object(
         Object *object, char *memberName,
