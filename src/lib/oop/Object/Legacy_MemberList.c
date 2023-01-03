@@ -77,7 +77,7 @@ Legacy_MemberList *Legacy_MemberListConstructor() {
     instance->legacyObjectComponent =
             Legacy_ObjectComponentConstructorClassName("Legacy_MemberList");
 
-    addMember(instance, "autoDestructable",
+    addMember(instance, "AutoDestructable",
               (Legacy_Object *) AutoDestructableConstructorWithClassName(
                       (Legacy_Object *) instance,
                       instance->legacyObjectComponent->CLASS_NAME));
@@ -109,7 +109,7 @@ Legacy_MemberList *Legacy_MemberListConstructorWithLegacy_Object(
     instance->legacyObjectComponent =
             Legacy_ObjectComponentConstructorClassName("Legacy_MemberList");
 
-    addMember(instance, "autoDestructable",
+    addMember(instance, "AutoDestructable",
               (Legacy_Object *) AutoDestructableConstructorWithClassName(
                       (Legacy_Object *)
                               legacyObjectThatContainsThisLegacy_MemberList,
