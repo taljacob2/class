@@ -25,4 +25,5 @@ add_executable(class src/main/main.c src/lib/oop/Object/AutoDestructable.r
         src/main/CircleV4.c src/main/CircleV5.h src/main/CircleV5.c src/lib/oop/Object/Concat.h
         src/lib/oop/Object/AnonymousPointer.c src/lib/oop/Object/Concat.c
         src/lib/oop/AnonymousObject/AnonymousObject.h
-        src/lib/oop/AnonymousObject/AnonymousObject.r src/lib/oop/AnonymousObject/AnonymousObject.c src/lib/oop/AnonymousObject/BitDefines.r src/test/main.c src/lib/oop/AnonymousObject/Random.r src/lib/oop/AnonymousObject/Random.c)
+        src/lib/oop/AnonymousObject/AnonymousObject.r src/lib/oop/AnonymousObject/AnonymousObject.c src/lib/oop/AnonymousObject/BitDefines.r
+        src/lib/oop/AnonymousObject/Random.r src/lib/oop/AnonymousObject/Random.c)
