@@ -533,7 +533,7 @@ Object *constructNoClass() {
     init_fields(instance);
 
     addImplementationThatIsConstructedWithLegacy_Object(
-            instance, "autoDestructable",
+            instance, "AutoDestructable",
             (Legacy_Object * (*) (Legacy_Object *, const char *) )
                     AutoDestructableConstructorWithClassName,
             (Legacy_Object *) instance);
