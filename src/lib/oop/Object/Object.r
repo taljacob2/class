@@ -62,6 +62,14 @@ struct object {
     /**
      * Adds the implementation to the `fieldsMemberList`, as a "public" field.
      *
+     * For example:
+     * @code
+     * addImplementationThatIsConstructedWithLegacy_Object(
+     *         instance, "AutoDestructable",
+     *         (Legacy_Object * (*) (Legacy_Object *, const char *) )
+     *                 AutoDestructableConstructorWithClassName);
+     * @endcode
+     *
      * @param object The object to add the implementation to.
      * @param memberName The member name you wish to call the implementation.
      *                   A common name is the class name you wish to implement.
