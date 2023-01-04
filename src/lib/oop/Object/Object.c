@@ -411,97 +411,44 @@ void *destruct(Object *object) {
     // TODO: DEBUG
     printf("\n\ndestruct invoked\n\n");
 
-    if (getLegacyObjectComponent(object)->destructorInvocationStatus ==
-        WAS_NOT_INVOKED) {
-        getLegacyObjectComponent(object)->destructorInvocationStatus =
-                WAS_INVOKED_ONCE;
 
-        if (getPrivateMemberNameLegacy_List(object)
-                    ->legacyObjectComponent->destructorInvocationStatus ==
-            WAS_NOT_INVOKED) {
-            getPrivateMemberNameLegacy_List(object)
-                    ->legacyObjectComponent->destructorInvocationStatus =
-                    WAS_INVOKED_ONCE;
+    // Destruct `privateMemberNameLegacy_List`.
+    getPrivateMemberNameLegacy_List(object)
+            ->legacyObjectComponent->destructable->destructor(
+                    object->privateMemberNameLegacy_List);
 
-            // Destruct `privateMemberNameLegacy_List`.
-            getPrivateMemberNameLegacy_List(object)
-                    ->legacyObjectComponent->destructable->destructor(
-                            object->privateMemberNameLegacy_List);
-        }
+    // Destruct `publicMemberNameLegacy_List`.
+    getPublicMemberNameLegacy_List(object)
+            ->legacyObjectComponent->destructable->destructor(
+                    object->publicMemberNameLegacy_List);
 
-        if (getPublicMemberNameLegacy_List(object)
-                    ->legacyObjectComponent->destructorInvocationStatus ==
-            WAS_NOT_INVOKED) {
-            getPublicMemberNameLegacy_List(object)
-                    ->legacyObjectComponent->destructorInvocationStatus =
-                    WAS_INVOKED_ONCE;
+    // Destruct `methodsMemberList`.
+    getMethodsMemberList(object)
+            ->legacyObjectComponent->destructable->destructor(
+                    object->methodsMemberList);
 
-            // Destruct `publicMemberNameLegacy_List`.
-            getPublicMemberNameLegacy_List(object)
-                    ->legacyObjectComponent->destructable->destructor(
-                            object->publicMemberNameLegacy_List);
-        }
+    // Destruct `constructorMemberList`.
+    getConstructorMemberList(object)
+            ->legacyObjectComponent->destructable->destructor(
+                    object->constructorMemberList);
 
-        if (getMethodsMemberList(object)
-                    ->legacyObjectComponent->destructorInvocationStatus ==
-            WAS_NOT_INVOKED) {
-            getMethodsMemberList(object)
-                    ->legacyObjectComponent->destructorInvocationStatus =
-                    WAS_INVOKED_ONCE;
+    // Destruct `destructorMemberList`.
+    getDestructorMemberList(object)
+            ->legacyObjectComponent->destructable->destructor(
+                    object->destructorMemberList);
 
-            // Destruct `methodsMemberList`.
-            getMethodsMemberList(object)
-                    ->legacyObjectComponent->destructable->destructor(
-                            object->methodsMemberList);
-        }
+    // Destruct `fieldsMemberList`.
+    getFieldsMemberList(object)
+            ->legacyObjectComponent->destructable->destructor(
+                    object->fieldsMemberList);
 
-        if (getConstructorMemberList(object)
-                    ->legacyObjectComponent->destructorInvocationStatus ==
-            WAS_NOT_INVOKED) {
-            getConstructorMemberList(object)
-                    ->legacyObjectComponent->destructorInvocationStatus =
-                    WAS_INVOKED_ONCE;
+    // Destruct `legacyObjectComponent`.
+    free(getLegacyObjectComponent(object));
 
-            // Destruct `constructorMemberList`.
-            getConstructorMemberList(object)
-                    ->legacyObjectComponent->destructable->destructor(
-                            object->constructorMemberList);
-        }
+    // TODO: DEBUG
+    printf("\n\nFREEEEEEE\n\n");
 
-        if (getDestructorMemberList(object)
-                    ->legacyObjectComponent->destructorInvocationStatus ==
-            WAS_NOT_INVOKED) {
-            getDestructorMemberList(object)
-                    ->legacyObjectComponent->destructorInvocationStatus =
-                    WAS_INVOKED_ONCE;
-
-            // Destruct `destructorMemberList`.
-            getDestructorMemberList(object)
-                    ->legacyObjectComponent->destructable->destructor(
-                            object->destructorMemberList);
-        }
-
-        if (getFieldsMemberList(object)
-                    ->legacyObjectComponent->destructorInvocationStatus ==
-            WAS_NOT_INVOKED) {
-            getFieldsMemberList(object)
-                    ->legacyObjectComponent->destructorInvocationStatus =
-                    WAS_INVOKED_ONCE;
-
-            // Destruct `fieldsMemberList`.
-            getFieldsMemberList(object)
-                    ->legacyObjectComponent->destructable->destructor(
-                            object->fieldsMemberList);
-        }
-
-        // Destruct `legacyObjectComponent`.
-        free(getLegacyObjectComponent(object));
-
-        // TODO: DEBUG
-        printf("\n\nFREEEEEEE\n\n");
-
-        free(object);
-    }
+    free(object);
 
     return NULL;
 }
