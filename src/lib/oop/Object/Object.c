@@ -140,6 +140,13 @@ findMemberInMemberListByMemberName(Legacy_MemberList *legacyMemberList,
 }
 
 // "private" function.
+Legacy_Object *findMemberInMemberListByMemberNameAndRemoveFromList(
+        Legacy_MemberList *legacyMemberList, char *memberName) {
+    return legacyMemberList->getMemberByNameAndDeleteMemberFromList(
+            legacyMemberList, memberName);
+}
+
+// "private" function.
 Legacy_Object *getAccessModifierMember(Legacy_List *accessModifierLegacyList,
                                        Legacy_MemberList *legacyMemberList,
                                        char *             memberName) {
@@ -149,6 +156,23 @@ Legacy_Object *getAccessModifierMember(Legacy_List *accessModifierLegacyList,
 
     Legacy_Object *findMemberInMemberListByMemberNameReturnValue =
             findMemberInMemberListByMemberName(legacyMemberList, memberName);
+    if (findMemberInMemberListByMemberNameReturnValue == NULL) { return NULL; }
+
+    return findMemberInMemberListByMemberNameReturnValue;
+}
+
+// "private" function.
+Legacy_Object *
+getAccessModifierMemberAndRemoveFromList(Legacy_List *accessModifierLegacyList,
+                                         Legacy_MemberList *legacyMemberList,
+                                         char *             memberName) {
+    Legacy_Node *findAccessModifierMemberNameReturnValue =
+            findAccessModifierMemberName(accessModifierLegacyList, memberName);
+    if (findAccessModifierMemberNameReturnValue == NULL) { return NULL; }
+
+    Legacy_Object *findMemberInMemberListByMemberNameReturnValue =
+            findMemberInMemberListByMemberNameAndRemoveFromList(
+                    legacyMemberList, memberName);
     if (findMemberInMemberListByMemberNameReturnValue == NULL) { return NULL; }
 
     return findMemberInMemberListByMemberNameReturnValue;
@@ -230,6 +254,14 @@ Legacy_Object *getPrivateField(Object *object, char *memberName) {
 Legacy_Object *getPublicField(Object *object, char *memberName) {
     return getAccessModifierMember(getPublicMemberNameLegacy_List(object),
                                    getFieldsMemberList(object), memberName);
+}
+
+// "private" function.
+Legacy_Object *getPublicFieldAndRemoveFromFieldsMemberList(Object *object,
+                                                           char *  memberName) {
+    return getAccessModifierMemberAndRemoveFromList(
+            getPublicMemberNameLegacy_List(object), getFieldsMemberList(object),
+            memberName);
 }
 
 /* ----------------------------- ADD MEMBER --------------------------------- */
@@ -403,6 +435,18 @@ Legacy_Object *getImplementation(Object *object, char *memberName) {
     return returnValue;
 }
 
+// TODO: make public.
+// "public" function.
+Legacy_Object *
+getImplementationAndRemoveFromFieldsMemberList(Object *object,
+                                               char *  memberName) {
+    const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
+    Legacy_Object *returnValue = getPublicFieldAndRemoveFromFieldsMemberList(
+            object, (char *) implementationMemberName);
+    free((void *) implementationMemberName);
+    return returnValue;
+}
+
 /* ----------------------- Constructor & Destructor ------------------------= */
 
 /// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
@@ -415,11 +459,12 @@ void *destruct(Object *object) {
      * destructed.
      */
     AutoDestructableDestructor(
-            (AutoDestructable *) getImplementation(object, "AutoDestructable"));
+            (AutoDestructable *) getImplementationAndRemoveFromFieldsMemberList(
+                    object, "AutoDestructable"));
 
-    // TODO:
-//    getFieldsMemberList(object)->removeByStringAndOutputIt
-//    getImplementation(object, "AutoDestructable")
+    //     TODO:
+    //    getFieldsMemberList(object)->removeByStringAndOutputIt
+    //    getImplementation(object, "AutoDestructable")
 
     // TODO: DEBUG
     printf("\n\ndestruct invoked\n\n");
