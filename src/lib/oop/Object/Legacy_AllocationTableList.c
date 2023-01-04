@@ -12,6 +12,38 @@ Legacy_AllocationTableList *getLegacy_AllocationTableList() {
     return instance;
 }
 
+Legacy_AllocationTable *getGenericLegacy_AllocationTable() {
+    Legacy_AllocationTable *legacyAllocationTable =
+            getLegacy_AllocationTableList()
+                    ->findLegacy_AllocationTableByClassName(
+                            __GENERIC_ALLOCATION_TABLE_NAME__);
+
+    if (legacyAllocationTable == NULL) {
+        legacyAllocationTable = Legacy_AllocationTableConstructorWithClassName(
+                (char *) __GENERIC_ALLOCATION_TABLE_NAME__);
+
+        /*
+         * Create a legacy_node that its data points to
+         * `__GENERIC_ALLOCATION_TABLE_NAME__` Legacy_AllocationTable.
+         */
+        Legacy_Node *nodeThatItsDataPointsClassAllocationTable =
+                Legacy_NodeConstructorWithData(legacyAllocationTable);
+
+        /*
+         * Add this legacy_node to
+         * `GLOBAL_ALLOCATION_TABLE_LIST->legacy_allocationTableList`.
+         */
+        getLegacy_AllocationTableList()->allocationTableList->addAsUnique(
+                getLegacy_AllocationTableList()->allocationTableList,
+                nodeThatItsDataPointsClassAllocationTable,
+                getLegacy_AllocationTableList()
+                        ->predicateFindLegacy_AllocationTableByClassName,
+                __GENERIC_ALLOCATION_TABLE_NAME__);
+    }
+
+    return legacyAllocationTable;
+}
+
 BOOLEAN predicateFindLegacy_AllocationTableByClassName(
         const Legacy_Node *nodeThatPointsToAllocationTable,
         const char *const  allocationTableClassName) {
@@ -136,7 +168,8 @@ Legacy_AllocationTableList *Legacy_AllocationTableListConstructor() {
  * Apply the constructor attribute to runBeforeMain_Legacy_AllocationTableList()
  * so that it is executed before main()
  */
-void runBeforeMain_Legacy_AllocationTableList(void) __attribute__((constructor));
+void runBeforeMain_Legacy_AllocationTableList(void)
+        __attribute__((constructor));
 
 /*
  * Apply the destructor attribute to runAfterMain_Legacy_AllocationTableList()
@@ -145,7 +178,9 @@ void runBeforeMain_Legacy_AllocationTableList(void) __attribute__((constructor))
 void runAfterMain_Legacy_AllocationTableList(void) __attribute__((destructor));
 
 /* implementation of runBeforeMain_Legacy_AllocationTableList */
-void runBeforeMain_Legacy_AllocationTableList(void) { getLegacy_AllocationTableList(); }
+void runBeforeMain_Legacy_AllocationTableList(void) {
+    getLegacy_AllocationTableList();
+}
 
 /* implementation of runAfterMain_Legacy_AllocationTableList */
 void runAfterMain_Legacy_AllocationTableList(void) {
