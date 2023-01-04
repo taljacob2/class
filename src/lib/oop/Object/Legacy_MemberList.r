@@ -18,12 +18,15 @@ struct legacy_memberList {
 
     Legacy_Object *(*getMemberByName)(Legacy_MemberList *legacy_memberList,
                                       char *             memberName);
-    Legacy_Object *
-    (*addMemberWhichIsLegacy_Object)(Legacy_MemberList *self,
-                                           char *             memberName,
-                                           Legacy_Object *legacyObjectContainer);
-    Legacy_Object *(*addMemberWhichIsPrimitive)(Legacy_MemberList *self, char *memberName,
-                                             void *dynamicallyAllocatedPrimitive);
+    Legacy_Object *(*getMemberByNameAndDeleteMemberFromList)(
+            Legacy_MemberList *legacyMemberList, char *memberName);
+
+    Legacy_Object *(*addMemberWhichIsLegacy_Object)(
+            Legacy_MemberList *self, char *memberName,
+            Legacy_Object *legacyObjectContainer);
+    Legacy_Object *(*addMemberWhichIsPrimitive)(
+            Legacy_MemberList *self, char *memberName,
+            void *dynamicallyAllocatedPrimitive);
 };
 
 Legacy_MemberList *Legacy_MemberListConstructor();

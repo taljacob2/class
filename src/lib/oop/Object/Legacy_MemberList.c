@@ -22,6 +22,14 @@ getMemberStringObjectContainerEntryByName(Legacy_MemberList *legacyMemberList,
     return (getMemberNodeByName(legacyMemberList, memberName))->data;
 }
 
+Legacy_StringObjectContainerEntry *
+getMemberStringObjectContainerEntryByNameAndDeleteMemberFromList(
+        Legacy_MemberList *legacyMemberList, char *memberName) {
+    Legacy_Node *legacyNode = getMemberNodeByName(legacyMemberList, memberName);
+    return legacyNode->legacyObjectComponent->destructable->destructor(
+            legacyNode);
+}
+
 Legacy_Object *getMemberStringObjectContainerEntryValueByName(
         Legacy_MemberList *legacyMemberList, char *memberName) {
     return getMemberStringObjectContainerEntryByName(legacyMemberList,
@@ -30,10 +38,26 @@ Legacy_Object *getMemberStringObjectContainerEntryValueByName(
 }
 
 Legacy_Object *
+getMemberStringObjectContainerEntryValueByNameAndDeleteMemberFromList(
+        Legacy_MemberList *legacyMemberList, char *memberName) {
+    return getMemberStringObjectContainerEntryByNameAndDeleteMemberFromList(
+                   legacyMemberList, memberName)
+            ->value;
+}
+
+// "public" function.
+Legacy_Object *
 getMemberByName_Legacy_MemberList(Legacy_MemberList *legacyMemberList,
                                   char *             memberName) {
     return getMemberStringObjectContainerEntryValueByName(legacyMemberList,
                                                           memberName);
+}
+
+// "public" function.
+Legacy_Object *getMemberByName_Legacy_MemberListAndDeleteMemberFromList(
+        Legacy_MemberList *legacyMemberList, char *memberName) {
+    return getMemberStringObjectContainerEntryValueByNameAndDeleteMemberFromList(
+            legacyMemberList, memberName);
 }
 
 // "private" function.
@@ -90,6 +114,8 @@ Legacy_MemberList *Legacy_MemberListConstructor() {
     }
 
     instance->getMemberByName = &getMemberByName_Legacy_MemberList;
+    instance->getMemberByNameAndDeleteMemberFromList =
+            &getMemberByName_Legacy_MemberListAndDeleteMemberFromList;
     instance->addMemberWhichIsLegacy_Object = &addMemberWhichIsLegacy_Object;
     instance->addMemberWhichIsPrimitive     = &addMemberWhichIsPrimitive;
 

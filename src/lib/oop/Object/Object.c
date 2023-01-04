@@ -417,6 +417,10 @@ void *destruct(Object *object) {
     AutoDestructableDestructor(
             (AutoDestructable *) getImplementation(object, "AutoDestructable"));
 
+    // TODO:
+//    getFieldsMemberList(object)->removeByStringAndOutputIt
+//    getImplementation(object, "AutoDestructable")
+
     // TODO: DEBUG
     printf("\n\ndestruct invoked\n\n");
 
