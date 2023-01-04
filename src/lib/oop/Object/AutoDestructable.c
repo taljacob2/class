@@ -17,14 +17,14 @@ deleteAllocationAddressIfNeeded(AutoDestructable *autoDestructable) {
 
     Legacy_Object *allocatedAddressReturnValue =
             deleteAllocationAddressNodeFromAllocationTable(
-                    autoDestructable->OBJECT_ALLOCATION_TABLE,
+                    getGenericLegacy_AllocationTable(),
                     autoDestructable->allocatedAddress);
 
     if (allocatedAddressReturnValue == NULL) {
 
         /*
          * The address was already deleted from
-         * `autoDestructable->OBJECT_ALLOCATION_TABLE`, and thus had probably already
+         * `getGenericLegacy_AllocationTable()`, and thus had probably already
          * been freed too.
          */
         return NULL;
