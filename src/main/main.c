@@ -60,6 +60,8 @@ int main() {
 
     Object *object = construct("Object");
 
+    object->addPublicField(object, "legacyList",
+                           (Legacy_Object *) Legacy_ListConstructor());
 
 
     return 0;
