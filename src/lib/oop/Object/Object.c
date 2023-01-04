@@ -470,14 +470,6 @@ void *destruct(Object *object) {
             (AutoDestructable *) getImplementationAndRemoveIt(
                     object, "AutoDestructable"));
 
-    //     TODO:
-    //    getFieldsMemberList(object)->removeByStringAndOutputIt
-    //    getImplementation(object, "AutoDestructable")
-
-    // TODO: DEBUG
-    printf("\n\ndestruct invoked\n\n");
-
-
     // Destruct `privateMemberNameLegacy_List`.
     getPrivateMemberNameLegacy_List(object)
             ->legacyObjectComponent->destructable->destructor(
@@ -510,9 +502,6 @@ void *destruct(Object *object) {
 
     // Destruct `legacyObjectComponent`.
     free(getLegacyObjectComponent(object));
-
-    // TODO: DEBUG
-    printf("\n\nFREEEEEEE\n\n");
 
     free(object);
 
