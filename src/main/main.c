@@ -12,7 +12,7 @@ int main() {
 
 //    Legacy_MemberListConstructor();
     MemberList *memberList = MemberListConstructor("MemberList");
-    memberList->legacyObjectComponent->destructable->destructor(memberList);
+//    memberList->legacyObjectComponent->destructable->destructor(memberList);
 
     //    methodsMemberList->methodsMemberList->destructable->destructor(methodsMemberList);
 
