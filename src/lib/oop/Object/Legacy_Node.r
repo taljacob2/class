@@ -16,6 +16,7 @@ struct legacy_node {
 
     void *       data;
     Legacy_Node *next;
+    Legacy_Node *prev;
 };
 
 Legacy_Node *Legacy_NodeConstructor();

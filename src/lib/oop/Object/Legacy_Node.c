@@ -32,6 +32,7 @@ void constructor_Legacy_Node_fields(Legacy_Node *node) {
 
     node->data = NULL;
     node->next = NULL;
+    node->prev = NULL;
 }
 
 Legacy_Node *Legacy_NodeConstructor() {
