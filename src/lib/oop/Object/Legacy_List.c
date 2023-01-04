@@ -118,11 +118,17 @@ void *Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
             Legacy_Object *legacyObject =
                     iterationNodePrev->legacyObjectComponent->destructable
                             ->destructor(iterationNodePrev);
-            legacyObject->legacyObjectComponent
-                    ->deleteFromAllocationTableInvocationStatus =
-                    WAS_INVOKED_ONCE;
-            legacyObject->legacyObjectComponent->destructable->destructor(
-                    legacyObject);
+            if (legacyObject->legacyObjectComponent
+                        ->deleteFromAllocationTableInvocationStatus ==
+                WAS_NOT_INVOKED) {
+                legacyObject->legacyObjectComponent
+                        ->deleteFromAllocationTableInvocationStatus =
+                        WAS_INVOKED_ONCE;
+                legacyObject->legacyObjectComponent
+                        ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+                legacyObject->legacyObjectComponent->destructable->destructor(
+                        legacyObject);
+            }
         }
 
         iterationNodePrev = iterationNode;
@@ -133,10 +139,17 @@ void *Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
         Legacy_Object *legacyObject =
                 iterationNodePrev->legacyObjectComponent->destructable
                         ->destructor(iterationNodePrev);
-        legacyObject->legacyObjectComponent
-                ->deleteFromAllocationTableInvocationStatus = WAS_INVOKED_ONCE;
-        legacyObject->legacyObjectComponent->destructable->destructor(
-                legacyObject);
+        if (legacyObject->legacyObjectComponent
+                    ->deleteFromAllocationTableInvocationStatus ==
+            WAS_NOT_INVOKED) {
+            legacyObject->legacyObjectComponent
+                    ->deleteFromAllocationTableInvocationStatus =
+                    WAS_INVOKED_ONCE;
+            legacyObject->legacyObjectComponent->destructorInvocationStatus =
+                    WAS_INVOKED_ONCE;
+            legacyObject->legacyObjectComponent->destructable->destructor(
+                    legacyObject);
+        }
     }
 
     free(list->legacyObjectComponent);
