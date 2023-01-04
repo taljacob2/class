@@ -527,15 +527,16 @@ void init_fields(Object *object) {
     setDestructorMemberList(object, Legacy_MemberListConstructor());
     setFieldsMemberList(object, Legacy_MemberListConstructor());
 
-    object->getPrivateMethod      = &getPrivateMethod;
-    object->getPublicMethod       = &getPublicMethod;
-    object->getPrivateConstructor = &getPrivateConstructor;
-    object->getPublicConstructor  = &getPublicConstructor;
-    object->getPrivateDestructor  = &getPrivateDestructor;
-    object->getPublicDestructor   = &getPublicDestructor;
-    object->getPrivateField       = &getPrivateField;
-    object->getPublicField        = &getPublicField;
-    object->getImplementation     = &getImplementation;
+    object->getPrivateMethod             = &getPrivateMethod;
+    object->getPublicMethod              = &getPublicMethod;
+    object->getPrivateConstructor        = &getPrivateConstructor;
+    object->getPublicConstructor         = &getPublicConstructor;
+    object->getPrivateDestructor         = &getPrivateDestructor;
+    object->getPublicDestructor          = &getPublicDestructor;
+    object->getPrivateField              = &getPrivateField;
+    object->getPublicField               = &getPublicField;
+    object->getImplementation            = &getImplementation;
+    object->getImplementationAndRemoveIt = &getImplementationAndRemoveIt;
 
     object->addPrivateMethod      = &addPrivateMethod;
     object->addPublicMethod       = &addPublicMethod;
