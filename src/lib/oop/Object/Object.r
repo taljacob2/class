@@ -88,6 +88,8 @@ void *destruct(Object *object);
 
 Object *construct(char *className);
 
+Object *constructWithoutAutoDestructable(char *className);
+
 /// Add MemberList `#define`s for users.
 #include "ObjectDefines.r"
 

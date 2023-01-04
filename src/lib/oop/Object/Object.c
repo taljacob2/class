@@ -405,6 +405,10 @@ Legacy_Object *getImplementation(Object *object, char *memberName) {
 void *destruct(Object *object) {
     if (object == NULL) { return NULL; }
 
+    /*
+     * May or may not actually implement "AutoDestructable", for it to be
+     * destructed.
+     */
     AutoDestructableDestructor(
             (AutoDestructable *) getImplementation(object, "AutoDestructable"));
 
@@ -536,6 +540,27 @@ Object *construct(char *className) {
             instance, "AutoDestructable",
             (Legacy_Object * (*) (Legacy_Object *, const char *) )
                     AutoDestructableConstructorWithClassName);
+
+    static Constructable const constructable = {
+            .constructor = (void *(*const)(void) )(&constructNoClass)};
+    getLegacyObjectComponent(instance)->constructable = &constructable;
+
+    static Destructable const destructable = {
+            .destructor = (void *(*const)(void *) )(&destruct)};
+    getLegacyObjectComponent(instance)->destructable = &destructable;
+
+    return instance;
+}
+
+Object *constructWithoutAutoDestructable(char *className) {
+    Object *instance = calloc(1, sizeof *instance);
+    if (instance == NULL) { /* error handling here */
+    }
+
+    setLegacyObjectComponent(
+            instance, Legacy_ObjectComponentConstructorClassName(className));
+
+    init_fields(instance);
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};
