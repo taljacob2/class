@@ -10,8 +10,9 @@ int main() {
 //    CircleV2 *circleV2 = CircleV2Constructor();
 //
 
-    Legacy_MemberListConstructor();
+//    Legacy_MemberListConstructor();
     MemberList *memberList = MemberListConstructor("MemberList");
+    memberList->legacyObjectComponent->destructable->destructor(memberList);
 
     //    methodsMemberList->methodsMemberList->destructable->destructor(methodsMemberList);
 
