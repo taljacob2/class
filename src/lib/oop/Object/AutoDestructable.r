@@ -19,9 +19,6 @@ struct autoDestructable {
     /// `AutoDestructable` implements `Legacy_ObjectComponent`.
     Legacy_ObjectComponent *legacyObjectComponent;
 
-    /// Singleton for the whole autoDestructable. Sensitive data. DO NOT TOUCH!
-    Legacy_AllocationTable *OBJECT_ALLOCATION_TABLE;
-
     /// Sensitive data. DO NOT TOUCH!
     Legacy_Object *allocatedAddress;
 };
