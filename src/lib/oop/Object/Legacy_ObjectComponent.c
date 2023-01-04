@@ -27,8 +27,6 @@ void constructor_Legacy_Object_fields(
     legacyObjectComponent->destructable = &destructable;
 
     legacyObjectComponent->destructorInvocationStatus = WAS_NOT_INVOKED;
-    legacyObjectComponent->deleteFromAllocationTableInvocationStatus =
-            WAS_NOT_INVOKED;
 }
 
 /**

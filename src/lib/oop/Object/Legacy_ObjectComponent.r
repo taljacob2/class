@@ -17,8 +17,6 @@ struct legacy_ObjectComponent {
     const Destructable *destructable;
 
     enum InvocationStatus destructorInvocationStatus;
-
-    enum InvocationStatus deleteFromAllocationTableInvocationStatus;
 };
 
 Legacy_ObjectComponent *

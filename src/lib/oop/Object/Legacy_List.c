@@ -119,11 +119,7 @@ void *Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
                     iterationNodePrev->legacyObjectComponent->destructable
                             ->destructor(iterationNodePrev);
             if (legacyObject->legacyObjectComponent
-                        ->deleteFromAllocationTableInvocationStatus ==
-                WAS_NOT_INVOKED) {
-                legacyObject->legacyObjectComponent
-                        ->deleteFromAllocationTableInvocationStatus =
-                        WAS_INVOKED_ONCE;
+                        ->destructorInvocationStatus == WAS_NOT_INVOKED) {
                 legacyObject->legacyObjectComponent
                         ->destructorInvocationStatus = WAS_INVOKED_ONCE;
                 legacyObject->legacyObjectComponent->destructable->destructor(
@@ -139,12 +135,8 @@ void *Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
         Legacy_Object *legacyObject =
                 iterationNodePrev->legacyObjectComponent->destructable
                         ->destructor(iterationNodePrev);
-        if (legacyObject->legacyObjectComponent
-                    ->deleteFromAllocationTableInvocationStatus ==
+        if (legacyObject->legacyObjectComponent->destructorInvocationStatus ==
             WAS_NOT_INVOKED) {
-            legacyObject->legacyObjectComponent
-                    ->deleteFromAllocationTableInvocationStatus =
-                    WAS_INVOKED_ONCE;
             legacyObject->legacyObjectComponent->destructorInvocationStatus =
                     WAS_INVOKED_ONCE;
             legacyObject->legacyObjectComponent->destructable->destructor(
