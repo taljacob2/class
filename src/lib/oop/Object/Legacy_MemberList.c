@@ -55,8 +55,6 @@ Legacy_MemberList *
 Legacy_MemberListDestructor(Legacy_MemberList *legacyMemberList) {
     if (legacyMemberList == NULL) { return NULL; }
 
-    AutoDestructableDestructor(legacyMemberList->autoDestructable);
-
     legacyMemberList->memberEntryList
             ->Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
                     legacyMemberList->memberEntryList);
@@ -67,7 +65,6 @@ Legacy_MemberListDestructor(Legacy_MemberList *legacyMemberList) {
     return NULL;
 }
 
-/// @deprecated
 Legacy_MemberList *Legacy_MemberListConstructor() {
     Legacy_MemberList *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
@@ -80,10 +77,6 @@ Legacy_MemberList *Legacy_MemberListConstructor() {
 
     instance->legacyObjectComponent =
             Legacy_ObjectComponentConstructorClassName("Legacy_MemberList");
-
-    instance->autoDestructable = AutoDestructableConstructorWithClassName(
-            (Legacy_Object *) instance,
-            instance->legacyObjectComponent->CLASS_NAME);
 
     static Constructable const constructable = {
             .constructor =

@@ -14,9 +14,6 @@ struct legacy_memberList {
     /// `Legacy_MemberList` implements `Legacy_ObjectComponent`.
     Legacy_ObjectComponent *legacyObjectComponent;
 
-    /// `Legacy_MemberList` implements `AutoDestructable`.
-    AutoDestructable *autoDestructable;
-
     Legacy_List *memberEntryList;
 
     Legacy_Object *(*addMember)(Legacy_MemberList *legacy_memberList,
@@ -26,8 +23,5 @@ struct legacy_memberList {
 };
 
 Legacy_MemberList *Legacy_MemberListConstructor();
-
-//Legacy_MemberList *Legacy_MemberListConstructorWithLegacy_Object(
-//        Legacy_Object *legacyObjectThatContainsThisLegacy_MemberList);
 
 #endif //LEGACY_MEMBERLIST_H
