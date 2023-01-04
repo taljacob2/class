@@ -9,8 +9,21 @@ typedef struct object Object;
 /// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
 struct object {
     Legacy_ObjectComponent *legacyObjectComponent;
+
+    /**
+     * `Legacy_List` of raw-strings only. each string is a name of a "private" member
+     * that should be found at one of the following `MemberList`s: (methods, fields,
+     * constructor, destructor).
+     */
     Legacy_List *           privateMemberNameLegacy_List;
+
+    /**
+     * `Legacy_List` of raw-strings only. each string is a name of a "public" member
+     * that should be found at one of the following `MemberList`s: (methods, fields,
+     * constructor, destructor).
+     */
     Legacy_List *           publicMemberNameLegacy_List;
+
     Legacy_MemberList *     methodsLegacy_MemberList;
     Legacy_MemberList *     constructorLegacy_MemberList;
     Legacy_MemberList *     destructorLegacy_MemberList;

@@ -52,33 +52,6 @@
                     *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters)( \
                     Legacy_Object *, const char *) );
 
-
-/**
- * `Legacy_List` of raw-strings only. each string is a name of a "private" member
- * that should be found at one of the following `MemberList`s: (methods, fields,
- * constructor, destructor).
- */
-#define PRIVATE "___private___"
-
-/**
- * `Legacy_List` of raw-strings only. each string is a name of a "public" member
- * that should be found at one of the following `MemberList`s: (methods, fields,
- * constructor, destructor).
- */
-#define PUBLIC "___public___"
-
-/// `Legacy_MemberList`
-#define METHODS "___methods___"
-
-/// `Legacy_MemberList`
-#define CONSTRUCTOR "___constructor___"
-
-/// `Legacy_MemberList`
-#define DESTRUCTOR "___destructor___"
-
-/// `Legacy_MemberList`
-#define FIELDS "___fields___"
-
 #define IMPLEMENTATION "__IMPLEMENTATION__"
 
 #define ____CLASS_STRUCT_NAME_EXTENSION___            ___
