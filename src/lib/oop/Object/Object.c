@@ -473,32 +473,32 @@ void *destruct(Object *object) {
     // Destruct `privateMemberNameLegacy_List`.
     getPrivateMemberNameLegacy_List(object)
             ->legacyObjectComponent->destructable->destructor(
-                    object->privateMemberNameLegacy_List);
+                    getPrivateMemberNameLegacy_List(object));
 
     // Destruct `publicMemberNameLegacy_List`.
     getPublicMemberNameLegacy_List(object)
             ->legacyObjectComponent->destructable->destructor(
-                    object->publicMemberNameLegacy_List);
+                    getPublicMemberNameLegacy_List(object));
 
     // Destruct `methodsLegacy_MemberList`.
     getMethodsMemberList(object)
             ->legacyObjectComponent->destructable->destructor(
-                    object->methodsLegacy_MemberList);
+                    getMethodsMemberList(object));
 
     // Destruct `constructorLegacy_MemberList`.
     getConstructorMemberList(object)
             ->legacyObjectComponent->destructable->destructor(
-                    object->constructorLegacy_MemberList);
+                    getConstructorMemberList(object));
 
     // Destruct `destructorLegacy_MemberList`.
     getDestructorMemberList(object)
             ->legacyObjectComponent->destructable->destructor(
-                    object->destructorLegacy_MemberList);
+                    getDestructorMemberList(object));
 
     // Destruct `fieldsLegacy_MemberList`.
     getFieldsMemberList(object)
             ->legacyObjectComponent->destructable->destructor(
-                    object->fieldsLegacy_MemberList);
+                    getFieldsMemberList(object));
 
     // Destruct `legacyObjectComponent`.
     free(getLegacyObjectComponent(object));
