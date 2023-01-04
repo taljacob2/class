@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define __GENERIC_ALLOCATION_TABLE_NAME__ "__GENERIC_ALLOCATION_TABLE_NAME__"
+
 // Forward declaration of incomplete type
 typedef struct legacy_allocationTableList Legacy_AllocationTableList;
 
@@ -33,6 +35,8 @@ struct legacy_allocationTableList {
  * @see https://stackoverflow.com/a/803699/14427765
  */
 Legacy_AllocationTableList *getLegacy_AllocationTableList();
+
+Legacy_AllocationTable *getGenericLegacy_AllocationTable();
 
 Legacy_AllocationTableList *Legacy_AllocationTableListConstructor();
 

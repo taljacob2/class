@@ -17,14 +17,14 @@ deleteAllocationAddressIfNeeded(AutoDestructable *autoDestructable) {
 
     Legacy_Object *allocatedAddressReturnValue =
             deleteAllocationAddressNodeFromAllocationTable(
-                    autoDestructable->OBJECT_ALLOCATION_TABLE,
+                    getGenericLegacy_AllocationTable(),
                     autoDestructable->allocatedAddress);
 
     if (allocatedAddressReturnValue == NULL) {
 
         /*
          * The address was already deleted from
-         * `autoDestructable->OBJECT_ALLOCATION_TABLE`, and thus had probably already
+         * `getGenericLegacy_AllocationTable()`, and thus had probably already
          * been freed too.
          */
         return NULL;
@@ -78,38 +78,20 @@ void constructor_AutoDestructable_fields(AutoDestructable *autoDestructable) {
 }
 
 void saveLegacy_ObjectToAllocationTable(AutoDestructable *autoDestructable) {
-    autoDestructable->OBJECT_ALLOCATION_TABLE =
-            getLegacy_AllocationTableList()
-                    ->findLegacy_AllocationTableByClassName(
-                            autoDestructable->legacyObjectComponent
-                                    ->CLASS_NAME);
-    if (autoDestructable->OBJECT_ALLOCATION_TABLE == NULL) {
-        autoDestructable->OBJECT_ALLOCATION_TABLE =
-                Legacy_AllocationTableConstructorWithClassName(
-                        (char *) autoDestructable->legacyObjectComponent
-                                ->CLASS_NAME);
 
-        // Create a legacy_node that its data points to `autoDestructable->OBJECT_ALLOCATION_TABLE`.
-        Legacy_Node *nodeThatItsDataPointsClassAllocationTable =
-                Legacy_NodeConstructorWithData(
-                        autoDestructable->OBJECT_ALLOCATION_TABLE);
-
-        // Add this legacy_node to `GLOBAL_ALLOCATION_TABLE_LIST->legacy_allocationTableList`.
-        getLegacy_AllocationTableList()->allocationTableList->addAsUnique(
-                getLegacy_AllocationTableList()->allocationTableList,
-                nodeThatItsDataPointsClassAllocationTable,
-                getLegacy_AllocationTableList()
-                        ->predicateFindLegacy_AllocationTableByClassName,
-                autoDestructable->legacyObjectComponent->CLASS_NAME);
-    }
-
-    // Create a legacy_node that its data points to the "pointer of `autoDestructable->allocatedAddress`".
+    /*
+     * Create a legacy_node that its data points to the "pointer of
+     * `autoDestructable->allocatedAddress`".
+     */
     Legacy_Node *nodeThatItsDataPointsToThePointerOfObj =
             Legacy_NodeConstructorWithData(autoDestructable->allocatedAddress);
 
-    // Add this legacy_node to `autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList`.
-    autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList->add(
-            autoDestructable->OBJECT_ALLOCATION_TABLE->allocationAddressList,
+    /*
+     * Add this legacy_node to
+     * `getGenericLegacy_AllocationTable()->allocationAddressList`.
+     */
+    getGenericLegacy_AllocationTable()->allocationAddressList->add(
+            getGenericLegacy_AllocationTable()->allocationAddressList,
             nodeThatItsDataPointsToThePointerOfObj);
 }
 
@@ -124,7 +106,10 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
 
     instance->legacyObjectComponent->CLASS_NAME = className;
 
-    // If `legacyObjectToSaveItsAddressToAllocationTable` is `NULL` use `instance`.
+    /*
+     * If `legacyObjectToSaveItsAddressToAllocationTable` is `NULL` use
+     * `instance`.
+     */
     instance->allocatedAddress =
             legacyObjectToSaveItsAddressToAllocationTable == NULL
                     ? (Legacy_Object *) instance
