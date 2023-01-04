@@ -67,16 +67,16 @@
  */
 #define PUBLIC "___public___"
 
-/// `MemberList`
+/// `Legacy_MemberList`
 #define METHODS "___methods___"
 
-/// `MemberList`
+/// `Legacy_MemberList`
 #define CONSTRUCTOR "___constructor___"
 
-/// `MemberList`
+/// `Legacy_MemberList`
 #define DESTRUCTOR "___destructor___"
 
-/// `MemberList`
+/// `Legacy_MemberList`
 #define FIELDS "___fields___"
 
 #define IMPLEMENTATION "__IMPLEMENTATION__"
