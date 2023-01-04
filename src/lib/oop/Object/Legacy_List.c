@@ -107,7 +107,8 @@ void addAsUnique(Legacy_List *list, Legacy_Node *node,
     }
 }
 
-void *Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
+/// @deprecated Unused. Keep this "private".
+void *Legacy_ListDestructorWithInvokingDestructorOfEachNodeDataInStraightOrder(
         Legacy_List *list) {
     if (list == NULL) { return NULL; }
 
@@ -149,6 +150,56 @@ void *Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
     free(list);
 
     return NULL;
+}
+
+void *Legacy_ListDestructorWithInvokingDestructorOfEachNodeDataInReversedOrder(
+        Legacy_List *list) {
+    if (list == NULL) { return NULL; }
+
+    Legacy_Node *iterationNodePrev = NULL;
+    for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
+         iterationNode              = iterationNode->next) {
+        if (iterationNodePrev != NULL) {
+            Legacy_Object *legacyObject =
+                    iterationNodePrev->legacyObjectComponent->destructable
+                            ->destructor(iterationNodePrev);
+            if (legacyObject->legacyObjectComponent
+                        ->destructorInvocationStatus == WAS_NOT_INVOKED) {
+                legacyObject->legacyObjectComponent
+                        ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+                legacyObject->legacyObjectComponent->destructable->destructor(
+                        legacyObject);
+            }
+        }
+
+        iterationNodePrev = iterationNode;
+    }
+
+    // `iterationNodePrev` is `legacy_list->tail`.
+    if (iterationNodePrev != NULL) {
+        Legacy_Object *legacyObject =
+                iterationNodePrev->legacyObjectComponent->destructable
+                        ->destructor(iterationNodePrev);
+        if (legacyObject->legacyObjectComponent->destructorInvocationStatus ==
+            WAS_NOT_INVOKED) {
+            legacyObject->legacyObjectComponent->destructorInvocationStatus =
+                    WAS_INVOKED_ONCE;
+            legacyObject->legacyObjectComponent->destructable->destructor(
+                    legacyObject);
+        }
+    }
+
+    free(list->legacyObjectComponent);
+
+    free(list);
+
+    return NULL;
+}
+
+void *Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
+        Legacy_List *list) {
+    return Legacy_ListDestructorWithInvokingDestructorOfEachNodeDataInReversedOrder(
+            list);
 }
 
 void *Legacy_ListDestructor(Legacy_List *list) {
