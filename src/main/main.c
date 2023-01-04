@@ -9,7 +9,7 @@ int main() {
 //
 //    CircleV2 *circleV2 = CircleV2Constructor();
 //
-//    MemberList *memberList = MemberListConstructor("MemberList");
+    MemberList *memberList = MemberListConstructor("MemberList");
 
     //    methodsMemberList->methodsMemberList->destructable->destructor(methodsMemberList);
 
@@ -24,9 +24,9 @@ int main() {
     //    CircleV5 *circleV5 = CircleV5Constructor();
 
 
-    //    Legacy_MemberList *legacyMemberList =
-    //            Legacy_MemberListConstructorWithLegacy_Object(
-    //                    (Legacy_Object *) MemberListConstructor());
+//        Legacy_MemberList *legacyMemberList =
+//                Legacy_MemberListConstructorWithLegacy_Object(
+//                        (Legacy_Object *) MemberListConstructor());
 
     //    Legacy_MemberList *legacyMemberList =
     //            Legacy_MemberListConstructorWithLegacy_Object(
@@ -45,10 +45,10 @@ int main() {
 //    legacyList->legacyObjectComponent->destructable->destructor(legacyList);
 
 
-
-        Object *object= construct("Object");
-
-        destruct(object);
+//
+//        Object *object= construct("Object");
+//
+//        destruct(object);
 
 
     //    // TODO: FIXME:

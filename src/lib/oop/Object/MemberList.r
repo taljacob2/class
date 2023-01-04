@@ -11,6 +11,9 @@ struct memberList {
     /// `MemberList` implements `Legacy_ObjectComponent`.
     Legacy_ObjectComponent *legacyObjectComponent;
 
+    /// `MemberList` implements `AutoDestructable`.
+    AutoDestructable *autoDestructable;
+
     Legacy_MemberList *legacyMemberList;
 
     Legacy_Object *(*addMemberWhichIsLegacy_Object)(

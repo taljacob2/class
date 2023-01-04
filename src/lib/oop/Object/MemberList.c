@@ -30,6 +30,8 @@ Legacy_Object *getMemberByName_MemberList(MemberList *self, char *memberName) {
 void *MemberListDestructor(MemberList *memberList) {
     if (memberList == NULL) { return NULL; }
 
+    AutoDestructableDestructor(memberList->autoDestructable);
+
     memberList->legacyMemberList->legacyObjectComponent->destructable
             ->destructor(memberList->legacyMemberList);
 
@@ -52,6 +54,10 @@ MemberList *MemberListConstructor() {
     instance->legacyObjectComponent =
             Legacy_ObjectComponentConstructorClassName("MemberList");
 
+    instance->autoDestructable = AutoDestructableConstructorWithClassName(
+            (Legacy_Object *) instance,
+            instance->legacyObjectComponent->CLASS_NAME);
+
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&MemberListConstructor)};
     instance->legacyObjectComponent->constructable = &constructable;
@@ -60,8 +66,7 @@ MemberList *MemberListConstructor() {
             .destructor = (void *(*const)(void *) )(&MemberListDestructor)};
     instance->legacyObjectComponent->destructable = &destructable;
 
-    instance->legacyMemberList = Legacy_MemberListConstructorWithLegacy_Object(
-            (Legacy_Object *) instance);
+    instance->legacyMemberList = Legacy_MemberListConstructor();
 
     return instance;
 }
