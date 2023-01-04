@@ -58,6 +58,9 @@ int main() {
     //    //  Conclusion: allocationTableList doesn't receive the correct address!!!
     //    destruct(object);
 
+    Object *object = construct("Object");
+
+
 
     return 0;
 }
