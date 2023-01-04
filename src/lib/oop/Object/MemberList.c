@@ -1,20 +1,5 @@
 #include "MemberList.r"
 
-Legacy_Object *
-addMemberWhichIsLegacy_ObjectContainer(MemberList *self, char *memberName,
-                                       Legacy_Object *legacyObjectContainer) {
-    return self->legacyMemberList->addMember(self->legacyMemberList, memberName,
-                                             legacyObjectContainer);
-}
-
-Legacy_Object *addMemberWhichIsPrimitive(MemberList *self, char *memberName,
-                                         void *dynamicallyAllocatedPrimitive) {
-    return addMemberWhichIsLegacy_ObjectContainer(
-            self, memberName,
-            (Legacy_Object *) Legacy_AtomicFreerConstructorWithData(
-                    dynamicallyAllocatedPrimitive));
-}
-
 //// TODO: maybe remove. could be redundant.
 //Legacy_Object *
 //addMemberWhichIsPrimitiveAnonymousPointer(MemberList *self, char *memberName) {
@@ -53,10 +38,6 @@ MemberList *MemberListConstructor() {
 
     instance->legacyObjectComponent =
             Legacy_ObjectComponentConstructorClassName("MemberList");
-
-    instance->autoDestructable = AutoDestructableConstructorWithClassName(
-            (Legacy_Object *) instance,
-            instance->legacyObjectComponent->CLASS_NAME);
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&MemberListConstructor)};

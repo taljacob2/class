@@ -36,6 +36,7 @@ getMemberByName_Legacy_MemberList(Legacy_MemberList *legacyMemberList,
                                                           memberName);
 }
 
+// "private" function.
 Legacy_Object *addMember(Legacy_MemberList *legacyMemberList, char *memberName,
                          Legacy_Object *member) {
     Legacy_Node *objectEntryNode = Legacy_NodeConstructorWithData(
@@ -47,6 +48,24 @@ Legacy_Object *addMember(Legacy_MemberList *legacyMemberList, char *memberName,
             predicateFindLegacy_StringEntryByMemberName, memberName);
 
     return member;
+}
+
+// "public" function.
+Legacy_Object *
+addMemberWhichIsLegacy_Object(Legacy_MemberList *legacyMemberList,
+                              char *             memberName,
+                              Legacy_Object *    legacyObjectContainer) {
+    return addMember(legacyMemberList, memberName, legacyObjectContainer);
+}
+
+// "public" function.
+Legacy_Object *addMemberWhichIsPrimitive(Legacy_MemberList *legacyMemberList,
+                                         char *             memberName,
+                                         void *dynamicallyAllocatedPrimitive) {
+    return addMemberWhichIsLegacy_Object(
+            legacyMemberList, memberName,
+            (Legacy_Object *) Legacy_AtomicFreerConstructorWithData(
+                    dynamicallyAllocatedPrimitive));
 }
 
 // TODO: "public" "setMember".
@@ -70,8 +89,9 @@ Legacy_MemberList *Legacy_MemberListConstructor() {
     if (instance == NULL) { /* error handling here */
     }
 
-    instance->addMember       = &addMember;
     instance->getMemberByName = &getMemberByName_Legacy_MemberList;
+    instance->addMemberWhichIsLegacy_Object = &addMemberWhichIsLegacy_Object;
+    instance->addMemberWhichIsPrimitive     = &addMemberWhichIsPrimitive;
 
     instance->memberEntryList = Legacy_ListConstructor();
 
@@ -90,4 +110,3 @@ Legacy_MemberList *Legacy_MemberListConstructor() {
 
     return instance;
 }
-
