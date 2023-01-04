@@ -175,7 +175,7 @@ void *Legacy_ListDestructorWithInvokingDestructorOfEachNodeDataInReversedOrder(
         iterationNodePrev = iterationNode;
     }
 
-    // `iterationNodePrev` is `legacy_list->tail`.
+    // `iterationNodePrev` is `legacy_list->head`.
     if (iterationNodePrev != NULL) {
         Legacy_Object *legacyObject =
                 iterationNodePrev->legacyObjectComponent->destructable
