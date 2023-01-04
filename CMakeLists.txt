@@ -10,13 +10,12 @@ add_executable(class src/main/main.c src/lib/oop/Object/AutoDestructable.r
         src/lib/oop/Object/Legacy_Node.c src/lib/oop/Object/Legacy_List.c
         src/lib/oop/Object/Legacy_AllocationTable.c src/lib/oop/Object/Legacy_AllocationTableList.c
         src/lib/oop/Object/Legacy_ObjectComponent.c
-        src/lib/oop/Object/MemberList.r src/main/Circle.h
+        src/main/Circle.h
         src/lib/oop/Object/InvocationStatus.r src/main/Circle.c src/lib/oop/Object/Legacy_ObjectComponent.r
         src/lib/oop/Object/Legacy_MemberList.r src/lib/oop/Object/Legacy_StringObjectContainerEntry.r
         src/lib/oop/Object/Legacy_StringObjectContainerEntry.c
         src/lib/oop/Object/Legacy_MemberList.c src/main/CircleV2.h src/main/CircleV2.c src/lib/oop/Object/Legacy_AtomicFreer.r
-        src/lib/oop/Object/Legacy_AtomicFreer.c src/lib/oop/Object/MemberList.r
-        src/lib/oop/Object/MemberList.c
+        src/lib/oop/Object/Legacy_AtomicFreer.c
         src/lib/oop/Object/Object.r src/lib/oop/Atomic/AtomicInteger.h
         src/lib/oop/oop.h src/lib/oop/Atomic/AtomicInteger.c
         src/lib/oop/Atomic/Atomic.h
