@@ -403,6 +403,10 @@ Legacy_Object *getImplementation(Object *object, char *memberName) {
 /// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
 ///     it will be still okay. maybe rename to something secret.
 void *destruct(Object *object) {
+    if (object == NULL) { return NULL; }
+
+    AutoDestructableDestructor(
+            (AutoDestructable *) getImplementation(object, "AutoDestructable"));
 
     // TODO: DEBUG
     printf("\n\ndestruct invoked\n\n");

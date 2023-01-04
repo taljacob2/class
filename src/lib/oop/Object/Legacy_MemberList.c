@@ -53,6 +53,12 @@ Legacy_Object *addMember(Legacy_MemberList *legacyMemberList, char *memberName,
 
 Legacy_MemberList *
 Legacy_MemberListDestructor(Legacy_MemberList *legacyMemberList) {
+    if (legacyMemberList == NULL) { return NULL; }
+
+    AutoDestructableDestructor(
+            (AutoDestructable *) legacyMemberList->getMemberByName(
+                    legacyMemberList, "AutoDestructable"));
+
     legacyMemberList->memberEntryList
             ->Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData(
                     legacyMemberList->memberEntryList);

@@ -30,17 +30,11 @@ Legacy_Object *getMemberByName_MemberList(MemberList *self, char *memberName) {
 void *MemberListDestructor(MemberList *memberList) {
     if (memberList == NULL) { return NULL; }
 
-    if (memberList->legacyMemberList->legacyObjectComponent
-                ->destructorInvocationStatus == WAS_NOT_INVOKED) {
-        memberList->legacyMemberList->legacyObjectComponent
-                ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+    memberList->legacyMemberList->legacyObjectComponent->destructable
+            ->destructor(memberList->legacyMemberList);
 
-        memberList->legacyMemberList->legacyObjectComponent->destructable
-                ->destructor(memberList->legacyMemberList);
-
-        free(memberList->legacyObjectComponent);
-        free(memberList);
-    }
+    free(memberList->legacyObjectComponent);
+    free(memberList);
 
     return NULL;
 }

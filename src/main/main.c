@@ -34,10 +34,10 @@ int main() {
     //    legacyMemberList->legacyObjectComponent->destructable->destructor(legacyMemberList);
 
 
-    MemberList * memberList1 = MemberListConstructor();
-
-    memberList1->addMemberWhichIsLegacy_Object(memberList1, "legacyList",
-            (Legacy_Object *) Legacy_ListConstructor());
+//    MemberList * memberList1 = MemberListConstructor();
+//
+//    memberList1->addMemberWhichIsLegacy_Object(memberList1, "legacyList",
+//            (Legacy_Object *) Legacy_ListConstructor());
 
 //    memberList1->legacyObjectComponent->destructable->destructor(memberList1);
 
@@ -46,7 +46,9 @@ int main() {
 
 
 
-//        Object *object= construct("Object");
+        Object *object= construct("Object");
+
+        destruct(object);
 
 
     //    // TODO: FIXME:
