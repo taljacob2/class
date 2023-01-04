@@ -11,14 +11,14 @@ int main() {
 //
 
 //    Legacy_MemberListConstructor();
-    MemberList *memberList = MemberListConstructor("MemberList");
+//    MemberList *memberList = MemberListConstructor("MemberList");
 //    memberList->legacyObjectComponent->destructable->destructor(memberList);
 
-    //    methodsMemberList->methodsMemberList->destructable->destructor(methodsMemberList);
+    //    methodsLegacy_MemberList->methodsLegacy_MemberList->destructable->destructor(methodsLegacy_MemberList);
 
     //    AtomicInteger *atomicInteger = AtomicIntegerConstructor();
 
-    //    atomicInteger->methodsMemberList->methodsMemberList->destructable->destructor(atomicInteger);
+    //    atomicInteger->methodsLegacy_MemberList->methodsLegacy_MemberList->destructable->destructor(atomicInteger);
 
     //    CircleV4 *circleV4 = CircleV4Constructor();
 

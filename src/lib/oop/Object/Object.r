@@ -1,7 +1,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include "MemberList.r"
+#include "Legacy_MemberList.r"
 
 // Forward declaration of incomplete type
 typedef struct object Object;
@@ -11,10 +11,10 @@ struct object {
     Legacy_ObjectComponent *legacyObjectComponent;
     Legacy_List *           privateMemberNameLegacy_List;
     Legacy_List *           publicMemberNameLegacy_List;
-    MemberList *            methodsMemberList;
-    MemberList *            constructorMemberList;
-    MemberList *            destructorMemberList;
-    MemberList *            fieldsMemberList;
+    Legacy_MemberList *     methodsLegacy_MemberList;
+    Legacy_MemberList *     constructorLegacy_MemberList;
+    Legacy_MemberList *     destructorLegacy_MemberList;
+    Legacy_MemberList *     fieldsLegacy_MemberList;
 
     Legacy_Object *(*getPrivateMethod)(Object *object, char *memberName);
     Legacy_Object *(*getPublicMethod)(Object *object, char *memberName);
@@ -44,7 +44,7 @@ struct object {
                            Legacy_Object *memberToAdd);
 
     /**
-     * Adds the implementation to the `fieldsMemberList`, as a "public" field.
+     * Adds the implementation to the `fieldsLegacy_MemberList`, as a "public" field.
      *
      * @param object The object to add the implementation to.
      * @param memberName The member name you wish to call the implementation.
@@ -60,7 +60,7 @@ struct object {
                     const char *) );
 
     /**
-     * Adds the implementation to the `fieldsMemberList`, as a "public" field.
+     * Adds the implementation to the `fieldsLegacy_MemberList`, as a "public" field.
      *
      * For example:
      * @code
@@ -80,7 +80,7 @@ struct object {
     void (*addImplementationThatIsConstructedWithLegacy_Object)(
             Object *object, char *memberName,
             Legacy_Object *(
-            *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters)(
+                    *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters)(
                     Legacy_Object *, const char *) );
 };
 
