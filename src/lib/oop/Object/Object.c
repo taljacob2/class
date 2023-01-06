@@ -403,15 +403,14 @@ void addImplementation(
 void addImplementationThatIsConstructedWithLegacy_Object(
         Object *object, char *memberName,
         Legacy_Object *(
-                *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters)(
-                Legacy_Object *, const char *) ) {
+                *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter)(
+                Legacy_Object *) ) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
 
     addPublicField(
             object, (char *) implementationMemberName,
-            constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters(
-                    (Legacy_Object *) object,
-                    getLegacyObjectComponent(object)->CLASS_NAME));
+            constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter(
+                    (Legacy_Object *) object));
 
     free((void *) implementationMemberName);
 }
@@ -461,14 +460,25 @@ Legacy_Object *getImplementationAndRemoveIt(Object *object, char *memberName) {
 ///     it will be still okay. maybe rename to something secret.
 void *destruct(Object *object) {
     if (object == NULL) { return NULL; }
+    //
+    //    /*
+    //     * May or may not actually implement "AutoDestructable", for it to be
+    //     * destructed.
+    //     */
+    //    AutoDestructableDestructor(
+    //            (AutoDestructable *) getImplementationAndRemoveIt(
+    //                    object, "AutoDestructable"));
 
-    /*
-     * May or may not actually implement "AutoDestructable", for it to be
-     * destructed.
-     */
-    AutoDestructableDestructor(
-            (AutoDestructable *) getImplementationAndRemoveIt(
-                    object, "AutoDestructable"));
+    //    Legacy_Object *legacyObject =
+    //            getImplementationAndRemoveIt(object, "AutoDestructable");
+    //    legacyObject->legacyObjectComponent->destructable->destructor(legacyObject);
+
+    //    Legacy_Object *legacyObject =
+    //            getImplementationAndRemoveIt(object, "AutoDestructable");
+    //    INVOKE_DESTRUCTOR(AutoDestructable, legacyObject);
+
+    DESTRUCT_IMPLEMENTATION(AutoDestructable);
+
 
     // Destruct `privateMemberNameLegacy_List`.
     getPrivateMemberNameLegacy_List(object)
@@ -559,8 +569,8 @@ Object *constructNoClass() {
 
     addImplementationThatIsConstructedWithLegacy_Object(
             instance, "AutoDestructable",
-            (Legacy_Object * (*) (Legacy_Object *, const char *) )
-                    AutoDestructableConstructorWithClassName);
+            (Legacy_Object * (*) (Legacy_Object *) )
+                    AutoDestructableConstructorWithLegacy_Object);
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};
@@ -590,8 +600,8 @@ Object *construct(char *className) {
 
     addImplementationThatIsConstructedWithLegacy_Object(
             instance, "AutoDestructable",
-            (Legacy_Object * (*) (Legacy_Object *, const char *) )
-                    AutoDestructableConstructorWithClassName);
+            (Legacy_Object * (*) (Legacy_Object *) )
+                    AutoDestructableConstructorWithLegacy_Object);
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};

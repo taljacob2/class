@@ -69,22 +69,22 @@ struct object {
      * @code
      * addImplementationThatIsConstructedWithLegacy_Object(
      *         instance, "AutoDestructable",
-     *         (Legacy_Object * (*) (Legacy_Object *, const char *) )
-     *                 AutoDestructableConstructorWithClassName);
+     *         (Legacy_Object * (*) (Legacy_Object *) )
+     *                 AutoDestructableConstructorWithLegacy_Object);
      * @endcode
      *
      * @param object The object to add the implementation to.
      * @param memberName The member name you wish to call the implementation.
      *                   A common name is the class name you wish to implement.
-     * @param constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters
+     * @param constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter
      * The constructor to construct the class you wish to implement.
-     * It should have 2 parameters: (Legacy_Object *, const char *).
+     * It should have 1 parameter: (Legacy_Object *).
      */
     void (*addImplementationThatIsConstructedWithLegacy_Object)(
             Object *object, char *memberName,
             Legacy_Object *(
-                    *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters)(
-                    Legacy_Object *, const char *) );
+                    *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter)(
+                    Legacy_Object *) );
 };
 
 void *destruct(Object *object);
