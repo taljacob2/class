@@ -102,5 +102,8 @@
     CONCAT(ClassName, ___CLASS_DESTRUCTOR_METHOD_NAME_EXTENSION___) \
     ((ClassName *) instance)
 
+#define DESTRUCT_IMPLEMENTATION(ClassName) \
+    INVOKE_DESTRUCTOR(ClassName,           \
+                      getImplementationAndRemoveIt(object, QUOTE(ClassName)))
 
 #endif //OBJECTDEFINES_H
