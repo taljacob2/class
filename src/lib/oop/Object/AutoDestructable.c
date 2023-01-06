@@ -95,16 +95,19 @@ void saveLegacy_ObjectToAllocationTable(AutoDestructable *autoDestructable) {
             nodeThatItsDataPointsToThePointerOfObj);
 }
 
-AutoDestructable *AutoDestructableConstructorWithClassName(
-        Legacy_Object *legacyObjectToSaveItsAddressToAllocationTable,
-        const char *   className) {
+AutoDestructable *AutoDestructableConstructorWithLegacy_Object(
+        Legacy_Object *legacyObjectToSaveItsAddressToAllocationTable) {
     AutoDestructable *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
     }
 
     constructor_AutoDestructable_fields(instance);
 
-    instance->legacyObjectComponent->CLASS_NAME = className;
+    instance->legacyObjectComponent->CLASS_NAME =
+            legacyObjectToSaveItsAddressToAllocationTable == NULL
+                    ? "AutoDestructable"
+                    : legacyObjectToSaveItsAddressToAllocationTable
+                              ->legacyObjectComponent->CLASS_NAME;
 
     /*
      * If `legacyObjectToSaveItsAddressToAllocationTable` is `NULL` use
@@ -120,5 +123,5 @@ AutoDestructable *AutoDestructableConstructorWithClassName(
 }
 
 AutoDestructable *AutoDestructableConstructor() {
-    return AutoDestructableConstructorWithClassName(NULL, "AutoDestructable");
+    return AutoDestructableConstructorWithLegacy_Object(NULL);
 }
