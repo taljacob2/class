@@ -38,6 +38,11 @@ Legacy_MemberList *getFieldsMemberList(Object *object) {
     return (Legacy_MemberList *) getAnonymousPointerValueByIndex(object, 6);
 }
 
+// "private" function.
+Legacy_MemberList *getAutoDestructable(Object *object) {
+    return (Legacy_MemberList *) getAnonymousPointerValueByIndex(object, 7);
+}
+
 /* ------------------------------ SET LIST ---------------------------------- */
 
 // "private" function.
@@ -76,6 +81,11 @@ void setDestructorMemberList(Object *           object,
 // "private" function.
 void setFieldsMemberList(Object *object, Legacy_MemberList *legacyMemberList) {
     setAnonymousPointerValueByIndex(object, 6, legacyMemberList);
+}
+
+// "private" function.
+void setAutoDestructable(Object *object, AutoDestructable *autoDestructable) {
+    setAnonymousPointerValueByIndex(object, 7, autoDestructable);
 }
 
 /* ------------------ */
@@ -458,8 +468,10 @@ void *destruct(Object *object) {
     //            getImplementationAndRemoveIt(object, "AutoDestructable");
     //    INVOKE_DESTRUCTOR(AutoDestructable, legacyObject);
 
-//    DESTRUCT_IMPLEMENTATION(AutoDestructable);
+    //    DESTRUCT_IMPLEMENTATION(AutoDestructable);
 
+    AutoDestructableDestructor(
+            (AutoDestructable *) getAutoDestructable(object));
 
     // Destruct `privateMemberNameLegacy_List`.
     getPrivateMemberNameLegacy_List(object)
@@ -579,10 +591,14 @@ Object *construct(char *className) {
 
     init_fields(instance);
 
-    addImplementationThatIsConstructedWithLegacy_Object(
-            instance, "AutoDestructable",
-            (Legacy_Object * (*) (Legacy_Object *) )
-                    AutoDestructableConstructorWithLegacy_Object);
+    setAutoDestructable(instance, AutoDestructableConstructorWithLegacy_Object(
+                                          (Legacy_Object *) instance));
+
+    //    TODO: REMOVE:
+    //    addImplementationThatIsConstructedWithLegacy_Object(
+    //            instance, "AutoDestructable",
+    //            (Legacy_Object * (*) (Legacy_Object *) )
+    //                    AutoDestructableConstructorWithLegacy_Object);
 
     static Constructable const constructable = {
             .constructor = (void *(*const)(void) )(&constructNoClass)};

@@ -58,7 +58,7 @@ int main() {
     //    //  Conclusion: allocationTableList doesn't receive the correct address!!!
     //    destruct(object);
 
-    Object *object = constructWithoutAutoDestructable("Object");
+    Object *object = construct("Object");
 
     object->addPublicField(object, "legacyList",
                            (Legacy_Object *) Legacy_ListConstructor());
@@ -67,7 +67,7 @@ int main() {
 //            (Legacy_List *) object->getPublicField(object, "legacyList");
 //    legacyList->legacyObjectComponent->destructable->destructor(legacyList);
 
-    destruct(object);
+//    destruct(object);
 
 
     return 0;
