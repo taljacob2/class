@@ -98,4 +98,9 @@
     }
 
 
+#define INVOKE_DESTRUCTOR(ClassName, instance)                      \
+    CONCAT(ClassName, ___CLASS_DESTRUCTOR_METHOD_NAME_EXTENSION___) \
+    ((ClassName *) instance)
+
+
 #endif //OBJECTDEFINES_H
