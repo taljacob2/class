@@ -415,25 +415,6 @@ void addImplementationThatIsConstructedWithLegacy_Object(
     free((void *) implementationMemberName);
 }
 
-/// @deprecated
-void addImplementationThatIsConstructedWithLegacy_ObjectAsParameter(
-        Object *object, char *memberName,
-        Legacy_Object *(
-                *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters)(
-                Legacy_Object *, const char *),
-        Legacy_Object *
-                legacyObjectTheConstructorOfMemberClassToImplementUsesAsParameter) {
-    const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
-
-    addPublicField(
-            object, (char *) implementationMemberName,
-            constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters(
-                    legacyObjectTheConstructorOfMemberClassToImplementUsesAsParameter,
-                    getLegacyObjectComponent(object)->CLASS_NAME));
-
-    free((void *) implementationMemberName);
-}
-
 // "public" function.
 Legacy_Object *getImplementation(Object *object, char *memberName) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
