@@ -458,7 +458,7 @@ void *destruct(Object *object) {
     //            getImplementationAndRemoveIt(object, "AutoDestructable");
     //    INVOKE_DESTRUCTOR(AutoDestructable, legacyObject);
 
-    DESTRUCT_IMPLEMENTATION(AutoDestructable);
+//    DESTRUCT_IMPLEMENTATION(AutoDestructable);
 
 
     // Destruct `privateMemberNameLegacy_List`.
