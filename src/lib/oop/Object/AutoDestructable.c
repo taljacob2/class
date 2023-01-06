@@ -46,14 +46,14 @@ Legacy_Object *AutoDestructableDestructor(AutoDestructable *autoDestructable) {
     if (autoDestructable->allocatedAddress->legacyObjectComponent
                 ->destructorInvocationStatus == WAS_NOT_INVOKED) {
         autoDestructable->allocatedAddress->legacyObjectComponent
-                        ->destructorInvocationStatus == WAS_INVOKED_ONCE;
+                        ->destructorInvocationStatus = WAS_INVOKED_ONCE;
 
         deleteAllocationAddressIfNeeded(autoDestructable);
     }
 
     if (autoDestructable->legacyObjectComponent->destructorInvocationStatus ==
         WAS_NOT_INVOKED) {
-        autoDestructable->legacyObjectComponent->destructorInvocationStatus ==
+        autoDestructable->legacyObjectComponent->destructorInvocationStatus =
                 WAS_INVOKED_ONCE;
 
         destructAllocatedAddressUnsafe(autoDestructable);
