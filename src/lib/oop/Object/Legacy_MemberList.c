@@ -26,8 +26,8 @@ Legacy_StringObjectContainerEntry *
 getMemberStringObjectContainerEntryByNameAndDeleteMemberFromList(
         Legacy_MemberList *legacyMemberList, char *memberName) {
     Legacy_Node *legacyNode = getMemberNodeByName(legacyMemberList, memberName);
-    return legacyNode->legacyObjectComponent->destructable->destructor(
-            legacyNode);
+    return legacyMemberList->memberEntryList->delete (
+            legacyMemberList->memberEntryList, legacyNode);
 }
 
 Legacy_Object *getMemberStringObjectContainerEntryValueByName(
