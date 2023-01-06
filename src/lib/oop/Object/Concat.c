@@ -9,3 +9,10 @@ const char *concat(const char *firstString, const char *secondString) {
 
     return returnValue;
 }
+
+void concatToPreAllocatedString(char *destination, const char *firstString,
+                                const char *secondString) {
+    const char *result = concat(firstString, secondString);
+    strcpy(destination, result);
+    free((void *) result);
+}

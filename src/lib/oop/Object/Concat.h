@@ -37,4 +37,7 @@
  */
 const char *concat(const char *firstString, const char *secondString);
 
+void concatToPreAllocatedString(char *destination, const char *firstString,
+                                const char *secondString);
+
 #endif //CONCAT_H
