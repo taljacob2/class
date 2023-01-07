@@ -598,15 +598,6 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
 void *destruct(Object *object) {
     if (object == NULL) { return NULL; }
 
-    // Invoke `getFunctionToInvokeWhenObjectIsAboutToBeDestructed`.
-    Legacy_Object *(*functionToInvoke)(Object *, Object *) =
-            getFunctionToInvokeWhenObjectIsAboutToBeDestructed(object);
-    functionToInvoke(object, getObjectThatContainsThisObjectAsAMember(object));
-
-    // Destruct `autoDestructable`.
-    AutoDestructableDestructor(
-            (AutoDestructable *) getAutoDestructable(object));
-
     // Destruct `methodsLegacy_MemberList` supposing it is empty of Nodes.
     free(getMethodsMemberList(object)->memberEntryList->legacyObjectComponent);
     free(getMethodsMemberList(object)->memberEntryList);
@@ -640,6 +631,15 @@ void *destruct(Object *object) {
     // Destruct `publicMemberNameLegacy_List` supposing it is empty of Nodes.
     free(getPublicMemberNameLegacy_List(object)->legacyObjectComponent);
     free(getPublicMemberNameLegacy_List(object));
+
+    // Invoke `getFunctionToInvokeWhenObjectIsAboutToBeDestructed`.
+    Legacy_Object *(*functionToInvoke)(Object *, Object *) =
+    getFunctionToInvokeWhenObjectIsAboutToBeDestructed(object);
+    functionToInvoke(object, getObjectThatContainsThisObjectAsAMember(object));
+
+    // Destruct `autoDestructable`.
+    AutoDestructableDestructor(
+            (AutoDestructable *) getAutoDestructable(object));
 
     // Destruct `legacyObjectComponent`.
     free(getLegacyObjectComponent(object));
