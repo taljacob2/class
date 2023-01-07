@@ -88,14 +88,4 @@
     }
 
 
-// TODO: remove redundant.
-#define INVOKE_DESTRUCTOR(ClassName, instance)                      \
-    CONCAT(ClassName, ___CLASS_DESTRUCTOR_METHOD_NAME_EXTENSION___) \
-    ((ClassName *) instance)
-
-// TODO: remove redundant.
-#define DESTRUCT_IMPLEMENTATION(ClassName) \
-    INVOKE_DESTRUCTOR(ClassName,           \
-                      getImplementationAndRemoveIt(object, QUOTE(ClassName)))
-
 #endif //OBJECTDEFINES_H
