@@ -49,6 +49,11 @@ getFunctionToInvokeWhenNestedObjectIsAboutToBeDestructed(Object *object) {
     return (Legacy_MemberList *) getAnonymousPointerValueByIndex(object, 8);
 }
 
+// "private" function.
+const char *getMemberName(Object *object) {
+    return (const char *) getAnonymousPointerValueByIndex(object, 9);
+}
+
 /* --------------------------- SET POINTER VALUE ---------------------------- */
 
 // "private" function.
@@ -95,7 +100,6 @@ void setAutoDestructable(Object *object, AutoDestructable *autoDestructable) {
 }
 
 // "private" function.
-
 /**
  * @param object Object that is about to be destructed.
  * @param getMemberAndRemoveFromAccessModifierAndMemberList For example
@@ -105,9 +109,14 @@ void setAutoDestructable(Object *object, AutoDestructable *autoDestructable) {
 void setFunctionToInvokeWhenNestedObjectIsAboutToBeDestructed(
         Object *object,
         Legacy_Object *(*getMemberAndRemoveFromAccessModifierAndMemberList)(
-                Object *, char *) ) {
+                Object *) ) {
     setAnonymousPointerValueByIndex(
             object, 8, getMemberAndRemoveFromAccessModifierAndMemberList);
+}
+
+// "private" function.
+void setMemberName(Object *object, const char *memberName) {
+    setAnonymousPointerValueByIndex(object, 9, (void *) memberName);
 }
 
 /* ------------------ */
@@ -302,8 +311,7 @@ Legacy_Object *getPublicField(Object *object, char *memberName) {
 
 // "private" function.
 Legacy_Object *
-getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(Object *object,
-                                                        char *  memberName) {
+getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(Object *object) {
     return NULL; // Does nothing.
 }
 
@@ -312,19 +320,19 @@ getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(Object *object,
 // "private" function.
 Legacy_Object *
 getPublicMethodAndRemoveFromPublicAccessModifierAndMethodsMemberList(
-        Object *object, char *memberName) {
+        Object *object) {
     return getAccessModifierMemberAndRemoveFromList(
             getPublicMemberNameLegacy_List(object),
-            getMethodsMemberList(object), memberName);
+            getMethodsMemberList(object), (char *) getMemberName(object));
 }
 
 // "private" function.
 Legacy_Object *
 getPrivateMethodAndRemoveFromPrivateAccessModifierAndMethodsMemberList(
-        Object *object, char *memberName) {
+        Object *object) {
     return getAccessModifierMemberAndRemoveFromList(
             getPrivateMemberNameLegacy_List(object),
-            getMethodsMemberList(object), memberName);
+            getMethodsMemberList(object), (char *) getMemberName(object));
 }
 
 /* ------------- Constructor ------------- */
@@ -332,19 +340,19 @@ getPrivateMethodAndRemoveFromPrivateAccessModifierAndMethodsMemberList(
 // "private" function.
 Legacy_Object *
 getPublicConstructorAndRemoveFromPublicAccessModifierAndConstructorMemberList(
-        Object *object, char *memberName) {
+        Object *object) {
     return getAccessModifierMemberAndRemoveFromList(
             getPublicMemberNameLegacy_List(object),
-            getConstructorMemberList(object), memberName);
+            getConstructorMemberList(object), (char *) getMemberName(object));
 }
 
 // "private" function.
 Legacy_Object *
 getPrivateConstructorAndRemoveFromPrivateAccessModifierAndConstructorMemberList(
-        Object *object, char *memberName) {
+        Object *object) {
     return getAccessModifierMemberAndRemoveFromList(
             getPrivateMemberNameLegacy_List(object),
-            getConstructorMemberList(object), memberName);
+            getConstructorMemberList(object), (char *) getMemberName(object));
 }
 
 /* ------------- Destructor ------------- */
@@ -352,19 +360,19 @@ getPrivateConstructorAndRemoveFromPrivateAccessModifierAndConstructorMemberList(
 // "private" function.
 Legacy_Object *
 getPublicDestructorAndRemoveFromPublicAccessModifierAndDestructorMemberList(
-        Object *object, char *memberName) {
+        Object *object) {
     return getAccessModifierMemberAndRemoveFromList(
             getPublicMemberNameLegacy_List(object),
-            getDestructorMemberList(object), memberName);
+            getDestructorMemberList(object), (char *) getMemberName(object));
 }
 
 // "private" function.
 Legacy_Object *
 getPrivateDestructorAndRemoveFromPrivateAccessModifierAndDestructorMemberList(
-        Object *object, char *memberName) {
+        Object *object) {
     return getAccessModifierMemberAndRemoveFromList(
             getPrivateMemberNameLegacy_List(object),
-            getDestructorMemberList(object), memberName);
+            getDestructorMemberList(object), (char *) getMemberName(object));
 }
 
 /* --------------- Fields --------------- */
@@ -372,19 +380,19 @@ getPrivateDestructorAndRemoveFromPrivateAccessModifierAndDestructorMemberList(
 // "private" function.
 Legacy_Object *
 getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList(
-        Object *object, char *memberName) {
+        Object *object) {
     return getAccessModifierMemberAndRemoveFromList(
             getPublicMemberNameLegacy_List(object), getFieldsMemberList(object),
-            memberName);
+            (char *) getMemberName(object));
 }
 
 // "private" function.
 Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
-        Object *object, char *memberName) {
+        Object *object) {
     return getAccessModifierMemberAndRemoveFromList(
             getPrivateMemberNameLegacy_List(object),
-            getFieldsMemberList(object), memberName);
+            getFieldsMemberList(object), (char *) getMemberName(object));
 }
 
 /* ----------------------------- ADD MEMBER --------------------------------- */
@@ -393,6 +401,7 @@ getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
 void addAccessModifierMemberList(Legacy_List *      accessModifierLegacyList,
                                  Legacy_MemberList *legacyMemberList,
                                  char *memberName, Object *memberToAdd) {
+    setMemberName(memberToAdd, memberName);
 
     // TODO: remove redundant code.
     //    // Disable the `AutoDestructable` ability from `memberToAdd`.
@@ -436,6 +445,9 @@ void addPrivateMethod(Object *self, char *memberName, Object *memberToAdd) {
     addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
                                 getMethodsMemberList(self), memberName,
                                 memberToAdd);
+    setFunctionToInvokeWhenNestedObjectIsAboutToBeDestructed(
+            memberToAdd,
+            getPrivateMethodAndRemoveFromPrivateAccessModifierAndMethodsMemberList);
 }
 
 // "public" function.
