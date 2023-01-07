@@ -298,6 +298,8 @@ Legacy_Object *getPublicField(Object *object, char *memberName) {
 
 /* Get And Remove From Specific Access Modifier & Specific Legacy_MemberList */
 
+/* --------------- Nothing --------------- */
+
 // "private" function.
 Legacy_Object *
 getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(Object *object,
@@ -305,12 +307,23 @@ getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(Object *object,
     return NULL; // Does nothing.
 }
 
+/* --------------- Fields --------------- */
+
 // "private" function.
 Legacy_Object *
 getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList(
         Object *object, char *memberName) {
     return getAccessModifierMemberAndRemoveFromList(
             getPublicMemberNameLegacy_List(object), getFieldsMemberList(object),
+            memberName);
+}
+
+// "private" function.
+Legacy_Object *
+getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
+        Object *object, char *memberName) {
+    return getAccessModifierMemberAndRemoveFromList(
+            getPrivateMemberNameLegacy_List(object), getFieldsMemberList(object),
             memberName);
 }
 
