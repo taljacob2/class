@@ -525,41 +525,41 @@ void addPublicField(Object *self, char *memberName, Object *memberToAdd) {
 
 // "public" function. TODO: remove redundant code
 void addImplementation(
-        Object *object, char *memberName,
+        Object *self, char *memberName,
         Object *(
                 *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(
                 const char *) ) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
 
     addPublicField(
-            object, (char *) implementationMemberName,
+            self, (char *) implementationMemberName,
             constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter(
-                    getLegacyObjectComponent(object)->CLASS_NAME));
+                    getLegacyObjectComponent(self)->CLASS_NAME));
 
     free((void *) implementationMemberName);
 }
 
 // "public" function.
 void addImplementationThatIsConstructedWithLegacy_Object(
-        Object *object, char *memberName,
+        Object *self, char *memberName,
         Object *(
                 *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter)(
                 Legacy_Object *) ) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
 
     addPublicField(
-            object, (char *) implementationMemberName,
+            self, (char *) implementationMemberName,
             constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter(
-                    (Legacy_Object *) object));
+                    (Legacy_Object *) self));
 
     free((void *) implementationMemberName);
 }
 
 // "public" function.
-Legacy_Object *getImplementation(Object *object, char *memberName) {
+Legacy_Object *getImplementation(Object *self, char *memberName) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
     Legacy_Object *returnValue =
-            getPublicField(object, (char *) implementationMemberName);
+            getPublicField(self, (char *) implementationMemberName);
     free((void *) implementationMemberName);
     return returnValue;
 }

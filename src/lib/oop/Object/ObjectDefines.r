@@ -5,55 +5,55 @@
 #include "Concat.h"
 #include "Quote.h"
 
-#define OBJECT_FIELDS                                                                                                \
-    ANONYMOUS_POINTER_AS_FIELD;                                                                                      \
-    ANONYMOUS_POINTER_AS_FIELD;                                                                                      \
-    ANONYMOUS_POINTER_AS_FIELD;                                                                                      \
-    ANONYMOUS_POINTER_AS_FIELD;                                                                                      \
-    ANONYMOUS_POINTER_AS_FIELD;                                                                                      \
-    ANONYMOUS_POINTER_AS_FIELD;                                                                                      \
-    ANONYMOUS_POINTER_AS_FIELD;                                                                                      \
-    ANONYMOUS_POINTER_AS_FIELD;                                                                                      \
-    ANONYMOUS_POINTER_AS_FIELD;                                                                                      \
-    ANONYMOUS_POINTER_AS_FIELD;                                                                                      \
-                                                                                                                     \
-    Legacy_Object *(*getPrivateMethod)(Object * object, char *memberName);                                           \
-    Legacy_Object *(*getPublicMethod)(Object * object, char *memberName);                                            \
-    Legacy_Object *(*getPrivateConstructor)(Object * object,                                                         \
-                                            char *memberName);                                                       \
-    Legacy_Object *(*getPublicConstructor)(Object * object, char *memberName);                                       \
-    Legacy_Object *(*getPrivateDestructor)(Object * object, char *memberName);                                       \
-    Legacy_Object *(*getPublicDestructor)(Object * object, char *memberName);                                        \
-    Legacy_Object *(*getPrivateField)(Object * object, char *memberName);                                            \
-    Legacy_Object *(*getPublicField)(Object * object, char *memberName);                                             \
-    Legacy_Object *(*getImplementation)(Object * object, char *memberName);                                          \
-                                                                                                                     \
-    void (*addPrivateMethod)(Object * object, char *memberName,                                                      \
-                             Legacy_Object *memberToAdd);                                                            \
-    void (*addPublicMethod)(Object * object, char *memberName,                                                       \
-                            Legacy_Object *memberToAdd);                                                             \
-    void (*addPrivateConstructor)(Object * object, char *memberName,                                                 \
-                                  Legacy_Object *memberToAdd);                                                       \
-    void (*addPublicConstructor)(Object * object, char *memberName,                                                  \
-                                 Legacy_Object *memberToAdd);                                                        \
-    void (*addPrivateDestructor)(Object * object, char *memberName,                                                  \
-                                 Legacy_Object *memberToAdd);                                                        \
-    void (*addPublicDestructor)(Object * object, char *memberName,                                                   \
-                                Legacy_Object *memberToAdd);                                                         \
-    void (*addPrivateField)(Object * object, char *memberName,                                                       \
-                            Legacy_Object *memberToAdd);                                                             \
-    void (*addPublicField)(Object * object, char *memberName,                                                        \
-                           Legacy_Object *memberToAdd);                                                              \
-    void (*addImplementation)(                                                                                       \
-            Object * object, char *memberName,                                                                       \
-            Legacy_Object *(                                                                                         \
-                    *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(                 \
-                    const char *) );                                                                                 \
-    void (*addImplementationThatIsConstructedWithLegacy_Object)(                                                     \
-            Object * object, char *memberName,                                                                       \
-            Legacy_Object *(                                                                                         \
-                    *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAndClassNameAsParameters)( \
-                    Legacy_Object *, const char *) );
+#define OBJECT_FIELDS                                                                                   \
+    ANONYMOUS_POINTER_AS_FIELD;                                                                         \
+    ANONYMOUS_POINTER_AS_FIELD;                                                                         \
+    ANONYMOUS_POINTER_AS_FIELD;                                                                         \
+    ANONYMOUS_POINTER_AS_FIELD;                                                                         \
+    ANONYMOUS_POINTER_AS_FIELD;                                                                         \
+    ANONYMOUS_POINTER_AS_FIELD;                                                                         \
+    ANONYMOUS_POINTER_AS_FIELD;                                                                         \
+    ANONYMOUS_POINTER_AS_FIELD;                                                                         \
+    ANONYMOUS_POINTER_AS_FIELD;                                                                         \
+    ANONYMOUS_POINTER_AS_FIELD;                                                                         \
+                                                                                                        \
+    Legacy_Object *(*getPrivateMethod)(Object * object, char *memberName);                              \
+    Legacy_Object *(*getPublicMethod)(Object * object, char *memberName);                               \
+    Legacy_Object *(*getPrivateConstructor)(Object * object,                                            \
+                                            char *memberName);                                          \
+    Legacy_Object *(*getPublicConstructor)(Object * object, char *memberName);                          \
+    Legacy_Object *(*getPrivateDestructor)(Object * object, char *memberName);                          \
+    Legacy_Object *(*getPublicDestructor)(Object * object, char *memberName);                           \
+    Legacy_Object *(*getPrivateField)(Object * object, char *memberName);                               \
+    Legacy_Object *(*getPublicField)(Object * object, char *memberName);                                \
+    Legacy_Object *(*getImplementation)(Object * object, char *memberName);                             \
+                                                                                                        \
+    void (*addPrivateMethod)(Object * self, char *memberName,                                           \
+                             Object *memberToAdd);                                                      \
+    void (*addPublicMethod)(Object * self, char *memberName,                                            \
+                            Object *memberToAdd);                                                       \
+    void (*addPrivateConstructor)(Object * self, char *memberName,                                      \
+                                  Object *memberToAdd);                                                 \
+    void (*addPublicConstructor)(Object * self, char *memberName,                                       \
+                                 Object *memberToAdd);                                                  \
+    void (*addPrivateDestructor)(Object * self, char *memberName,                                       \
+                                 Object *memberToAdd);                                                  \
+    void (*addPublicDestructor)(Object * self, char *memberName,                                        \
+                                Object *memberToAdd);                                                   \
+    void (*addPrivateField)(Object * self, char *memberName,                                            \
+                            Object *memberToAdd);                                                       \
+    void (*addPublicField)(Object * self, char *memberName,                                             \
+                           Object *memberToAdd);                                                        \
+    void (*addImplementation)(                                                                          \
+            Object * self, char *memberName,                                                            \
+            Object *(                                                                                   \
+                    *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(    \
+                    const char *) );                                                                    \
+    void (*addImplementationThatIsConstructedWithLegacy_Object)(                                        \
+            Object * self, char *memberName,                                                            \
+            Object *(                                                                                   \
+                    *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter)( \
+                    Legacy_Object *) );
 
 #define IMPLEMENTATION "__IMPLEMENTATION__"
 

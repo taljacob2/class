@@ -30,22 +30,21 @@ struct object {
     Legacy_Object *(*getPublicField)(Object *object, char *memberName);
     Legacy_Object *(*getImplementation)(Object *object, char *memberName);
 
-    void (*addPrivateMethod)(Object *object, char *memberName,
-                             Legacy_Object *memberToAdd);
-    void (*addPublicMethod)(Object *object, char *memberName,
-                            Legacy_Object *memberToAdd);
-    void (*addPrivateConstructor)(Object *object, char *memberName,
-                                  Legacy_Object *memberToAdd);
-    void (*addPublicConstructor)(Object *object, char *memberName,
-                                 Legacy_Object *memberToAdd);
-    void (*addPrivateDestructor)(Object *object, char *memberName,
-                                 Legacy_Object *memberToAdd);
-    void (*addPublicDestructor)(Object *object, char *memberName,
-                                Legacy_Object *memberToAdd);
-    void (*addPrivateField)(Object *object, char *memberName,
-                            Legacy_Object *memberToAdd);
-    void (*addPublicField)(Object *object, char *memberName,
-                           Legacy_Object *memberToAdd);
+    void (*addPrivateMethod)(Object *self, char *memberName,
+                             Object *memberToAdd);
+    void (*addPublicMethod)(Object *self, char *memberName,
+                            Object *memberToAdd);
+    void (*addPrivateConstructor)(Object *self, char *memberName,
+                                  Object *memberToAdd);
+    void (*addPublicConstructor)(Object *self, char *memberName,
+                                 Object *memberToAdd);
+    void (*addPrivateDestructor)(Object *self, char *memberName,
+                                 Object *memberToAdd);
+    void (*addPublicDestructor)(Object *self, char *memberName,
+                                Object *memberToAdd);
+    void (*addPrivateField)(Object *self, char *memberName,
+                            Object *memberToAdd);
+    void (*addPublicField)(Object *self, char *memberName, Object *memberToAdd);
 
     /**
      * Adds the implementation to the `fieldsLegacy_MemberList`, as a "public" field.
@@ -58,8 +57,8 @@ struct object {
      * It should have 1 parameter: (const char *).
      */
     void (*addImplementation)(
-            Object *object, char *memberName,
-            Legacy_Object *(
+            Object *self, char *memberName,
+            Object *(
                     *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(
                     const char *) );
 
@@ -82,8 +81,8 @@ struct object {
      * It should have 1 parameter: (Legacy_Object *).
      */
     void (*addImplementationThatIsConstructedWithLegacy_Object)(
-            Object *object, char *memberName,
-            Legacy_Object *(
+            Object *self, char *memberName,
+            Object *(
                     *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter)(
                     Legacy_Object *) );
 };
