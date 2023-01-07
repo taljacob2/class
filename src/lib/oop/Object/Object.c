@@ -332,6 +332,7 @@ Legacy_Object *getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(
 Legacy_Object *
 getPublicMethodAndRemoveFromPublicAccessModifierAndMethodsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
+    if (objectThatContainsThisObjectAsAMember == NULL) { return NULL; }
     return getAccessModifierMemberAndRemoveFromList(
             getPublicMemberNameLegacy_List(
                     objectThatContainsThisObjectAsAMember),
@@ -343,6 +344,7 @@ getPublicMethodAndRemoveFromPublicAccessModifierAndMethodsMemberList(
 Legacy_Object *
 getPrivateMethodAndRemoveFromPrivateAccessModifierAndMethodsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
+    if (objectThatContainsThisObjectAsAMember == NULL) { return NULL; }
     return getAccessModifierMemberAndRemoveFromList(
             getPrivateMemberNameLegacy_List(
                     objectThatContainsThisObjectAsAMember),
@@ -356,6 +358,7 @@ getPrivateMethodAndRemoveFromPrivateAccessModifierAndMethodsMemberList(
 Legacy_Object *
 getPublicConstructorAndRemoveFromPublicAccessModifierAndConstructorMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
+    if (objectThatContainsThisObjectAsAMember == NULL) { return NULL; }
     return getAccessModifierMemberAndRemoveFromList(
             getPublicMemberNameLegacy_List(
                     objectThatContainsThisObjectAsAMember),
@@ -367,6 +370,7 @@ getPublicConstructorAndRemoveFromPublicAccessModifierAndConstructorMemberList(
 Legacy_Object *
 getPrivateConstructorAndRemoveFromPrivateAccessModifierAndConstructorMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
+    if (objectThatContainsThisObjectAsAMember == NULL) { return NULL; }
     return getAccessModifierMemberAndRemoveFromList(
             getPrivateMemberNameLegacy_List(
                     objectThatContainsThisObjectAsAMember),
@@ -380,6 +384,7 @@ getPrivateConstructorAndRemoveFromPrivateAccessModifierAndConstructorMemberList(
 Legacy_Object *
 getPublicDestructorAndRemoveFromPublicAccessModifierAndDestructorMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
+    if (objectThatContainsThisObjectAsAMember == NULL) { return NULL; }
     return getAccessModifierMemberAndRemoveFromList(
             getPublicMemberNameLegacy_List(
                     objectThatContainsThisObjectAsAMember),
@@ -391,6 +396,7 @@ getPublicDestructorAndRemoveFromPublicAccessModifierAndDestructorMemberList(
 Legacy_Object *
 getPrivateDestructorAndRemoveFromPrivateAccessModifierAndDestructorMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
+    if (objectThatContainsThisObjectAsAMember == NULL) { return NULL; }
     return getAccessModifierMemberAndRemoveFromList(
             getPrivateMemberNameLegacy_List(
                     objectThatContainsThisObjectAsAMember),
@@ -404,6 +410,7 @@ getPrivateDestructorAndRemoveFromPrivateAccessModifierAndDestructorMemberList(
 Legacy_Object *
 getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
+    if (objectThatContainsThisObjectAsAMember == NULL) { return NULL; }
     return getAccessModifierMemberAndRemoveFromList(
             getPublicMemberNameLegacy_List(
                     objectThatContainsThisObjectAsAMember),
@@ -415,6 +422,7 @@ getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList(
 Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
+    if (objectThatContainsThisObjectAsAMember == NULL) { return NULL; }
     return getAccessModifierMemberAndRemoveFromList(
             getPrivateMemberNameLegacy_List(
                     objectThatContainsThisObjectAsAMember),
