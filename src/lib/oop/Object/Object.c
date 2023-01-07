@@ -464,6 +464,7 @@ void addAccessModifierMemberList(Legacy_List *      accessModifierLegacyList,
 
 // "public" function.
 void addPrivateMethod(Object *self, char *memberName, Object *memberToAdd) {
+    setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
                                 getMethodsMemberList(self), memberName,
                                 memberToAdd);
@@ -474,6 +475,7 @@ void addPrivateMethod(Object *self, char *memberName, Object *memberToAdd) {
 
 // "public" function.
 void addPublicMethod(Object *self, char *memberName, Object *memberToAdd) {
+    setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
                                 getMethodsMemberList(self), memberName,
                                 memberToAdd);
@@ -487,6 +489,7 @@ void addPublicMethod(Object *self, char *memberName, Object *memberToAdd) {
 // "public" function.
 void addPrivateConstructor(Object *self, char *memberName,
                            Object *memberToAdd) {
+    setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
                                 getConstructorMemberList(self), memberName,
                                 memberToAdd);
@@ -497,6 +500,7 @@ void addPrivateConstructor(Object *self, char *memberName,
 
 // "public" function.
 void addPublicConstructor(Object *self, char *memberName, Object *memberToAdd) {
+    setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
                                 getConstructorMemberList(self), memberName,
                                 memberToAdd);
@@ -509,6 +513,7 @@ void addPublicConstructor(Object *self, char *memberName, Object *memberToAdd) {
 
 // "public" function.
 void addPrivateDestructor(Object *self, char *memberName, Object *memberToAdd) {
+    setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
                                 getDestructorMemberList(self), memberName,
                                 memberToAdd);
@@ -519,6 +524,7 @@ void addPrivateDestructor(Object *self, char *memberName, Object *memberToAdd) {
 
 // "public" function.
 void addPublicDestructor(Object *self, char *memberName, Object *memberToAdd) {
+    setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
                                 getDestructorMemberList(self), memberName,
                                 memberToAdd);
@@ -531,6 +537,7 @@ void addPublicDestructor(Object *self, char *memberName, Object *memberToAdd) {
 
 // "public" function.
 void addPrivateField(Object *self, char *memberName, Object *memberToAdd) {
+    setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
                                 getFieldsMemberList(self), memberName,
                                 memberToAdd);
@@ -541,6 +548,7 @@ void addPrivateField(Object *self, char *memberName, Object *memberToAdd) {
 
 // "public" function.
 void addPublicField(Object *self, char *memberName, Object *memberToAdd) {
+    setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
                                 getFieldsMemberList(self), memberName,
                                 memberToAdd);
