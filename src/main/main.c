@@ -64,12 +64,13 @@ int main() {
     //                           (Legacy_Object *) Legacy_ListConstructor());
 
     object->addPublicField(object, "nestedObject", construct("Object"));
+//    destruct((Object *) object->getPublicField(object, "nestedObject"));
     //
     //    Legacy_List *legacyList =
     //            (Legacy_List *) object->getPublicField(object, "legacyList");
     //    legacyList->legacyObjectComponent->destructable->destructor(legacyList);
 
-    //        destruct(object);
+            destruct(object);
 
 
     return 0;
