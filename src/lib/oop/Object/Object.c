@@ -652,39 +652,6 @@ void init_fields(Object *object) {
             &addImplementationThatIsConstructedWithLegacy_Object;
 }
 
-/**
- * @deprecated private. Do not use this. It is only used for the
- *             `Constructable` assignment. Use `construct` instead.
- *
- * memory allocating `sizeof(Object)`, then invoking legacy_ObjectComponent's
- * constructor, and MemberList's constructor.
- */
-Object *constructNoClass() {
-    Object *instance = calloc(1, sizeof *instance);
-    if (instance == NULL) { /* error handling here */
-    }
-
-    setLegacyObjectComponent(
-            instance, Legacy_ObjectComponentConstructorClassName("Object"));
-
-    init_fields(instance);
-
-    addImplementationThatIsConstructedWithLegacy_Object(
-            instance, "AutoDestructable",
-            (Legacy_Object * (*) (Legacy_Object *) )
-                    AutoDestructableConstructorWithLegacy_Object);
-
-    static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&constructNoClass)};
-    getLegacyObjectComponent(instance)->constructable = &constructable;
-
-    static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&destruct)};
-    getLegacyObjectComponent(instance)->destructable = &destructable;
-
-    return instance;
-}
-
 /// TODO: public. maybe rename to something secret.
 /**
  * memory allocating `sizeof(Object)`, then invoking legacy_ObjectComponent's
