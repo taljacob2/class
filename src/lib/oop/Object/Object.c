@@ -44,9 +44,8 @@ Legacy_MemberList *getAutoDestructable(Object *object) {
 }
 
 // "private" function.
-Legacy_MemberList *
-getFunctionToInvokeWhenNestedObjectIsAboutToBeDestructed(Object *object) {
-    return (Legacy_MemberList *) getAnonymousPointerValueByIndex(object, 8);
+void *getFunctionToInvokeWhenObjectIsAboutToBeDestructed(Object *object) {
+    return (void *) getAnonymousPointerValueByIndex(object, 8);
 }
 
 // "private" function.
@@ -567,7 +566,10 @@ Legacy_Object *getImplementationAndRemoveIt(Object *object, char *memberName) {
 void *destruct(Object *object) {
     if (object == NULL) { return NULL; }
 
-    getFunctionToInvokeWhenNestedObjectIsAboutToBeDestructed(object);
+    // Invoke `getFunctionToInvokeWhenObjectIsAboutToBeDestructed`.
+    Legacy_Object *(*functionToInvoke)(Object *) =
+            getFunctionToInvokeWhenObjectIsAboutToBeDestructed(object);
+    functionToInvoke(object);
 
     // Destruct `autoDestructable`.
     AutoDestructableDestructor(
