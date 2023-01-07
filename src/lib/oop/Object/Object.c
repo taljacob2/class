@@ -390,10 +390,10 @@ void addPublicField(Object *self, char *memberName, Object *memberToAdd) {
 
 /* ---------------------------- Implementation ------------------------------ */
 
-// "public" function.
+// "public" function. TODO: remove redundant code
 void addImplementation(
         Object *object, char *memberName,
-        Legacy_Object *(
+        Object *(
                 *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(
                 const char *) ) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
@@ -409,7 +409,7 @@ void addImplementation(
 // "public" function.
 void addImplementationThatIsConstructedWithLegacy_Object(
         Object *object, char *memberName,
-        Legacy_Object *(
+        Object *(
                 *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter)(
                 Legacy_Object *) ) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
