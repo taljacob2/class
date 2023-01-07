@@ -309,6 +309,24 @@ getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(Object *object,
 
 /* --------------- Methods --------------- */
 
+// "private" function.
+Legacy_Object *
+getPublicMethodAndRemoveFromPublicAccessModifierAndMethodsMemberList(
+        Object *object, char *memberName) {
+    return getAccessModifierMemberAndRemoveFromList(
+            getPublicMemberNameLegacy_List(object), getMethodsMemberList(object),
+            memberName);
+}
+
+// "private" function.
+Legacy_Object *
+getPrivateMethodAndRemoveFromPrivateAccessModifierAndMethodsMemberList(
+        Object *object, char *memberName) {
+    return getAccessModifierMemberAndRemoveFromList(
+            getPrivateMemberNameLegacy_List(object), getMethodsMemberList(object),
+            memberName);
+}
+
 /* ------------- Constructor ------------- */
 
 /* ------------- Destructor ------------- */
