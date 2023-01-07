@@ -592,7 +592,7 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
 }
 
 
-/* ----------------------- Constructor & Destructor ------------------------= */
+/* ----------------------- Destructor Private ------------------------= */
 
 // "private" function.
 void invokeDestructorOfAllNodesAndDoNotDeleteTheNodesFromMemberList(
