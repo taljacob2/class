@@ -670,35 +670,8 @@ Object *construct(char *className) {
     setAutoDestructable(instance, AutoDestructableConstructorWithLegacy_Object(
                                           (Legacy_Object *) instance));
 
-    //    TODO: REMOVE:
-    //    addImplementationThatIsConstructedWithLegacy_Object(
-    //            instance, "AutoDestructable",
-    //            (Legacy_Object * (*) (Legacy_Object *) )
-    //                    AutoDestructableConstructorWithLegacy_Object);
-
     static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&constructNoClass)};
-    getLegacyObjectComponent(instance)->constructable = &constructable;
-
-    static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&destruct)};
-    getLegacyObjectComponent(instance)->destructable = &destructable;
-
-    return instance;
-}
-
-Object *constructWithoutAutoDestructable(char *className) {
-    Object *instance = calloc(1, sizeof *instance);
-    if (instance == NULL) { /* error handling here */
-    }
-
-    setLegacyObjectComponent(
-            instance, Legacy_ObjectComponentConstructorClassName(className));
-
-    init_fields(instance);
-
-    static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&constructNoClass)};
+            .constructor = (void *(*const)(void) )(&construct)};
     getLegacyObjectComponent(instance)->constructable = &constructable;
 
     static Destructable const destructable = {

@@ -61,41 +61,30 @@
 #define ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___ Constructor
 #define ___CLASS_DESTRUCTOR_METHOD_NAME_EXTENSION___  Destructor
 
-#define DEFINE_CLASS_H(ClassName)                                             \
-                                                                              \
-    typedef struct CONCAT_SURROUND(                                           \
-            ClassName, ____CLASS_STRUCT_NAME_EXTENSION___) ClassName;         \
-                                                                              \
-    struct CONCAT_SURROUND(ClassName, ____CLASS_STRUCT_NAME_EXTENSION___) {   \
-                                                                              \
-        OBJECT_FIELDS                                                         \
-    };                                                                        \
-                                                                              \
-    ClassName *CONCAT(ClassName,                                              \
-                      ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___)();       \
-                                                                              \
-    ClassName *CONCAT(                                                        \
-            CONCAT(ClassName, ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___), \
-            WithoutAutoDestructable)();
+#define DEFINE_CLASS_H(ClassName)                                           \
+                                                                            \
+    typedef struct CONCAT_SURROUND(                                         \
+            ClassName, ____CLASS_STRUCT_NAME_EXTENSION___) ClassName;       \
+                                                                            \
+    struct CONCAT_SURROUND(ClassName, ____CLASS_STRUCT_NAME_EXTENSION___) { \
+                                                                            \
+        OBJECT_FIELDS                                                       \
+    };                                                                      \
+                                                                            \
+    ClassName *CONCAT(ClassName,                                            \
+                      ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___)();
 
 
-#define DEFINE_CLASS_C(ClassName)                                             \
-                                                                              \
-    ClassName *CONCAT(ClassName,                                              \
-                      ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___)() {      \
-        return (ClassName *) construct(QUOTE(ClassName));                     \
-    }                                                                         \
-                                                                              \
-    ClassName *CONCAT(                                                        \
-            CONCAT(ClassName, ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___), \
-            WithoutAutoDestructable)() {                                      \
-        return (ClassName *) constructWithoutAutoDestructable(                \
-                QUOTE(ClassName));                                            \
-    }                                                                         \
-                                                                              \
-    void CONCAT(ClassName, ___CLASS_DESTRUCTOR_METHOD_NAME_EXTENSION___)(     \
-            ClassName * object) {                                             \
-        destruct((Object *) object);                                          \
+#define DEFINE_CLASS_C(ClassName)                                         \
+                                                                          \
+    ClassName *CONCAT(ClassName,                                          \
+                      ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___)() {  \
+        return (ClassName *) construct(QUOTE(ClassName));                 \
+    }                                                                     \
+                                                                          \
+    void CONCAT(ClassName, ___CLASS_DESTRUCTOR_METHOD_NAME_EXTENSION___)( \
+            ClassName * object) {                                         \
+        destruct((Object *) object);                                      \
     }
 
 
