@@ -564,17 +564,6 @@ Legacy_Object *getImplementation(Object *object, char *memberName) {
     return returnValue;
 }
 
-// TODO: make public. TODO: remove redundant deprecated code.
-// "public" function.
-Legacy_Object *getImplementationAndRemoveIt(Object *object, char *memberName) {
-    const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
-    Legacy_Object *returnValue =
-            getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList(
-                    object, (char *) implementationMemberName);
-    free((void *) implementationMemberName);
-    return returnValue;
-}
-
 /* ----------------------- Constructor & Destructor ------------------------= */
 
 /// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
