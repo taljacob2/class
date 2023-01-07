@@ -450,25 +450,8 @@ Legacy_Object *getImplementationAndRemoveIt(Object *object, char *memberName) {
 ///     it will be still okay. maybe rename to something secret.
 void *destruct(Object *object) {
     if (object == NULL) { return NULL; }
-    //
-    //    /*
-    //     * May or may not actually implement "AutoDestructable", for it to be
-    //     * destructed.
-    //     */
-    //    AutoDestructableDestructor(
-    //            (AutoDestructable *) getImplementationAndRemoveIt(
-    //                    object, "AutoDestructable"));
 
-    //    Legacy_Object *legacyObject =
-    //            getImplementationAndRemoveIt(object, "AutoDestructable");
-    //    legacyObject->legacyObjectComponent->destructable->destructor(legacyObject);
-
-    //    Legacy_Object *legacyObject =
-    //            getImplementationAndRemoveIt(object, "AutoDestructable");
-    //    INVOKE_DESTRUCTOR(AutoDestructable, legacyObject);
-
-    //    DESTRUCT_IMPLEMENTATION(AutoDestructable);
-
+    // Destruct `autoDestructable`.
     AutoDestructableDestructor(
             (AutoDestructable *) getAutoDestructable(object));
 
