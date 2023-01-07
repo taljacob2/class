@@ -449,6 +449,9 @@ void addPublicMethod(Object *self, char *memberName, Object *memberToAdd) {
     addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
                                 getMethodsMemberList(self), memberName,
                                 memberToAdd);
+    setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
+            memberToAdd,
+            getPublicMethodAndRemoveFromPublicAccessModifierAndMethodsMemberList);
 }
 
 /* ------------- Constructor ------------- */
@@ -459,6 +462,9 @@ void addPrivateConstructor(Object *self, char *memberName,
     addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
                                 getConstructorMemberList(self), memberName,
                                 memberToAdd);
+    setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
+            memberToAdd,
+            getPrivateConstructorAndRemoveFromPrivateAccessModifierAndConstructorMemberList);
 }
 
 // "public" function.
@@ -466,6 +472,9 @@ void addPublicConstructor(Object *self, char *memberName, Object *memberToAdd) {
     addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
                                 getConstructorMemberList(self), memberName,
                                 memberToAdd);
+    setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
+            memberToAdd,
+            getPublicConstructorAndRemoveFromPublicAccessModifierAndConstructorMemberList);
 }
 
 /* ------------- Destructor ------------- */
