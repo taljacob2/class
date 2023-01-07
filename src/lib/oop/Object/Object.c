@@ -598,39 +598,35 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
 void *destruct(Object *object) {
     if (object == NULL) { return NULL; }
 
-    // Destruct `methodsLegacy_MemberList` supposing it is empty of Nodes.
-    free(getMethodsMemberList(object)->memberEntryList->legacyObjectComponent);
-    free(getMethodsMemberList(object)->memberEntryList);
-    free(getMethodsMemberList(object)->legacyObjectComponent);
-    free(getMethodsMemberList(object));
+    // Destruct `methodsLegacy_MemberList`.
+    getMethodsMemberList(object)
+            ->legacyObjectComponent->destructable->destructor(
+            getMethodsMemberList(object));
 
-    // Destruct `constructorLegacy_MemberList` supposing it is empty of Nodes.
-    free(getConstructorMemberList(object)
-                 ->memberEntryList->legacyObjectComponent);
-    free(getConstructorMemberList(object)->memberEntryList);
-    free(getConstructorMemberList(object)->legacyObjectComponent);
-    free(getConstructorMemberList(object));
+    // Destruct `constructorLegacy_MemberList`.
+    getConstructorMemberList(object)
+            ->legacyObjectComponent->destructable->destructor(
+            getConstructorMemberList(object));
 
-    // Destruct `destructorLegacy_MemberList` supposing it is empty of Nodes.
-    free(getDestructorMemberList(object)
-                 ->memberEntryList->legacyObjectComponent);
-    free(getDestructorMemberList(object)->memberEntryList);
-    free(getDestructorMemberList(object)->legacyObjectComponent);
-    free(getDestructorMemberList(object));
+    // Destruct `destructorLegacy_MemberList`.
+    getDestructorMemberList(object)
+            ->legacyObjectComponent->destructable->destructor(
+            getDestructorMemberList(object));
 
-    // Destruct `fieldsLegacy_MemberList` supposing it is empty of Nodes.
-    free(getFieldsMemberList(object)->memberEntryList->legacyObjectComponent);
-    free(getFieldsMemberList(object)->memberEntryList);
-    free(getFieldsMemberList(object)->legacyObjectComponent);
-    free(getFieldsMemberList(object));
+    // Destruct `fieldsLegacy_MemberList`.
+    getFieldsMemberList(object)
+            ->legacyObjectComponent->destructable->destructor(
+            getFieldsMemberList(object));
 
-    // Destruct `privateMemberNameLegacy_List` supposing it is empty of Nodes.
-    free(getPrivateMemberNameLegacy_List(object)->legacyObjectComponent);
-    free(getPrivateMemberNameLegacy_List(object));
+    // Destruct `privateMemberNameLegacy_List`.
+    getPrivateMemberNameLegacy_List(object)
+            ->legacyObjectComponent->destructable->destructor(
+            getPrivateMemberNameLegacy_List(object));
 
-    // Destruct `publicMemberNameLegacy_List` supposing it is empty of Nodes.
-    free(getPublicMemberNameLegacy_List(object)->legacyObjectComponent);
-    free(getPublicMemberNameLegacy_List(object));
+    // Destruct `publicMemberNameLegacy_List`.
+    getPublicMemberNameLegacy_List(object)
+            ->legacyObjectComponent->destructable->destructor(
+            getPublicMemberNameLegacy_List(object));
 
     // Invoke `getFunctionToInvokeWhenObjectIsAboutToBeDestructed`.
     Legacy_Object *(*functionToInvoke)(Object *, Object *) =
