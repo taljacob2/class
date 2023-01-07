@@ -308,16 +308,16 @@ void addAccessModifierMemberList(Legacy_List *      accessModifierLegacyList,
 /* -------------- Specific Access Modifier ------------- */
 
 // "private" function.
-void addPrivateMemberList(Object *object, Legacy_MemberList *legacyMemberList,
-                          char *memberName, Legacy_Object *memberToAdd) {
-    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(object),
+void addPrivateMemberList(Object *self, Legacy_MemberList *legacyMemberList,
+                          char *memberName, Object *memberToAdd) {
+    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
                                 legacyMemberList, memberName, memberToAdd);
 }
 
 // "private" function.
-void addPublicMemberList(Object *object, Legacy_MemberList *legacyMemberList,
-                         char *memberName, Legacy_Object *memberToAdd) {
-    addAccessModifierMemberList(getPublicMemberNameLegacy_List(object),
+void addPublicMemberList(Object *self, Legacy_MemberList *legacyMemberList,
+                         char *memberName, Object *memberToAdd) {
+    addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
                                 legacyMemberList, memberName, memberToAdd);
 }
 
@@ -326,18 +326,16 @@ void addPublicMemberList(Object *object, Legacy_MemberList *legacyMemberList,
 /* --------------- Methods --------------- */
 
 // "public" function.
-void addPrivateMethod(Object *object, char *memberName,
-                      Legacy_Object *memberToAdd) {
-    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(object),
-                                getMethodsMemberList(object), memberName,
+void addPrivateMethod(Object *self, char *memberName, Object *memberToAdd) {
+    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
+                                getMethodsMemberList(self), memberName,
                                 memberToAdd);
 }
 
 // "public" function.
-void addPublicMethod(Object *object, char *memberName,
-                     Legacy_Object *memberToAdd) {
-    addAccessModifierMemberList(getPublicMemberNameLegacy_List(object),
-                                getMethodsMemberList(object), memberName,
+void addPublicMethod(Object *self, char *memberName, Object *memberToAdd) {
+    addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
+                                getMethodsMemberList(self), memberName,
                                 memberToAdd);
 }
 
@@ -490,15 +488,15 @@ void init_fields(Object *object) {
     setDestructorMemberList(object, Legacy_MemberListConstructor());
     setFieldsMemberList(object, Legacy_MemberListConstructor());
 
-    object->getPrivateMethod             = &getPrivateMethod;
-    object->getPublicMethod              = &getPublicMethod;
-    object->getPrivateConstructor        = &getPrivateConstructor;
-    object->getPublicConstructor         = &getPublicConstructor;
-    object->getPrivateDestructor         = &getPrivateDestructor;
-    object->getPublicDestructor          = &getPublicDestructor;
-    object->getPrivateField              = &getPrivateField;
-    object->getPublicField               = &getPublicField;
-    object->getImplementation            = &getImplementation;
+    object->getPrivateMethod      = &getPrivateMethod;
+    object->getPublicMethod       = &getPublicMethod;
+    object->getPrivateConstructor = &getPrivateConstructor;
+    object->getPublicConstructor  = &getPublicConstructor;
+    object->getPrivateDestructor  = &getPrivateDestructor;
+    object->getPublicDestructor   = &getPublicDestructor;
+    object->getPrivateField       = &getPrivateField;
+    object->getPublicField        = &getPublicField;
+    object->getImplementation     = &getImplementation;
 
     object->addPrivateMethod      = &addPrivateMethod;
     object->addPublicMethod       = &addPublicMethod;
