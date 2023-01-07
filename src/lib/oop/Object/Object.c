@@ -402,11 +402,6 @@ void addAccessModifierMemberList(Legacy_List *      accessModifierLegacyList,
                                  char *memberName, Object *memberToAdd) {
     setMemberName(memberToAdd, memberName);
 
-    // TODO: remove redundant code.
-    //    // Disable the `AutoDestructable` ability from `memberToAdd`.
-    //    AutoDestructableDestructor(
-    //            (AutoDestructable *) getAutoDestructable(memberToAdd));
-
     // Add `memberName` to accessModifierList.
     accessModifierLegacyList->addAsUnique(
             accessModifierLegacyList,
