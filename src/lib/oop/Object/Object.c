@@ -598,6 +598,9 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
 void *destruct(Object *object) {
     if (object == NULL) { return NULL; }
 
+    getLegacyObjectComponent(object)->destructorInvocationStatus =
+            WAS_INVOKED_ONCE;
+
     // Invoke `getFunctionToInvokeWhenObjectIsAboutToBeDestructed`.
     Legacy_Object *(*functionToInvoke)(Object *, Object *) =
             getFunctionToInvokeWhenObjectIsAboutToBeDestructed(object);
@@ -610,22 +613,22 @@ void *destruct(Object *object) {
     // Destruct `methodsLegacy_MemberList`.
     getMethodsMemberList(object)
             ->legacyObjectComponent->destructable->destructor(
-            getMethodsMemberList(object));
+                    getMethodsMemberList(object));
 
     // Destruct `constructorLegacy_MemberList`.
     getConstructorMemberList(object)
             ->legacyObjectComponent->destructable->destructor(
-            getConstructorMemberList(object));
+                    getConstructorMemberList(object));
 
     // Destruct `destructorLegacy_MemberList`.
     getDestructorMemberList(object)
             ->legacyObjectComponent->destructable->destructor(
-            getDestructorMemberList(object));
+                    getDestructorMemberList(object));
 
     // Destruct `fieldsLegacy_MemberList`.
     getFieldsMemberList(object)
             ->legacyObjectComponent->destructable->destructor(
-            getFieldsMemberList(object));
+                    getFieldsMemberList(object));
 
     // Destruct `privateMemberNameLegacy_List`.
     getPrivateMemberNameLegacy_List(object)
