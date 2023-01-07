@@ -607,6 +607,26 @@ void *destruct(Object *object) {
     AutoDestructableDestructor(
             (AutoDestructable *) getAutoDestructable(object));
 
+    // Destruct `methodsLegacy_MemberList`.
+    getMethodsMemberList(object)
+            ->legacyObjectComponent->destructable->destructor(
+            getMethodsMemberList(object));
+
+    // Destruct `constructorLegacy_MemberList`.
+    getConstructorMemberList(object)
+            ->legacyObjectComponent->destructable->destructor(
+            getConstructorMemberList(object));
+
+    // Destruct `destructorLegacy_MemberList`.
+    getDestructorMemberList(object)
+            ->legacyObjectComponent->destructable->destructor(
+            getDestructorMemberList(object));
+
+    // Destruct `fieldsLegacy_MemberList`.
+    getFieldsMemberList(object)
+            ->legacyObjectComponent->destructable->destructor(
+            getFieldsMemberList(object));
+
     // Destruct `privateMemberNameLegacy_List`.
     getPrivateMemberNameLegacy_List(object)
             ->legacyObjectComponent->destructable->destructor(
@@ -616,26 +636,6 @@ void *destruct(Object *object) {
     getPublicMemberNameLegacy_List(object)
             ->legacyObjectComponent->destructable->destructor(
                     getPublicMemberNameLegacy_List(object));
-
-    // Destruct `methodsLegacy_MemberList`.
-    getMethodsMemberList(object)
-            ->legacyObjectComponent->destructable->destructor(
-                    getMethodsMemberList(object));
-
-    // Destruct `constructorLegacy_MemberList`.
-    getConstructorMemberList(object)
-            ->legacyObjectComponent->destructable->destructor(
-                    getConstructorMemberList(object));
-
-    // Destruct `destructorLegacy_MemberList`.
-    getDestructorMemberList(object)
-            ->legacyObjectComponent->destructable->destructor(
-                    getDestructorMemberList(object));
-
-    // Destruct `fieldsLegacy_MemberList`.
-    getFieldsMemberList(object)
-            ->legacyObjectComponent->destructable->destructor(
-                    getFieldsMemberList(object));
 
     // Destruct `legacyObjectComponent`.
     free(getLegacyObjectComponent(object));
