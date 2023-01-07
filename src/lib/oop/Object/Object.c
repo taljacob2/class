@@ -414,8 +414,8 @@ getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList(
     return getAccessModifierMemberAndRemoveFromList(
             getPublicMemberNameLegacy_List(
                     objectThatContainsThisObjectAsAMember),
-            getFieldsMemberList(object),
-            (char *) getMemberName(objectThatContainsThisObjectAsAMember));
+            getFieldsMemberList(objectThatContainsThisObjectAsAMember),
+            (char *) getMemberName(object));
 }
 
 // "private" function.
