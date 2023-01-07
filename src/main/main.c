@@ -62,12 +62,15 @@ int main() {
 
     object->addPublicField(object, "legacyList",
                            (Legacy_Object *) Legacy_ListConstructor());
-//
-//    Legacy_List *legacyList =
-//            (Legacy_List *) object->getPublicField(object, "legacyList");
-//    legacyList->legacyObjectComponent->destructable->destructor(legacyList);
 
-//    destruct(object);
+    object->addPublicField(object, "nestedObject",
+                           (Legacy_Object *) construct("Object"));
+    //
+    //    Legacy_List *legacyList =
+    //            (Legacy_List *) object->getPublicField(object, "legacyList");
+    //    legacyList->legacyObjectComponent->destructable->destructor(legacyList);
+
+        destruct(object);
 
 
     return 0;
