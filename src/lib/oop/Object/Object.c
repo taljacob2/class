@@ -433,7 +433,7 @@ Legacy_Object *getImplementation(Object *object, char *memberName) {
     return returnValue;
 }
 
-// TODO: make public.
+// TODO: make public. TODO: remove redundant deprecated code.
 // "public" function.
 Legacy_Object *getImplementationAndRemoveIt(Object *object, char *memberName) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
