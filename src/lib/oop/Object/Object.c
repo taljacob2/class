@@ -621,6 +621,19 @@ void invokeDestructorOfAllNodesAndDoNotDeleteTheNodesFromMemberList(
     }
 }
 
+void destructMemberList(Legacy_MemberList *legacyMemberList){
+
+    // Destruct `legacyMemberList` Legacy_Objects.
+    invokeDestructorOfAllNodesAndDoNotDeleteTheNodesFromMemberList(
+            legacyMemberList);
+
+    // Destruct `legacyMemberList` supposing it is empty of Nodes.
+    free(legacyMemberList->memberEntryList->legacyObjectComponent);
+    free(legacyMemberList->memberEntryList);
+    free(legacyMemberList->legacyObjectComponent);
+    free(legacyMemberList);
+}
+
 /* ----------------------- Constructor & Destructor ------------------------= */
 
 /// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
@@ -629,42 +642,16 @@ void *destruct(Object *object) {
     if (object == NULL) { return NULL; }
 
     // Destruct `methodsLegacy_MemberList`.
-    invokeDestructorOfAllNodesAndDoNotDeleteTheNodesFromMemberList(
-            getMethodsMemberList(object));
-    // Destruct `methodsLegacy_MemberList` supposing it is empty of Nodes.
-    free(getMethodsMemberList(object)->memberEntryList->legacyObjectComponent);
-    free(getMethodsMemberList(object)->memberEntryList);
-    free(getMethodsMemberList(object)->legacyObjectComponent);
-    free(getMethodsMemberList(object));
+    destructMemberList(getMethodsMemberList(object));
 
     // Destruct `constructorLegacy_MemberList`.
-    invokeDestructorOfAllNodesAndDoNotDeleteTheNodesFromMemberList(
-            getConstructorMemberList(object));
-    // Destruct `constructorLegacy_MemberList` supposing it is empty of Nodes.
-    free(getConstructorMemberList(object)
-                 ->memberEntryList->legacyObjectComponent);
-    free(getConstructorMemberList(object)->memberEntryList);
-    free(getConstructorMemberList(object)->legacyObjectComponent);
-    free(getConstructorMemberList(object));
+    destructMemberList(getConstructorMemberList(object));
 
     // Destruct `destructorLegacy_MemberList`.
-    invokeDestructorOfAllNodesAndDoNotDeleteTheNodesFromMemberList(
-            getDestructorMemberList(object));
-    // Destruct `destructorLegacy_MemberList` supposing it is empty of Nodes.
-    free(getDestructorMemberList(object)
-                 ->memberEntryList->legacyObjectComponent);
-    free(getDestructorMemberList(object)->memberEntryList);
-    free(getDestructorMemberList(object)->legacyObjectComponent);
-    free(getDestructorMemberList(object));
+    destructMemberList(getDestructorMemberList(object));
 
     // Destruct `fieldsLegacy_MemberList`.
-    invokeDestructorOfAllNodesAndDoNotDeleteTheNodesFromMemberList(
-            getFieldsMemberList(object));
-    // Destruct `fieldsLegacy_MemberList` supposing it is empty of Nodes.
-    free(getFieldsMemberList(object)->memberEntryList->legacyObjectComponent);
-    free(getFieldsMemberList(object)->memberEntryList);
-    free(getFieldsMemberList(object)->legacyObjectComponent);
-    free(getFieldsMemberList(object));
+    destructMemberList(getFieldsMemberList(object));
 
     // Destruct `privateMemberNameLegacy_List` supposing it is empty of Nodes.
     free(getPrivateMemberNameLegacy_List(object)->legacyObjectComponent);
@@ -674,7 +661,8 @@ void *destruct(Object *object) {
     free(getPublicMemberNameLegacy_List(object)->legacyObjectComponent);
     free(getPublicMemberNameLegacy_List(object));
 
-//
+//  TODO: redundant:
+
 //    // Destruct `privateMemberNameLegacy_List` knowing it is empty from Nodes.
 //    getPrivateMemberNameLegacy_List(object)
 //            ->legacyObjectComponent->destructable->destructor(
