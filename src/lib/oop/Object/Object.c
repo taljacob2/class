@@ -307,6 +307,12 @@ getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(Object *object,
     return NULL; // Does nothing.
 }
 
+/* --------------- Methods --------------- */
+
+/* ------------- Constructor ------------- */
+
+/* ------------- Destructor ------------- */
+
 /* --------------- Fields --------------- */
 
 // "private" function.
