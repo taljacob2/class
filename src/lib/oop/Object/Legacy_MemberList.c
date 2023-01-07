@@ -40,9 +40,16 @@ Legacy_Object *getMemberStringObjectContainerEntryValueByName(
 Legacy_Object *
 getMemberStringObjectContainerEntryValueByNameAndDeleteMemberFromList(
         Legacy_MemberList *legacyMemberList, char *memberName) {
-    return getMemberStringObjectContainerEntryByNameAndDeleteMemberFromList(
-                   legacyMemberList, memberName)
-            ->value;
+    Legacy_StringObjectContainerEntry *entry =
+            getMemberStringObjectContainerEntryByNameAndDeleteMemberFromList(
+                    legacyMemberList, memberName);
+    Legacy_Object *returnValue = entry->value;
+
+    // `free` entry without invoking its destructor.
+    free(entry->object);
+    free(entry);
+
+    return returnValue;
 }
 
 // "public" function.
