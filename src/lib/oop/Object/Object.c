@@ -43,6 +43,12 @@ Legacy_MemberList *getAutoDestructable(Object *object) {
     return (Legacy_MemberList *) getAnonymousPointerValueByIndex(object, 7);
 }
 
+// "private" function.
+Legacy_MemberList *
+getFunctionToInvokeWhenNestedObjectIsAboutToBeDestructed(Object *object) {
+    return (Legacy_MemberList *) getAnonymousPointerValueByIndex(object, 8);
+}
+
 /* --------------------------- SET POINTER VALUE ---------------------------- */
 
 // "private" function.
@@ -86,6 +92,22 @@ void setFieldsMemberList(Object *object, Legacy_MemberList *legacyMemberList) {
 // "private" function.
 void setAutoDestructable(Object *object, AutoDestructable *autoDestructable) {
     setAnonymousPointerValueByIndex(object, 7, autoDestructable);
+}
+
+// "private" function.
+
+/**
+ * @param object Object that is about to be destructed.
+ * @param getMemberAndRemoveFromAccessModifierAndMemberList For example
+ * `getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList`,
+ * `getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList`
+ */
+void setFunctionToInvokeWhenNestedObjectIsAboutToBeDestructed(
+        Object *object,
+        Legacy_Object *(*getMemberAndRemoveFromAccessModifierAndMemberList)(
+                Object *, char *) ) {
+    setAnonymousPointerValueByIndex(
+            object, 8, getMemberAndRemoveFromAccessModifierAndMemberList);
 }
 
 /* ------------------ */
@@ -276,6 +298,13 @@ Legacy_Object *getPublicField(Object *object, char *memberName) {
 
 // "private" function.
 Legacy_Object *
+getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(Object *object,
+                                                        char *  memberName) {
+    return NULL; // Does nothing.
+}
+
+// "private" function.
+Legacy_Object *
 getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList(
         Object *object, char *memberName) {
     return getAccessModifierMemberAndRemoveFromList(
@@ -291,9 +320,9 @@ void addAccessModifierMemberList(Legacy_List *      accessModifierLegacyList,
                                  char *memberName, Object *memberToAdd) {
 
     // TODO: remove redundant code.
-//    // Disable the `AutoDestructable` ability from `memberToAdd`.
-//    AutoDestructableDestructor(
-//            (AutoDestructable *) getAutoDestructable(memberToAdd));
+    //    // Disable the `AutoDestructable` ability from `memberToAdd`.
+    //    AutoDestructableDestructor(
+    //            (AutoDestructable *) getAutoDestructable(memberToAdd));
 
     // Add `memberName` to accessModifierList.
     accessModifierLegacyList->addAsUnique(
