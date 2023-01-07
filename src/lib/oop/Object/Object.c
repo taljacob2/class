@@ -1,6 +1,6 @@
 #include "Object.r"
 
-/* ------------------------------ GET LIST ---------------------------------- */
+/* ---------------------------- GET POINTER VALUE --------------------------- */
 
 // "private" function.
 Legacy_ObjectComponent *getLegacyObjectComponent(Object *object) {
@@ -43,7 +43,7 @@ Legacy_MemberList *getAutoDestructable(Object *object) {
     return (Legacy_MemberList *) getAnonymousPointerValueByIndex(object, 7);
 }
 
-/* ------------------------------ SET LIST ---------------------------------- */
+/* --------------------------- SET POINTER VALUE ---------------------------- */
 
 // "private" function.
 void setLegacyObjectComponent(Object *                object,
