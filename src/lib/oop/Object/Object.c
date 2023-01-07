@@ -621,6 +621,7 @@ void invokeDestructorOfAllNodesAndDoNotDeleteTheNodesFromMemberList(
     }
 }
 
+// "private" function.
 void destructMemberList(Legacy_MemberList *legacyMemberList) {
 
     // Destruct `legacyMemberList` Legacy_Objects.
@@ -634,6 +635,7 @@ void destructMemberList(Legacy_MemberList *legacyMemberList) {
     free(legacyMemberList);
 }
 
+// "private" function.
 void destructAccessModifierList(Legacy_List *legacyList) {
 
     // Destruct `accessModifierLegacy_List` supposing it is empty of Nodes.
@@ -641,6 +643,7 @@ void destructAccessModifierList(Legacy_List *legacyList) {
     free(legacyList);
 }
 
+// "private" function.
 void destructObjectMembers(Object *object) {
     if (object == NULL) { return; }
 
@@ -663,6 +666,7 @@ void destructObjectMembers(Object *object) {
     destructAccessModifierList(getPublicMemberNameLegacy_List(object));
 }
 
+// "private" function.
 void destructObjectSelf(Object *object) {
     if (object == NULL) { return; }
 
