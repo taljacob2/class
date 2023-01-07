@@ -105,7 +105,7 @@ void setAutoDestructable(Object *object, AutoDestructable *autoDestructable) {
  * `getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList`,
  * `getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList`
  */
-void setFunctionToInvokeWhenNestedObjectIsAboutToBeDestructed(
+void setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
         Object *object,
         Legacy_Object *(*getMemberAndRemoveFromAccessModifierAndMemberList)(
                 Object *) ) {
@@ -439,7 +439,7 @@ void addPrivateMethod(Object *self, char *memberName, Object *memberToAdd) {
     addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
                                 getMethodsMemberList(self), memberName,
                                 memberToAdd);
-    setFunctionToInvokeWhenNestedObjectIsAboutToBeDestructed(
+    setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
             memberToAdd,
             getPrivateMethodAndRemoveFromPrivateAccessModifierAndMethodsMemberList);
 }
@@ -615,7 +615,7 @@ void init_fields(Object *object) {
     setConstructorMemberList(object, Legacy_MemberListConstructor());
     setDestructorMemberList(object, Legacy_MemberListConstructor());
     setFieldsMemberList(object, Legacy_MemberListConstructor());
-    setFunctionToInvokeWhenNestedObjectIsAboutToBeDestructed(
+    setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
             object, getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList);
     setMemberName(object, NULL);
 
