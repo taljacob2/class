@@ -27,6 +27,8 @@ struct object {
     Legacy_Object *(*getPrivateField)(Object *object, char *memberName);
     Legacy_Object *(*getPublicField)(Object *object, char *memberName);
     Legacy_Object *(*getImplementation)(Object *object, char *memberName);
+    Legacy_Object *(*getImplementationAndRemoveIt)(Object *object,
+                                                   char *  memberName);
 
     void (*addPrivateMethod)(Object *object, char *memberName,
                              Legacy_Object *memberToAdd);
