@@ -70,7 +70,7 @@ int main() {
     //            (Legacy_List *) object->getPublicField(object, "legacyList");
     //    legacyList->legacyObjectComponent->destructable->destructor(legacyList);
 
-            destruct(object);
+//            destruct(object);
 
 
     return 0;
