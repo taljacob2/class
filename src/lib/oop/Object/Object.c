@@ -296,6 +296,8 @@ Legacy_Object *getPublicField(Object *object, char *memberName) {
                                    getFieldsMemberList(object), memberName);
 }
 
+/* Get And Remove From Specific Access Modifier & Specific Legacy_MemberList */
+
 // "private" function.
 Legacy_Object *
 getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(Object *object,
