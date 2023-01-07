@@ -484,6 +484,9 @@ void addPrivateDestructor(Object *self, char *memberName, Object *memberToAdd) {
     addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
                                 getDestructorMemberList(self), memberName,
                                 memberToAdd);
+    setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
+            memberToAdd,
+            getPrivateDestructorAndRemoveFromPrivateAccessModifierAndDestructorMemberList);
 }
 
 // "public" function.
@@ -491,6 +494,9 @@ void addPublicDestructor(Object *self, char *memberName, Object *memberToAdd) {
     addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
                                 getDestructorMemberList(self), memberName,
                                 memberToAdd);
+    setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
+            memberToAdd,
+            getPublicDestructorAndRemoveFromPublicAccessModifierAndDestructorMemberList);
 }
 
 /* --------------- Fields --------------- */
@@ -500,6 +506,9 @@ void addPrivateField(Object *self, char *memberName, Object *memberToAdd) {
     addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
                                 getFieldsMemberList(self), memberName,
                                 memberToAdd);
+    setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
+            memberToAdd,
+            getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList);
 }
 
 // "public" function.
@@ -507,6 +516,9 @@ void addPublicField(Object *self, char *memberName, Object *memberToAdd) {
     addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
                                 getFieldsMemberList(self), memberName,
                                 memberToAdd);
+    setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
+            memberToAdd,
+            getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList);
 }
 
 /* ---------------------------- Implementation ------------------------------ */
