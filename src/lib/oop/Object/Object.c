@@ -288,7 +288,11 @@ getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList(
 // "private" function.
 void addAccessModifierMemberList(Legacy_List *      accessModifierLegacyList,
                                  Legacy_MemberList *legacyMemberList,
-                                 char *memberName, Legacy_Object *memberToAdd) {
+                                 char *memberName, Object *memberToAdd) {
+
+    // Disable the `AutoDestructable` ability from `memberToAdd`.
+    AutoDestructableDestructor(
+            (AutoDestructable *) getAutoDestructable(memberToAdd));
 
     // Add `memberName` to accessModifierList.
     accessModifierLegacyList->addAsUnique(
@@ -297,8 +301,8 @@ void addAccessModifierMemberList(Legacy_List *      accessModifierLegacyList,
             predicateFindAccessModifierMemberNameByMemberName, memberName);
 
     // Add member to MemberList.
-    legacyMemberList->addMemberWhichIsLegacy_Object(legacyMemberList,
-                                                    memberName, memberToAdd);
+    legacyMemberList->addMemberWhichIsLegacy_Object(
+            legacyMemberList, memberName, (Legacy_Object *) memberToAdd);
 }
 
 /* -------------- Specific Access Modifier ------------- */
@@ -340,54 +344,49 @@ void addPublicMethod(Object *object, char *memberName,
 /* ------------- Constructor ------------- */
 
 // "public" function.
-void addPrivateConstructor(Object *object, char *memberName,
-                           Legacy_Object *memberToAdd) {
-    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(object),
-                                getConstructorMemberList(object), memberName,
+void addPrivateConstructor(Object *self, char *memberName,
+                           Object *memberToAdd) {
+    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
+                                getConstructorMemberList(self), memberName,
                                 memberToAdd);
 }
 
 // "public" function.
-void addPublicConstructor(Object *object, char *memberName,
-                          Legacy_Object *memberToAdd) {
-    addAccessModifierMemberList(getPublicMemberNameLegacy_List(object),
-                                getConstructorMemberList(object), memberName,
+void addPublicConstructor(Object *self, char *memberName, Object *memberToAdd) {
+    addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
+                                getConstructorMemberList(self), memberName,
                                 memberToAdd);
 }
 
 /* ------------- Destructor ------------- */
 
 // "public" function.
-void addPrivateDestructor(Object *object, char *memberName,
-                          Legacy_Object *memberToAdd) {
-    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(object),
-                                getDestructorMemberList(object), memberName,
+void addPrivateDestructor(Object *self, char *memberName, Object *memberToAdd) {
+    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
+                                getDestructorMemberList(self), memberName,
                                 memberToAdd);
 }
 
 // "public" function.
-void addPublicDestructor(Object *object, char *memberName,
-                         Legacy_Object *memberToAdd) {
-    addAccessModifierMemberList(getPublicMemberNameLegacy_List(object),
-                                getDestructorMemberList(object), memberName,
+void addPublicDestructor(Object *self, char *memberName, Object *memberToAdd) {
+    addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
+                                getDestructorMemberList(self), memberName,
                                 memberToAdd);
 }
 
 /* --------------- Fields --------------- */
 
 // "public" function.
-void addPrivateField(Object *object, char *memberName,
-                     Legacy_Object *memberToAdd) {
-    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(object),
-                                getFieldsMemberList(object), memberName,
+void addPrivateField(Object *self, char *memberName, Object *memberToAdd) {
+    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
+                                getFieldsMemberList(self), memberName,
                                 memberToAdd);
 }
 
 // "public" function.
-void addPublicField(Object *object, char *memberName,
-                    Legacy_Object *memberToAdd) {
-    addAccessModifierMemberList(getPublicMemberNameLegacy_List(object),
-                                getFieldsMemberList(object), memberName,
+void addPublicField(Object *self, char *memberName, Object *memberToAdd) {
+    addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
+                                getFieldsMemberList(self), memberName,
                                 memberToAdd);
 }
 
