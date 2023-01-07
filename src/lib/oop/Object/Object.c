@@ -598,9 +598,6 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
 void *destruct(Object *object) {
     if (object == NULL) { return NULL; }
 
-    getLegacyObjectComponent(object)->destructorInvocationStatus =
-            WAS_INVOKED_ONCE;
-
     // Invoke `getFunctionToInvokeWhenObjectIsAboutToBeDestructed`.
     Legacy_Object *(*functionToInvoke)(Object *, Object *) =
             getFunctionToInvokeWhenObjectIsAboutToBeDestructed(object);
