@@ -634,12 +634,15 @@ void destructMemberList(Legacy_MemberList *legacyMemberList) {
     free(legacyMemberList);
 }
 
-/* ----------------------- Constructor & Destructor ------------------------= */
+void destructAccessModifierList(Legacy_List *legacyList) {
 
-/// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
-///     it will be still okay. maybe rename to something secret.
-void *destruct(Object *object) {
-    if (object == NULL) { return NULL; }
+    // Destruct `accessModifierLegacy_List` supposing it is empty of Nodes.
+    free(legacyList->legacyObjectComponent);
+    free(legacyList);
+}
+
+void destructObjectMembers(Object *object) {
+    if (object == NULL) { return; }
 
     // Destruct `methodsLegacy_MemberList`.
     destructMemberList(getMethodsMemberList(object));
@@ -653,13 +656,15 @@ void *destruct(Object *object) {
     // Destruct `fieldsLegacy_MemberList`.
     destructMemberList(getFieldsMemberList(object));
 
-    // Destruct `privateMemberNameLegacy_List` supposing it is empty of Nodes.
-    free(getPrivateMemberNameLegacy_List(object)->legacyObjectComponent);
-    free(getPrivateMemberNameLegacy_List(object));
+    // Destruct `privateMemberNameLegacy_List`.
+    destructAccessModifierList(getPrivateMemberNameLegacy_List(object));
 
-    // Destruct `publicMemberNameLegacy_List` supposing it is empty of Nodes.
-    free(getPublicMemberNameLegacy_List(object)->legacyObjectComponent);
-    free(getPublicMemberNameLegacy_List(object));
+    // Destruct `publicMemberNameLegacy_List`.
+    destructAccessModifierList(getPublicMemberNameLegacy_List(object));
+}
+
+void destructObjectSelf(Object *object) {
+    if (object == NULL) { return; }
 
     // Invoke `getFunctionToInvokeWhenObjectIsAboutToBeDestructed`.
     Legacy_Object *(*functionToInvoke)(Object *, Object *) =
@@ -674,6 +679,17 @@ void *destruct(Object *object) {
     free(getLegacyObjectComponent(object));
 
     free(object);
+}
+
+/* ----------------------- Constructor & Destructor ------------------------= */
+
+/// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
+///     it will be still okay. maybe rename to something secret.
+void *destruct(Object *object) {
+    if (object == NULL) { return NULL; }
+
+    destructObjectMembers(object);
+    destructObjectSelf(object);
 
     return NULL;
 }
