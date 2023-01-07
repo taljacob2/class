@@ -21,15 +21,15 @@ struct object {
     ANONYMOUS_POINTER_AS_FIELD;
     ANONYMOUS_POINTER_AS_FIELD;
 
-    Legacy_Object *(*getPrivateMethod)(Object *object, char *memberName);
-    Legacy_Object *(*getPublicMethod)(Object *object, char *memberName);
-    Legacy_Object *(*getPrivateConstructor)(Object *object, char *memberName);
-    Legacy_Object *(*getPublicConstructor)(Object *object, char *memberName);
-    Legacy_Object *(*getPrivateDestructor)(Object *object, char *memberName);
-    Legacy_Object *(*getPublicDestructor)(Object *object, char *memberName);
-    Legacy_Object *(*getPrivateField)(Object *object, char *memberName);
-    Legacy_Object *(*getPublicField)(Object *object, char *memberName);
-    Legacy_Object *(*getImplementation)(Object *object, char *memberName);
+    Legacy_Object *(*getPrivateMethod)(Object *self, char *memberName);
+    Legacy_Object *(*getPublicMethod)(Object *self, char *memberName);
+    Legacy_Object *(*getPrivateConstructor)(Object *self, char *memberName);
+    Legacy_Object *(*getPublicConstructor)(Object *self, char *memberName);
+    Legacy_Object *(*getPrivateDestructor)(Object *self, char *memberName);
+    Legacy_Object *(*getPublicDestructor)(Object *self, char *memberName);
+    Legacy_Object *(*getPrivateField)(Object *self, char *memberName);
+    Legacy_Object *(*getPublicField)(Object *self, char *memberName);
+    Legacy_Object *(*getImplementation)(Object *self, char *memberName);
 
     void (*addPrivateMethod)(Object *self, char *memberName,
                              Object *memberToAdd);
