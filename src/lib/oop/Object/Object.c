@@ -567,6 +567,8 @@ Legacy_Object *getImplementationAndRemoveIt(Object *object, char *memberName) {
 void *destruct(Object *object) {
     if (object == NULL) { return NULL; }
 
+    getFunctionToInvokeWhenNestedObjectIsAboutToBeDestructed(object);
+
     // Destruct `autoDestructable`.
     AutoDestructableDestructor(
             (AutoDestructable *) getAutoDestructable(object));
