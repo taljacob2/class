@@ -661,18 +661,6 @@ void *destruct(Object *object) {
     free(getPublicMemberNameLegacy_List(object)->legacyObjectComponent);
     free(getPublicMemberNameLegacy_List(object));
 
-    //  TODO: redundant:
-
-    //    // Destruct `privateMemberNameLegacy_List` knowing it is empty from Nodes.
-    //    getPrivateMemberNameLegacy_List(object)
-    //            ->legacyObjectComponent->destructable->destructor(
-    //                    getPrivateMemberNameLegacy_List(object));
-    //
-    //    // Destruct `publicMemberNameLegacy_List` knowing it is empty from Nodes.
-    //    getPublicMemberNameLegacy_List(object)
-    //            ->legacyObjectComponent->destructable->destructor(
-    //                    getPublicMemberNameLegacy_List(object));
-
     // Invoke `getFunctionToInvokeWhenObjectIsAboutToBeDestructed`.
     Legacy_Object *(*functionToInvoke)(Object *, Object *) =
             getFunctionToInvokeWhenObjectIsAboutToBeDestructed(object);
