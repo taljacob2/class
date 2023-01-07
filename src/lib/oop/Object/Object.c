@@ -616,6 +616,9 @@ void init_fields(Object *object) {
     setConstructorMemberList(object, Legacy_MemberListConstructor());
     setDestructorMemberList(object, Legacy_MemberListConstructor());
     setFieldsMemberList(object, Legacy_MemberListConstructor());
+    setFunctionToInvokeWhenNestedObjectIsAboutToBeDestructed(
+            object, getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList);
+    setMemberName(object, NULL);
 
     object->getPrivateMethod      = &getPrivateMethod;
     object->getPublicMethod       = &getPublicMethod;
