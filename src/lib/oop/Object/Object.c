@@ -53,6 +53,11 @@ const char *getMemberName(Object *object) {
     return (const char *) getAnonymousPointerValueByIndex(object, 9);
 }
 
+// "private" function.
+Object *getObjectThatContainsThisObjectAsAMember(Object *object) {
+    return (Object *) getAnonymousPointerValueByIndex(object, 10);
+}
+
 /* --------------------------- SET POINTER VALUE ---------------------------- */
 
 // "private" function.
@@ -108,7 +113,7 @@ void setAutoDestructable(Object *object, AutoDestructable *autoDestructable) {
 void setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
         Object *object,
         Legacy_Object *(*getMemberAndRemoveFromAccessModifierAndMemberList)(
-                Object *) ) {
+                Object *, Object *) ) {
     setAnonymousPointerValueByIndex(
             object, 8, getMemberAndRemoveFromAccessModifierAndMemberList);
 }
@@ -116,6 +121,13 @@ void setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
 // "private" function.
 void setMemberName(Object *object, const char *memberName) {
     setAnonymousPointerValueByIndex(object, 9, (void *) memberName);
+}
+
+// "private" function.
+void setObjectThatContainsThisObjectAsAMember(
+        Object *object, Object *objectThatContainsThisObjectAsAMember) {
+    setAnonymousPointerValueByIndex(object, 10,
+                                    objectThatContainsThisObjectAsAMember);
 }
 
 /* ------------------ */
@@ -309,8 +321,8 @@ Legacy_Object *getPublicField(Object *object, char *memberName) {
 /* --------------- Nothing --------------- */
 
 // "private" function.
-Legacy_Object *
-getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(Object *object) {
+Legacy_Object *getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(
+        Object *object, Object *objectThatContainsThisObjectAsAMember) {
     return NULL; // Does nothing.
 }
 
@@ -319,19 +331,23 @@ getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(Object *object) {
 // "private" function.
 Legacy_Object *
 getPublicMethodAndRemoveFromPublicAccessModifierAndMethodsMemberList(
-        Object *object) {
+        Object *object, Object *objectThatContainsThisObjectAsAMember) {
     return getAccessModifierMemberAndRemoveFromList(
-            getPublicMemberNameLegacy_List(object),
-            getMethodsMemberList(object), (char *) getMemberName(object));
+            getPublicMemberNameLegacy_List(
+                    objectThatContainsThisObjectAsAMember),
+            getMethodsMemberList(objectThatContainsThisObjectAsAMember),
+            (char *) getMemberName(object));
 }
 
 // "private" function.
 Legacy_Object *
 getPrivateMethodAndRemoveFromPrivateAccessModifierAndMethodsMemberList(
-        Object *object) {
+        Object *object, Object *objectThatContainsThisObjectAsAMember) {
     return getAccessModifierMemberAndRemoveFromList(
-            getPrivateMemberNameLegacy_List(object),
-            getMethodsMemberList(object), (char *) getMemberName(object));
+            getPrivateMemberNameLegacy_List(
+                    objectThatContainsThisObjectAsAMember),
+            getMethodsMemberList(objectThatContainsThisObjectAsAMember),
+            (char *) getMemberName(object));
 }
 
 /* ------------- Constructor ------------- */
@@ -339,19 +355,23 @@ getPrivateMethodAndRemoveFromPrivateAccessModifierAndMethodsMemberList(
 // "private" function.
 Legacy_Object *
 getPublicConstructorAndRemoveFromPublicAccessModifierAndConstructorMemberList(
-        Object *object) {
+        Object *object, Object *objectThatContainsThisObjectAsAMember) {
     return getAccessModifierMemberAndRemoveFromList(
-            getPublicMemberNameLegacy_List(object),
-            getConstructorMemberList(object), (char *) getMemberName(object));
+            getPublicMemberNameLegacy_List(
+                    objectThatContainsThisObjectAsAMember),
+            getConstructorMemberList(objectThatContainsThisObjectAsAMember),
+            (char *) getMemberName(object));
 }
 
 // "private" function.
 Legacy_Object *
 getPrivateConstructorAndRemoveFromPrivateAccessModifierAndConstructorMemberList(
-        Object *object) {
+        Object *object, Object *objectThatContainsThisObjectAsAMember) {
     return getAccessModifierMemberAndRemoveFromList(
-            getPrivateMemberNameLegacy_List(object),
-            getConstructorMemberList(object), (char *) getMemberName(object));
+            getPrivateMemberNameLegacy_List(
+                    objectThatContainsThisObjectAsAMember),
+            getConstructorMemberList(objectThatContainsThisObjectAsAMember),
+            (char *) getMemberName(object));
 }
 
 /* ------------- Destructor ------------- */
@@ -359,19 +379,23 @@ getPrivateConstructorAndRemoveFromPrivateAccessModifierAndConstructorMemberList(
 // "private" function.
 Legacy_Object *
 getPublicDestructorAndRemoveFromPublicAccessModifierAndDestructorMemberList(
-        Object *object) {
+        Object *object, Object *objectThatContainsThisObjectAsAMember) {
     return getAccessModifierMemberAndRemoveFromList(
-            getPublicMemberNameLegacy_List(object),
-            getDestructorMemberList(object), (char *) getMemberName(object));
+            getPublicMemberNameLegacy_List(
+                    objectThatContainsThisObjectAsAMember),
+            getDestructorMemberList(objectThatContainsThisObjectAsAMember),
+            (char *) getMemberName(object));
 }
 
 // "private" function.
 Legacy_Object *
 getPrivateDestructorAndRemoveFromPrivateAccessModifierAndDestructorMemberList(
-        Object *object) {
+        Object *object, Object *objectThatContainsThisObjectAsAMember) {
     return getAccessModifierMemberAndRemoveFromList(
-            getPrivateMemberNameLegacy_List(object),
-            getDestructorMemberList(object), (char *) getMemberName(object));
+            getPrivateMemberNameLegacy_List(
+                    objectThatContainsThisObjectAsAMember),
+            getDestructorMemberList(objectThatContainsThisObjectAsAMember),
+            (char *) getMemberName(object));
 }
 
 /* --------------- Fields --------------- */
@@ -379,19 +403,23 @@ getPrivateDestructorAndRemoveFromPrivateAccessModifierAndDestructorMemberList(
 // "private" function.
 Legacy_Object *
 getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList(
-        Object *object) {
+        Object *object, Object *objectThatContainsThisObjectAsAMember) {
     return getAccessModifierMemberAndRemoveFromList(
-            getPublicMemberNameLegacy_List(object), getFieldsMemberList(object),
-            (char *) getMemberName(object));
+            getPublicMemberNameLegacy_List(
+                    objectThatContainsThisObjectAsAMember),
+            getFieldsMemberList(object),
+            (char *) getMemberName(objectThatContainsThisObjectAsAMember));
 }
 
 // "private" function.
 Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
-        Object *object) {
+        Object *object, Object *objectThatContainsThisObjectAsAMember) {
     return getAccessModifierMemberAndRemoveFromList(
-            getPrivateMemberNameLegacy_List(object),
-            getFieldsMemberList(object), (char *) getMemberName(object));
+            getPrivateMemberNameLegacy_List(
+                    objectThatContainsThisObjectAsAMember),
+            getFieldsMemberList(objectThatContainsThisObjectAsAMember),
+            (char *) getMemberName(object));
 }
 
 /* ----------------------------- ADD MEMBER --------------------------------- */
@@ -572,9 +600,9 @@ void *destruct(Object *object) {
     if (object == NULL) { return NULL; }
 
     // Invoke `getFunctionToInvokeWhenObjectIsAboutToBeDestructed`.
-    Legacy_Object *(*functionToInvoke)(Object *) =
+    Legacy_Object *(*functionToInvoke)(Object *, Object *) =
             getFunctionToInvokeWhenObjectIsAboutToBeDestructed(object);
-    functionToInvoke(object);
+    functionToInvoke(object, getObjectThatContainsThisObjectAsAMember(object));
 
     // Destruct `autoDestructable`.
     AutoDestructableDestructor(
@@ -628,6 +656,7 @@ void init_fields(Object *object) {
     setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
             object, getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList);
     setMemberName(object, NULL);
+    setObjectThatContainsThisObjectAsAMember(object, NULL);
 
     object->getPrivateMethod      = &getPrivateMethod;
     object->getPublicMethod       = &getPublicMethod;

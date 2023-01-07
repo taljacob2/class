@@ -19,6 +19,7 @@ struct object {
     ANONYMOUS_POINTER_AS_FIELD;
     ANONYMOUS_POINTER_AS_FIELD;
     ANONYMOUS_POINTER_AS_FIELD;
+    ANONYMOUS_POINTER_AS_FIELD;
 
     Legacy_Object *(*getPrivateMethod)(Object *object, char *memberName);
     Legacy_Object *(*getPublicMethod)(Object *object, char *memberName);
