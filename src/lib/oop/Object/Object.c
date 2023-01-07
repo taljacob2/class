@@ -441,23 +441,6 @@ void addAccessModifierMemberList(Legacy_List *      accessModifierLegacyList,
             legacyMemberList, memberName, (Legacy_Object *) memberToAdd);
 }
 
-// TODO: redundant code.
-///* -------------- Specific Access Modifier ------------- */
-//
-//// "private" function.
-//void addPrivateMemberList(Object *self, Legacy_MemberList *legacyMemberList,
-//                          char *memberName, Object *memberToAdd) {
-//    addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
-//                                legacyMemberList, memberName, memberToAdd);
-//}
-//
-//// "private" function.
-//void addPublicMemberList(Object *self, Legacy_MemberList *legacyMemberList,
-//                         char *memberName, Object *memberToAdd) {
-//    addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
-//                                legacyMemberList, memberName, memberToAdd);
-//}
-
 /* --- Specific Access Modifier & Specific MemberList --- */
 
 /* --------------- Methods --------------- */
