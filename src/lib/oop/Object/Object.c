@@ -290,9 +290,10 @@ void addAccessModifierMemberList(Legacy_List *      accessModifierLegacyList,
                                  Legacy_MemberList *legacyMemberList,
                                  char *memberName, Object *memberToAdd) {
 
-    // Disable the `AutoDestructable` ability from `memberToAdd`.
-    AutoDestructableDestructor(
-            (AutoDestructable *) getAutoDestructable(memberToAdd));
+    // TODO: remove redundant code.
+//    // Disable the `AutoDestructable` ability from `memberToAdd`.
+//    AutoDestructableDestructor(
+//            (AutoDestructable *) getAutoDestructable(memberToAdd));
 
     // Add `memberName` to accessModifierList.
     accessModifierLegacyList->addAsUnique(
