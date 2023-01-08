@@ -122,6 +122,7 @@ AutoDestructable *AutoDestructableConstructorWithLegacy_Object(
     return instance;
 }
 
+// TODO: deprecated. remove this.
 AutoDestructable *AutoDestructableConstructor() {
     return AutoDestructableConstructorWithLegacy_Object(NULL);
 }
