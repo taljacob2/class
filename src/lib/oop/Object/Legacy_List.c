@@ -25,10 +25,14 @@ void *delete (Legacy_List *list, Legacy_Node *node) {
 
                 // `iterationNode` is a "middle-legacy_node" or `legacy_list->tail`.
                 iterationNodePrev->next = iterationNode->next;
+                if (iterationNode->next) {
+                    iterationNode->next->prev = iterationNodePrev;
+                }
             } else {
 
                 // `iterationNode` is `legacy_list->head`.
                 list->head = iterationNode->next;
+                if (iterationNode->next) { iterationNode->next->prev = NULL; }
             }
             if (iterationNode->next == NULL) {
 
