@@ -13,6 +13,32 @@ void add(Legacy_List *list, Legacy_Node *node) {
     list->size++;
 }
 
+// "private" function.
+void *deleteNodeAndReturnNodeData(Legacy_List *list,
+                                  Legacy_Node *iterationNodePrev,
+                                  Legacy_Node *iterationNode) {
+    if (iterationNodePrev) {
+
+        // `iterationNode` is a "middle-legacy_node" or `legacy_list->tail`.
+        iterationNodePrev->next = iterationNode->next;
+    } else {
+
+        // `iterationNode` is `legacy_list->head`.
+        list->head = iterationNode->next;
+    }
+    if (iterationNode->next) {
+        iterationNode->next->prev = iterationNodePrev;
+    } else {
+
+        // `iterationNode` is `legacy_list->tail`.
+        list->tail = iterationNodePrev;
+    }
+    list->size--;
+
+    return iterationNode->legacyObjectComponent->destructable->destructor(
+            iterationNode);
+}
+
 void *delete (Legacy_List *list, Legacy_Node *node) {
     if (list == NULL) { return NULL; }
 
@@ -21,28 +47,10 @@ void *delete (Legacy_List *list, Legacy_Node *node) {
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
         if (iterationNode == node) {
-            if (iterationNodePrev) {
-
-                // `iterationNode` is a "middle-legacy_node" or `legacy_list->tail`.
-                iterationNodePrev->next = iterationNode->next;
-            } else {
-
-                // `iterationNode` is `legacy_list->head`.
-                list->head = iterationNode->next;
-            }
-            if (iterationNode->next) {
-                iterationNode->next->prev = iterationNodePrev;
-            } else {
-
-                // `iterationNode` is `legacy_list->tail`.
-                list->tail = iterationNodePrev;
-            }
-            deletedNodeData = iterationNode->legacyObjectComponent->destructable
-                                      ->destructor(iterationNode);
-            list->size--;
+            deletedNodeData = deleteNodeAndReturnNodeData(
+                    list, iterationNodePrev, iterationNode);
             break;
         }
-
         iterationNodePrev = iterationNode;
     }
 
@@ -58,27 +66,10 @@ void *deleteNodeThatHasTheGivenData(Legacy_List *list,
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
         if (iterationNode->data == dataOfTheNodeToDelete) {
-            if (iterationNodePrev != NULL) {
-
-                // `iterationNode` is a "middle-legacy_node" or `legacy_list->tail`.
-                iterationNodePrev->next = iterationNode->next;
-            } else {
-
-                // `iterationNode` is `legacy_list->head`.
-                list->head = iterationNode->next;
-            }
-            if (iterationNode->next == NULL) {
-
-                // `iterationNode` is `legacy_list->tail`.
-                list->tail = iterationNodePrev;
-            }
-
-            deletedNodeData = iterationNode->legacyObjectComponent->destructable
-                                      ->destructor(iterationNode);
-            list->size--;
+            deletedNodeData = deleteNodeAndReturnNodeData(
+                    list, iterationNodePrev, iterationNode);
             break;
         }
-
         iterationNodePrev = iterationNode;
     }
 
