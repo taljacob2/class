@@ -21,7 +21,7 @@ void *delete (Legacy_List *list, Legacy_Node *node) {
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
         if (iterationNode == node) {
-            if (iterationNodePrev != NULL) {
+            if (iterationNodePrev) {
 
                 // `iterationNode` is a "middle-legacy_node" or `legacy_list->tail`.
                 iterationNodePrev->next = iterationNode->next;
@@ -30,7 +30,7 @@ void *delete (Legacy_List *list, Legacy_Node *node) {
                 // `iterationNode` is `legacy_list->head`.
                 list->head = iterationNode->next;
             }
-            if (iterationNode->next != NULL) {
+            if (iterationNode->next) {
                 iterationNode->next->prev = iterationNodePrev;
             } else {
 
