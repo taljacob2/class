@@ -692,9 +692,6 @@ void destructObjectSelf(Object *object) {
 void *destruct(Object *object) {
     if (object == NULL) { return NULL; }
 
-    // TODO: debug
-    printf("\n in destruct %s \n", getLegacyObjectComponent(object)->CLASS_NAME);
-
     destructObjectMembers(object);
     destructObjectSelf(object);
 
