@@ -5,6 +5,7 @@ void add(Legacy_List *list, Legacy_Node *node) {
 
     if (list->tail != NULL) {
         list->tail->next = node;
+        node->prev       = list->tail;
     } else {
         list->head = node;
     }
