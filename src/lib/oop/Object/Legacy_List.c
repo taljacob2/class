@@ -202,16 +202,15 @@ void *Legacy_ListDestructor(Legacy_List *list) {
     Legacy_Node *iterationNodePrev = NULL;
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
-        if (iterationNodePrev != NULL) {
+        if (iterationNodePrev) {
             iterationNodePrev->legacyObjectComponent->destructable->destructor(
                     iterationNodePrev);
         }
-
         iterationNodePrev = iterationNode;
     }
 
     // `iterationNodePrev` is `legacy_list->tail`.
-    if (iterationNodePrev != NULL) {
+    if (iterationNodePrev) {
         iterationNodePrev->legacyObjectComponent->destructable->destructor(
                 iterationNodePrev);
     }
