@@ -32,7 +32,9 @@ void *delete (Legacy_List *list, Legacy_Node *node) {
 
                 // `iterationNode` is `legacy_list->head`.
                 list->head = iterationNode->next;
-                if (iterationNode->next) { iterationNode->next->prev = NULL; }
+                if (iterationNode->next) {
+                    iterationNode->next->prev = iterationNodePrev;
+                }
             }
             if (iterationNode->next == NULL) {
 
