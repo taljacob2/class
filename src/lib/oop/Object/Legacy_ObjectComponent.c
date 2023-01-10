@@ -6,7 +6,7 @@ Legacy_ObjectComponent *Legacy_ObjectComponentConstructor();
 /**
  * @brief Destructs `Legacy_ObjectComponent`.
  *
- * @param legacyObjectComponent The `Legacy_ObjectComponent` to destruct.
+ * @param legacyObjectComponent The `Legacy_ObjectComponent` to ObjectDestructor.
  * @see Destructable
  */
 void Legacy_ObjectComponentDestructor(

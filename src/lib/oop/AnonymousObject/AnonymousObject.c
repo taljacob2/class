@@ -2,7 +2,7 @@
 
 Object *AnonymousObjectConstructor() {
     unsigned char * randomString = getRandomString(20);
-    Object *object = construct((char *)randomString);
+    Object *object = ObjectConstructor((char *) randomString);
     free(randomString);
 
     return object;

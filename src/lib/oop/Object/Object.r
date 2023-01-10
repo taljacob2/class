@@ -54,7 +54,7 @@ struct object {
      * @param memberName The member name you wish to call the implementation.
      *                   A common name is the class name you wish to implement.
      * @param constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter
-     * The constructor to construct the class you wish to implement.
+     * The constructor to ObjectConstructor the class you wish to implement.
      * It should have 1 parameter: (const char *).
      */
     void (*addImplementation)(
@@ -78,7 +78,7 @@ struct object {
      * @param memberName The member name you wish to call the implementation.
      *                   A common name is the class name you wish to implement.
      * @param constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter
-     * The constructor to construct the class you wish to implement.
+     * The constructor to ObjectConstructor the class you wish to implement.
      * It should have 1 parameter: (Legacy_Object *).
      */
     void (*addImplementationThatIsConstructedWithLegacy_Object)(
@@ -88,9 +88,9 @@ struct object {
                     Legacy_Object *) );
 };
 
-void *destruct(Object *object);
+void *ObjectDestructor(Object *object);
 
-Object *construct(char *className);
+Object *ObjectConstructor(char *className);
 
 /// Add MemberList `#define`s for users.
 #include "ObjectDefines.r"

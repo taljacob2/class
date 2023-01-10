@@ -687,9 +687,9 @@ void destructObjectSelf(Object *object) {
 
 /* ----------------------- Constructor & Destructor ------------------------= */
 
-/// TODO: public. TODO: test if we can invoke the `destruct` multiple times and
+/// TODO: public. TODO: test if we can invoke the `ObjectDestructor` multiple times and
 ///     it will be still okay. maybe rename to something secret.
-void *destruct(Object *object) {
+void *ObjectDestructor(Object *object) {
     if (object == NULL) { return NULL; }
 
     destructObjectMembers(object);
@@ -738,7 +738,7 @@ void init_fields(Object *object) {
  * memory allocating `sizeof(Object)`, then invoking legacy_ObjectComponent's
  * constructor, and MemberList's constructor.
  */
-Object *construct(char *className) {
+Object *ObjectConstructor(char *className) {
     Object *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
     }
@@ -752,11 +752,11 @@ Object *construct(char *className) {
                                           (Legacy_Object *) instance));
 
     static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&construct)};
+            .constructor = (void *(*const)(void) )(&ObjectConstructor)};
     getLegacyObjectComponent(instance)->constructable = &constructable;
 
     static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&destruct)};
+            .destructor = (void *(*const)(void *) )(&ObjectDestructor)};
     getLegacyObjectComponent(instance)->destructable = &destructable;
 
     return instance;
