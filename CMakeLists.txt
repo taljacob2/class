@@ -6,7 +6,7 @@ set(CMAKE_C_STANDARD 99)
 add_executable(class src/main/main.c src/lib/oop/Object/AutoDestructable.r
         src/lib/oop/Object/Legacy_AllocationTable.r src/lib/oop/Object/Legacy_List.r src/lib/oop/Object/Legacy_Node.r
         src/lib/oop/Object/Legacy_AllocationTableList.r src/lib/oop/Object/Bool.h
-        src/lib/oop/Object/Destructable.r src/lib/oop/Object/Constructable.r src/lib/oop/Object/AutoDestructable.c
+        src/lib/oop/Object/Destructable.r src/lib/oop/Object/AutoDestructable.c
         src/lib/oop/Object/Legacy_Node.c src/lib/oop/Object/Legacy_List.c
         src/lib/oop/Object/Legacy_AllocationTable.c src/lib/oop/Object/Legacy_AllocationTableList.c
         src/lib/oop/Object/Legacy_ObjectComponent.c

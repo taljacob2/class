@@ -66,11 +66,6 @@ void constructor_AutoDestructable_fields(AutoDestructable *autoDestructable) {
     autoDestructable->legacyObjectComponent =
             Legacy_ObjectComponentConstructorClassName("AutoDestructable");
 
-    static Constructable const constructable = {
-            .constructor =
-                    (void *(*const)(void) )(&AutoDestructableConstructor)};
-    autoDestructable->legacyObjectComponent->constructable = &constructable;
-
     static Destructable const destructable = {
             .destructor =
                     (void *(*const)(void *) )(&AutoDestructableDestructor)};

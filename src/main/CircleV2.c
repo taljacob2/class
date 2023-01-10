@@ -20,10 +20,6 @@
 //    instance->legacyObjectComponent =
 //            Legacy_ObjectComponentConstructorClassName("CircleV2");
 //
-//    static Constructable const constructable = {
-//            .constructor = (void *(*const)(void) )(&CircleV2Constructor)};
-//    instance->legacyObjectComponent->constructable = &constructable;
-//
 //    static Destructable const destructable = {
 //            .destructor = (void *(*const)(void *) )(&CircleV2Destructor)};
 //    instance->legacyObjectComponent->destructable = &destructable;

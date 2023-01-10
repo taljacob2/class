@@ -1,7 +1,6 @@
 #ifndef AUTODESTRUCTABLE_H
 #define AUTODESTRUCTABLE_H
 
-#include "Constructable.r"
 #include "Destructable.r"
 #include "InvocationStatus.r"
 #include "Legacy_AllocationTable.r"

@@ -23,7 +23,6 @@ Place the "oop" directory in your project's path.
     │   ├── AutoDestructable.r
     │   ├── Bool.h
     │   ├── Concat.h
-    │   ├── Constructable.r
     │   ├── Destructable.r
     │   ├── InvocationStatus.r
     │   ├── Legacy_AllocationTable.r

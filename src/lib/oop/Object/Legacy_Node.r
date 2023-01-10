@@ -1,7 +1,6 @@
 #ifndef CLASS_LEGACY_NODE_R
 #define CLASS_LEGACY_NODE_R
 
-#include "Constructable.r"
 #include "Destructable.r"
 #include "Legacy_ObjectComponent.r"
 #include <stdlib.h>

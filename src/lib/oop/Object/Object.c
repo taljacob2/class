@@ -751,10 +751,6 @@ Object *ObjectConstructor(char *className) {
     setAutoDestructable(instance, AutoDestructableConstructorWithLegacy_Object(
                                           (Legacy_Object *) instance));
 
-    static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&ObjectConstructor)};
-    getLegacyObjectComponent(instance)->constructable = &constructable;
-
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&ObjectDestructor)};
     getLegacyObjectComponent(instance)->destructable = &destructable;
