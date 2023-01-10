@@ -79,12 +79,12 @@
                                                                           \
     ClassName *CONCAT(ClassName,                                          \
                       ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___)() {  \
-        return (ClassName *) construct(QUOTE(ClassName));                 \
+        return (ClassName *) ObjectConstructor(QUOTE(ClassName));         \
     }                                                                     \
                                                                           \
     void CONCAT(ClassName, ___CLASS_DESTRUCTOR_METHOD_NAME_EXTENSION___)( \
             ClassName * object) {                                         \
-        destruct((Object *) object);                                      \
+        ObjectDestructor((Object *) object);                              \
     }
 
 

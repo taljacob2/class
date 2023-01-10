@@ -49,28 +49,29 @@ int main() {
 
 
     //
-    //        Object *object= construct("Object");
+    //        Object *object= ObjectConstructor("Object");
     //
-    //        destruct(object);
+    //        ObjectDestructor(object);
 
 
     //    // TODO: FIXME:
     //    //  Conclusion: allocationTableList doesn't receive the correct address!!!
-    //    destruct(object);
+    //    ObjectDestructor(object);
 
-    Object *object = construct("Object");
+    Object *object = ObjectConstructor("Object");
 
     //    object->addPublicField(object, "legacyList",
     //                           (Legacy_Object *) Legacy_ListConstructor());
 
-    object->addPublicField(object, "nestedObject", construct("Object2"));
-//    destruct((Object *) object->getPublicField(object, "nestedObject"));
+    object->addPublicField(object, "nestedObject",
+                           ObjectConstructor("Object2"));
+    //    ObjectDestructor((Object *) object->getPublicField(object, "nestedObject"));
     //
     //    Legacy_List *legacyList =
     //            (Legacy_List *) object->getPublicField(object, "legacyList");
     //    legacyList->legacyObjectComponent->destructable->destructor(legacyList);
 
-//            destruct(object);
+    //            ObjectDestructor(object);
 
 
     return 0;

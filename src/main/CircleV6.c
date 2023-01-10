@@ -8,7 +8,7 @@ extern Legacy_ObjectComponent *getLegacyObjectComponent(Object *object);
 
 // TODO: Continue implementation.
 CircleV6 *CircleV6Constructor() {
-    CircleV6 *instance = (CircleV6 *) construct("ClassV6");
+    CircleV6 *instance = (CircleV6 *) ObjectConstructor("ClassV6");
 //    instance->addPrivateField(instance, "radius", AtomicFloat(1.213));
 
     return instance;
