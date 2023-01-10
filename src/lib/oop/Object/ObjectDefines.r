@@ -75,16 +75,11 @@
                       ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___)();
 
 
-#define DEFINE_CLASS_C(ClassName)                                         \
-                                                                          \
-    ClassName *CONCAT(ClassName,                                          \
-                      ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___)() {  \
-        return (ClassName *) ObjectConstructor(QUOTE(ClassName));         \
-    }                                                                     \
-                                                                          \
-    void CONCAT(ClassName, ___CLASS_DESTRUCTOR_METHOD_NAME_EXTENSION___)( \
-            ClassName * object) {                                         \
-        ObjectDestructor((Object *) object);                              \
+#define DEFINE_CLASS_C(ClassName)                                        \
+                                                                         \
+    ClassName *CONCAT(ClassName,                                         \
+                      ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___)() { \
+        return (ClassName *) ObjectConstructor(QUOTE(ClassName));        \
     }
 
 
