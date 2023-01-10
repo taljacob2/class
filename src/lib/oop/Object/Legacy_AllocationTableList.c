@@ -129,11 +129,6 @@ void constructor_Legacy_AllocationTableList_fields(
     allocationTableList->object = Legacy_ObjectComponentConstructorClassName(
             "Legacy_AllocationTableList");
 
-    static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(
-                    &Legacy_AllocationTableListConstructor)};
-    allocationTableList->object->constructable = &constructable;
-
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(
                     &Legacy_AllocationTableListDestructor)};

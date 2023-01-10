@@ -53,10 +53,6 @@
 //
 //    storeLegacyObjectConstructorAndDestructor((Object *) instance);
 //
-//    static Constructable const constructable = {
-//            .constructor = (void *(*const)(void) )(&AtomicIntegerConstructor)};
-//    instance->methodsLegacy_MemberList->methodsLegacy_MemberList->constructable = &constructable;
-//
 //    static Destructable const destructable = {
 //            .destructor = (void *(*const)(void *) )(&AtomicIntegerDestructor)};
 //    instance->methodsLegacy_MemberList->methodsLegacy_MemberList->destructable = &destructable;

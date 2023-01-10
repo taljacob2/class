@@ -226,10 +226,6 @@ void constructor_Legacy_List_fields(Legacy_List *list) {
     list->legacyObjectComponent =
             Legacy_ObjectComponentConstructorClassName("Legacy_List");
 
-    static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&Legacy_ListConstructor)};
-    list->legacyObjectComponent->constructable = &constructable;
-
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&Legacy_ListDestructor)};
     list->legacyObjectComponent->destructable = &destructable;

@@ -29,11 +29,6 @@ Legacy_AtomicFreer *Legacy_AtomicFreerConstructor() {
     instance->legacyObjectComponent =
             Legacy_ObjectComponentConstructorClassName("Legacy_AtomicFreer");
 
-    static Constructable const constructable = {
-            .constructor =
-                    (void *(*const)(void) )(&Legacy_AtomicFreerConstructor)};
-    instance->legacyObjectComponent->constructable = &constructable;
-
     static Destructable const destructable = {
             .destructor =
                     (void *(*const)(void *) )(&Legacy_AtomicFreerDestructor)};

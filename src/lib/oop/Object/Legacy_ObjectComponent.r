@@ -12,8 +12,6 @@ typedef struct legacy_ObjectComponent Legacy_ObjectComponent;
 struct legacy_ObjectComponent {
     const char *CLASS_NAME;
 
-    const Constructable *constructable;
-
     const Destructable *destructable;
 
     enum InvocationStatus destructorInvocationStatus;

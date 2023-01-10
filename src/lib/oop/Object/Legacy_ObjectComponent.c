@@ -16,11 +16,6 @@ void Legacy_ObjectComponentDestructor(
 
 void constructor_Legacy_Object_fields(
         Legacy_ObjectComponent *legacyObjectComponent) {
-    static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(
-                    &Legacy_ObjectComponentConstructor)};
-    legacyObjectComponent->constructable = &constructable;
-
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(
                     &Legacy_ObjectComponentDestructor)};

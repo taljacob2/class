@@ -22,10 +22,6 @@ void constructor_Legacy_Node_fields(Legacy_Node *node) {
     node->legacyObjectComponent =
             Legacy_ObjectComponentConstructorClassName("Legacy_Node");
 
-    static Constructable const constructable = {
-            .constructor = (void *(*const)(void) )(&Legacy_NodeConstructor)};
-    node->legacyObjectComponent->constructable = &constructable;
-
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&Legacy_NodeDestructor)};
     node->legacyObjectComponent->destructable = &destructable;

@@ -131,11 +131,6 @@ Legacy_MemberList *Legacy_MemberListConstructor() {
     instance->legacyObjectComponent =
             Legacy_ObjectComponentConstructorClassName("Legacy_MemberList");
 
-    static Constructable const constructable = {
-            .constructor =
-                    (void *(*const)(void) )(&Legacy_MemberListConstructor)};
-    instance->legacyObjectComponent->constructable = &constructable;
-
     static Destructable const destructable = {
             .destructor =
                     (void *(*const)(void *) )(&Legacy_MemberListDestructor)};
