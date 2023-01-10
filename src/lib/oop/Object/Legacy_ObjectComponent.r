@@ -1,7 +1,6 @@
 #ifndef LEGACY_OBJECTCOMPONENT_H
 #define LEGACY_OBJECTCOMPONENT_H
 
-#include "Constructable.r"
 #include "Destructable.r"
 #include "InvocationStatus.r"
 #include <stdlib.h>
