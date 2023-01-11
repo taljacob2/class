@@ -555,11 +555,11 @@ void addPrivateField(Object *self, char *memberName, Object *memberToAdd) {
 
 // "protected" function.
 void addPrimitivePrivateField(Object *self, char *memberName,
-                              void *memberToAdd) {
+                              void *dynamicallyAllocatedMemberToAdd) {
     setObjectThatContainsThisObjectAsAMember(self, self);
     addPrimitiveAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
                                          getFieldsMemberList(self), memberName,
-                                         memberToAdd);
+                                         dynamicallyAllocatedMemberToAdd);
 }
 
 // "public" function.

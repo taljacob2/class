@@ -2,7 +2,7 @@
 
 extern Legacy_ObjectComponent *getLegacyObjectComponent(Object *object);
 extern void addPrimitivePrivateField(Object *self, char *memberName,
-                                     void *memberToAdd);
+                                     void *dynamicallyAllocatedMemberToAdd);
 extern Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember);
