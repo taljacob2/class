@@ -69,18 +69,7 @@
     struct CONCAT_SURROUND(ClassName, ____CLASS_STRUCT_NAME_EXTENSION___) { \
                                                                             \
         OBJECT_FIELDS                                                       \
-    };                                                                      \
-                                                                            \
-    ClassName *CONCAT(ClassName,                                            \
-                      ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___)();
-
-
-#define DEFINE_CLASS_C(ClassName)                                        \
-                                                                         \
-    ClassName *CONCAT(ClassName,                                         \
-                      ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___)() { \
-        return (ClassName *) ObjectConstructor(QUOTE(ClassName));        \
-    }
+    };
 
 
 #endif //OBJECTDEFINES_H

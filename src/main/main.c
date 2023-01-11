@@ -58,13 +58,13 @@ int main() {
     //    //  Conclusion: allocationTableList doesn't receive the correct address!!!
     //    ObjectDestructor(object);
 
-    Object *object = ObjectConstructor("Object");
+    //    Object *object = ObjectConstructor("Object");
 
     //    object->addPublicField(object, "legacyList",
     //                           (Legacy_Object *) Legacy_ListConstructor());
 
-    object->addPublicField(object, "nestedObject",
-                           ObjectConstructor("Object2"));
+    //    object->addPublicField(object, "nestedObject",
+    //                           ObjectConstructor("Object2"));
     //    ObjectDestructor((Object *) object->getPublicField(object, "nestedObject"));
     //
     //    Legacy_List *legacyList =
@@ -72,6 +72,16 @@ int main() {
     //    legacyList->legacyObjectComponent->destructable->destructor(legacyList);
 
     //            ObjectDestructor(object);
+
+#define STRING_SIZE 5
+    char *string = malloc(sizeof(char) * STRING_SIZE);
+    for (char i = 0; i < STRING_SIZE - 1; i++) { string[i] = (char) (i + '0'); }
+    string[STRING_SIZE - 1] = 0;
+
+    AtomicData *atomicData = AtomicDataConstructor(string);
+
+    printf("%s\n", (char *) atomicData->getPrivateField(
+                           (Object *) atomicData, __ATOMIC_MEMBER_NAME__));
 
 
     return 0;

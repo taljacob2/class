@@ -2,7 +2,7 @@
 
 /* ---------------------------- GET POINTER VALUE --------------------------- */
 
-// "private" function.
+// "protected" function.
 Legacy_ObjectComponent *getLegacyObjectComponent(Object *object) {
     return (Legacy_ObjectComponent *) getAnonymousPointerValueByIndex(object,
                                                                       0);
@@ -418,7 +418,7 @@ getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList(
             (char *) getMemberName(object));
 }
 
-// "private" function.
+// "protected" function.
 Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
@@ -447,6 +447,22 @@ void addAccessModifierMemberList(Legacy_List *      accessModifierLegacyList,
     // Add member to MemberList.
     legacyMemberList->addMemberWhichIsLegacy_Object(
             legacyMemberList, memberName, (Legacy_Object *) memberToAdd);
+}
+
+// "protected" function.
+void addPrimitiveAccessModifierMemberList(Legacy_List *accessModifierLegacyList,
+                                          Legacy_MemberList *legacyMemberList,
+                                          char *memberName, void *memberToAdd) {
+
+    // Add `memberName` to accessModifierList.
+    accessModifierLegacyList->addAsUnique(
+            accessModifierLegacyList,
+            Legacy_NodeConstructorWithData(memberName),
+            predicateFindAccessModifierMemberNameByMemberName, memberName);
+
+    // Add member to MemberList.
+    legacyMemberList->addMemberWhichIsPrimitive(legacyMemberList, memberName,
+                                                memberToAdd);
 }
 
 /* --- Specific Access Modifier & Specific MemberList --- */
@@ -535,6 +551,16 @@ void addPrivateField(Object *self, char *memberName, Object *memberToAdd) {
     setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
             memberToAdd,
             getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList);
+}
+
+// "protected" function.
+void addPrimitivePrivateField(Object *self, char *memberName,
+                              void *memberToAdd) {
+    setObjectThatContainsThisObjectAsAMember(self, self);
+    setMemberName(self, memberName);
+    addPrimitiveAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
+                                         getFieldsMemberList(self), memberName,
+                                         memberToAdd);
 }
 
 // "public" function.
