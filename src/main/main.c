@@ -4,6 +4,8 @@
 #include "CircleV4.h"
 #include "CircleV5.h"
 
+extern void *getData(AtomicData *atomicData);
+
 int main() {
     //    Circle *circle = CircleConstructor();
     //
@@ -80,8 +82,7 @@ int main() {
 
     AtomicData *atomicData = AtomicDataConstructor(string);
 
-    printf("%s\n", (char *) atomicData->getPrivateField(
-                           (Object *) atomicData, __ATOMIC_MEMBER_NAME__));
+    printf("%s\n", (char *) getData(atomicData));
 
 
     return 0;

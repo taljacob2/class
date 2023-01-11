@@ -8,6 +8,16 @@ getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember);
 
 
+void setData(AtomicData *atomicData, void *dynamicallyAllocatedData) {
+    addPrimitivePrivateField((Object *) atomicData, __ATOMIC_MEMBER_NAME__,
+                             dynamicallyAllocatedData);
+}
+
+void *getData(AtomicData *atomicData) {
+    return atomicData->getPrivateField((Object *) atomicData,
+                                       __ATOMIC_MEMBER_NAME__);
+}
+
 void *AtomicDataDestructor(AtomicData *atomicData) {
     Legacy_Object *legacyObjectOfData =
             getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
@@ -22,8 +32,11 @@ void *AtomicDataDestructor(AtomicData *atomicData) {
 AtomicData *AtomicDataConstructor(void *dynamicallyAllocatedData) {
     AtomicData *instance = (AtomicData *) ObjectConstructor("AtomicData");
 
-    addPrimitivePrivateField((Object *) instance, __ATOMIC_MEMBER_NAME__,
-                             dynamicallyAllocatedData);
+    setData(instance, dynamicallyAllocatedData);
+
+    // TODO:
+    //    instance->addPublicMethod(instance, "setData", AtomicMethod(&setData));
+    //    instance->addPublicMethod(instance, "getData", AtomicMethod(&getData));
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&AtomicDataDestructor)};
