@@ -17,9 +17,10 @@ void setData(AtomicData *atomicData, void *dynamicallyAllocatedData) {
 }
 
 void *getData(AtomicData *atomicData) {
-    return atomicData->getPrivateField(
-            (Object *) atomicData,
-            (char *) getMemberName((Object *) atomicData));
+    return ((Legacy_AtomicFreer *) atomicData->getPrivateField(
+                    (Object *) atomicData,
+                    (char *) getMemberName((Object *) atomicData)))
+            ->data;
 }
 
 void *AtomicDataDestructor(AtomicData *atomicData) {
@@ -46,10 +47,6 @@ AtomicData *AtomicDataConstructor(void *dynamicallyAllocatedData) {
     setMemberName((Object *) instance, (const char *) ATOMIC_MEMBER_NAME);
 
     setData(instance, dynamicallyAllocatedData);
-
-    // TODO: debug
-    //    printf("%s\n", (char *)dynamicallyAllocatedData);
-    printf("%s\n", (char *) getData(instance));
 
     // TODO:
     //    instance->addPublicMethod(instance, "setData", AtomicMethod(&setData));
