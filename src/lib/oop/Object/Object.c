@@ -48,7 +48,7 @@ void *getFunctionToInvokeWhenObjectIsAboutToBeDestructed(Object *object) {
     return (void *) getAnonymousPointerValueByIndex(object, 8);
 }
 
-// "private" function.
+// "protected" function.
 const char *getMemberName(Object *object) {
     return (const char *) getAnonymousPointerValueByIndex(object, 9);
 }
@@ -118,7 +118,7 @@ void setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
             object, 8, getMemberAndRemoveFromAccessModifierAndMemberList);
 }
 
-// "private" function.
+// "protected" function.
 void setMemberName(Object *object, const char *memberName) {
     setAnonymousPointerValueByIndex(object, 9, (void *) memberName);
 }
@@ -557,7 +557,6 @@ void addPrivateField(Object *self, char *memberName, Object *memberToAdd) {
 void addPrimitivePrivateField(Object *self, char *memberName,
                               void *memberToAdd) {
     setObjectThatContainsThisObjectAsAMember(self, self);
-    setMemberName(self, memberName);
     addPrimitiveAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
                                          getFieldsMemberList(self), memberName,
                                          memberToAdd);

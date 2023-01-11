@@ -6,16 +6,20 @@ extern void addPrimitivePrivateField(Object *self, char *memberName,
 extern Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember);
+extern void        setMemberName(Object *object, const char *memberName);
+extern const char *getMemberName(Object *object);
 
 
 void setData(AtomicData *atomicData, void *dynamicallyAllocatedData) {
-    addPrimitivePrivateField((Object *) atomicData, __ATOMIC_MEMBER_NAME__,
+    addPrimitivePrivateField((Object *) atomicData,
+                             (char *) getMemberName((Object *) atomicData),
                              dynamicallyAllocatedData);
 }
 
 void *getData(AtomicData *atomicData) {
-    return atomicData->getPrivateField((Object *) atomicData,
-                                       __ATOMIC_MEMBER_NAME__);
+    return atomicData->getPrivateField(
+            (Object *) atomicData,
+            (char *) getMemberName((Object *) atomicData));
 }
 
 void *AtomicDataDestructor(AtomicData *atomicData) {
@@ -26,13 +30,26 @@ void *AtomicDataDestructor(AtomicData *atomicData) {
     legacyObjectOfData->legacyObjectComponent->destructable->destructor(
             legacyObjectOfData);
 
+    // `free` this `ATOMIC_MEMBER_NAME` which is located at `Object->memberName`.
+    free((char *) getMemberName((Object *) atomicData));
+
     return ObjectDestructor((Object *) atomicData);
 }
 
 AtomicData *AtomicDataConstructor(void *dynamicallyAllocatedData) {
     AtomicData *instance = (AtomicData *) ObjectConstructor("AtomicData");
 
+    static unsigned char *ATOMIC_MEMBER_NAME;
+    ATOMIC_MEMBER_NAME = getRandomString(20);
+
+    // Set this `Object->memberName` to be `ATOMIC_MEMBER_NAME`.
+    setMemberName((Object *) instance, (const char *) ATOMIC_MEMBER_NAME);
+
     setData(instance, dynamicallyAllocatedData);
+
+    // TODO: debug
+    //    printf("%s\n", (char *)dynamicallyAllocatedData);
+    printf("%s\n", (char *) getData(instance));
 
     // TODO:
     //    instance->addPublicMethod(instance, "setData", AtomicMethod(&setData));

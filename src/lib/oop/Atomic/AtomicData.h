@@ -2,8 +2,7 @@
 #define ATOMICDATA_H
 
 #include "../Object/Object.h"
-
-#define __ATOMIC_MEMBER_NAME__ "__ATOMIC_MEMBER_NAME__"
+#include "Random.r"
 
 DEFINE_CLASS_H(AtomicData)
 
