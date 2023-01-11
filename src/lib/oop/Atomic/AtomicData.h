@@ -6,6 +6,7 @@
 
 DEFINE_CLASS_H(AtomicData)
 
-AtomicData *AtomicDataConstructor(void *dynamicallyAllocatedData);
+AtomicData *AtomicDataConstructor(void *  data,
+                                  BOOLEAN isDataDynamicallyAllocated);
 
 #endif //ATOMICDATA_H

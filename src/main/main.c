@@ -80,9 +80,12 @@ int main() {
     for (char i = 0; i < STRING_SIZE - 1; i++) { string[i] = (char) (i + '0'); }
     string[STRING_SIZE - 1] = 0;
 
-    AtomicData *atomicData = AtomicDataConstructor(string);
+    AtomicData *atomicData = AtomicDataConstructor(string, TRUE);
+
+    AtomicData *atomicData2 = AtomicDataConstructor("hello!!!", FALSE);
 
     printf("%s\n", (char *) getData(atomicData));
+    printf("%s\n", (char *) getData(atomicData2));
 
 
     return 0;

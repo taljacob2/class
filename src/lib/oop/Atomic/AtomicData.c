@@ -3,6 +3,8 @@
 extern Legacy_ObjectComponent *getLegacyObjectComponent(Object *object);
 extern void addPrimitivePrivateField(Object *self, char *memberName,
                                      void *dynamicallyAllocatedMemberToAdd);
+void        addPrimitivePrivateFieldWhichIsStaticallyAllocated(
+               Object *self, char *memberName, void *staticallyAllocatedMemberToAdd);
 extern Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember);
@@ -16,11 +18,23 @@ void setData(AtomicData *atomicData, void *dynamicallyAllocatedData) {
                              dynamicallyAllocatedData);
 }
 
+void setDataWhichIsStaticallyAllocated(AtomicData *atomicData,
+                                       void *      staticallyAllocatedData) {
+    addPrimitivePrivateFieldWhichIsStaticallyAllocated(
+            (Object *) atomicData,
+            (char *) getMemberName((Object *) atomicData),
+            staticallyAllocatedData);
+}
+
 void *getData(AtomicData *atomicData) {
-    return ((Legacy_AtomicFreer *) atomicData->getPrivateField(
-                    (Object *) atomicData,
-                    (char *) getMemberName((Object *) atomicData)))
-            ->data;
+    Legacy_Object *dataContainer = atomicData->getPrivateField(
+            (Object *) atomicData,
+            (char *) getMemberName((Object *) atomicData));
+
+    return strcmp(dataContainer->legacyObjectComponent->CLASS_NAME,
+                  "Legacy_AtomicFreer") == 0
+                   ? ((Legacy_AtomicFreer *) dataContainer)->data
+                   : ((Legacy_Node *) dataContainer)->data;
 }
 
 void *AtomicDataDestructor(AtomicData *atomicData) {
@@ -37,7 +51,8 @@ void *AtomicDataDestructor(AtomicData *atomicData) {
     return ObjectDestructor((Object *) atomicData);
 }
 
-AtomicData *AtomicDataConstructor(void *dynamicallyAllocatedData) {
+AtomicData *AtomicDataConstructor(void *  data,
+                                  BOOLEAN isDataDynamicallyAllocated) {
     AtomicData *instance = (AtomicData *) ObjectConstructor("AtomicData");
 
     static unsigned char *ATOMIC_MEMBER_NAME;
@@ -46,7 +61,11 @@ AtomicData *AtomicDataConstructor(void *dynamicallyAllocatedData) {
     // Set this `Object->memberName` to be `ATOMIC_MEMBER_NAME`.
     setMemberName((Object *) instance, (const char *) ATOMIC_MEMBER_NAME);
 
-    setData(instance, dynamicallyAllocatedData);
+    if (isDataDynamicallyAllocated) {
+        setData(instance, data);
+    } else {
+        setDataWhichIsStaticallyAllocated(instance, data);
+    }
 
     // TODO:
     //    instance->addPublicMethod(instance, "setData", AtomicMethod(&setData));

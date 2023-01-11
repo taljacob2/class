@@ -465,6 +465,24 @@ void addPrimitiveAccessModifierMemberList(Legacy_List *accessModifierLegacyList,
                                                 memberToAdd);
 }
 
+// "protected" function.
+void addPrimitiveAccessModifierMemberListWhichIsStaticallyAllocated(
+        Legacy_List *      accessModifierLegacyList,
+        Legacy_MemberList *legacyMemberList, char *memberName,
+        void *memberToAdd) {
+
+    // Add `memberName` to accessModifierList.
+    accessModifierLegacyList->addAsUnique(
+            accessModifierLegacyList,
+            Legacy_NodeConstructorWithData(memberName),
+            predicateFindAccessModifierMemberNameByMemberName, memberName);
+
+    // Add member to MemberList.
+    legacyMemberList->addMemberWhichIsLegacy_Object(
+            legacyMemberList, memberName,
+            (Legacy_Object *) Legacy_NodeConstructorWithData(memberToAdd));
+}
+
 /* --- Specific Access Modifier & Specific MemberList --- */
 
 /* --------------- Methods --------------- */
@@ -560,6 +578,15 @@ void addPrimitivePrivateField(Object *self, char *memberName,
     addPrimitiveAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
                                          getFieldsMemberList(self), memberName,
                                          dynamicallyAllocatedMemberToAdd);
+}
+
+// "protected" function.
+void addPrimitivePrivateFieldWhichIsStaticallyAllocated(
+        Object *self, char *memberName, void *staticallyAllocatedMemberToAdd) {
+    setObjectThatContainsThisObjectAsAMember(self, self);
+    addPrimitiveAccessModifierMemberListWhichIsStaticallyAllocated(
+            getPrivateMemberNameLegacy_List(self), getFieldsMemberList(self),
+            memberName, staticallyAllocatedMemberToAdd);
 }
 
 // "public" function.
@@ -779,6 +806,9 @@ Object *ObjectConstructor(char *className) {
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&ObjectDestructor)};
     getLegacyObjectComponent(instance)->destructable = &destructable;
+
+//    // TODO:
+//    addPublicDestructor(instance, DEFAULT_DESTRUCTOR, &ObjectDestructor);
 
     return instance;
 }
