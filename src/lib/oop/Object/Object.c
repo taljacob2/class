@@ -1,4 +1,5 @@
 #include "Object.r"
+#include "../Atomic/AtomicRValue.h"
 
 /* ---------------------------- GET POINTER VALUE --------------------------- */
 
@@ -785,12 +786,8 @@ void init_fields(Object *object) {
             &addImplementationThatIsConstructedWithLegacy_Object;
 }
 
-/// TODO: public. maybe rename to something secret.
-/**
- * memory allocating `sizeof(Object)`, then invoking legacy_ObjectComponent's
- * constructor, and MemberList's constructor.
- */
-Object *ObjectConstructor(char *className) {
+// "protected" function.
+Object *ObjectConstructorWithoutAnyMembers(char *className) {
     Object *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
     }
@@ -801,14 +798,26 @@ Object *ObjectConstructor(char *className) {
     init_fields(instance);
 
     setAutoDestructable(instance, AutoDestructableConstructorWithLegacy_Object(
-                                          (Legacy_Object *) instance));
+            (Legacy_Object *) instance));
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&ObjectDestructor)};
     getLegacyObjectComponent(instance)->destructable = &destructable;
 
-//    // TODO:
-//    addPublicDestructor(instance, DEFAULT_DESTRUCTOR, &ObjectDestructor);
+    return instance;
+}
+
+/// TODO: public. maybe rename to something secret.
+/**
+ * memory allocating `sizeof(Object)`, then invoking legacy_ObjectComponent's
+ * constructor, and MemberList's constructor.
+ */
+Object *ObjectConstructor(char *className) {
+    Object *instance = ObjectConstructorWithoutAnyMembers(className);
+
+    addPublicDestructor(
+            instance, DEFAULT_DESTRUCTOR,
+            (Object *) AtomicRValueConstructor((RValue) &ObjectDestructor));
 
     return instance;
 }

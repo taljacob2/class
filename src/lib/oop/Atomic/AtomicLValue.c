@@ -1,5 +1,7 @@
 #include "AtomicLValue.h"
 
+extern Object *ObjectConstructorWithoutAnyMembers(char *className);
+
 extern Legacy_ObjectComponent *getLegacyObjectComponent(Object *object);
 
 extern void addPrimitivePrivateField(Object *self, char *memberName,
@@ -59,7 +61,8 @@ void *AtomicLValueDestructor(AtomicLValue *atomicLValue) {
 
 AtomicLValue *AtomicLValueConstructor(void *  data,
                                       BOOLEAN isDataDynamicallyAllocated) {
-    AtomicLValue *instance = (AtomicLValue *) ObjectConstructor("AtomicLValue");
+    AtomicLValue *instance =
+            (AtomicLValue *) ObjectConstructorWithoutAnyMembers("AtomicLValue");
 
     // Set this `Object->memberName` to be `ATOMIC_MEMBER_NAME`.
     const unsigned char *ATOMIC_MEMBER_NAME = getRandomString(20);
