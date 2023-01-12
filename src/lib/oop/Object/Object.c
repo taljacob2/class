@@ -351,7 +351,7 @@ IntegerRValue getIntegerRValueMemberValue(Object *            self,
     IntegerRValue returnValue = 0;
     if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
                "AtomicRValue") == 0) {
-        returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicRValue(
+        returnValue = (IntegerRValue) getData_AtomicRValue(
                 (AtomicRValue *) legacyObject);
     }
 
@@ -400,7 +400,7 @@ DoubleRValue getDoubleRValueMemberValue(Object *            self,
     DoubleRValue returnValue = 0;
     if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
                "AtomicDoubleRValue") == 0) {
-        returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicDoubleRValue(
+        returnValue = (DoubleRValue) getData_AtomicDoubleRValue(
                 (AtomicDoubleRValue *) legacyObject);
     }
 
