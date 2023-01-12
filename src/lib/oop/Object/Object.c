@@ -249,8 +249,8 @@ getAccessModifierMemberAndRemoveFromList(Legacy_List *accessModifierLegacyList,
 
 // "private" function.
 TYPEOF_ANONYMOUS_POINTER
-getMemberValue_PRIVATE(Legacy_List *      accessModifierLegacyList,
-                       Legacy_MemberList *legacyMemberList, char *memberName) {
+getMemberValue_Logic(Legacy_List *      accessModifierLegacyList,
+                     Legacy_MemberList *legacyMemberList, char *memberName) {
     Legacy_Object *legacyObject = getAccessModifierMember(
             accessModifierLegacyList, legacyMemberList, memberName);
 
@@ -306,8 +306,8 @@ TYPEOF_ANONYMOUS_POINTER getMemberValue(Object *            self,
             break;
     }
 
-    return getMemberValue_PRIVATE(accessModifierLegacyList, legacyMemberList,
-                                  (char *) memberName);
+    return getMemberValue_Logic(accessModifierLegacyList, legacyMemberList,
+                                (char *) memberName);
 }
 
 /* -------------- Specific Access Modifier ------------- */
