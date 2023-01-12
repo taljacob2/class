@@ -20,9 +20,9 @@ extern Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
         char *memberName, Object *objectThatContainsThisObjectAsAMember);
 
-/* ----------------------------- Implementation ----------------------------- */
-
 extern const unsigned char *getATOMIC_MEMBER_NAME(AtomicLValue *atomicLValue);
+
+/* ----------------------------- Implementation ----------------------------- */
 
 void setData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue,
                                 void *primitiveWholeNumberDataAllocation,
@@ -80,7 +80,6 @@ DoubleRValue getData_AtomicDoubleRValue(AtomicLValue *atomicLValue) {
     return (DoubleRValue)(wholeNumber + mantissaNumber);
 }
 
-// TODO:
 void *AtomicDoubleRValueDestructor(AtomicDoubleRValue *atomicDoubleRValue) {
 
     // A.1: Get and remove "lValue memberName" (i.e. `ATOMIC_MEMBER_NAME`).
@@ -96,11 +95,30 @@ void *AtomicDoubleRValueDestructor(AtomicDoubleRValue *atomicDoubleRValue) {
      *      (i.e. `Object->privateFieldMemberName(ATOMIC_MEMBER_NAME)`).
      * B.2: Destruct lValue.
      */
-    Legacy_Object *legacyObjectOfData =
+
+    // `wholeNumber`.
+    const char *wholeNumberMemberName =
+            concat((const char *) ATOMIC_MEMBER_NAME,
+                   __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
+    Legacy_Object *legacyObjectOfWholeNumberData =
             getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
-                    (char *) ATOMIC_MEMBER_NAME, (Object *) atomicDoubleRValue);
-    legacyObjectOfData->legacyObjectComponent->destructable->destructor(
-            legacyObjectOfData);
+                    (char *) wholeNumberMemberName,
+                    (Object *) atomicDoubleRValue);
+    free((void *) wholeNumberMemberName);
+    legacyObjectOfWholeNumberData->legacyObjectComponent->destructable
+            ->destructor(legacyObjectOfWholeNumberData);
+
+    // `mantissaNumber`.
+    const char *mantissaNumberMemberName =
+            concat((const char *) ATOMIC_MEMBER_NAME,
+                   __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
+    Legacy_Object *legacyObjectOfMantissaNumberData =
+            getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
+                    (char *) mantissaNumberMemberName,
+                    (Object *) atomicDoubleRValue);
+    free((void *) mantissaNumberMemberName);
+    legacyObjectOfMantissaNumberData->legacyObjectComponent->destructable
+            ->destructor(legacyObjectOfMantissaNumberData);
 
     /*
      * A.2: `free` "lValue memberName" which is located at
