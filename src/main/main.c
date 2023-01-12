@@ -95,27 +95,30 @@ int main() {
     //    printf("%d\n", (int) getData_AtomicRValue(AtomicRValueConstructor(-4)));
 
 
-    //    CircleV7 *circleV7 = CircleV7Constructor();
+    //
+    //
+    //    // TODO: Problem found. `addMemberValue` does not work properly.
+    //    Object *object = ObjectConstructor("Object");
+    //    object->addMemberValue(object, PUBLIC, FIELD, "nestedObject",
+    //                           ObjectConstructor("Object2"));
+
+    //
+    //
+    //
+    //    float *floatAllocation = (float *)malloc(sizeof(float));
+    //    *floatAllocation = 2.34f;
+    //
+    ////    instance->addMemberValue(instance, PUBLIC, FIELD, "radius",
+    ////                             (Object *) AtomicLValueConstructor(floatAllocation, TRUE));
+    //
+    //    AtomicLValue *atomicLValue = AtomicLValueConstructor(floatAllocation, TRUE);
+    //
+    //
+    //    AtomicLValueDestructor(atomicLValue);
 
 
-    // TODO: Problem found. `addMemberValue` does not work properly.
-    Object *object = ObjectConstructor("Object");
-    object->addMemberValue(object, PUBLIC, FIELD, "nestedObject",
-                           ObjectConstructor("Object2"));
+    CircleV7 *circleV7 = CircleV7Constructor();
 
-
-//
-//
-//    float *floatAllocation = (float *)malloc(sizeof(float));
-//    *floatAllocation = 2.34f;
-//
-////    instance->addMemberValue(instance, PUBLIC, FIELD, "radius",
-////                             (Object *) AtomicLValueConstructor(floatAllocation, TRUE));
-//
-//    AtomicLValue *atomicLValue = AtomicLValueConstructor(floatAllocation, TRUE);
-//
-//
-//    AtomicLValueDestructor(atomicLValue);
 
     return 0;
 }
