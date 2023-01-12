@@ -870,6 +870,13 @@ Object *ObjectConstructor(char *className) {
     return instance;
 }
 
+void addIntegerRValueMember(Object *self, enum AccessModifier accessModifier,
+                            enum MemberType memberType, const char *memberName,
+                            IntegerRValue integerRValue) {
+    addMemberValue(self, accessModifier, memberType, memberName,
+                   INTEGER_RVALUE_AS_OBJECT(integerRValue));
+}
+
 void addDoubleRValueMember(Object *self, enum AccessModifier accessModifier,
                            enum MemberType memberType, const char *memberName,
                            DoubleRValue doubleRValue) {
@@ -882,15 +889,15 @@ void addDoubleRValueMember(Object *self, enum AccessModifier accessModifier,
     // "Whole" number as IntegerRValue.
     const char *wholeNumberMemberName =
             concat(memberName, __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
-    addMemberValue(self, accessModifier, memberType, wholeNumberMemberName,
-                   INTEGER_RVALUE_AS_OBJECT(wholeNumber));
+    addIntegerRValueMember(self, accessModifier, memberType,
+                           wholeNumberMemberName, wholeNumber);
     free((void *) wholeNumberMemberName);
 
     // "Mantissa" number as IntegerRValue.
     const char *mantissaNumberMemberName =
             concat(memberName, __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
-    addMemberValue(self, accessModifier, memberType, mantissaNumberMemberName,
-                   INTEGER_RVALUE_AS_OBJECT(mantissaNumber));
+    addIntegerRValueMember(self, accessModifier, memberType,
+                           mantissaNumberMemberName, mantissaNumber);
     free((void *) mantissaNumberMemberName);
 }
 
@@ -914,11 +921,4 @@ DoubleRValue getDoubleRValueMember(Object *            self,
     free((void *) mantissaNumberMemberName);
 
     return wholeNumber + mantissaNumber;
-}
-
-void addIntegerRValueMember(Object *self, enum AccessModifier accessModifier,
-                            enum MemberType memberType, const char *memberName,
-                            IntegerRValue integerRValue) {
-    addMemberValue(self, accessModifier, memberType, memberName,
-                   INTEGER_RVALUE_AS_OBJECT(integerRValue));
 }
