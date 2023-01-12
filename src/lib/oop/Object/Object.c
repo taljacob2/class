@@ -916,14 +916,14 @@ DoubleRValue getDoubleRValueMember(Object *            self,
     // "Whole" number as IntegerRValue.
     const char *wholeNumberMemberName =
             concat(memberName, __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
-    DoubleRValue wholeNumber = (DoubleRValue) getMemberValue(
+    DoubleRValue wholeNumber = (DoubleRValue) getIntegerRValueMember(
             self, accessModifier, memberType, wholeNumberMemberName);
     free((void *) wholeNumberMemberName);
 
     // "Mantissa" number as IntegerRValue.
     const char *mantissaNumberMemberName =
             concat(memberName, __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
-    DoubleRValue mantissaNumber = (DoubleRValue) getMemberValue(
+    DoubleRValue mantissaNumber = (DoubleRValue) getIntegerRValueMember(
             self, accessModifier, memberType, mantissaNumberMemberName);
     free((void *) mantissaNumberMemberName);
 
