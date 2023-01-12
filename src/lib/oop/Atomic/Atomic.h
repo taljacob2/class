@@ -2,6 +2,6 @@
 #define ATOMIC_H
 
 #include "AtomicInteger.h"
-#include "AtomicPrimitive.h"
+#include "AtomicRValue.h"
 
 #endif //ATOMIC_H

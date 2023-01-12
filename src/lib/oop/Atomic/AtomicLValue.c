@@ -1,4 +1,4 @@
-#include "AtomicData.h"
+#include "AtomicLValue.h"
 
 extern Legacy_ObjectComponent *getLegacyObjectComponent(Object *object);
 
@@ -17,24 +17,25 @@ extern void setMemberName(Object *object, const char *memberName);
 extern const char *getMemberName(Object *object);
 
 
-void setData(AtomicData *atomicData, void *dynamicallyAllocatedData) {
-    addPrimitivePrivateField((Object *) atomicData,
-                             (char *) getMemberName((Object *) atomicData),
+void setData_AtomicLValue(AtomicLValue *atomicLValue,
+                          void *        dynamicallyAllocatedData) {
+    addPrimitivePrivateField((Object *) atomicLValue,
+                             (char *) getMemberName((Object *) atomicLValue),
                              dynamicallyAllocatedData);
 }
 
-void setDataWhichIsStaticallyAllocated(AtomicData *atomicData,
-                                       void *      staticallyAllocatedData) {
+void setDataWhichIsStaticallyAllocated_AtomicLValue(
+        AtomicLValue *atomicLValue, void *staticallyAllocatedData) {
     addPrimitivePrivateFieldWhichIsStaticallyAllocated(
-            (Object *) atomicData,
-            (char *) getMemberName((Object *) atomicData),
+            (Object *) atomicLValue,
+            (char *) getMemberName((Object *) atomicLValue),
             staticallyAllocatedData);
 }
 
-void *getData_AtomicData(AtomicData *atomicData) {
-    Legacy_Object *dataContainer = atomicData->getPrivateField(
-            (Object *) atomicData,
-            (char *) getMemberName((Object *) atomicData));
+void *getData_AtomicLValue(AtomicLValue *atomicLValue) {
+    Legacy_Object *dataContainer = atomicLValue->getPrivateField(
+            (Object *) atomicLValue,
+            (char *) getMemberName((Object *) atomicLValue));
 
     return strcmp(dataContainer->legacyObjectComponent->CLASS_NAME,
                   "Legacy_AtomicFreer") == 0
@@ -42,40 +43,40 @@ void *getData_AtomicData(AtomicData *atomicData) {
                    : ((Legacy_Node *) dataContainer)->data;
 }
 
-void *AtomicDataDestructor(AtomicData *atomicData) {
+void *AtomicLValueDestructor(AtomicLValue *atomicLValue) {
     Legacy_Object *legacyObjectOfData =
             getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
-                    (Object *) atomicData, (Object *) atomicData);
+                    (Object *) atomicLValue, (Object *) atomicLValue);
 
     legacyObjectOfData->legacyObjectComponent->destructable->destructor(
             legacyObjectOfData);
 
     // `free` this `ATOMIC_MEMBER_NAME` which is located at `Object->memberName`.
-    free((char *) getMemberName((Object *) atomicData));
+    free((char *) getMemberName((Object *) atomicLValue));
 
-    return ObjectDestructor((Object *) atomicData);
+    return ObjectDestructor((Object *) atomicLValue);
 }
 
-AtomicData *AtomicDataConstructor(void *  data,
-                                  BOOLEAN isDataDynamicallyAllocated) {
-    AtomicData *instance = (AtomicData *) ObjectConstructor("AtomicData");
+AtomicLValue *AtomicLValueConstructor(void *  data,
+                                      BOOLEAN isDataDynamicallyAllocated) {
+    AtomicLValue *instance = (AtomicLValue *) ObjectConstructor("AtomicLValue");
 
     // Set this `Object->memberName` to be `ATOMIC_MEMBER_NAME`.
     const unsigned char *ATOMIC_MEMBER_NAME = getRandomString(20);
     setMemberName((Object *) instance, (const char *) ATOMIC_MEMBER_NAME);
 
     if (isDataDynamicallyAllocated) {
-        setData(instance, data);
+        setData_AtomicLValue(instance, data);
     } else {
-        setDataWhichIsStaticallyAllocated(instance, data);
+        setDataWhichIsStaticallyAllocated_AtomicLValue(instance, data);
     }
 
     // TODO:
-    //    instance->addPublicMethod(instance, "setData", AtomicMethod(&setData));
-    //    instance->addPublicMethod(instance, "getData", AtomicMethod(&getData_AtomicData));
+    //    instance->addPublicMethod(instance, "setData", AtomicMethod(&setData_AtomicLValue));
+    //    instance->addPublicMethod(instance, "getData", AtomicMethod(&getData_AtomicLValue));
 
     static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&AtomicDataDestructor)};
+            .destructor = (void *(*const)(void *) )(&AtomicLValueDestructor)};
     getLegacyObjectComponent((Object *) instance)->destructable = &destructable;
 
     return instance;

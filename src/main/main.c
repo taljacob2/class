@@ -4,9 +4,9 @@
 #include "CircleV4.h"
 #include "CircleV5.h"
 
-extern void *getData_AtomicData(AtomicData *atomicData);
+extern void *getData_AtomicLValue(AtomicLValue *atomicLValue);
 
-TypeOfPrimitive getData_AtomicPrimitive(AtomicPrimitive *atomicPrimitive);
+RValue getData_AtomicRValue(AtomicRValue *atomicRValue);
 
 int main() {
     //    Circle *circle = CircleConstructor();
@@ -82,18 +82,17 @@ int main() {
     for (char i = 0; i < STRING_SIZE - 1; i++) { string[i] = (char) (i + '0'); }
     string[STRING_SIZE - 1] = 0;
 
-    AtomicData *atomicData = AtomicDataConstructor(string, TRUE);
+    AtomicLValue *atomicLValue = AtomicLValueConstructor(string, TRUE);
 
-    AtomicData *atomicData2 = AtomicDataConstructor("hello!!!", FALSE);
+    AtomicLValue *atomicLValue2 = AtomicLValueConstructor("hello!!!", FALSE);
 
-    printf("%s\n", (char *) getData_AtomicData(atomicData));
-    printf("%s\n", (char *) getData_AtomicData(atomicData2));
+    printf("%s\n", (char *) getData_AtomicLValue(atomicLValue));
+    printf("%s\n", (char *) getData_AtomicLValue(atomicLValue2));
 
-    printf("%s\n", (char *) getData_AtomicPrimitive(AtomicPrimitiveConstructor(
-                           (TypeOfPrimitive) "Hi PrimitiveTesting!!!")));
+    printf("%s\n", (char *) getData_AtomicRValue(AtomicRValueConstructor(
+                           (RValue) "Hi PrimitiveTesting!!!")));
 
-    printf("%d\n",
-           (int) getData_AtomicPrimitive(AtomicPrimitiveConstructor(-4)));
+    printf("%d\n", (int) getData_AtomicRValue(AtomicRValueConstructor(-4)));
 
 
     return 0;
