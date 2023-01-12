@@ -31,7 +31,7 @@ void setDataWhichIsStaticallyAllocated(AtomicData *atomicData,
             staticallyAllocatedData);
 }
 
-void *getData(AtomicData *atomicData) {
+void *getData_AtomicData(AtomicData *atomicData) {
     Legacy_Object *dataContainer = atomicData->getPrivateField(
             (Object *) atomicData,
             (char *) getMemberName((Object *) atomicData));
@@ -72,7 +72,7 @@ AtomicData *AtomicDataConstructor(void *  data,
 
     // TODO:
     //    instance->addPublicMethod(instance, "setData", AtomicMethod(&setData));
-    //    instance->addPublicMethod(instance, "getData", AtomicMethod(&getData));
+    //    instance->addPublicMethod(instance, "getData", AtomicMethod(&getData_AtomicData));
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&AtomicDataDestructor)};

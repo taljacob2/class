@@ -4,7 +4,7 @@
 #include "CircleV4.h"
 #include "CircleV5.h"
 
-extern void *getData(AtomicData *atomicData);
+extern void *getData_AtomicData(AtomicData *atomicData);
 
 int main() {
     //    Circle *circle = CircleConstructor();
@@ -84,8 +84,8 @@ int main() {
 
     AtomicData *atomicData2 = AtomicDataConstructor("hello!!!", FALSE);
 
-    printf("%s\n", (char *) getData(atomicData));
-    printf("%s\n", (char *) getData(atomicData2));
+    printf("%s\n", (char *) getData_AtomicData(atomicData));
+    printf("%s\n", (char *) getData_AtomicData(atomicData2));
 
 
     return 0;
