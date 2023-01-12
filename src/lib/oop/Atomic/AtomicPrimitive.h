@@ -3,10 +3,10 @@
 
 #include "AtomicData.h"
 
-typedef void *TypeOfPrimitive;
+typedef TYPEOF_ANONYMOUS_POINTER TypeOfPrimitive;
 
 DEFINE_CLASS_H(AtomicPrimitive)
 
-AtomicPrimitive *AtomicPrimitiveConstructor(void *primitiveData);
+AtomicPrimitive *AtomicPrimitiveConstructor(TypeOfPrimitive primitiveData);
 
 #endif //ATOMICPRIMITIVE_H

@@ -90,7 +90,10 @@ int main() {
     printf("%s\n", (char *) getData_AtomicData(atomicData2));
 
     printf("%s\n", (char *) getData_AtomicPrimitive(AtomicPrimitiveConstructor(
-                           "Hi PrimitiveTesting!!!")));
+                           (TypeOfPrimitive) "Hi PrimitiveTesting!!!")));
+
+    printf("%d\n",
+           (int) getData_AtomicPrimitive(AtomicPrimitiveConstructor(-4)));
 
 
     return 0;
