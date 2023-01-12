@@ -1,14 +1,19 @@
 #include "AtomicData.h"
 
 extern Legacy_ObjectComponent *getLegacyObjectComponent(Object *object);
+
 extern void addPrimitivePrivateField(Object *self, char *memberName,
                                      void *dynamicallyAllocatedMemberToAdd);
-void        addPrimitivePrivateFieldWhichIsStaticallyAllocated(
-               Object *self, char *memberName, void *staticallyAllocatedMemberToAdd);
+
+void addPrimitivePrivateFieldWhichIsStaticallyAllocated(
+        Object *self, char *memberName, void *staticallyAllocatedMemberToAdd);
+
 extern Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember);
-extern void        setMemberName(Object *object, const char *memberName);
+
+extern void setMemberName(Object *object, const char *memberName);
+
 extern const char *getMemberName(Object *object);
 
 
