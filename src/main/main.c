@@ -3,10 +3,9 @@
 #include "CircleV2.h"
 #include "CircleV4.h"
 #include "CircleV5.h"
+#include "CircleV7.h"
 
-extern void *getData_AtomicLValue(AtomicLValue *atomicLValue);
-
-RValue getData_AtomicRValue(AtomicRValue *atomicRValue);
+extern void *AtomicLValueDestructor(AtomicLValue *atomicLValue);
 
 int main() {
     //    Circle *circle = CircleConstructor();
@@ -77,23 +76,46 @@ int main() {
 
     //            ObjectDestructor(object);
 
-#define STRING_SIZE 5
-    char *string = malloc(sizeof(char) * STRING_SIZE);
-    for (char i = 0; i < STRING_SIZE - 1; i++) { string[i] = (char) (i + '0'); }
-    string[STRING_SIZE - 1] = 0;
 
-    AtomicLValue *atomicLValue = AtomicLValueConstructor(string, TRUE);
+    //#define STRING_SIZE 5
+    //    char *string = malloc(sizeof(char) * STRING_SIZE);
+    //    for (char i = 0; i < STRING_SIZE - 1; i++) { string[i] = (char) (i + '0'); }
+    //    string[STRING_SIZE - 1] = 0;
+    //
+    //    AtomicLValue *atomicLValue = AtomicLValueConstructor(string, TRUE);
+    //
+    //    AtomicLValue *atomicLValue2 = AtomicLValueConstructor("hello!!!", FALSE);
+    //
+    //    printf("%s\n", (char *) getData_AtomicLValue(atomicLValue));
+    //    printf("%s\n", (char *) getData_AtomicLValue(atomicLValue2));
+    //
+    //    printf("%s\n", (char *) getData_AtomicRValue(AtomicRValueConstructor(
+    //                           (RValue) "Hi PrimitiveTesting!!!")));
+    //
+    //    printf("%d\n", (int) getData_AtomicRValue(AtomicRValueConstructor(-4)));
 
-    AtomicLValue *atomicLValue2 = AtomicLValueConstructor("hello!!!", FALSE);
 
-    printf("%s\n", (char *) getData_AtomicLValue(atomicLValue));
-    printf("%s\n", (char *) getData_AtomicLValue(atomicLValue2));
+    //    CircleV7 *circleV7 = CircleV7Constructor();
 
-    printf("%s\n", (char *) getData_AtomicRValue(AtomicRValueConstructor(
-                           (RValue) "Hi PrimitiveTesting!!!")));
 
-    printf("%d\n", (int) getData_AtomicRValue(AtomicRValueConstructor(-4)));
+    // TODO: Problem found. `addMemberValue` does not work properly.
+    Object *object = ObjectConstructor("Object");
+    object->addMemberValue(object, PUBLIC, FIELD, "nestedObject",
+                           ObjectConstructor("Object2"));
 
+
+//
+//
+//    float *floatAllocation = (float *)malloc(sizeof(float));
+//    *floatAllocation = 2.34f;
+//
+////    instance->addMemberValue(instance, PUBLIC, FIELD, "radius",
+////                             (Object *) AtomicLValueConstructor(floatAllocation, TRUE));
+//
+//    AtomicLValue *atomicLValue = AtomicLValueConstructor(floatAllocation, TRUE);
+//
+//
+//    AtomicLValueDestructor(atomicLValue);
 
     return 0;
 }

@@ -227,7 +227,7 @@ Legacy_Object *getAccessModifierMember(Legacy_List *accessModifierLegacyList,
     return findMemberInMemberListByMemberNameReturnValue;
 }
 
-// "private" function.
+// "protected" function.
 Legacy_Object *
 getAccessModifierMemberAndRemoveFromList(Legacy_List *accessModifierLegacyList,
                                          Legacy_MemberList *legacyMemberList,
@@ -412,7 +412,7 @@ getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList(
             (char *) getMemberName(object));
 }
 
-// "protected" function.
+// "private" function.
 Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
@@ -422,6 +422,18 @@ getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
                     objectThatContainsThisObjectAsAMember),
             getFieldsMemberList(objectThatContainsThisObjectAsAMember),
             (char *) getMemberName(object));
+}
+
+// "protected" function.
+Legacy_Object *
+getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
+        char *memberName, Object *objectThatContainsThisObjectAsAMember) {
+    if (objectThatContainsThisObjectAsAMember == NULL) { return NULL; }
+    return getAccessModifierMemberAndRemoveFromList(
+            getPrivateMemberNameLegacy_List(
+                    objectThatContainsThisObjectAsAMember),
+            getFieldsMemberList(objectThatContainsThisObjectAsAMember),
+            memberName);
 }
 
 /* ----------------------------- ADD MEMBER --------------------------------- */
