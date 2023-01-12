@@ -890,6 +890,11 @@ void init_fields(Object *object) {
     object->getMemberValue    = &getMemberValue;
     object->getImplementation = &getImplementation;
 
+    object->getIntegerRValueMember = &getIntegerRValueMember;
+    object->getDoubleRValueMember  = &getDoubleRValueMember;
+    object->addIntegerRValueMember = &addIntegerRValueMember;
+    object->addDoubleRValueMember  = &addDoubleRValueMember;
+
     object->addMemberValue    = &addMemberValue;
     object->addImplementation = &addImplementation;
     object->addImplementationThatIsConstructedWithLegacy_Object =
