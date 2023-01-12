@@ -60,10 +60,8 @@ AtomicData *AtomicDataConstructor(void *  data,
                                   BOOLEAN isDataDynamicallyAllocated) {
     AtomicData *instance = (AtomicData *) ObjectConstructor("AtomicData");
 
-    static unsigned char *ATOMIC_MEMBER_NAME;
-    ATOMIC_MEMBER_NAME = getRandomString(20);
-
     // Set this `Object->memberName` to be `ATOMIC_MEMBER_NAME`.
+    const unsigned char *ATOMIC_MEMBER_NAME = getRandomString(20);
     setMemberName((Object *) instance, (const char *) ATOMIC_MEMBER_NAME);
 
     if (isDataDynamicallyAllocated) {
