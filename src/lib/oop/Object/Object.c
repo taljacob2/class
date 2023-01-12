@@ -859,14 +859,11 @@ Object *ObjectConstructorWithoutAnyMembers(char *className) {
 Object *ObjectConstructor(char *className) {
     Object *instance = ObjectConstructorWithoutAnyMembers(className);
 
-    // TODO: This is the problem that need to be solved!!!
-    addMemberValue(
-            instance, PUBLIC, CONSTRUCTOR, DEFAULT_CONSTRUCTOR,
-            (Object *) AtomicLValueConstructor(&ObjectConstructor, FALSE));
+    addMemberValue(instance, PUBLIC, CONSTRUCTOR, DEFAULT_CONSTRUCTOR,
+                   RVALUE_AS_OBJECT(&ObjectConstructor));
 
-    addMemberValue(
-            instance, PUBLIC, DESTRUCTOR, DEFAULT_DESTRUCTOR,
-            (Object *) AtomicLValueConstructor(&ObjectDestructor, FALSE));
+    addMemberValue(instance, PUBLIC, DESTRUCTOR, DEFAULT_DESTRUCTOR,
+                   RVALUE_AS_OBJECT(&ObjectDestructor));
 
     return instance;
 }
