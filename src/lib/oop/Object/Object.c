@@ -916,6 +916,9 @@ DoubleRValue getDoubleRValueMember(Object *            self,
     return wholeNumber + mantissaNumber;
 }
 
-void addIntegerRValueMember() {
-    // TODO:
+void addIntegerRValueMember(Object *self, enum AccessModifier accessModifier,
+                            enum MemberType memberType, const char *memberName,
+                            IntegerRValue integerRValue) {
+    addMemberValue(self, accessModifier, memberType, memberName,
+                   INTEGER_RVALUE_AS_OBJECT(integerRValue));
 }
