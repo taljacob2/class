@@ -49,17 +49,18 @@ void setData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue,
     free((void *) mantissaNumberMemberName);
 }
 
-DoubleRValue getData_AtomicDoubleRValue(AtomicLValue *atomicLValue) {
+DoubleRValue
+getData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue) {
     const unsigned char *ATOMIC_MEMBER_NAME =
-            getATOMIC_MEMBER_NAME(atomicLValue);
+            getATOMIC_MEMBER_NAME((AtomicLValue *) atomicDoubleRValue);
 
     // "Whole" number as IntegerRValue.
     const char *wholeNumberMemberName =
             concat((const char *) ATOMIC_MEMBER_NAME,
                    __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
     Legacy_Object *wholeNumberDataContainer =
-            (Legacy_Object *) atomicLValue->getMemberValue(
-                    (Object *) atomicLValue, PRIVATE, FIELD,
+            (Legacy_Object *) atomicDoubleRValue->getMemberValue(
+                    (Object *) atomicDoubleRValue, PRIVATE, FIELD,
                     (char *) wholeNumberMemberName);
     IntegerRValue wholeNumber =
             (IntegerRValue)(((Legacy_Node *) wholeNumberDataContainer)->data);
@@ -70,8 +71,8 @@ DoubleRValue getData_AtomicDoubleRValue(AtomicLValue *atomicLValue) {
             concat((const char *) ATOMIC_MEMBER_NAME,
                    __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
     Legacy_Object *mantissaNumberDataContainer =
-            (Legacy_Object *) atomicLValue->getMemberValue(
-                    (Object *) atomicLValue, PRIVATE, FIELD,
+            (Legacy_Object *) atomicDoubleRValue->getMemberValue(
+                    (Object *) atomicDoubleRValue, PRIVATE, FIELD,
                     (char *) mantissaNumberMemberName);
     IntegerRValue mantissaNumber = (IntegerRValue)(
             ((Legacy_Node *) mantissaNumberDataContainer)->data);

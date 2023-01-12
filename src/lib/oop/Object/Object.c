@@ -3,6 +3,9 @@
 
 /* --------------------------------- Extern --------------------------------- */
 
+extern DoubleRValue
+getData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue);
+
 extern RValue getData_AtomicRValue(AtomicRValue *atomicRValue);
 
 extern void *getData_AtomicLValue(AtomicLValue *atomicLValue);
@@ -665,7 +668,7 @@ void addIntegerRValueMember(Object *self, enum AccessModifier accessModifier,
                             enum MemberType memberType, const char *memberName,
                             IntegerRValue integerRValue) {
     addMemberValue(self, accessModifier, memberType, memberName,
-                   INTEGER_RVALUE_AS_OBJECT(integerRValue));
+                   (Object *) AtomicRValueConstructor(integerRValue));
 }
 
 // "public" function.
@@ -673,31 +676,16 @@ IntegerRValue getIntegerRValueMember(Object *            self,
                                      enum AccessModifier accessModifier,
                                      enum MemberType     memberType,
                                      const char *        memberName) {
-    return getMemberValue(self, accessModifier, memberType, memberName);
+    return getData_AtomicRValue((AtomicRValue *) getMemberValue(
+            self, accessModifier, memberType, memberName));
 }
 
 // "public" function.
 void addDoubleRValueMember(Object *self, enum AccessModifier accessModifier,
                            enum MemberType memberType, const char *memberName,
                            DoubleRValue doubleRValue) {
-    TYPEOF_ANONYMOUS_POINTER wholeNumber =
-            (TYPEOF_ANONYMOUS_POINTER) doubleRValue;
-
-    TYPEOF_ANONYMOUS_POINTER mantissaNumber =
-            (TYPEOF_ANONYMOUS_POINTER)(doubleRValue - wholeNumber);
-    // "Whole" number as IntegerRValue.
-    const char *wholeNumberMemberName =
-            concat(memberName, __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
-    addIntegerRValueMember(self, accessModifier, memberType,
-                           memberName __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__, wholeNumber);
-    free((void *) wholeNumberMemberName);
-
-    // "Mantissa" number as IntegerRValue.
-    const char *mantissaNumberMemberName =
-            concat(memberName, __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
-    addIntegerRValueMember(self, accessModifier, memberType,
-                           mantissaNumberMemberName, mantissaNumber);
-    free((void *) mantissaNumberMemberName);
+    addMemberValue(self, accessModifier, memberType, memberName,
+                   (Object *) AtomicDoubleRValueConstructor(doubleRValue));
 }
 
 // "public" function.
@@ -705,22 +693,8 @@ DoubleRValue getDoubleRValueMember(Object *            self,
                                    enum AccessModifier accessModifier,
                                    enum MemberType     memberType,
                                    const char *        memberName) {
-
-    // "Whole" number as IntegerRValue.
-    const char *wholeNumberMemberName =
-            concat(memberName, __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
-    DoubleRValue wholeNumber = (DoubleRValue) getIntegerRValueMember(
-            self, accessModifier, memberType, wholeNumberMemberName);
-    free((void *) wholeNumberMemberName);
-
-    // "Mantissa" number as IntegerRValue.
-    const char *mantissaNumberMemberName =
-            concat(memberName, __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
-    DoubleRValue mantissaNumber = (DoubleRValue) getIntegerRValueMember(
-            self, accessModifier, memberType, mantissaNumberMemberName);
-    free((void *) mantissaNumberMemberName);
-
-    return wholeNumber + mantissaNumber;
+    return getData_AtomicDoubleRValue((AtomicDoubleRValue *) getMemberValue(
+            self, accessModifier, memberType, memberName));
 }
 
 /* ---------------------------- Implementation ------------------------------ */
