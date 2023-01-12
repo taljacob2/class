@@ -24,14 +24,10 @@ struct object {
     ANONYMOUS_POINTER_AS_FIELD;
     ANONYMOUS_POINTER_AS_FIELD;
 
-    Legacy_Object *(*getPrivateMethod)(Object *self, char *memberName);
-    Legacy_Object *(*getPublicMethod)(Object *self, char *memberName);
-    Legacy_Object *(*getPrivateConstructor)(Object *self, char *memberName);
-    Legacy_Object *(*getPublicConstructor)(Object *self, char *memberName);
-    Legacy_Object *(*getPrivateDestructor)(Object *self, char *memberName);
-    Legacy_Object *(*getPublicDestructor)(Object *self, char *memberName);
-    Legacy_Object *(*getPrivateField)(Object *self, char *memberName);
-    Legacy_Object *(*getPublicField)(Object *self, char *memberName);
+    TYPEOF_ANONYMOUS_POINTER(*getMemberValue)
+    (Object *self, enum AccessModifier accessModifier,
+     enum MemberType memberType, const char *memberName);
+
     Legacy_Object *(*getImplementation)(Object *self, char *memberName);
 
     void (*addPrivateMethod)(Object *self, char *memberName,

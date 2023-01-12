@@ -270,7 +270,7 @@ getMemberValue_Logic(Legacy_List *      accessModifierLegacyList,
     return returnValue;
 }
 
-// "private" function.
+// "public" function.
 TYPEOF_ANONYMOUS_POINTER getMemberValue(Object *            self,
                                         enum AccessModifier accessModifier,
                                         enum MemberType     memberType,
@@ -308,84 +308,6 @@ TYPEOF_ANONYMOUS_POINTER getMemberValue(Object *            self,
 
     return getMemberValue_Logic(accessModifierLegacyList, legacyMemberList,
                                 (char *) memberName);
-}
-
-/* -------------- Specific Access Modifier ------------- */
-
-// "private" function.
-Legacy_Object *getPrivateMember(Object *           object,
-                                Legacy_MemberList *legacyMemberList,
-                                char *             memberName) {
-    return getAccessModifierMember(getPrivateMemberNameLegacy_List(object),
-                                   legacyMemberList, memberName);
-}
-
-// "private" function.
-Legacy_Object *getPublicMember(Object *           object,
-                               Legacy_MemberList *legacyMemberList,
-                               char *             memberName) {
-    return getAccessModifierMember(getPublicMemberNameLegacy_List(object),
-                                   legacyMemberList, memberName);
-}
-
-/* Specific Access Modifier & Specific Legacy_MemberList */
-
-/* --------------- Methods --------------- */
-
-// "public" function.
-Legacy_Object *getPrivateMethod(Object *object, char *memberName) {
-    return getAccessModifierMember(getPrivateMemberNameLegacy_List(object),
-                                   getMethodsMemberList(object), memberName);
-}
-
-// "public" function.
-Legacy_Object *getPublicMethod(Object *object, char *memberName) {
-    return getAccessModifierMember(getPublicMemberNameLegacy_List(object),
-                                   getMethodsMemberList(object), memberName);
-}
-
-/* ------------- Constructor ------------- */
-
-// "public" function.
-Legacy_Object *getPrivateConstructor(Object *object, char *memberName) {
-    return getAccessModifierMember(getPrivateMemberNameLegacy_List(object),
-                                   getConstructorMemberList(object),
-                                   memberName);
-}
-
-// "public" function.
-Legacy_Object *getPublicConstructor(Object *object, char *memberName) {
-    return getAccessModifierMember(getPublicMemberNameLegacy_List(object),
-                                   getConstructorMemberList(object),
-                                   memberName);
-}
-
-/* ------------- Destructor ------------- */
-
-// "public" function.
-Legacy_Object *getPrivateDestructor(Object *object, char *memberName) {
-    return getAccessModifierMember(getPrivateMemberNameLegacy_List(object),
-                                   getDestructorMemberList(object), memberName);
-}
-
-// "public" function.
-Legacy_Object *getPublicDestructor(Object *object, char *memberName) {
-    return getAccessModifierMember(getPublicMemberNameLegacy_List(object),
-                                   getDestructorMemberList(object), memberName);
-}
-
-/* --------------- Fields --------------- */
-
-// "public" function.
-Legacy_Object *getPrivateField(Object *object, char *memberName) {
-    return getAccessModifierMember(getPrivateMemberNameLegacy_List(object),
-                                   getFieldsMemberList(object), memberName);
-}
-
-// "public" function.
-Legacy_Object *getPublicField(Object *object, char *memberName) {
-    return getAccessModifierMember(getPublicMemberNameLegacy_List(object),
-                                   getFieldsMemberList(object), memberName);
 }
 
 /* Get And Remove From Specific Access Modifier & Specific Legacy_MemberList */
@@ -707,10 +629,11 @@ void addImplementationThatIsConstructedWithLegacy_Object(
 }
 
 // "public" function.
+// TODO: change return type to (Object *)
 Legacy_Object *getImplementation(Object *self, char *memberName) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
-    Legacy_Object *returnValue =
-            getPublicField(self, (char *) implementationMemberName);
+    Legacy_Object *returnValue           = (Legacy_Object *) getMemberValue(
+            self, PUBLIC, FIELD, (char *) implementationMemberName);
     free((void *) implementationMemberName);
     return returnValue;
 }
@@ -834,15 +757,8 @@ void init_fields(Object *object) {
     setMemberName(object, NULL);
     setObjectThatContainsThisObjectAsAMember(object, NULL);
 
-    object->getPrivateMethod      = &getPrivateMethod;
-    object->getPublicMethod       = &getPublicMethod;
-    object->getPrivateConstructor = &getPrivateConstructor;
-    object->getPublicConstructor  = &getPublicConstructor;
-    object->getPrivateDestructor  = &getPrivateDestructor;
-    object->getPublicDestructor   = &getPublicDestructor;
-    object->getPrivateField       = &getPrivateField;
-    object->getPublicField        = &getPublicField;
-    object->getImplementation     = &getImplementation;
+    object->getMemberValue    = &getMemberValue;
+    object->getImplementation = &getImplementation;
 
     object->addPrivateMethod      = &addPrivateMethod;
     object->addPublicMethod       = &addPublicMethod;

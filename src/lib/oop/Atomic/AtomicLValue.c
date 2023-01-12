@@ -38,9 +38,10 @@ void setDataWhichIsStaticallyAllocated_AtomicLValue(
 }
 
 void *getData_AtomicLValue(AtomicLValue *atomicLValue) {
-    Legacy_Object *dataContainer = atomicLValue->getPrivateField(
-            (Object *) atomicLValue,
-            (char *) getMemberName((Object *) atomicLValue));
+    Legacy_Object *dataContainer =
+            (Legacy_Object *) atomicLValue->getMemberValue(
+                    (Object *) atomicLValue, PRIVATE, FIELD,
+                    (char *) getMemberName((Object *) atomicLValue));
 
     return strcmp(dataContainer->legacyObjectComponent->CLASS_NAME,
                   "Legacy_AtomicFreer") == 0
