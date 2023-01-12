@@ -30,21 +30,9 @@ struct object {
 
     Legacy_Object *(*getImplementation)(Object *self, char *memberName);
 
-    void (*addPrivateMethod)(Object *self, char *memberName,
-                             Object *memberToAdd);
-    void (*addPublicMethod)(Object *self, char *memberName,
-                            Object *memberToAdd);
-    void (*addPrivateConstructor)(Object *self, char *memberName,
-                                  Object *memberToAdd);
-    void (*addPublicConstructor)(Object *self, char *memberName,
-                                 Object *memberToAdd);
-    void (*addPrivateDestructor)(Object *self, char *memberName,
-                                 Object *memberToAdd);
-    void (*addPublicDestructor)(Object *self, char *memberName,
-                                Object *memberToAdd);
-    void (*addPrivateField)(Object *self, char *memberName,
-                            Object *memberToAdd);
-    void (*addPublicField)(Object *self, char *memberName, Object *memberToAdd);
+    void (*addMemberValue)(Object *self, enum AccessModifier accessModifier,
+                           enum MemberType memberType, const char *memberName,
+                           Object *memberToAdd);
 
     /**
      * Adds the implementation to the `fieldsLegacy_MemberList`, as a "public" field.

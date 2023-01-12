@@ -812,15 +812,8 @@ void init_fields(Object *object) {
     object->getMemberValue    = &getMemberValue;
     object->getImplementation = &getImplementation;
 
-    object->addPrivateMethod      = &addPrivateMethod;
-    object->addPublicMethod       = &addPublicMethod;
-    object->addPrivateConstructor = &addPrivateConstructor;
-    object->addPublicConstructor  = &addPublicConstructor;
-    object->addPrivateDestructor  = &addPrivateDestructor;
-    object->addPublicDestructor   = &addPublicDestructor;
-    object->addPrivateField       = &addPrivateField;
-    object->addPublicField        = &addPublicField;
-    object->addImplementation     = &addImplementation;
+    object->addMemberValue    = &addMemberValue;
+    object->addImplementation = &addImplementation;
     object->addImplementationThatIsConstructedWithLegacy_Object =
             &addImplementationThatIsConstructedWithLegacy_Object;
 }
