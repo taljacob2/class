@@ -882,20 +882,40 @@ void addDoubleRValueMember(Object *self, enum AccessModifier accessModifier,
     // "Whole" number as IntegerRValue.
     const char *wholeNumberMemberName =
             concat(memberName, __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
-    self->addMemberValue(self, accessModifier, memberType,
-                         wholeNumberMemberName,
-                         INTEGER_RVALUE_AS_OBJECT(wholeNumber));
+    addMemberValue(self, accessModifier, memberType, wholeNumberMemberName,
+                   INTEGER_RVALUE_AS_OBJECT(wholeNumber));
     free((void *) wholeNumberMemberName);
 
     // "Mantissa" number as IntegerRValue.
     const char *mantissaNumberMemberName =
             concat(memberName, __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
-    self->addMemberValue(self, accessModifier, memberType,
-                         mantissaNumberMemberName,
-                         INTEGER_RVALUE_AS_OBJECT(mantissaNumber));
+    addMemberValue(self, accessModifier, memberType, mantissaNumberMemberName,
+                   INTEGER_RVALUE_AS_OBJECT(mantissaNumber));
     free((void *) mantissaNumberMemberName);
 }
 
-void addIntegerRValueMember(){
+DoubleRValue getDoubleRValueMember(Object *            self,
+                                   enum AccessModifier accessModifier,
+                                   enum MemberType     memberType,
+                                   const char *        memberName) {
+
+    // "Whole" number as IntegerRValue.
+    const char *wholeNumberMemberName =
+            concat(memberName, __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
+    DoubleRValue wholeNumber = (DoubleRValue) getMemberValue(
+            self, accessModifier, memberType, wholeNumberMemberName);
+    free((void *) wholeNumberMemberName);
+
+    // "Mantissa" number as IntegerRValue.
+    const char *mantissaNumberMemberName =
+            concat(memberName, __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
+    DoubleRValue mantissaNumber = (DoubleRValue) getMemberValue(
+            self, accessModifier, memberType, mantissaNumberMemberName);
+    free((void *) mantissaNumberMemberName);
+
+    return wholeNumber + mantissaNumber;
+}
+
+void addIntegerRValueMember() {
     // TODO:
 }
