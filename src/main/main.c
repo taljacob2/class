@@ -5,6 +5,8 @@
 #include "CircleV5.h"
 #include "CircleV7.h"
 
+extern void *AtomicLValueDestructor(AtomicLValue *atomicLValue);
+
 int main() {
     //    Circle *circle = CircleConstructor();
     //
@@ -101,6 +103,19 @@ int main() {
     object->addMemberValue(object, PUBLIC, FIELD, "nestedObject",
                            ObjectConstructor("Object2"));
 
+
+//
+//
+//    float *floatAllocation = (float *)malloc(sizeof(float));
+//    *floatAllocation = 2.34f;
+//
+////    instance->addMemberValue(instance, PUBLIC, FIELD, "radius",
+////                             (Object *) AtomicLValueConstructor(floatAllocation, TRUE));
+//
+//    AtomicLValue *atomicLValue = AtomicLValueConstructor(floatAllocation, TRUE);
+//
+//
+//    AtomicLValueDestructor(atomicLValue);
 
     return 0;
 }
