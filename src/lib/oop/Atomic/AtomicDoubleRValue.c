@@ -1,4 +1,4 @@
-#include "AtomicLValue.h"
+#include "AtomicDoubleRValue.h"
 
 /* --------------------------------- Extern --------------------------------- */
 
@@ -22,33 +22,31 @@ getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
 
 /* ----------------------------- Implementation ----------------------------- */
 
-const unsigned char *getATOMIC_MEMBER_NAME(AtomicLValue *atomicLValue) {
-    Legacy_Node *legacyNodeThatContainsATOMIC_MEMBER_NAME =
-            (Legacy_Node *) atomicLValue->getMemberValue(
-                    (Object *) atomicLValue, PRIVATE, FIELD,
-                    __ATOMIC_MEMBER_NAME__);
-    return (const unsigned char *)
-            legacyNodeThatContainsATOMIC_MEMBER_NAME->data;
-}
+extern const unsigned char *getATOMIC_MEMBER_NAME(AtomicLValue *atomicLValue);
 
-void setData_AtomicLValue(AtomicLValue *atomicLValue,
-                          void *        dynamicallyAllocatedData) {
+void setData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue,
+                                void *primitiveWholeNumberDataAllocation,
+                                void *primitiveMantissaNumberDataAllocation) {
     const unsigned char *ATOMIC_MEMBER_NAME =
-            getATOMIC_MEMBER_NAME(atomicLValue);
+            getATOMIC_MEMBER_NAME((AtomicLValue *) atomicDoubleRValue);
 
-    addPrimitivePrivateField((Object *) atomicLValue,
-                             (char *) ATOMIC_MEMBER_NAME,
-                             dynamicallyAllocatedData);
-}
+    // Set `wholeNumber`.
+    const char *wholeNumberMemberName =
+            concat((const char *) ATOMIC_MEMBER_NAME,
+                   __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
+    addPrimitivePrivateField((Object *) atomicDoubleRValue,
+                             (char *) wholeNumberMemberName,
+                             primitiveWholeNumberDataAllocation);
+    free((void *) wholeNumberMemberName);
 
-void setDataWhichIsStaticallyAllocated_AtomicLValue(
-        AtomicLValue *atomicLValue, void *staticallyAllocatedData) {
-    const unsigned char *ATOMIC_MEMBER_NAME =
-            getATOMIC_MEMBER_NAME(atomicLValue);
-
-    addPrimitivePrivateFieldWhichIsStaticallyAllocated(
-            (Object *) atomicLValue, (char *) ATOMIC_MEMBER_NAME,
-            staticallyAllocatedData);
+    // Set `mantissaNumber`.
+    const char *mantissaNumberMemberName =
+            concat((const char *) ATOMIC_MEMBER_NAME,
+                   __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
+    addPrimitivePrivateField((Object *) atomicDoubleRValue,
+                             (char *) mantissaNumberMemberName,
+                             primitiveMantissaNumberDataAllocation);
+    free((void *) mantissaNumberMemberName);
 }
 
 void *getData_AtomicLValue(AtomicLValue *atomicLValue) {
@@ -66,12 +64,13 @@ void *getData_AtomicLValue(AtomicLValue *atomicLValue) {
                    : ((Legacy_Node *) dataContainer)->data;
 }
 
-void *AtomicLValueDestructor(AtomicLValue *atomicLValue) {
+// TODO:
+void *AtomicDoubleRValueDestructor(AtomicDoubleRValue *atomicDoubleRValue) {
 
     // A.1: Get and remove "lValue memberName" (i.e. `ATOMIC_MEMBER_NAME`).
     Legacy_Object *legacyObjectOfDataMemberName =
             getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
-                    __ATOMIC_MEMBER_NAME__, (Object *) atomicLValue);
+                    __ATOMIC_MEMBER_NAME__, (Object *) atomicDoubleRValue);
     const unsigned char *ATOMIC_MEMBER_NAME =
             legacyObjectOfDataMemberName->legacyObjectComponent->destructable
                     ->destructor(legacyObjectOfDataMemberName);
@@ -83,7 +82,7 @@ void *AtomicLValueDestructor(AtomicLValue *atomicLValue) {
      */
     Legacy_Object *legacyObjectOfData =
             getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
-                    (char *) ATOMIC_MEMBER_NAME, (Object *) atomicLValue);
+                    (char *) ATOMIC_MEMBER_NAME, (Object *) atomicDoubleRValue);
     legacyObjectOfData->legacyObjectComponent->destructable->destructor(
             legacyObjectOfData);
 
@@ -93,13 +92,13 @@ void *AtomicLValueDestructor(AtomicLValue *atomicLValue) {
      */
     free((void *) ATOMIC_MEMBER_NAME);
 
-    return ObjectDestructor((Object *) atomicLValue);
+    return ObjectDestructor((Object *) atomicDoubleRValue);
 }
 
-AtomicLValue *AtomicLValueConstructor(void *  data,
-                                      BOOLEAN isDataDynamicallyAllocated) {
-    AtomicLValue *instance =
-            (AtomicLValue *) ObjectConstructorWithoutAnyMembers("AtomicLValue");
+AtomicDoubleRValue *AtomicDoubleRValueConstructor(DoubleRValue doubleRValue) {
+    AtomicDoubleRValue *instance =
+            (AtomicDoubleRValue *) ObjectConstructorWithoutAnyMembers(
+                    "AtomicDoubleRValue");
 
     const unsigned char *ATOMIC_MEMBER_NAME = getRandomString(20);
 
@@ -112,18 +111,28 @@ AtomicLValue *AtomicLValueConstructor(void *  data,
             (Object *) instance, __ATOMIC_MEMBER_NAME__,
             (void *) ATOMIC_MEMBER_NAME);
 
-    if (isDataDynamicallyAllocated) {
-        setData_AtomicLValue(instance, data);
-    } else {
-        setDataWhichIsStaticallyAllocated_AtomicLValue(instance, data);
-    }
+    // Create `wholeNumber`.
+    IntegerRValue *primitiveWholeNumberDataAllocation =
+            malloc(sizeof(IntegerRValue));
+    IntegerRValue wholeNumber           = (IntegerRValue) doubleRValue;
+    *primitiveWholeNumberDataAllocation = wholeNumber;
+
+    // Create `mantissaNumber`.
+    IntegerRValue *primitiveMantissaNumberDataAllocation =
+            malloc(sizeof(IntegerRValue));
+    IntegerRValue mantissaNumber = (IntegerRValue)(doubleRValue - wholeNumber);
+    *primitiveMantissaNumberDataAllocation = mantissaNumber;
+
+    setData_AtomicDoubleRValue(instance, primitiveWholeNumberDataAllocation,
+                               primitiveMantissaNumberDataAllocation);
 
     // TODO:
     //    instance->addPublicMethod(instance, "setData", AtomicMethod(&setData_AtomicLValue));
     //    instance->addPublicMethod(instance, "getData", AtomicMethod(&getData_AtomicLValue));
 
     static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&AtomicLValueDestructor)};
+            .destructor =
+                    (void *(*const)(void *) )(&AtomicDoubleRValueDestructor)};
     getLegacyObjectComponent((Object *) instance)->destructable = &destructable;
 
     return instance;

@@ -1,5 +1,5 @@
 #include "Object.r"
-#include "../Atomic/AtomicRValue.h"
+#include "../Atomic/AtomicDoubleRValue.h"
 
 /* --------------------------------- Extern --------------------------------- */
 
@@ -685,12 +685,11 @@ void addDoubleRValueMember(Object *self, enum AccessModifier accessModifier,
 
     TYPEOF_ANONYMOUS_POINTER mantissaNumber =
             (TYPEOF_ANONYMOUS_POINTER)(doubleRValue - wholeNumber);
-
     // "Whole" number as IntegerRValue.
     const char *wholeNumberMemberName =
             concat(memberName, __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
     addIntegerRValueMember(self, accessModifier, memberType,
-                           wholeNumberMemberName, wholeNumber);
+                           memberName __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__, wholeNumber);
     free((void *) wholeNumberMemberName);
 
     // "Mantissa" number as IntegerRValue.
