@@ -656,8 +656,8 @@ void addImplementation(
                 const char *) ) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
 
-    addPublicField(
-            self, (char *) implementationMemberName,
+    addMemberValue(
+            self, PUBLIC, FIELD, (char *) implementationMemberName,
             constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter(
                     getLegacyObjectComponent(self)->CLASS_NAME));
 
@@ -672,8 +672,8 @@ void addImplementationThatIsConstructedWithLegacy_Object(
                 Legacy_Object *) ) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
 
-    addPublicField(
-            self, (char *) implementationMemberName,
+    addMemberValue(
+            self, PUBLIC, FIELD, (char *) implementationMemberName,
             constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter(
                     (Legacy_Object *) self));
 
@@ -847,11 +847,11 @@ Object *ObjectConstructorWithoutAnyMembers(char *className) {
 Object *ObjectConstructor(char *className) {
     Object *instance = ObjectConstructorWithoutAnyMembers(className);
 
-    addPublicConstructor(instance, DEFAULT_CONSTRUCTOR,
-                         RVALUE_AS_OBJECT(&ObjectConstructor));
+    addMemberValue(instance, PUBLIC, CONSTRUCTOR, DEFAULT_CONSTRUCTOR,
+                   RVALUE_AS_OBJECT(&ObjectConstructor));
 
-    addPublicDestructor(instance, DEFAULT_DESTRUCTOR,
-                        RVALUE_AS_OBJECT(&ObjectDestructor));
+    addMemberValue(instance, PUBLIC, DESTRUCTOR, DEFAULT_DESTRUCTOR,
+                   RVALUE_AS_OBJECT(&ObjectDestructor));
 
     return instance;
 }
