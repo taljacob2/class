@@ -1,10 +1,14 @@
 #include "AtomicRValue.h"
 
+/* --------------------------------- Extern --------------------------------- */
+
 extern Legacy_ObjectComponent *getLegacyObjectComponent(Object *object);
 
 extern void *getData_AtomicLValue(AtomicLValue *atomicLValue);
 
 extern void *AtomicLValueDestructor(AtomicLValue *atomicLValue);
+
+/* ----------------------------- Implementation ----------------------------- */
 
 RValue getData_AtomicRValue(AtomicRValue *atomicRValue) {
     return (*(RValue *) getData_AtomicLValue((AtomicLValue *) atomicRValue));
