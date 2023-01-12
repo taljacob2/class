@@ -877,6 +877,13 @@ void addIntegerRValueMember(Object *self, enum AccessModifier accessModifier,
                    INTEGER_RVALUE_AS_OBJECT(integerRValue));
 }
 
+IntegerRValue getIntegerRValueMember(Object *            self,
+                                     enum AccessModifier accessModifier,
+                                     enum MemberType     memberType,
+                                     const char *        memberName) {
+    return getMemberValue(self, accessModifier, memberType, memberName);
+}
+
 void addDoubleRValueMember(Object *self, enum AccessModifier accessModifier,
                            enum MemberType memberType, const char *memberName,
                            DoubleRValue doubleRValue) {
