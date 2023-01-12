@@ -3,11 +3,6 @@
 
 #include "AtomicLValue.h"
 
-// `RValue` acts the same as the `&&` "move" operator in cpp.
-typedef TYPEOF_ANONYMOUS_POINTER RValue;
-typedef RValue                   IntegerRValue;
-typedef double                   DoubleRValue;
-
 DEFINE_CLASS_H(AtomicRValue)
 
 AtomicRValue *AtomicRValueConstructor(RValue rValue);

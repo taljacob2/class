@@ -22,6 +22,21 @@
     (Object * self, enum AccessModifier accessModifier,                                                 \
      enum MemberType memberType, const char *memberName);                                               \
                                                                                                         \
+    void (*addIntegerRValueMember)(                                                                     \
+            Object * self, enum AccessModifier accessModifier,                                          \
+            enum MemberType memberType, const char *memberName,                                         \
+            IntegerRValue integerRValue);                                                               \
+    IntegerRValue (*getIntegerRValueMember)(                                                            \
+            Object * self, enum AccessModifier accessModifier,                                          \
+            enum MemberType memberType, const char *memberName);                                        \
+    void (*addDoubleRValueMember)(                                                                      \
+            Object * self, enum AccessModifier accessModifier,                                          \
+            enum MemberType memberType, const char *memberName,                                         \
+            DoubleRValue doubleRValue);                                                                 \
+    DoubleRValue (*getDoubleRValueMember)(                                                              \
+            Object * self, enum AccessModifier accessModifier,                                          \
+            enum MemberType memberType, const char *memberName);                                        \
+                                                                                                        \
     Legacy_Object *(*getImplementation)(Object * self, char *memberName);                               \
                                                                                                         \
     void (*addMemberValue)(Object * self, enum AccessModifier accessModifier,                           \

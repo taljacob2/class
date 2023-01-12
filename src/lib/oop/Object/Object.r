@@ -1,6 +1,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include "../Atomic/RValueDefines.h"
 #include "AnonymousPointer.r"
 #include "Legacy_MemberList.r"
 
@@ -27,6 +28,25 @@ struct object {
     TYPEOF_ANONYMOUS_POINTER(*getMemberValue)
     (Object *self, enum AccessModifier accessModifier,
      enum MemberType memberType, const char *memberName);
+
+    void (*addIntegerRValueMember)(Object *            self,
+                                   enum AccessModifier accessModifier,
+                                   enum MemberType     memberType,
+                                   const char *        memberName,
+                                   IntegerRValue       integerRValue);
+    IntegerRValue (*getIntegerRValueMember)(Object *            self,
+                                            enum AccessModifier accessModifier,
+                                            enum MemberType     memberType,
+                                            const char *        memberName);
+    void (*addDoubleRValueMember)(Object *            self,
+                                  enum AccessModifier accessModifier,
+                                  enum MemberType     memberType,
+                                  const char *        memberName,
+                                  DoubleRValue        doubleRValue);
+    DoubleRValue (*getDoubleRValueMember)(Object *            self,
+                                          enum AccessModifier accessModifier,
+                                          enum MemberType     memberType,
+                                          const char *        memberName);
 
     Legacy_Object *(*getImplementation)(Object *self, char *memberName);
 
@@ -79,7 +99,6 @@ void *ObjectDestructor(Object *object);
 
 Object *ObjectConstructor(char *className);
 
-/// Add MemberList `#define`s for users.
 #include "ObjectDefines.r"
 
 #endif //OBJECT_H
