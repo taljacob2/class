@@ -769,6 +769,46 @@ getMemberValue_PRIVATE(Legacy_List *      accessModifierLegacyList,
     return returnValue;
 }
 
+// "private" function.
+TYPEOF_ANONYMOUS_POINTER getMemberValue(Object *            self,
+                                        enum AccessModifier accessModifier,
+                                        enum MemberType     memberType,
+                                        const char *        memberName) {
+    Legacy_List *      accessModifierLegacyList = NULL;
+    Legacy_MemberList *legacyMemberList         = NULL;
+
+    switch (accessModifier) {
+        case PRIVATE:
+            accessModifierLegacyList = getPrivateMemberNameLegacy_List(self);
+            break;
+
+        case PUBLIC:
+            accessModifierLegacyList = getPublicMemberNameLegacy_List(self);
+            break;
+    }
+
+    switch (memberType) {
+        case METHOD:
+            legacyMemberList = getMethodsMemberList(self);
+            break;
+
+        case CONSTRUCTOR:
+            legacyMemberList = getConstructorMemberList(self);
+            break;
+
+        case DESTRUCTOR:
+            legacyMemberList = getDestructorMemberList(self);
+            break;
+
+        case FIELD:
+            legacyMemberList = getFieldsMemberList(self);
+            break;
+    }
+
+    return getMemberValue_PRIVATE(accessModifierLegacyList, legacyMemberList,
+                                  (char *) memberName);
+}
+
 /* ----------------------- Constructor & Destructor ------------------------= */
 
 /// TODO: public. TODO: test if we can invoke the `ObjectDestructor` multiple times and
