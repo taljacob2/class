@@ -261,11 +261,7 @@ getMemberValue_Logic(Legacy_List *      accessModifierLegacyList,
             (TYPEOF_ANONYMOUS_POINTER)((Object *) legacyObject);
 
     if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
-               "AtomicRValue") == 0) {
-        returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicRValue(
-                (AtomicRValue *) legacyObject);
-    } else if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
-                      "AtomicLValue") == 0) {
+               "AtomicLValue") == 0) {
         returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicLValue(
                 (AtomicLValue *) legacyObject);
     }
@@ -311,6 +307,104 @@ TYPEOF_ANONYMOUS_POINTER getMemberValue(Object *            self,
 
     return getMemberValue_Logic(accessModifierLegacyList, legacyMemberList,
                                 (char *) memberName);
+}
+
+// "private" function.
+IntegerRValue getIntegerRValueMemberValue(Object *            self,
+                                          enum AccessModifier accessModifier,
+                                          enum MemberType     memberType,
+                                          const char *        memberName) {
+    Legacy_List *      accessModifierLegacyList = NULL;
+    Legacy_MemberList *legacyMemberList         = NULL;
+
+    switch (accessModifier) {
+        case PRIVATE:
+            accessModifierLegacyList = getPrivateMemberNameLegacy_List(self);
+            break;
+
+        case PUBLIC:
+            accessModifierLegacyList = getPublicMemberNameLegacy_List(self);
+            break;
+    }
+
+    switch (memberType) {
+        case METHOD:
+            legacyMemberList = getMethodsMemberList(self);
+            break;
+
+        case CONSTRUCTOR:
+            legacyMemberList = getConstructorMemberList(self);
+            break;
+
+        case DESTRUCTOR:
+            legacyMemberList = getDestructorMemberList(self);
+            break;
+
+        case FIELD:
+            legacyMemberList = getFieldsMemberList(self);
+            break;
+    }
+
+    Legacy_Object *legacyObject = getAccessModifierMember(
+            accessModifierLegacyList, legacyMemberList, (char *) memberName);
+
+    IntegerRValue returnValue = 0;
+    if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
+               "AtomicRValue") == 0) {
+        returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicRValue(
+                (AtomicRValue *) legacyObject);
+    }
+
+    return returnValue;
+}
+
+// "private" function.
+DoubleRValue getDoubleRValueMemberValue(Object *            self,
+                                        enum AccessModifier accessModifier,
+                                        enum MemberType     memberType,
+                                        const char *        memberName) {
+    Legacy_List *      accessModifierLegacyList = NULL;
+    Legacy_MemberList *legacyMemberList         = NULL;
+
+    switch (accessModifier) {
+        case PRIVATE:
+            accessModifierLegacyList = getPrivateMemberNameLegacy_List(self);
+            break;
+
+        case PUBLIC:
+            accessModifierLegacyList = getPublicMemberNameLegacy_List(self);
+            break;
+    }
+
+    switch (memberType) {
+        case METHOD:
+            legacyMemberList = getMethodsMemberList(self);
+            break;
+
+        case CONSTRUCTOR:
+            legacyMemberList = getConstructorMemberList(self);
+            break;
+
+        case DESTRUCTOR:
+            legacyMemberList = getDestructorMemberList(self);
+            break;
+
+        case FIELD:
+            legacyMemberList = getFieldsMemberList(self);
+            break;
+    }
+
+    Legacy_Object *legacyObject = getAccessModifierMember(
+            accessModifierLegacyList, legacyMemberList, (char *) memberName);
+
+    DoubleRValue returnValue = 0;
+    if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
+               "AtomicDoubleRValue") == 0) {
+        returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicDoubleRValue(
+                (AtomicDoubleRValue *) legacyObject);
+    }
+
+    return returnValue;
 }
 
 /* Get And Remove From Specific Access Modifier & Specific Legacy_MemberList */
@@ -676,8 +770,8 @@ IntegerRValue getIntegerRValueMember(Object *            self,
                                      enum AccessModifier accessModifier,
                                      enum MemberType     memberType,
                                      const char *        memberName) {
-    return getData_AtomicRValue((AtomicRValue *) getMemberValue(
-            self, accessModifier, memberType, memberName));
+    return getIntegerRValueMemberValue(self, accessModifier, memberType,
+                                       memberName);
 }
 
 // "public" function.
@@ -693,8 +787,8 @@ DoubleRValue getDoubleRValueMember(Object *            self,
                                    enum AccessModifier accessModifier,
                                    enum MemberType     memberType,
                                    const char *        memberName) {
-    return getData_AtomicDoubleRValue((AtomicDoubleRValue *) getMemberValue(
-            self, accessModifier, memberType, memberName));
+    return getDoubleRValueMemberValue(self, accessModifier, memberType,
+                                      memberName);
 }
 
 /* ---------------------------- Implementation ------------------------------ */
