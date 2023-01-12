@@ -815,6 +815,9 @@ Object *ObjectConstructorWithoutAnyMembers(char *className) {
 Object *ObjectConstructor(char *className) {
     Object *instance = ObjectConstructorWithoutAnyMembers(className);
 
+    addPublicConstructor(instance, DEFAULT_CONSTRUCTOR,
+                         RVALUE_AS_OBJECT(&ObjectConstructor));
+
     addPublicDestructor(instance, DEFAULT_DESTRUCTOR,
                         RVALUE_AS_OBJECT(&ObjectDestructor));
 
