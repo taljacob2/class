@@ -1,6 +1,12 @@
 #include "Object.r"
 #include "../Atomic/AtomicRValue.h"
 
+/* --------------------------------- Extern --------------------------------- */
+
+extern RValue getData_AtomicRValue(AtomicRValue *atomicRValue);
+
+extern void *getData_AtomicLValue(AtomicLValue *atomicLValue);
+
 /* ---------------------------- GET POINTER VALUE --------------------------- */
 
 // "protected" function.
@@ -736,6 +742,31 @@ void destructObjectSelf(Object *object) {
     free(getLegacyObjectComponent(object));
 
     free(object);
+}
+
+/* ------------------------- Generify Methods ------------------------------- */
+
+// "private" function.
+TYPEOF_ANONYMOUS_POINTER
+getMemberValue_PRIVATE(Legacy_List *      accessModifierLegacyList,
+                       Legacy_MemberList *legacyMemberList, char *memberName) {
+    Legacy_Object *legacyObject = getAccessModifierMember(
+            accessModifierLegacyList, legacyMemberList, memberName);
+
+    TYPEOF_ANONYMOUS_POINTER returnValue =
+            (TYPEOF_ANONYMOUS_POINTER)((Object *) legacyObject);
+
+    if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
+               "AtomicRValue") == 0) {
+        returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicRValue(
+                (AtomicRValue *) legacyObject);
+    } else if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
+                      "AtomicLValue") == 0) {
+        returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicLValue(
+                (AtomicLValue *) legacyObject);
+    }
+
+    return returnValue;
 }
 
 /* ----------------------- Constructor & Destructor ------------------------= */
