@@ -895,3 +895,7 @@ void addDoubleRValueMember(Object *self, enum AccessModifier accessModifier,
                          INTEGER_RVALUE_AS_OBJECT(mantissaNumber));
     free((void *) mantissaNumberMemberName);
 }
+
+void addIntegerRValueMember(){
+    // TODO:
+}
