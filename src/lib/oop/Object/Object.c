@@ -798,7 +798,7 @@ Object *ObjectConstructorWithoutAnyMembers(char *className) {
     init_fields(instance);
 
     setAutoDestructable(instance, AutoDestructableConstructorWithLegacy_Object(
-            (Legacy_Object *) instance));
+                                          (Legacy_Object *) instance));
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&ObjectDestructor)};
@@ -815,9 +815,8 @@ Object *ObjectConstructorWithoutAnyMembers(char *className) {
 Object *ObjectConstructor(char *className) {
     Object *instance = ObjectConstructorWithoutAnyMembers(className);
 
-    addPublicDestructor(
-            instance, DEFAULT_DESTRUCTOR,
-            (Object *) AtomicRValueConstructor((RValue) &ObjectDestructor));
+    addPublicDestructor(instance, DEFAULT_DESTRUCTOR,
+                        RVALUE_AS_OBJECT(&ObjectDestructor));
 
     return instance;
 }

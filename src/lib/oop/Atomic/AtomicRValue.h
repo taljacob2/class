@@ -10,4 +10,7 @@ DEFINE_CLASS_H(AtomicRValue)
 
 AtomicRValue *AtomicRValueConstructor(RValue rValue);
 
+#define RVALUE_AS_OBJECT(rValue) \
+    ((Object *) AtomicRValueConstructor((RValue) rValue))
+
 #endif //ATOMICRVALUE_H
