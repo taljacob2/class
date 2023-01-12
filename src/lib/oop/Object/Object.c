@@ -594,6 +594,58 @@ void addPublicField(Object *self, char *memberName, Object *memberToAdd) {
             getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList);
 }
 
+/* ----------------- Generic ADD MEMBER ------------------ */
+
+// "public" function.
+void addMemberValue(Object *self, enum AccessModifier accessModifier,
+                    enum MemberType memberType, const char *memberName,
+                    Object *memberToAdd) {
+    switch (accessModifier) {
+        case PRIVATE:
+            switch (memberType) {
+                case METHOD:
+                    addPrivateMethod(self, (char *) memberName, memberToAdd);
+                    break;
+
+                case CONSTRUCTOR:
+                    addPrivateConstructor(self, (char *) memberName,
+                                          memberToAdd);
+                    break;
+
+                case DESTRUCTOR:
+                    addPrivateDestructor(self, (char *) memberName,
+                                         memberToAdd);
+                    break;
+
+                case FIELD:
+                    addPrivateField(self, (char *) memberName, memberToAdd);
+                    break;
+            }
+            break;
+
+        case PUBLIC:
+            switch (memberType) {
+                case METHOD:
+                    addPublicMethod(self, (char *) memberName, memberToAdd);
+                    break;
+
+                case CONSTRUCTOR:
+                    addPublicConstructor(self, (char *) memberName,
+                                         memberToAdd);
+                    break;
+
+                case DESTRUCTOR:
+                    addPublicDestructor(self, (char *) memberName, memberToAdd);
+                    break;
+
+                case FIELD:
+                    addPublicField(self, (char *) memberName, memberToAdd);
+                    break;
+            }
+            break;
+    }
+}
+
 /* ---------------------------- Implementation ------------------------------ */
 
 // "public" function. TODO: remove redundant code
