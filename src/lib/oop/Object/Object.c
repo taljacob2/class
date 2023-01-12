@@ -245,6 +245,71 @@ getAccessModifierMemberAndRemoveFromList(Legacy_List *accessModifierLegacyList,
     return findMemberInMemberListByMemberNameReturnValue;
 }
 
+/* ----------------- Generic GET MEMBER ------------------ */
+
+// "private" function.
+TYPEOF_ANONYMOUS_POINTER
+getMemberValue_PRIVATE(Legacy_List *      accessModifierLegacyList,
+                       Legacy_MemberList *legacyMemberList, char *memberName) {
+    Legacy_Object *legacyObject = getAccessModifierMember(
+            accessModifierLegacyList, legacyMemberList, memberName);
+
+    TYPEOF_ANONYMOUS_POINTER returnValue =
+            (TYPEOF_ANONYMOUS_POINTER)((Object *) legacyObject);
+
+    if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
+               "AtomicRValue") == 0) {
+        returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicRValue(
+                (AtomicRValue *) legacyObject);
+    } else if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
+                      "AtomicLValue") == 0) {
+        returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicLValue(
+                (AtomicLValue *) legacyObject);
+    }
+
+    return returnValue;
+}
+
+// "private" function.
+TYPEOF_ANONYMOUS_POINTER getMemberValue(Object *            self,
+                                        enum AccessModifier accessModifier,
+                                        enum MemberType     memberType,
+                                        const char *        memberName) {
+    Legacy_List *      accessModifierLegacyList = NULL;
+    Legacy_MemberList *legacyMemberList         = NULL;
+
+    switch (accessModifier) {
+        case PRIVATE:
+            accessModifierLegacyList = getPrivateMemberNameLegacy_List(self);
+            break;
+
+        case PUBLIC:
+            accessModifierLegacyList = getPublicMemberNameLegacy_List(self);
+            break;
+    }
+
+    switch (memberType) {
+        case METHOD:
+            legacyMemberList = getMethodsMemberList(self);
+            break;
+
+        case CONSTRUCTOR:
+            legacyMemberList = getConstructorMemberList(self);
+            break;
+
+        case DESTRUCTOR:
+            legacyMemberList = getDestructorMemberList(self);
+            break;
+
+        case FIELD:
+            legacyMemberList = getFieldsMemberList(self);
+            break;
+    }
+
+    return getMemberValue_PRIVATE(accessModifierLegacyList, legacyMemberList,
+                                  (char *) memberName);
+}
+
 /* -------------- Specific Access Modifier ------------- */
 
 // "private" function.
@@ -742,71 +807,6 @@ void destructObjectSelf(Object *object) {
     free(getLegacyObjectComponent(object));
 
     free(object);
-}
-
-/* ------------------------- Generify Methods ------------------------------- */
-
-// "private" function.
-TYPEOF_ANONYMOUS_POINTER
-getMemberValue_PRIVATE(Legacy_List *      accessModifierLegacyList,
-                       Legacy_MemberList *legacyMemberList, char *memberName) {
-    Legacy_Object *legacyObject = getAccessModifierMember(
-            accessModifierLegacyList, legacyMemberList, memberName);
-
-    TYPEOF_ANONYMOUS_POINTER returnValue =
-            (TYPEOF_ANONYMOUS_POINTER)((Object *) legacyObject);
-
-    if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
-               "AtomicRValue") == 0) {
-        returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicRValue(
-                (AtomicRValue *) legacyObject);
-    } else if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
-                      "AtomicLValue") == 0) {
-        returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicLValue(
-                (AtomicLValue *) legacyObject);
-    }
-
-    return returnValue;
-}
-
-// "private" function.
-TYPEOF_ANONYMOUS_POINTER getMemberValue(Object *            self,
-                                        enum AccessModifier accessModifier,
-                                        enum MemberType     memberType,
-                                        const char *        memberName) {
-    Legacy_List *      accessModifierLegacyList = NULL;
-    Legacy_MemberList *legacyMemberList         = NULL;
-
-    switch (accessModifier) {
-        case PRIVATE:
-            accessModifierLegacyList = getPrivateMemberNameLegacy_List(self);
-            break;
-
-        case PUBLIC:
-            accessModifierLegacyList = getPublicMemberNameLegacy_List(self);
-            break;
-    }
-
-    switch (memberType) {
-        case METHOD:
-            legacyMemberList = getMethodsMemberList(self);
-            break;
-
-        case CONSTRUCTOR:
-            legacyMemberList = getConstructorMemberList(self);
-            break;
-
-        case DESTRUCTOR:
-            legacyMemberList = getDestructorMemberList(self);
-            break;
-
-        case FIELD:
-            legacyMemberList = getFieldsMemberList(self);
-            break;
-    }
-
-    return getMemberValue_PRIVATE(accessModifierLegacyList, legacyMemberList,
-                                  (char *) memberName);
 }
 
 /* ----------------------- Constructor & Destructor ------------------------= */
