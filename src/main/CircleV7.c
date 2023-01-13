@@ -10,8 +10,8 @@ CircleV7 *CircleV7Constructor() {
     instance->addDoubleRValueMember(instance, PUBLIC, FIELD, "radius", 2.34);
 
     // TODO: debug
-    printf("%f\n", (float) instance->getDoubleRValueMember(instance, PUBLIC,
-                                                           FIELD, "radius"));
+    printf("%f\n", (double) instance->getDoubleRValueMember(instance, PUBLIC,
+                                                            FIELD, "radius"));
 
 
     instance->addIntegerRValueMember(instance, PUBLIC, FIELD, "radiusInt", 5);
