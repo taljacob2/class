@@ -14,12 +14,20 @@ CircleV7 *CircleV7Constructor() {
                                                            FIELD, "radius"));
 
 
+    //    instance->addIntegerRValueMember(instance, PUBLIC, FIELD, "radiusInt", 2);
+    //    // TODO: debug
+    //    printf("%f\n", (float) instance->getIntegerRValueMember(instance, PUBLIC,
+    //                                                           FIELD, "radiusInt"));
 
+    int *radiusAllocated = malloc(sizeof(int));
+    *radiusAllocated     = 2;
 
-//    instance->addIntegerRValueMember(instance, PUBLIC, FIELD, "radiusInt", 2);
-//    // TODO: debug
-//    printf("%f\n", (float) instance->getIntegerRValueMember(instance, PUBLIC,
-//                                                           FIELD, "radiusInt"));
+    instance->addMemberValue(
+            instance, PUBLIC, FIELD, "radiusAllocatedInt",
+            (Object *) AtomicLValueConstructor(radiusAllocated, TRUE));
+    // TODO: debug
+    printf("%d\n", *((int *) instance->getMemberValue(instance, PUBLIC, FIELD,
+                                                      "radiusAllocatedInt")));
 
     return (CircleV7 *) instance;
 }
