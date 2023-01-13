@@ -45,18 +45,20 @@ getData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue) {
             (Legacy_Object *) atomicDoubleRValue->getMemberValue(
                     (Object *) atomicDoubleRValue, PRIVATE, FIELD,
                     __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
-    IntegerRValue wholeNumber =
-            (IntegerRValue)(((Legacy_Node *) wholeNumberDataContainer)->data);
+    IntegerRValue *wholeNumber =
+            (IntegerRValue *) (((Legacy_Node *) wholeNumberDataContainer)
+                                       ->data);
 
     // "Mantissa" number as IntegerRValue.
     Legacy_Object *mantissaNumberDataContainer =
             (Legacy_Object *) atomicDoubleRValue->getMemberValue(
                     (Object *) atomicDoubleRValue, PRIVATE, FIELD,
                     __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
-    IntegerRValue mantissaNumber = (IntegerRValue)(
-            ((Legacy_Node *) mantissaNumberDataContainer)->data);
+    IntegerRValue *mantissaNumber =
+            (IntegerRValue *) (((Legacy_Node *) mantissaNumberDataContainer)
+                                       ->data);
 
-    return (DoubleRValue)(wholeNumber + mantissaNumber);
+    return (DoubleRValue)(*wholeNumber + *mantissaNumber);
 }
 
 void *AtomicDoubleRValueDestructor(AtomicDoubleRValue *atomicDoubleRValue) {
