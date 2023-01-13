@@ -13,10 +13,6 @@ extern void addPrimitivePrivateFieldWhichIsStaticallyAllocated(
         Object *self, char *memberName, void *staticallyAllocatedMemberToAdd);
 
 extern Legacy_Object *
-getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
-        Object *object, Object *objectThatContainsThisObjectAsAMember);
-
-extern Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
         char *memberName, Object *objectThatContainsThisObjectAsAMember);
 
