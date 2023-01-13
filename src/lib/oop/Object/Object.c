@@ -266,7 +266,8 @@ getMemberValue_Logic(Legacy_List *      accessModifierLegacyList,
                 memberName);
     }
 
-    if (legacyObject != NULL &&
+    // TODO: add `legacyObject != NULL &&` assertion
+    if (/*legacyObject != NULL &&*/
         strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
                "AtomicLValue") == 0) {
         returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicLValue(
@@ -362,7 +363,9 @@ IntegerRValue getIntegerRValueMemberValue(Object *            self,
     }
 
     IntegerRValue returnValue = 0;
-    if (legacyObject != NULL &&
+
+    // TODO: add `legacyObject != NULL &&` assertion
+    if (/*legacyObject != NULL &&*/
         strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
                "AtomicRValue") == 0) {
         returnValue = (IntegerRValue) getData_AtomicRValue(
@@ -418,7 +421,9 @@ DoubleRValue getDoubleRValueMemberValue(Object *            self,
     }
 
     DoubleRValue returnValue = 0;
-    if (legacyObject != NULL &&
+
+    // TODO: add `legacyObject != NULL &&` assertion
+    if (/*legacyObject != NULL &&*/
         strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
                "AtomicDoubleRValue") == 0) {
         returnValue = (DoubleRValue) getData_AtomicDoubleRValue(
