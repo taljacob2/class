@@ -20,8 +20,6 @@ extern Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
         char *memberName, Object *objectThatContainsThisObjectAsAMember);
 
-extern const unsigned char *getATOMIC_MEMBER_NAME(AtomicLValue *atomicLValue);
-
 /* ----------------------------- Implementation ----------------------------- */
 
 void setData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue,
@@ -63,20 +61,6 @@ getData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue) {
 
 void *AtomicDoubleRValueDestructor(AtomicDoubleRValue *atomicDoubleRValue) {
 
-    // A.1: Get and remove "lValue memberName" (i.e. `ATOMIC_MEMBER_NAME`).
-    Legacy_Object *legacyObjectOfDataMemberName =
-            getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
-                    __ATOMIC_MEMBER_NAME__, (Object *) atomicDoubleRValue);
-    const unsigned char *ATOMIC_MEMBER_NAME =
-            legacyObjectOfDataMemberName->legacyObjectComponent->destructable
-                    ->destructor(legacyObjectOfDataMemberName);
-
-    /*
-     * B.1: Get and remove lValue which is located at "lValue memberName"
-     *      (i.e. `Object->privateFieldMemberName(ATOMIC_MEMBER_NAME)`).
-     * B.2: Destruct lValue.
-     */
-
     // `wholeNumber`.
     Legacy_Object *legacyObjectOfWholeNumberData =
             getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
@@ -93,12 +77,6 @@ void *AtomicDoubleRValueDestructor(AtomicDoubleRValue *atomicDoubleRValue) {
     legacyObjectOfMantissaNumberData->legacyObjectComponent->destructable
             ->destructor(legacyObjectOfMantissaNumberData);
 
-    /*
-     * A.2: `free` "lValue memberName" which is located at
-     *      `Object->privateFieldMemberName(__ATOMIC_MEMBER_NAME__)`.
-     */
-    free((void *) ATOMIC_MEMBER_NAME);
-
     return ObjectDestructor((Object *) atomicDoubleRValue);
 }
 
@@ -106,17 +84,6 @@ AtomicDoubleRValue *AtomicDoubleRValueConstructor(DoubleRValue doubleRValue) {
     AtomicDoubleRValue *instance =
             (AtomicDoubleRValue *) ObjectConstructorWithoutAnyMembers(
                     "AtomicDoubleRValue");
-
-    const unsigned char *ATOMIC_MEMBER_NAME = getRandomString(20);
-
-    /*
-     * Add a private field that its memberName is the value of
-     * `__ATOMIC_MEMBER_NAME__`, and its value is the value of
-     * `ATOMIC_MEMBER_NAME`.
-     */
-    addPrimitivePrivateFieldWhichIsStaticallyAllocated(
-            (Object *) instance, __ATOMIC_MEMBER_NAME__,
-            (void *) ATOMIC_MEMBER_NAME);
 
     // Create `wholeNumber`.
     IntegerRValue *primitiveWholeNumberDataAllocation =
