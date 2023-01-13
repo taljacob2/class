@@ -75,10 +75,6 @@ AtomicLValue *AtomicLValueConstructor(void *  data,
         setDataWhichIsStaticallyAllocated_AtomicLValue(instance, data);
     }
 
-    // TODO:
-    //    instance->addPublicMethod(instance, "setData", AtomicMethod(&setData_AtomicLValue));
-    //    instance->addPublicMethod(instance, "getData", AtomicMethod(&getData_AtomicLValue));
-
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&AtomicLValueDestructor)};
     getLegacyObjectComponent((Object *) instance)->destructable = &destructable;

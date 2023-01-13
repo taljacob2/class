@@ -71,10 +71,6 @@ AtomicDoubleRValue *AtomicDoubleRValueConstructor(DoubleRValue doubleRValue) {
 
     setData_AtomicDoubleRValue(instance, primitiveDoubleNumberDataAllocation);
 
-    // TODO:
-    //    instance->addPublicMethod(instance, "setData", AtomicMethod(&setData_AtomicLValue));
-    //    instance->addPublicMethod(instance, "getData", AtomicMethod(&getData_AtomicLValue));
-
     static Destructable const destructable = {
             .destructor =
                     (void *(*const)(void *) )(&AtomicDoubleRValueDestructor)};
