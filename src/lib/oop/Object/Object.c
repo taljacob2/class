@@ -260,7 +260,14 @@ getMemberValue_Logic(Legacy_List *      accessModifierLegacyList,
     TYPEOF_ANONYMOUS_POINTER returnValue =
             (TYPEOF_ANONYMOUS_POINTER)((Object *) legacyObject);
 
-    if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
+    // TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__` locations.
+    if (legacyObject == NULL) {
+        printf("The memberName `%s` was not found in the Object.\n",
+               memberName);
+    }
+
+    if (legacyObject != NULL &&
+        strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
                "AtomicLValue") == 0) {
         returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicLValue(
                 (AtomicLValue *) legacyObject);
@@ -348,8 +355,15 @@ IntegerRValue getIntegerRValueMemberValue(Object *            self,
     Legacy_Object *legacyObject = getAccessModifierMember(
             accessModifierLegacyList, legacyMemberList, (char *) memberName);
 
+    // TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__` locations.
+    if (legacyObject == NULL) {
+        printf("The memberName `%s` was not found in the Object.\n",
+               memberName);
+    }
+
     IntegerRValue returnValue = 0;
-    if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
+    if (legacyObject != NULL &&
+        strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
                "AtomicRValue") == 0) {
         returnValue = (IntegerRValue) getData_AtomicRValue(
                 (AtomicRValue *) legacyObject);
@@ -397,8 +411,15 @@ DoubleRValue getDoubleRValueMemberValue(Object *            self,
     Legacy_Object *legacyObject = getAccessModifierMember(
             accessModifierLegacyList, legacyMemberList, (char *) memberName);
 
+    // TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__` locations.
+    if (legacyObject == NULL) {
+        printf("The memberName `%s` was not found in the Object.\n",
+               memberName);
+    }
+
     DoubleRValue returnValue = 0;
-    if (strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
+    if (legacyObject != NULL &&
+        strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
                "AtomicDoubleRValue") == 0) {
         returnValue = (DoubleRValue) getData_AtomicDoubleRValue(
                 (AtomicDoubleRValue *) legacyObject);
