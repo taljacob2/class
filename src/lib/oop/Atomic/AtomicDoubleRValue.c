@@ -54,9 +54,9 @@ getData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue) {
             (Legacy_Object *) atomicDoubleRValue->getMemberValue(
                     (Object *) atomicDoubleRValue, PRIVATE, FIELD,
                     __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
-    IntegerRValue *mantissaNumber =
-            (IntegerRValue *) (((Legacy_Node *) mantissaNumberDataContainer)
-                                       ->data);
+    DoubleRValue *mantissaNumber =
+            (DoubleRValue *) (((Legacy_Node *) mantissaNumberDataContainer)
+                                      ->data);
 
     return (DoubleRValue)(*wholeNumber + *mantissaNumber);
 }
@@ -94,9 +94,9 @@ AtomicDoubleRValue *AtomicDoubleRValueConstructor(DoubleRValue doubleRValue) {
     *primitiveWholeNumberDataAllocation = wholeNumber;
 
     // Create `mantissaNumber`.
-    IntegerRValue *primitiveMantissaNumberDataAllocation =
+    DoubleRValue *primitiveMantissaNumberDataAllocation =
             malloc(sizeof(IntegerRValue));
-    IntegerRValue mantissaNumber = (IntegerRValue)(doubleRValue - wholeNumber);
+    DoubleRValue mantissaNumber = (DoubleRValue)(doubleRValue - wholeNumber);
     *primitiveMantissaNumberDataAllocation = mantissaNumber;
 
     setData_AtomicDoubleRValue(instance, primitiveWholeNumberDataAllocation,
