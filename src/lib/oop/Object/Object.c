@@ -262,8 +262,8 @@ getMemberValue_Logic(Legacy_List *      accessModifierLegacyList,
 
     // TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__` locations.
     if (legacyObject == NULL) {
-        printf("The memberName `%s` was not found in the Object.\n",
-               memberName);
+        fprintf(stderr, "The memberName `%s` was not found in the Object.\n",
+                memberName);
     }
 
     if (legacyObject != NULL &&
@@ -357,8 +357,8 @@ IntegerRValue getIntegerRValueMemberValue(Object *            self,
 
     // TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__` locations.
     if (legacyObject == NULL) {
-        printf("The memberName `%s` was not found in the Object.\n",
-               memberName);
+        fprintf(stderr, "The memberName `%s` was not found in the Object.\n",
+                memberName);
     }
 
     IntegerRValue returnValue = 0;
@@ -413,8 +413,8 @@ DoubleRValue getDoubleRValueMemberValue(Object *            self,
 
     // TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__` locations.
     if (legacyObject == NULL) {
-        printf("The memberName `%s` was not found in the Object.\n",
-               memberName);
+        fprintf(stderr, "The memberName `%s` was not found in the Object.\n",
+                memberName);
     }
 
     DoubleRValue returnValue = 0;
