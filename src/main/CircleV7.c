@@ -14,10 +14,10 @@ CircleV7 *CircleV7Constructor() {
                                                            FIELD, "radius"));
 
 
-    //    instance->addIntegerRValueMember(instance, PUBLIC, FIELD, "radiusInt", 2);
-    //    // TODO: debug
-    //    printf("%f\n", (float) instance->getIntegerRValueMember(instance, PUBLIC,
-    //                                                           FIELD, "radiusInt"));
+    instance->addIntegerRValueMember(instance, PUBLIC, FIELD, "radiusInt", 5);
+    // TODO: debug
+    printf("%d\n", (int) instance->getIntegerRValueMember(instance, PUBLIC,
+                                                          FIELD, "radiusInt"));
 
     int *radiusAllocated = malloc(sizeof(int));
     *radiusAllocated     = 2;
