@@ -27,56 +27,36 @@ extern const unsigned char *getATOMIC_MEMBER_NAME(AtomicLValue *atomicLValue);
 void setData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue,
                                 void *primitiveWholeNumberDataAllocation,
                                 void *primitiveMantissaNumberDataAllocation) {
-    const unsigned char *ATOMIC_MEMBER_NAME =
-            getATOMIC_MEMBER_NAME((AtomicLValue *) atomicDoubleRValue);
 
     // Set `wholeNumber`.
-    const char *wholeNumberMemberName =
-            concat((const char *) ATOMIC_MEMBER_NAME,
-                   __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
     addPrimitivePrivateField((Object *) atomicDoubleRValue,
-                             (char *) wholeNumberMemberName,
+                             __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__,
                              primitiveWholeNumberDataAllocation);
-    free((void *) wholeNumberMemberName);
 
     // Set `mantissaNumber`.
-    const char *mantissaNumberMemberName =
-            concat((const char *) ATOMIC_MEMBER_NAME,
-                   __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
     addPrimitivePrivateField((Object *) atomicDoubleRValue,
-                             (char *) mantissaNumberMemberName,
+                             __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__,
                              primitiveMantissaNumberDataAllocation);
-    free((void *) mantissaNumberMemberName);
 }
 
 DoubleRValue
 getData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue) {
-    const unsigned char *ATOMIC_MEMBER_NAME =
-            getATOMIC_MEMBER_NAME((AtomicLValue *) atomicDoubleRValue);
 
     // "Whole" number as IntegerRValue.
-    const char *wholeNumberMemberName =
-            concat((const char *) ATOMIC_MEMBER_NAME,
-                   __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
     Legacy_Object *wholeNumberDataContainer =
             (Legacy_Object *) atomicDoubleRValue->getMemberValue(
                     (Object *) atomicDoubleRValue, PRIVATE, FIELD,
-                    (char *) wholeNumberMemberName);
+                    __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
     IntegerRValue wholeNumber =
             (IntegerRValue)(((Legacy_Node *) wholeNumberDataContainer)->data);
-    free((void *) wholeNumberMemberName);
 
     // "Mantissa" number as IntegerRValue.
-    const char *mantissaNumberMemberName =
-            concat((const char *) ATOMIC_MEMBER_NAME,
-                   __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
     Legacy_Object *mantissaNumberDataContainer =
             (Legacy_Object *) atomicDoubleRValue->getMemberValue(
                     (Object *) atomicDoubleRValue, PRIVATE, FIELD,
-                    (char *) mantissaNumberMemberName);
+                    __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
     IntegerRValue mantissaNumber = (IntegerRValue)(
             ((Legacy_Node *) mantissaNumberDataContainer)->data);
-    free((void *) mantissaNumberMemberName);
 
     return (DoubleRValue)(wholeNumber + mantissaNumber);
 }
@@ -98,26 +78,18 @@ void *AtomicDoubleRValueDestructor(AtomicDoubleRValue *atomicDoubleRValue) {
      */
 
     // `wholeNumber`.
-    const char *wholeNumberMemberName =
-            concat((const char *) ATOMIC_MEMBER_NAME,
-                   __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__);
     Legacy_Object *legacyObjectOfWholeNumberData =
             getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
-                    (char *) wholeNumberMemberName,
+                    __DOUBLE_RVALUE_WHOLE_NUMBER_MEMBER_NAME__,
                     (Object *) atomicDoubleRValue);
-    free((void *) wholeNumberMemberName);
     legacyObjectOfWholeNumberData->legacyObjectComponent->destructable
             ->destructor(legacyObjectOfWholeNumberData);
 
     // `mantissaNumber`.
-    const char *mantissaNumberMemberName =
-            concat((const char *) ATOMIC_MEMBER_NAME,
-                   __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__);
     Legacy_Object *legacyObjectOfMantissaNumberData =
             getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
-                    (char *) mantissaNumberMemberName,
+                    __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__,
                     (Object *) atomicDoubleRValue);
-    free((void *) mantissaNumberMemberName);
     legacyObjectOfMantissaNumberData->legacyObjectComponent->destructable
             ->destructor(legacyObjectOfMantissaNumberData);
 
