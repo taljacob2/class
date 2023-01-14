@@ -782,46 +782,6 @@ void addMemberValue(Object *self, enum AccessModifier accessModifier,
     }
 }
 
-/* ------------------------- ADD & GET & SET RVALUE ------------------------- */
-
-/* ---------------- IntegerRValue ---------------- */
-
-// "public" function.
-void addIntegerRValueMember(Object *self, enum AccessModifier accessModifier,
-                            enum MemberType memberType, const char *memberName,
-                            IntegerRValue integerRValue) {
-    addMemberValue(self, accessModifier, memberType, memberName,
-                   (Object *) AtomicIntegerRValueConstructor(integerRValue));
-}
-
-// "public" function.
-IntegerRValue getIntegerRValueMember(Object *            self,
-                                     enum AccessModifier accessModifier,
-                                     enum MemberType     memberType,
-                                     const char *        memberName) {
-    return getIntegerRValueMemberValue(self, accessModifier, memberType,
-                                       memberName);
-}
-
-/* ---------------- DoubleRValue ---------------- */
-
-// "public" function.
-void addDoubleRValueMember(Object *self, enum AccessModifier accessModifier,
-                           enum MemberType memberType, const char *memberName,
-                           DoubleRValue doubleRValue) {
-    addMemberValue(self, accessModifier, memberType, memberName,
-                   (Object *) AtomicDoubleRValueConstructor(doubleRValue));
-}
-
-// "public" function.
-DoubleRValue getDoubleRValueMember(Object *            self,
-                                   enum AccessModifier accessModifier,
-                                   enum MemberType     memberType,
-                                   const char *        memberName) {
-    return getDoubleRValueMemberValue(self, accessModifier, memberType,
-                                      memberName);
-}
-
 /* ----------------------------- SET MEMBER --------------------------------- */
 
 // "protected" function.
@@ -907,6 +867,45 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
     return returnValue;
 }
 
+/* ------------------------- ADD & GET & SET RVALUE ------------------------- */
+
+/* ---------------- IntegerRValue ---------------- */
+
+// "public" function.
+void addIntegerRValueMember(Object *self, enum AccessModifier accessModifier,
+                            enum MemberType memberType, const char *memberName,
+                            IntegerRValue integerRValue) {
+    addMemberValue(self, accessModifier, memberType, memberName,
+                   (Object *) AtomicIntegerRValueConstructor(integerRValue));
+}
+
+// "public" function.
+IntegerRValue getIntegerRValueMember(Object *            self,
+                                     enum AccessModifier accessModifier,
+                                     enum MemberType     memberType,
+                                     const char *        memberName) {
+    return getIntegerRValueMemberValue(self, accessModifier, memberType,
+                                       memberName);
+}
+
+/* ---------------- DoubleRValue ---------------- */
+
+// "public" function.
+void addDoubleRValueMember(Object *self, enum AccessModifier accessModifier,
+                           enum MemberType memberType, const char *memberName,
+                           DoubleRValue doubleRValue) {
+    addMemberValue(self, accessModifier, memberType, memberName,
+                   (Object *) AtomicDoubleRValueConstructor(doubleRValue));
+}
+
+// "public" function.
+DoubleRValue getDoubleRValueMember(Object *            self,
+                                   enum AccessModifier accessModifier,
+                                   enum MemberType     memberType,
+                                   const char *        memberName) {
+    return getDoubleRValueMemberValue(self, accessModifier, memberType,
+                                      memberName);
+}
 
 /* ----------------------- Destructor Private ------------------------= */
 
