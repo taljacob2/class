@@ -6,7 +6,8 @@
 extern DoubleRValue
 getData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue);
 
-extern RValue getData_AtomicRValue(AtomicRValue *atomicIntegerRValue);
+extern IntegerRValue
+getData_AtomicRValue(AtomicIntegerRValue *atomicIntegerRValue);
 
 extern void *getData_AtomicLValue(AtomicLValue *atomicLValue);
 
@@ -367,9 +368,9 @@ IntegerRValue getIntegerRValueMemberValue(Object *            self,
     // TODO: add `legacyObject != NULL &&` assertion
     if (/*legacyObject != NULL &&*/
         strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
-               "AtomicRValue") == 0) {
+               "AtomicIntegerRValue") == 0) {
         returnValue = (IntegerRValue) getData_AtomicRValue(
-                (AtomicRValue *) legacyObject);
+                (AtomicIntegerRValue *) legacyObject);
     }
 
     return returnValue;
