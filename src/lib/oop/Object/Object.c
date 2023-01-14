@@ -782,7 +782,9 @@ void addMemberValue(Object *self, enum AccessModifier accessModifier,
     }
 }
 
-/* ---------------------------- ADD & GET RVALUE ---------------------------- */
+/* ------------------------- ADD & GET & SET RVALUE ------------------------- */
+
+/* ---------------- IntegerRValue ---------------- */
 
 // "public" function.
 void addIntegerRValueMember(Object *self, enum AccessModifier accessModifier,
@@ -800,6 +802,8 @@ IntegerRValue getIntegerRValueMember(Object *            self,
     return getIntegerRValueMemberValue(self, accessModifier, memberType,
                                        memberName);
 }
+
+/* ---------------- DoubleRValue ---------------- */
 
 // "public" function.
 void addDoubleRValueMember(Object *self, enum AccessModifier accessModifier,
