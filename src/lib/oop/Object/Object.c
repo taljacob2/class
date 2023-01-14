@@ -353,15 +353,7 @@ Object *getObjectMember(Object *self, enum AccessModifier accessModifier,
                 memberName);
     }
 
-    IntegerRValue returnValue = 0;
-
-    // TODO: add `legacyObject != NULL &&` assertion
-    if (/*legacyObject != NULL &&*/
-        strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
-               "AtomicIntegerRValue") == 0) {
-        returnValue = (IntegerRValue) getData_AtomicIntegerRValue(
-                (AtomicIntegerRValue *) legacyObject);
-    }
+    Object *returnValue = (Object *) legacyObject;
 
     return returnValue;
 }
