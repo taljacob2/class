@@ -50,6 +50,7 @@ struct object {
 
     Legacy_Object *(*getImplementation)(Object *self, char *memberName);
 
+    // TODO: rename.
     void (*addMemberValue)(Object *self, enum AccessModifier accessModifier,
                            enum MemberType memberType, const char *memberName,
                            Object *memberToAdd);
