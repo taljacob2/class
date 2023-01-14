@@ -13,10 +13,6 @@ extern void addPrimitivePrivateFieldWhichIsStaticallyAllocated(
         Object *self, char *memberName, void *staticallyAllocatedMemberToAdd);
 
 extern Legacy_Object *
-getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
-        Object *object, Object *objectThatContainsThisObjectAsAMember);
-
-extern Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
         char *memberName, Object *objectThatContainsThisObjectAsAMember);
 
@@ -74,10 +70,6 @@ AtomicLValue *AtomicLValueConstructor(void *  data,
     } else {
         setDataWhichIsStaticallyAllocated_AtomicLValue(instance, data);
     }
-
-    // TODO:
-    //    instance->addPublicMethod(instance, "setData", AtomicMethod(&setData_AtomicLValue));
-    //    instance->addPublicMethod(instance, "getData", AtomicMethod(&getData_AtomicLValue));
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&AtomicLValueDestructor)};
