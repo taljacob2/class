@@ -26,6 +26,7 @@ extern void setPrimitivePrivateFieldWhichIsStaticallyAllocated(
 
 /* ---------------- ADD ---------------- */
 
+// "private" function.
 void addDataWhichIsDynamicallyAllocated_AtomicLValue(
         AtomicLValue *atomicLValue, void *dynamicallyAllocatedData) {
     addPrimitivePrivateFieldWhichIsDynamicallyAllocated(
@@ -33,11 +34,21 @@ void addDataWhichIsDynamicallyAllocated_AtomicLValue(
             dynamicallyAllocatedData);
 }
 
+// "private" function.
 void addDataWhichIsStaticallyAllocated_AtomicLValue(
         AtomicLValue *atomicLValue, void *staticallyAllocatedData) {
     addPrimitivePrivateFieldWhichIsStaticallyAllocated(
             (Object *) atomicLValue, __ATOMIC_LVALUE_MEMBER_NAME__,
             staticallyAllocatedData);
+}
+
+void addData_AtomicLValue(AtomicLValue *atomicLValue, void *data,
+                          BOOLEAN isDataDynamicallyAllocated) {
+    if (isDataDynamicallyAllocated) {
+        addDataWhichIsDynamicallyAllocated_AtomicLValue(atomicLValue, data);
+    } else {
+        addDataWhichIsStaticallyAllocated_AtomicLValue(atomicLValue, data);
+    }
 }
 
 /* ---------------- GET ---------------- */
@@ -72,8 +83,8 @@ void setDataWhichIsStaticallyAllocated_AtomicLValue(
             staticallyAllocatedData);
 }
 
-void setData(AtomicLValue *atomicLValue, void *data,
-             BOOLEAN isDataDynamicallyAllocated) {
+void setData_AtomicLValue(AtomicLValue *atomicLValue, void *data,
+                          BOOLEAN isDataDynamicallyAllocated) {
     if (isDataDynamicallyAllocated) {
         setDataWhichIsDynamicallyAllocated_AtomicLValue(atomicLValue, data);
     } else {
@@ -104,11 +115,7 @@ AtomicLValue *AtomicLValueConstructor(void *  data,
     AtomicLValue *instance =
             (AtomicLValue *) ObjectConstructorWithoutAnyMembers("AtomicLValue");
 
-    if (isDataDynamicallyAllocated) {
-        addDataWhichIsDynamicallyAllocated_AtomicLValue(instance, data);
-    } else {
-        addDataWhichIsStaticallyAllocated_AtomicLValue(instance, data);
-    }
+    addData_AtomicLValue(instance, data, isDataDynamicallyAllocated);
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&AtomicLValueDestructor)};
