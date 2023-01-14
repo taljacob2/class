@@ -821,8 +821,9 @@ DoubleRValue getDoubleRValueMember(Object *            self,
 /* ----------------------------- SET MEMBER --------------------------------- */
 
 // "protected" function.
-void setPrimitiveAccessModifierMemberList(Legacy_MemberList *legacyMemberList,
-                                          char *memberName, void *memberToSet) {
+void setPrimitiveAccessModifierMemberListWhichIsDynamicallyAllocated(
+        Legacy_MemberList *legacyMemberList, char *memberName,
+        void *memberToSet) {
 
     // Set member to MemberList.
     legacyMemberList->setMemberWhichIsPrimitive(legacyMemberList, memberName,
@@ -838,6 +839,24 @@ void setPrimitiveAccessModifierMemberListWhichIsStaticallyAllocated(
     legacyMemberList->setMemberWhichIsLegacy_Object(
             legacyMemberList, memberName,
             (Legacy_Object *) Legacy_NodeConstructorWithData(memberToSet));
+}
+
+// "protected" function.
+void setPrimitivePrivateFieldWhichIsDynamicallyAllocated(
+        Object *self, char *memberName, void *dynamicallyAllocatedMemberToSet) {
+    setObjectThatContainsThisObjectAsAMember(self, self);
+    setPrimitiveAccessModifierMemberListWhichIsDynamicallyAllocated(
+            getFieldsMemberList(self), memberName,
+            dynamicallyAllocatedMemberToSet);
+}
+
+// "protected" function.
+void setPrimitivePrivateFieldWhichIsStaticallyAllocated(
+        Object *self, char *memberName, void *staticallyAllocatedMemberToSet) {
+    setObjectThatContainsThisObjectAsAMember(self, self);
+    setPrimitiveAccessModifierMemberListWhichIsStaticallyAllocated(
+            getFieldsMemberList(self), memberName,
+            staticallyAllocatedMemberToSet);
 }
 
 /* ---------------------------- Implementation ------------------------------ */
