@@ -56,6 +56,7 @@ void *getData_AtomicLValue(AtomicLValue *atomicLValue) {
 
 /* ---------------- SET ---------------- */
 
+// "private" function.
 void setDataWhichIsDynamicallyAllocated_AtomicLValue(
         AtomicLValue *atomicLValue, void *dynamicallyAllocatedData) {
     setPrimitivePrivateFieldWhichIsDynamicallyAllocated(
@@ -63,6 +64,7 @@ void setDataWhichIsDynamicallyAllocated_AtomicLValue(
             dynamicallyAllocatedData);
 }
 
+// "private" function.
 void setDataWhichIsStaticallyAllocated_AtomicLValue(
         AtomicLValue *atomicLValue, void *staticallyAllocatedData) {
     setPrimitivePrivateFieldWhichIsStaticallyAllocated(
