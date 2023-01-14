@@ -122,7 +122,7 @@ Legacy_Object *setMember(Legacy_MemberList *legacyMemberList, char *memberName,
 
 /**
  * "public" function.
- * On success, returns the set Legacy_Node. On fail, returns `NULL`.
+ * On success, returns the set `Legacy_Object` member. On fail, returns `NULL`.
  */
 Legacy_Object *
 setMemberWhichIsLegacy_Object(Legacy_MemberList *legacyMemberList,
@@ -133,7 +133,7 @@ setMemberWhichIsLegacy_Object(Legacy_MemberList *legacyMemberList,
 
 /**
  * "public" function.
- * On success, returns the set Legacy_Node. On fail, returns `NULL`.
+ * On success, returns the set `Legacy_Object` member. On fail, returns `NULL`.
  */
 Legacy_Object *setMemberWhichIsPrimitive(Legacy_MemberList *legacyMemberList,
                                          char *             memberName,
