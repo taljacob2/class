@@ -336,9 +336,11 @@ Legacy_MemberList *getLegacyMemberListByMemberType(Object *        self,
     return legacyMemberList;
 }
 
-// "public" function.
-Object *getObjectMember(Object *self, enum AccessModifier accessModifier,
-                        enum MemberType memberType, const char *memberName) {
+// "private" function.
+Legacy_Object *getLegacyObjectMember(Object *            self,
+                                     enum AccessModifier accessModifier,
+                                     enum MemberType     memberType,
+                                     const char *        memberName) {
     Legacy_List *accessModifierLegacyList =
             getAccessModifierLegacyListByAccessModifier(self, accessModifier);
     Legacy_MemberList *legacyMemberList =
@@ -352,6 +354,15 @@ Object *getObjectMember(Object *self, enum AccessModifier accessModifier,
         fprintf(stderr, "The memberName `%s` was not found in the Object.\n",
                 memberName);
     }
+
+    return legacyObject;
+}
+
+// "public" function.
+Object *getObjectMember(Object *self, enum AccessModifier accessModifier,
+                        enum MemberType memberType, const char *memberName) {
+    Legacy_Object *legacyObject =
+            getLegacyObjectMember(self, accessModifier, memberType, memberName);
 
     Object *returnValue = (Object *) legacyObject;
 
@@ -376,6 +387,8 @@ IntegerRValue getIntegerRValueMemberValue(Object *            self,
         fprintf(stderr, "The memberName `%s` was not found in the Object.\n",
                 memberName);
     }
+
+    return legacyObject;
 
     IntegerRValue returnValue = 0;
 
