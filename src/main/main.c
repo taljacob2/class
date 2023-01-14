@@ -89,10 +89,10 @@ int main() {
     //    printf("%s\n", (char *) getData_AtomicLValue(atomicLValue));
     //    printf("%s\n", (char *) getData_AtomicLValue(atomicLValue2));
     //
-    //    printf("%s\n", (char *) getData_AtomicRValue(AtomicIntegerRValueConstructor(
+    //    printf("%s\n", (char *) getData_AtomicIntegerRValue(AtomicIntegerRValueConstructor(
     //                           (RValue) "Hi PrimitiveTesting!!!")));
     //
-    //    printf("%d\n", (int) getData_AtomicRValue(AtomicIntegerRValueConstructor(-4)));
+    //    printf("%d\n", (int) getData_AtomicIntegerRValue(AtomicIntegerRValueConstructor(-4)));
 
 
     //

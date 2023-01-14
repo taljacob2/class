@@ -10,12 +10,13 @@ extern void *AtomicLValueDestructor(AtomicLValue *atomicLValue);
 
 /* ----------------------------- Implementation ----------------------------- */
 
-IntegerRValue getData_AtomicRValue(AtomicIntegerRValue *atomicIntegerRValue) {
+IntegerRValue
+getData_AtomicIntegerRValue(AtomicIntegerRValue *atomicIntegerRValue) {
     return (*(IntegerRValue *) getData_AtomicLValue(
             (AtomicLValue *) atomicIntegerRValue));
 }
 
-void *AtomicRValueDestructor(AtomicIntegerRValue *atomicRValue) {
+void *AtomicIntegerRValueDestructor(AtomicIntegerRValue *atomicRValue) {
     return AtomicLValueDestructor((AtomicLValue *) atomicRValue);
 }
 
@@ -31,7 +32,7 @@ AtomicIntegerRValueConstructor(IntegerRValue integerRValue) {
             "AtomicIntegerRValue";
 
     static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&AtomicRValueDestructor)};
+            .destructor = (void *(*const)(void *) )(&AtomicIntegerRValueDestructor)};
     getLegacyObjectComponent((Object *) instance)->destructable = &destructable;
 
     return instance;
