@@ -53,6 +53,7 @@ void addData_AtomicLValue(AtomicLValue *atomicLValue, void *data,
 
 /* ---------------- GET ---------------- */
 
+// "protected" function.
 void *getData_AtomicLValue(AtomicLValue *atomicLValue) {
     Legacy_Object *dataContainer =
             (Legacy_Object *) atomicLValue->getMemberValue(
@@ -83,6 +84,7 @@ void setDataWhichIsStaticallyAllocated_AtomicLValue(
             staticallyAllocatedData);
 }
 
+// "protected" function.
 void setData_AtomicLValue(AtomicLValue *atomicLValue, void *data,
                           BOOLEAN isDataDynamicallyAllocated) {
     if (isDataDynamicallyAllocated) {
