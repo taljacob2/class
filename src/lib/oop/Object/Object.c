@@ -266,33 +266,6 @@ getAccessModifierMemberAndRemoveFromList(Legacy_List *accessModifierLegacyList,
 /* ----------------- Generic GET MEMBER ------------------ */
 
 // "private" function.
-TYPEOF_ANONYMOUS_POINTER
-getMemberValue_Logic(Legacy_List *      accessModifierLegacyList,
-                     Legacy_MemberList *legacyMemberList, char *memberName) {
-    Legacy_Object *legacyObject = getAccessModifierMember(
-            accessModifierLegacyList, legacyMemberList, memberName);
-
-    TYPEOF_ANONYMOUS_POINTER returnValue =
-            (TYPEOF_ANONYMOUS_POINTER)((Object *) legacyObject);
-
-    // TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__` locations.
-    if (legacyObject == NULL) {
-        fprintf(stderr, "The memberName `%s` was not found in the Object.\n",
-                memberName);
-    }
-
-    // TODO: add `legacyObject != NULL &&` assertion
-    if (/*legacyObject != NULL &&*/
-        strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
-               "AtomicLValue") == 0) {
-        returnValue = (TYPEOF_ANONYMOUS_POINTER) getData_AtomicLValue(
-                (AtomicLValue *) legacyObject);
-    }
-
-    return returnValue;
-}
-
-// "private" function.
 Legacy_List *getAccessModifierLegacyListByAccessModifier(
         Object *self, enum AccessModifier accessModifier) {
     Legacy_List *accessModifierLegacyList = NULL;
@@ -905,9 +878,6 @@ TYPEOF_ANONYMOUS_POINTER setMemberValue(Object *            self,
     }
 
     return returnValue;
-
-    return getMemberValue_Logic(accessModifierLegacyList, legacyMemberList,
-                                (char *) memberName);
 }
 
 // TODO:
