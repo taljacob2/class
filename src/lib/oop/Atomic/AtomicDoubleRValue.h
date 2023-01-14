@@ -1,7 +1,7 @@
 #ifndef CLASS_ATOMICDOUBLERVALUE_H
 #define CLASS_ATOMICDOUBLERVALUE_H
 
-#include "AtomicRValue.h"
+#include "AtomicIntegerRValue.h"
 
 DEFINE_CLASS_H(AtomicDoubleRValue)
 

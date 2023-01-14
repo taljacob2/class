@@ -6,7 +6,7 @@
 extern DoubleRValue
 getData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue);
 
-extern RValue getData_AtomicRValue(AtomicRValue *atomicRValue);
+extern RValue getData_AtomicRValue(AtomicRValue *atomicIntegerRValue);
 
 extern void *getData_AtomicLValue(AtomicLValue *atomicLValue);
 
@@ -788,7 +788,7 @@ void addIntegerRValueMember(Object *self, enum AccessModifier accessModifier,
                             enum MemberType memberType, const char *memberName,
                             IntegerRValue integerRValue) {
     addMemberValue(self, accessModifier, memberType, memberName,
-                   (Object *) AtomicRValueConstructor(integerRValue));
+                   (Object *) AtomicIntegerRValueConstructor(integerRValue));
 }
 
 // "public" function.
