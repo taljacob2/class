@@ -370,6 +370,24 @@ Object *getObjectMember(Object *self, enum AccessModifier accessModifier,
 }
 
 // "private" function.
+void *getLValueMember(Object *self, enum AccessModifier accessModifier,
+                      enum MemberType memberType, const char *memberName) {
+    Legacy_Object *legacyObject =
+            getLegacyObjectMember(self, accessModifier, memberType, memberName);
+
+    void *returnValue = NULL;
+
+    if (legacyObject != NULL &&
+        strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
+               "AtomicLValue") == 0) {
+        returnValue =
+                (void *) getData_AtomicLValue((AtomicLValue *) legacyObject);
+    }
+
+    return returnValue;
+}
+
+// "private" function.
 IntegerRValue getIntegerRValueMemberValue(Object *            self,
                                           enum AccessModifier accessModifier,
                                           enum MemberType     memberType,
