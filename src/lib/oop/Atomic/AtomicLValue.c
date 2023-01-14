@@ -18,8 +18,8 @@ getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
 
 /* ----------------------------- Implementation ----------------------------- */
 
-void setData_AtomicLValue(AtomicLValue *atomicLValue,
-                          void *        dynamicallyAllocatedData) {
+void setDataWhichIsDynamicallyAllocated_AtomicLValue(
+        AtomicLValue *atomicLValue, void *dynamicallyAllocatedData) {
     addPrimitivePrivateField((Object *) atomicLValue,
                              __ATOMIC_LVALUE_MEMBER_NAME__,
                              dynamicallyAllocatedData);
@@ -66,7 +66,7 @@ AtomicLValue *AtomicLValueConstructor(void *  data,
             (AtomicLValue *) ObjectConstructorWithoutAnyMembers("AtomicLValue");
 
     if (isDataDynamicallyAllocated) {
-        setData_AtomicLValue(instance, data);
+        setDataWhichIsDynamicallyAllocated_AtomicLValue(instance, data);
     } else {
         setDataWhichIsStaticallyAllocated_AtomicLValue(instance, data);
     }
