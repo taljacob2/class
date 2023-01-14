@@ -825,28 +825,19 @@ void setPrimitiveAccessModifierMemberList(Legacy_MemberList *legacyMemberList,
                                           char *memberName, void *memberToSet) {
 
     // Set member to MemberList.
-
-    // TODO:
-    legacyMemberList->addMemberWhichIsPrimitive(legacyMemberList, memberName,
+    legacyMemberList->setMemberWhichIsPrimitive(legacyMemberList, memberName,
                                                 memberToSet);
 }
 
 // "protected" function.
 void setPrimitiveAccessModifierMemberListWhichIsStaticallyAllocated(
-        Legacy_List *      accessModifierLegacyList,
         Legacy_MemberList *legacyMemberList, char *memberName,
-        void *memberToAdd) {
+        void *memberToSet) {
 
-    // Add `memberName` to accessModifierList.
-    accessModifierLegacyList->addAsUnique(
-            accessModifierLegacyList,
-            Legacy_NodeConstructorWithData(memberName),
-            predicateFindAccessModifierMemberNameByMemberName, memberName);
-
-    // Add member to MemberList.
-    legacyMemberList->addMemberWhichIsLegacy_Object(
+    // Set member to MemberList.
+    legacyMemberList->setMemberWhichIsLegacy_Object(
             legacyMemberList, memberName,
-            (Legacy_Object *) Legacy_NodeConstructorWithData(memberToAdd));
+            (Legacy_Object *) Legacy_NodeConstructorWithData(memberToSet));
 }
 
 /* ---------------------------- Implementation ------------------------------ */
