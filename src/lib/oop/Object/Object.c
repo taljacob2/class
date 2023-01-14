@@ -702,8 +702,8 @@ void addPrivateField(Object *self, char *memberName, Object *memberToAdd) {
 }
 
 // "protected" function.
-void addPrimitivePrivateField(Object *self, char *memberName,
-                              void *dynamicallyAllocatedMemberToAdd) {
+void addPrimitivePrivateFieldWhichIsDynamicallyAllocated(
+        Object *self, char *memberName, void *dynamicallyAllocatedMemberToAdd) {
     setObjectThatContainsThisObjectAsAMember(self, self);
     addPrimitiveAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
                                          getFieldsMemberList(self), memberName,

@@ -6,7 +6,7 @@ extern Object *ObjectConstructorWithoutAnyMembers(char *className);
 
 extern Legacy_ObjectComponent *getLegacyObjectComponent(Object *object);
 
-extern void addPrimitivePrivateField(Object *self, char *memberName,
+extern void addPrimitivePrivateFieldWhichIsDynamicallyAllocated(Object *self, char *memberName,
                                      void *dynamicallyAllocatedMemberToAdd);
 
 extern Legacy_Object *
@@ -19,9 +19,9 @@ void setData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue,
                                 void *primitiveDoubleNumberDataAllocation) {
 
     // Set `doubleNumber`.
-    addPrimitivePrivateField((Object *) atomicDoubleRValue,
-                             __DOUBLE_RVALUE_MEMBER_NAME__,
-                             primitiveDoubleNumberDataAllocation);
+    addPrimitivePrivateFieldWhichIsDynamicallyAllocated(
+            (Object *) atomicDoubleRValue, __DOUBLE_RVALUE_MEMBER_NAME__,
+            primitiveDoubleNumberDataAllocation);
 }
 
 DoubleRValue

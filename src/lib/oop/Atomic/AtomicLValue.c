@@ -6,7 +6,7 @@ extern Object *ObjectConstructorWithoutAnyMembers(char *className);
 
 extern Legacy_ObjectComponent *getLegacyObjectComponent(Object *object);
 
-extern void addPrimitivePrivateField(Object *self, char *memberName,
+extern void addPrimitivePrivateFieldWhichIsDynamicallyAllocated(Object *self, char *memberName,
                                      void *dynamicallyAllocatedMemberToAdd);
 
 extern void addPrimitivePrivateFieldWhichIsStaticallyAllocated(
@@ -22,9 +22,9 @@ getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
 
 void addDataWhichIsDynamicallyAllocated_AtomicLValue(
         AtomicLValue *atomicLValue, void *dynamicallyAllocatedData) {
-    addPrimitivePrivateField((Object *) atomicLValue,
-                             __ATOMIC_LVALUE_MEMBER_NAME__,
-                             dynamicallyAllocatedData);
+    addPrimitivePrivateFieldWhichIsDynamicallyAllocated(
+            (Object *) atomicLValue, __ATOMIC_LVALUE_MEMBER_NAME__,
+            dynamicallyAllocatedData);
 }
 
 void addDataWhichIsStaticallyAllocated_AtomicLValue(
