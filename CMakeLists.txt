@@ -27,4 +27,4 @@ add_executable(class src/main/main.c src/lib/oop/Object/AutoDestructable.r
         src/lib/oop/AnonymousObject/AnonymousObject.h
         src/lib/oop/AnonymousObject/AnonymousObject.h
         src/lib/oop/AnonymousObject/AnonymousObject.r src/lib/oop/AnonymousObject/AnonymousObject.c src/lib/oop/AnonymousObject/BitDefines.r
-        src/main/CircleV6.h src/main/CircleV6.c src/lib/oop/Atomic/AtomicLValue.h src/lib/oop/Atomic/AtomicLValue.c src/lib/oop/Atomic/Func.h src/lib/oop/Atomic/AtomicRValue.h src/lib/oop/Atomic/AtomicRValue.c src/main/CircleV7.h src/main/CircleV7.c src/lib/oop/Atomic/RValueDefines.h src/lib/oop/Atomic/AtomicDoubleRValue.h src/lib/oop/Atomic/AtomicDoubleRValue.c)
+        src/main/CircleV6.h src/main/CircleV6.c src/lib/oop/Atomic/AtomicLValue.h src/lib/oop/Atomic/AtomicLValue.c src/lib/oop/Atomic/Func.h src/lib/oop/Atomic/AtomicIntegerRValue.h src/lib/oop/Atomic/AtomicIntegerRValue.c src/main/CircleV7.h src/main/CircleV7.c src/lib/oop/Atomic/RValueDefines.h src/lib/oop/Atomic/AtomicDoubleRValue.h src/lib/oop/Atomic/AtomicDoubleRValue.c)

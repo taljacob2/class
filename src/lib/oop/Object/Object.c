@@ -6,7 +6,8 @@
 extern DoubleRValue
 getData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue);
 
-extern RValue getData_AtomicRValue(AtomicRValue *atomicRValue);
+extern IntegerRValue
+getData_AtomicIntegerRValue(AtomicIntegerRValue *atomicIntegerRValue);
 
 extern void *getData_AtomicLValue(AtomicLValue *atomicLValue);
 
@@ -367,9 +368,9 @@ IntegerRValue getIntegerRValueMemberValue(Object *            self,
     // TODO: add `legacyObject != NULL &&` assertion
     if (/*legacyObject != NULL &&*/
         strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
-               "AtomicRValue") == 0) {
-        returnValue = (IntegerRValue) getData_AtomicRValue(
-                (AtomicRValue *) legacyObject);
+               "AtomicIntegerRValue") == 0) {
+        returnValue = (IntegerRValue) getData_AtomicIntegerRValue(
+                (AtomicIntegerRValue *) legacyObject);
     }
 
     return returnValue;
@@ -788,7 +789,7 @@ void addIntegerRValueMember(Object *self, enum AccessModifier accessModifier,
                             enum MemberType memberType, const char *memberName,
                             IntegerRValue integerRValue) {
     addMemberValue(self, accessModifier, memberType, memberName,
-                   (Object *) AtomicRValueConstructor(integerRValue));
+                   (Object *) AtomicIntegerRValueConstructor(integerRValue));
 }
 
 // "public" function.
