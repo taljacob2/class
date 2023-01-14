@@ -3,9 +3,18 @@
 
 #include "../Object/AnonymousPointer.r"
 
-// `RValue` acts the same as the `&&` "move" operator in cpp.
-typedef TYPEOF_ANONYMOUS_POINTER RValue;
-typedef RValue                   IntegerRValue;
-typedef double                   DoubleRValue;
+/**
+ * `IntegerRValue` is an `RValue` for any pointer type, or any integer.
+ * For example:
+ * `char`, `unsigned char`, `int`, `long`, `char *`, `void *`, `int **`
+ */
+typedef TYPEOF_ANONYMOUS_POINTER IntegerRValue;
+
+/**
+ * `DoubleRValue` is an `RValue` for any floating point type.
+ * For example:
+ * `float`, `double`.
+ */
+typedef double DoubleRValue;
 
 #endif //RVALUEDEFINES_H
