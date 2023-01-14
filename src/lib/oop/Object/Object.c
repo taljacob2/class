@@ -818,6 +818,37 @@ DoubleRValue getDoubleRValueMember(Object *            self,
                                       memberName);
 }
 
+/* ----------------------------- SET MEMBER --------------------------------- */
+
+// "protected" function.
+void setPrimitiveAccessModifierMemberList(Legacy_MemberList *legacyMemberList,
+                                          char *memberName, void *memberToSet) {
+
+    // Set member to MemberList.
+
+    // TODO:
+    legacyMemberList->addMemberWhichIsPrimitive(legacyMemberList, memberName,
+                                                memberToSet);
+}
+
+// "protected" function.
+void setPrimitiveAccessModifierMemberListWhichIsStaticallyAllocated(
+        Legacy_List *      accessModifierLegacyList,
+        Legacy_MemberList *legacyMemberList, char *memberName,
+        void *memberToAdd) {
+
+    // Add `memberName` to accessModifierList.
+    accessModifierLegacyList->addAsUnique(
+            accessModifierLegacyList,
+            Legacy_NodeConstructorWithData(memberName),
+            predicateFindAccessModifierMemberNameByMemberName, memberName);
+
+    // Add member to MemberList.
+    legacyMemberList->addMemberWhichIsLegacy_Object(
+            legacyMemberList, memberName,
+            (Legacy_Object *) Legacy_NodeConstructorWithData(memberToAdd));
+}
+
 /* ---------------------------- Implementation ------------------------------ */
 
 // "public" function. TODO: remove redundant code

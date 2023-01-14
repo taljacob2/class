@@ -99,7 +99,52 @@ Legacy_Object *addMemberWhichIsPrimitive(Legacy_MemberList *legacyMemberList,
                     dynamicallyAllocatedPrimitive));
 }
 
+// "private" function.
+Legacy_Object *setMember(Legacy_MemberList *legacyMemberList, char *memberName,
+                         Legacy_Object *member) {
+
+    Legacy_StringObjectContainerEntry *lastLegacy_StringObjectContainerEntryData =
+            legacyMemberList->memberEntryList->setByStringToSearch(
+                    legacyMemberList->memberEntryList,
+                    Legacy_StringObjectContainerEntryConstructorWithKeyAndValue(
+                            memberName, member),
+                    predicateFindLegacy_StringEntryByMemberName, memberName);
+
+    if (lastLegacy_StringObjectContainerEntryData == NULL) { return NULL; }
+
+    // Destruct last data.
+    lastLegacy_StringObjectContainerEntryData->object->destructable->destructor(
+            lastLegacy_StringObjectContainerEntryData);
+
+
+    return member;
+}
+
 // TODO: "public" "setMember".
+/**
+ * "public" function.
+ * On success, returns the set Legacy_Node. On fail, returns `NULL`.
+ */
+Legacy_Object *
+setMemberWhichIsLegacy_Object(Legacy_MemberList *legacyMemberList,
+                              char *             memberName,
+                              Legacy_Object *    legacyObjectContainer) {
+    return setMember(legacyMemberList, memberName, legacyObjectContainer);
+}
+
+// TODO: "public" "setMember".
+/**
+ * "public" function.
+ * On success, returns the set Legacy_Node. On fail, returns `NULL`.
+ */
+Legacy_Object *setMemberWhichIsPrimitive(Legacy_MemberList *legacyMemberList,
+                                         char *             memberName,
+                                         void *dynamicallyAllocatedPrimitive) {
+    return setMemberWhichIsLegacy_Object(
+            legacyMemberList, memberName,
+            (Legacy_Object *) Legacy_AtomicFreerConstructorWithData(
+                    dynamicallyAllocatedPrimitive));
+}
 
 Legacy_MemberList *
 Legacy_MemberListDestructor(Legacy_MemberList *legacyMemberList) {
@@ -125,6 +170,8 @@ Legacy_MemberList *Legacy_MemberListConstructor() {
             &getMemberByName_Legacy_MemberListAndDeleteMemberFromList;
     instance->addMemberWhichIsLegacy_Object = &addMemberWhichIsLegacy_Object;
     instance->addMemberWhichIsPrimitive     = &addMemberWhichIsPrimitive;
+    instance->setMemberWhichIsLegacy_Object = &setMemberWhichIsLegacy_Object;
+    instance->setMemberWhichIsPrimitive     = &setMemberWhichIsPrimitive;
 
     instance->memberEntryList = Legacy_ListConstructor();
 
