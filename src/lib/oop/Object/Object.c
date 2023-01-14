@@ -374,26 +374,12 @@ IntegerRValue getIntegerRValueMemberValue(Object *            self,
                                           enum AccessModifier accessModifier,
                                           enum MemberType     memberType,
                                           const char *        memberName) {
-    Legacy_List *accessModifierLegacyList =
-            getAccessModifierLegacyListByAccessModifier(self, accessModifier);
-    Legacy_MemberList *legacyMemberList =
-            getLegacyMemberListByMemberType(self, memberType);
-
-    Legacy_Object *legacyObject = getAccessModifierMember(
-            accessModifierLegacyList, legacyMemberList, (char *) memberName);
-
-    // TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__` locations.
-    if (legacyObject == NULL) {
-        fprintf(stderr, "The memberName `%s` was not found in the Object.\n",
-                memberName);
-    }
-
-    return legacyObject;
+    Legacy_Object *legacyObject =
+            getLegacyObjectMember(self, accessModifier, memberType, memberName);
 
     IntegerRValue returnValue = 0;
 
-    // TODO: add `legacyObject != NULL &&` assertion
-    if (/*legacyObject != NULL &&*/
+    if (legacyObject != NULL &&
         strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
                "AtomicIntegerRValue") == 0) {
         returnValue = (IntegerRValue) getData_AtomicIntegerRValue(
@@ -408,24 +394,12 @@ DoubleRValue getDoubleRValueMemberValue(Object *            self,
                                         enum AccessModifier accessModifier,
                                         enum MemberType     memberType,
                                         const char *        memberName) {
-    Legacy_List *accessModifierLegacyList =
-            getAccessModifierLegacyListByAccessModifier(self, accessModifier);
-    Legacy_MemberList *legacyMemberList =
-            getLegacyMemberListByMemberType(self, memberType);
-
-    Legacy_Object *legacyObject = getAccessModifierMember(
-            accessModifierLegacyList, legacyMemberList, (char *) memberName);
-
-    // TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__` locations.
-    if (legacyObject == NULL) {
-        fprintf(stderr, "The memberName `%s` was not found in the Object.\n",
-                memberName);
-    }
+    Legacy_Object *legacyObject =
+            getLegacyObjectMember(self, accessModifier, memberType, memberName);
 
     DoubleRValue returnValue = 0;
 
-    // TODO: add `legacyObject != NULL &&` assertion
-    if (/*legacyObject != NULL &&*/
+    if (legacyObject != NULL &&
         strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
                "AtomicDoubleRValue") == 0) {
         returnValue = (DoubleRValue) getData_AtomicDoubleRValue(
