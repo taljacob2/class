@@ -6,8 +6,8 @@ extern Object *ObjectConstructorWithoutAnyMembers(char *className);
 
 extern Legacy_ObjectComponent *getLegacyObjectComponent(Object *object);
 
-extern void addPrimitivePrivateFieldWhichIsDynamicallyAllocated(Object *self, char *memberName,
-                                     void *dynamicallyAllocatedMemberToAdd);
+extern void addPrimitivePrivateFieldWhichIsDynamicallyAllocated(
+        Object *self, char *memberName, void *dynamicallyAllocatedMemberToAdd);
 
 extern void addPrimitivePrivateFieldWhichIsStaticallyAllocated(
         Object *self, char *memberName, void *staticallyAllocatedMemberToAdd);
@@ -15,6 +15,12 @@ extern void addPrimitivePrivateFieldWhichIsStaticallyAllocated(
 extern Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
         char *memberName, Object *objectThatContainsThisObjectAsAMember);
+
+extern void setPrimitivePrivateFieldWhichIsDynamicallyAllocated(
+        Object *self, char *memberName, void *dynamicallyAllocatedMemberToSet);
+
+extern void setPrimitivePrivateFieldWhichIsStaticallyAllocated(
+        Object *self, char *memberName, void *staticallyAllocatedMemberToSet);
 
 /* ----------------------------- Implementation ----------------------------- */
 
@@ -52,9 +58,9 @@ void *getData_AtomicLValue(AtomicLValue *atomicLValue) {
 
 void setDataWhichIsDynamicallyAllocated_AtomicLValue(
         AtomicLValue *atomicLValue, void *dynamicallyAllocatedData) {
-    setPrimitivePrivateField((Object *) atomicLValue,
-                             __ATOMIC_LVALUE_MEMBER_NAME__,
-                             dynamicallyAllocatedData);
+    setPrimitivePrivateFieldWhichIsDynamicallyAllocated(
+            (Object *) atomicLValue, __ATOMIC_LVALUE_MEMBER_NAME__,
+            dynamicallyAllocatedData);
 }
 
 void setDataWhichIsStaticallyAllocated_AtomicLValue(
