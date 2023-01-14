@@ -792,89 +792,31 @@ void setPrimitivePrivateFieldWhichIsStaticallyAllocated(
 /* ----------------- Generic SET MEMBER ------------------ */
 
 // TODO:
-// "private" function.
-TYPEOF_ANONYMOUS_POINTER
-setMemberValue_Logic(Legacy_List *      accessModifierLegacyList,
-                     Legacy_MemberList *legacyMemberList, char *memberName) {
-    Legacy_Object *legacyObject = getAccessModifierMember(
-            accessModifierLegacyList, legacyMemberList, memberName);
+// "public" function.
+Object *setObjectMember(Object *self, enum AccessModifier accessModifier,
+                        enum MemberType memberType, const char *memberName) {
+    Object *object =
+            getObjectMember(self, accessModifier, memberType, memberName);
+    if (object == NULL) { return NULL; }
 
-    TYPEOF_ANONYMOUS_POINTER returnValue =
-            (TYPEOF_ANONYMOUS_POINTER)((Object *) legacyObject);
-
-    // TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__` locations.
-    if (legacyObject == NULL) {
-        fprintf(stderr, "The memberName `%s` was not found in the Object.\n",
-                memberName);
-    }
-
-    // TODO: add `legacyObject != NULL &&` assertion
-    if (/*legacyObject != NULL &&*/
-        strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
-               "AtomicLValue") == 0) {
-        returnValue = (TYPEOF_ANONYMOUS_POINTER) setData_AtomicLValue(
-                (AtomicLValue *) legacyObject, );
-    }
-
-    return returnValue;
+    // TODO:
+    // set logic.
 }
 
 // TODO:
-// "public" function.
-TYPEOF_ANONYMOUS_POINTER setMemberValue(Object *            self,
-                                        enum AccessModifier accessModifier,
-                                        enum MemberType     memberType,
-                                        const char *        memberName) {
-    Legacy_List *      accessModifierLegacyList = NULL;
-    Legacy_MemberList *legacyMemberList         = NULL;
+// "private" function.
+void *setLValueMember(Object *self, enum AccessModifier accessModifier,
+                      enum MemberType memberType, const char *memberName) {
+    Legacy_Object *legacyObject =
+            getLegacyObjectMember(self, accessModifier, memberType, memberName);
 
-    switch (accessModifier) {
-        case PRIVATE:
-            accessModifierLegacyList = getPrivateMemberNameLegacy_List(self);
-            break;
+    void *returnValue = NULL;
 
-        case PUBLIC:
-            accessModifierLegacyList = getPublicMemberNameLegacy_List(self);
-            break;
-    }
-
-    switch (memberType) {
-        case METHOD:
-            legacyMemberList = getMethodsMemberList(self);
-            break;
-
-        case CONSTRUCTOR:
-            legacyMemberList = getConstructorMemberList(self);
-            break;
-
-        case DESTRUCTOR:
-            legacyMemberList = getDestructorMemberList(self);
-            break;
-
-        case FIELD:
-            legacyMemberList = getFieldsMemberList(self);
-            break;
-    }
-
-    // TODO:
-
-    Legacy_Object *legacyObject = getAccessModifierMember(
-            accessModifierLegacyList, legacyMemberList, (char *) memberName);
-
-    // TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__` locations.
-    if (legacyObject == NULL) {
-        fprintf(stderr, "The memberName `%s` was not found in the Object.\n",
-                memberName);
-    }
-
-    IntegerRValue returnValue = 0;
-
-    // TODO: add `legacyObject != NULL &&` assertion
-    if (/*legacyObject != NULL &&*/
+    if (legacyObject != NULL &&
         strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
-               "AtomicIntegerRValue") == 0) {
-        returnValue = (IntegerRValue) getData_AtomicIntegerRValue(
-                (AtomicIntegerRValue *) legacyObject);
+               "AtomicLValue") == 0) {
+        returnValue =
+                (void *) getData_AtomicLValue((AtomicLValue *) legacyObject);
     }
 
     return returnValue;
@@ -886,50 +828,12 @@ IntegerRValue setIntegerRValueMemberValue(Object *            self,
                                           enum AccessModifier accessModifier,
                                           enum MemberType     memberType,
                                           const char *        memberName) {
-    Legacy_List *      accessModifierLegacyList = NULL;
-    Legacy_MemberList *legacyMemberList         = NULL;
-
-    switch (accessModifier) {
-        case PRIVATE:
-            accessModifierLegacyList = getPrivateMemberNameLegacy_List(self);
-            break;
-
-        case PUBLIC:
-            accessModifierLegacyList = getPublicMemberNameLegacy_List(self);
-            break;
-    }
-
-    switch (memberType) {
-        case METHOD:
-            legacyMemberList = getMethodsMemberList(self);
-            break;
-
-        case CONSTRUCTOR:
-            legacyMemberList = getConstructorMemberList(self);
-            break;
-
-        case DESTRUCTOR:
-            legacyMemberList = getDestructorMemberList(self);
-            break;
-
-        case FIELD:
-            legacyMemberList = getFieldsMemberList(self);
-            break;
-    }
-
-    Legacy_Object *legacyObject = getAccessModifierMember(
-            accessModifierLegacyList, legacyMemberList, (char *) memberName);
-
-    // TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__` locations.
-    if (legacyObject == NULL) {
-        fprintf(stderr, "The memberName `%s` was not found in the Object.\n",
-                memberName);
-    }
+    Legacy_Object *legacyObject =
+            getLegacyObjectMember(self, accessModifier, memberType, memberName);
 
     IntegerRValue returnValue = 0;
 
-    // TODO: add `legacyObject != NULL &&` assertion
-    if (/*legacyObject != NULL &&*/
+    if (legacyObject != NULL &&
         strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
                "AtomicIntegerRValue") == 0) {
         returnValue = (IntegerRValue) getData_AtomicIntegerRValue(
@@ -945,50 +849,12 @@ DoubleRValue setDoubleRValueMemberValue(Object *            self,
                                         enum AccessModifier accessModifier,
                                         enum MemberType     memberType,
                                         const char *        memberName) {
-    Legacy_List *      accessModifierLegacyList = NULL;
-    Legacy_MemberList *legacyMemberList         = NULL;
-
-    switch (accessModifier) {
-        case PRIVATE:
-            accessModifierLegacyList = getPrivateMemberNameLegacy_List(self);
-            break;
-
-        case PUBLIC:
-            accessModifierLegacyList = getPublicMemberNameLegacy_List(self);
-            break;
-    }
-
-    switch (memberType) {
-        case METHOD:
-            legacyMemberList = getMethodsMemberList(self);
-            break;
-
-        case CONSTRUCTOR:
-            legacyMemberList = getConstructorMemberList(self);
-            break;
-
-        case DESTRUCTOR:
-            legacyMemberList = getDestructorMemberList(self);
-            break;
-
-        case FIELD:
-            legacyMemberList = getFieldsMemberList(self);
-            break;
-    }
-
-    Legacy_Object *legacyObject = getAccessModifierMember(
-            accessModifierLegacyList, legacyMemberList, (char *) memberName);
-
-    // TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__` locations.
-    if (legacyObject == NULL) {
-        fprintf(stderr, "The memberName `%s` was not found in the Object.\n",
-                memberName);
-    }
+    Legacy_Object *legacyObject =
+            getLegacyObjectMember(self, accessModifier, memberType, memberName);
 
     DoubleRValue returnValue = 0;
 
-    // TODO: add `legacyObject != NULL &&` assertion
-    if (/*legacyObject != NULL &&*/
+    if (legacyObject != NULL &&
         strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
                "AtomicDoubleRValue") == 0) {
         returnValue = (DoubleRValue) getData_AtomicDoubleRValue(
@@ -1043,6 +909,8 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
 }
 
 /* ------------------------- ADD & GET & SET RVALUE ------------------------- */
+
+// TODO: redundant. duplicate code.
 
 /* ---------------- IntegerRValue ---------------- */
 
