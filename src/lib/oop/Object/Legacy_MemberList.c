@@ -120,7 +120,6 @@ Legacy_Object *setMember(Legacy_MemberList *legacyMemberList, char *memberName,
     return member;
 }
 
-// TODO: "public" "setMember".
 /**
  * "public" function.
  * On success, returns the set Legacy_Node. On fail, returns `NULL`.
@@ -132,7 +131,6 @@ setMemberWhichIsLegacy_Object(Legacy_MemberList *legacyMemberList,
     return setMember(legacyMemberList, memberName, legacyObjectContainer);
 }
 
-// TODO: "public" "setMember".
 /**
  * "public" function.
  * On success, returns the set Legacy_Node. On fail, returns `NULL`.
