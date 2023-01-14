@@ -25,9 +25,9 @@ struct object {
     ANONYMOUS_POINTER_AS_FIELD;
     ANONYMOUS_POINTER_AS_FIELD;
 
-    TYPEOF_ANONYMOUS_POINTER(*getMemberValue)
-    (Object *self, enum AccessModifier accessModifier,
-     enum MemberType memberType, const char *memberName);
+    Object *(*getObjectMember)(Object *self, enum AccessModifier accessModifier,
+                               enum MemberType memberType,
+                               const char *    memberName);
 
     void (*addIntegerRValueMember)(Object *            self,
                                    enum AccessModifier accessModifier,

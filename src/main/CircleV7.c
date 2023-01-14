@@ -24,7 +24,7 @@ CircleV7 *CircleV7Constructor() {
     instance->addMemberValue(
             instance, PUBLIC, FIELD, "radiusAllocatedInt",
             (Object *) AtomicLValueConstructor(radiusAllocated, TRUE));
-    printf("%d\n", *((int *) instance->getMemberValue(instance, PUBLIC, FIELD,
+    printf("%d\n", *((int *) instance->getObjectMember(instance, PUBLIC, FIELD,
                                                       "radiusAllocatedInt")));
 
 
