@@ -13,10 +13,13 @@ void add(Legacy_List *list, Legacy_Node *node) {
     list->size++;
 }
 
-// "private" function.
-void *deleteNodeAndReturnNodeData(Legacy_List *list,
-                                  Legacy_Node *iterationNodePrev,
-                                  Legacy_Node *iterationNode) {
+/**
+ * "private" function for internal logic of `delete` and
+ * `deleteNodeThatHasTheGivenData`.
+ */
+void *deleteNodeAndReturnNodeDataPRIVATE(Legacy_List *list,
+                                         Legacy_Node *iterationNodePrev,
+                                         Legacy_Node *iterationNode) {
     if (iterationNodePrev) {
 
         // `iterationNode` is a "middle-legacy_node" or `legacy_list->tail`.
@@ -47,7 +50,7 @@ void *delete (Legacy_List *list, Legacy_Node *node) {
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
         if (iterationNode == node) {
-            deletedNodeData = deleteNodeAndReturnNodeData(
+            deletedNodeData = deleteNodeAndReturnNodeDataPRIVATE(
                     list, iterationNodePrev, iterationNode);
             break;
         }
@@ -66,7 +69,7 @@ void *deleteNodeThatHasTheGivenData(Legacy_List *list,
     for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
          iterationNode              = iterationNode->next) {
         if (iterationNode->data == dataOfTheNodeToDelete) {
-            deletedNodeData = deleteNodeAndReturnNodeData(
+            deletedNodeData = deleteNodeAndReturnNodeDataPRIVATE(
                     list, iterationNodePrev, iterationNode);
             break;
         }
@@ -99,6 +102,24 @@ void addAsUnique(Legacy_List *list, Legacy_Node *node,
         NULL) {
         add(list, node);
     }
+}
+
+void *setByStringToSearch(Legacy_List *list, void *dataToSet,
+                          BOOLEAN (*predicate)(const Legacy_Node *,
+                                               const char *const),
+                          const char *stringToSearch) {
+    if (list == NULL) { return NULL; }
+
+    Legacy_Node *foundNode =
+            findNodeByPredicateOfConstString(list, predicate, stringToSearch);
+    if (foundNode == NULL) {
+        // TODO:
+        // throw message with status: ENTRY_NOT_FOUND.
+        return NULL;
+    }
+
+    // set logic.
+    return foundNode->setNodeData(foundNode, dataToSet);
 }
 
 /// @deprecated Unused. Keep this "private".
@@ -241,6 +262,7 @@ void constructor_Legacy_List_fields(Legacy_List *list) {
     list->addAsUnique                      = &addAsUnique;
     list->Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData =
             &Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData;
+    list->setByStringToSearch = &setByStringToSearch;
 }
 
 Legacy_List *Legacy_ListConstructor() {
