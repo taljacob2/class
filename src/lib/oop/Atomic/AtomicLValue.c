@@ -18,14 +18,14 @@ getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
 
 /* ----------------------------- Implementation ----------------------------- */
 
-void setDataWhichIsDynamicallyAllocated_AtomicLValue(
+void addDataWhichIsDynamicallyAllocated_AtomicLValue(
         AtomicLValue *atomicLValue, void *dynamicallyAllocatedData) {
     addPrimitivePrivateField((Object *) atomicLValue,
                              __ATOMIC_LVALUE_MEMBER_NAME__,
                              dynamicallyAllocatedData);
 }
 
-void setDataWhichIsStaticallyAllocated_AtomicLValue(
+void addDataWhichIsStaticallyAllocated_AtomicLValue(
         AtomicLValue *atomicLValue, void *staticallyAllocatedData) {
     addPrimitivePrivateFieldWhichIsStaticallyAllocated(
             (Object *) atomicLValue, __ATOMIC_LVALUE_MEMBER_NAME__,
@@ -66,9 +66,9 @@ AtomicLValue *AtomicLValueConstructor(void *  data,
             (AtomicLValue *) ObjectConstructorWithoutAnyMembers("AtomicLValue");
 
     if (isDataDynamicallyAllocated) {
-        setDataWhichIsDynamicallyAllocated_AtomicLValue(instance, data);
+        addDataWhichIsDynamicallyAllocated_AtomicLValue(instance, data);
     } else {
-        setDataWhichIsStaticallyAllocated_AtomicLValue(instance, data);
+        addDataWhichIsStaticallyAllocated_AtomicLValue(instance, data);
     }
 
     static Destructable const destructable = {
