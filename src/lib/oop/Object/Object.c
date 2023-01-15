@@ -1200,7 +1200,10 @@ void invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(
 
 void *DefaultDestructor(Object *self) {
 
-    // Invoke all destructors in reversed order.
+    // Invoke all "public" destructors in reversed order.
+    invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(self, PUBLIC);
+
+    return NULL;
 }
 
 void init_fields(Object *object) {
