@@ -1163,11 +1163,14 @@ void invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(
             if (isAccessModifierLegacyListContainsMember(
                         accessModifierLegacyList,
                         legacy_StringObjectContainerEntry->key)) {
+                AtomicLValue *atomicLValueThatContainsDestructor =
+                        (AtomicLValue *)
+                                legacy_StringObjectContainerEntry->value;
 
                 // Get the destructor and invoke it.
                 void *(*destructor)(Object *) =
-                        (void *(*) (Object *) )
-                                legacy_StringObjectContainerEntry->value;
+                        (void *(*) (Object *) ) getData_AtomicLValue(
+                                atomicLValueThatContainsDestructor);
                 destructor(self);
             }
         }
@@ -1183,11 +1186,13 @@ void invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(
         if (isAccessModifierLegacyListContainsMember(
                     accessModifierLegacyList,
                     legacy_StringObjectContainerEntry->key)) {
+            AtomicLValue *atomicLValueThatContainsDestructor =
+                    (AtomicLValue *) legacy_StringObjectContainerEntry->value;
 
             // Get the destructor and invoke it.
             void *(*destructor)(Object *) =
-                    (void *(*) (Object *) )
-                            legacy_StringObjectContainerEntry->value;
+                    (void *(*) (Object *) ) getData_AtomicLValue(
+                            atomicLValueThatContainsDestructor);
             destructor(self);
         }
     }
