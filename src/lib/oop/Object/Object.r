@@ -110,14 +110,20 @@ struct object {
                              enum MemberType memberType, const char *memberName,
                              void *  lValueDataValueToSet,
                              BOOLEAN isDataDynamicallyAllocatedValueToSet);
-    BOOLEAN (*setIntegerRValueMember)
+    BOOLEAN(*setIntegerRValueMember)
     (Object *self, enum MemberAccessModifier memberAccessModifier,
      enum MemberType memberType, const char *memberName,
      IntegerRValue integerRValueValueToSet);
-    BOOLEAN (*setDoubleRValueMember)
+    BOOLEAN(*setDoubleRValueMember)
     (Object *self, enum MemberAccessModifier memberAccessModifier,
      enum MemberType memberType, const char *memberName,
      DoubleRValue doubleRValueValueToSet);
+
+    void (*toStringMembersByMemberAccessModifier)(
+            Object *self, enum MemberAccessModifier memberAccessModifier);
+    void (*toStringMembersByMemberType)(Object *        self,
+                                        enum MemberType memberType);
+    void (*toString)(Object *self);
 };
 
 void *ObjectDestructor(Object *object);

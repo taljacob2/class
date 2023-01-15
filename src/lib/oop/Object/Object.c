@@ -1085,7 +1085,6 @@ void toString_ObjectMemberAccessModifierLegacy_ListPRIVATE(
     putchar('\n');
 }
 
-// TODO: and make public.
 // "public" function.
 void toString_ObjectMemberAccessModifierList(
         Object *self, enum MemberAccessModifier memberAccessModifier) {
@@ -1162,7 +1161,6 @@ void toString_ObjectMemberTypeListPRIVATE(Object *           self,
     putchar('\n');
 }
 
-// TODO: and make public.
 // "public" function.
 void toString_ObjectMemberTypeList(Object *self, enum MemberType memberType) {
     Legacy_MemberList *legacyMemberList =
@@ -1171,7 +1169,6 @@ void toString_ObjectMemberTypeList(Object *self, enum MemberType memberType) {
     toString_ObjectMemberTypeListPRIVATE(self, legacyMemberList, memberType);
 }
 
-// TODO: and make public.
 // "public" function.
 void toString_Object(Object *self) {
     putchar('{');
@@ -1403,6 +1400,12 @@ void init_fields(Object *object) {
     object->setIntegerRValueMember = &setIntegerRValueMember;
     object->setDoubleRValueMember  = &setDoubleRValueMember;
     //    object->setImplementation = &setImplementation; // TODO:
+
+
+    object->toStringMembersByMemberAccessModifier =
+            &toString_ObjectMemberAccessModifierList;
+    object->toStringMembersByMemberType = &toString_ObjectMemberTypeList;
+    object->toString                    = &toString_Object;
 }
 
 // "protected" function.
