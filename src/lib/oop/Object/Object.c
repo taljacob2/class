@@ -1012,28 +1012,28 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
 
 /* ------------------------------- toString --------------------------------= */
 
-// TODO: and make public.
-// "public" function.
-void toStringMemberAccessModifierList(
-        Object *self, enum MemberAccessModifier memberAccessModifier) {
-    Legacy_List *legacyList = getAccessModifierLegacyListByAccessModifier(
-            self, memberAccessModifier);
-
-    legacyList->toString(legacyList);
-}
-
-// TODO: and make public.
-// "public" function.
-void toStringMemberTypeList(Object *self, enum MemberType memberType) {
-    Legacy_MemberList *legacyMemberList =
-            getLegacyMemberListByMemberType(self, memberType);
-
-    legacyMemberList->toString(legacyMemberList);
-}
-
-// TODO: and make public.
-// "public" function.
-void toString_Object(Object *self) { get }
+//// TODO: and make public.
+//// "public" function.
+//void toStringMemberAccessModifierList(
+//        Object *self, enum MemberAccessModifier memberAccessModifier) {
+//    Legacy_List *legacyList = getAccessModifierLegacyListByAccessModifier(
+//            self, memberAccessModifier);
+//
+//    legacyList->toString(legacyList);
+//}
+//
+//// TODO: and make public.
+//// "public" function.
+//void toStringMemberTypeList(Object *self, enum MemberType memberType) {
+//    Legacy_MemberList *legacyMemberList =
+//            getLegacyMemberListByMemberType(self, memberType);
+//
+//    legacyMemberList->toString(legacyMemberList);
+//}
+//
+//// TODO: and make public.
+//// "public" function.
+//void toString_Object(Object *self) { get }
 
 /* -------------------------- Destructor Private ---------------------------= */
 
@@ -1269,13 +1269,10 @@ Object *ObjectConstructorWithoutAnyMembers(char *className) {
 Object *ObjectConstructor(char *className) {
     Object *instance = ObjectConstructorWithoutAnyMembers(className);
 
-    addObjectMember(
-            instance, PUBLIC, CONSTRUCTOR, "ObjectConstructor",
-            (Object *) AtomicLValueConstructor(&ObjectConstructor, FALSE));
-
-    addObjectMember(
-            instance, PUBLIC, DESTRUCTOR, "ObjectDestructor",
-            (Object *) AtomicLValueConstructor(&ObjectDestructor, FALSE));
+    instance->addLValueMember(instance, PUBLIC, CONSTRUCTOR,
+                              "ObjectConstructor", &ObjectConstructor, FALSE);
+    instance->addLValueMember(instance, PUBLIC, DESTRUCTOR, "ObjectDestructor",
+                              &ObjectDestructor, FALSE);
 
     return instance;
 }
