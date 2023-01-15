@@ -52,5 +52,7 @@ CircleV7 *CircleV7Constructor() {
 //                                                       "radiusAllocatedInt")));
 
 
+    instance->toString(instance);
+
     return (CircleV7 *) instance;
 }
