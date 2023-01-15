@@ -332,7 +332,8 @@ Object *getObjectMember(Object *                  self,
     return returnValue;
 }
 
-// "private" function.
+// TODO: make public.
+// "public" function.
 void *getLValueMember(Object *                  self,
                       enum MemberAccessModifier memberAccessModifier,
                       enum MemberType memberType, const char *memberName) {
@@ -351,10 +352,12 @@ void *getLValueMember(Object *                  self,
     return returnValue;
 }
 
-// "private" function.
-IntegerRValue getIntegerRValueMemberValue(
-        Object *self, enum MemberAccessModifier memberAccessModifier,
-        enum MemberType memberType, const char *memberName) {
+// TODO: make public.
+// "public" function.
+IntegerRValue
+getIntegerRValueMember(Object *                  self,
+                       enum MemberAccessModifier memberAccessModifier,
+                       enum MemberType memberType, const char *memberName) {
     Legacy_Object *legacyObject = getLegacyObjectMember(
             self, memberAccessModifier, memberType, memberName);
 
@@ -370,11 +373,12 @@ IntegerRValue getIntegerRValueMemberValue(
     return returnValue;
 }
 
-// "private" function.
+// TODO: make public.
+// "public" function.
 DoubleRValue
-getDoubleRValueMemberValue(Object *                  self,
-                           enum MemberAccessModifier memberAccessModifier,
-                           enum MemberType memberType, const char *memberName) {
+getDoubleRValueMember(Object *                  self,
+                      enum MemberAccessModifier memberAccessModifier,
+                      enum MemberType memberType, const char *memberName) {
     Legacy_Object *legacyObject = getLegacyObjectMember(
             self, memberAccessModifier, memberType, memberName);
 
