@@ -1200,9 +1200,6 @@ void invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(
 
 void *DefaultDestructor(Object *self) {
 
-    // Invoke all "public" destructors in reversed order.
-    invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(self, PUBLIC);
-
     /*
      * If `getLegacyObjectComponent(self)->destructable->destructor` was
      * overwritten, then invoke it.
@@ -1210,8 +1207,12 @@ void *DefaultDestructor(Object *self) {
     if (getLegacyObjectComponent(self)->destructable->destructor !=
         (void *(*const)(void *) )(&DefaultDestructor)) {
         getLegacyObjectComponent(self)->destructable->destructor(self);
-    }
+    } else {
 
+        // Invoke all "public" destructors in reversed order.
+        invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(self,
+                                                                      PUBLIC);
+    }
     return NULL;
 }
 
@@ -1280,7 +1281,8 @@ Object *ObjectConstructor(char *className) {
 
     // TODO: make `DefaultConstructor` that invokes all constructors in straight order.
     instance->addLValueMember(instance, PUBLIC, CONSTRUCTOR,
-                              "ObjectConstructor", LValue_CAST(&ObjectConstructor), FALSE);
+                              "ObjectConstructor",
+                              LValue_CAST(&ObjectConstructor), FALSE);
     instance->addLValueMember(instance, PUBLIC, DESTRUCTOR, "ObjectDestructor",
                               LValue_CAST(&ObjectDestructor), FALSE);
 
