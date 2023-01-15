@@ -5,7 +5,7 @@
 #include "AnonymousPointer.r"
 #include "Legacy_MemberList.r"
 
-enum AccessModifier { PRIVATE, PUBLIC };
+enum MemberAccessModifier { PRIVATE, PUBLIC };
 enum MemberType { METHOD, CONSTRUCTOR, DESTRUCTOR, FIELD };
 
 // Forward declaration of incomplete type
@@ -25,33 +25,31 @@ struct object {
     ANONYMOUS_POINTER_AS_FIELD;
     ANONYMOUS_POINTER_AS_FIELD;
 
-    Object *(*getObjectMember)(Object *self, enum AccessModifier accessModifier,
-                               enum MemberType memberType,
-                               const char *    memberName);
+    Object *(*getObjectMember)(Object *                  self,
+                               enum MemberAccessModifier memberAccessModifier,
+                               enum MemberType           memberType,
+                               const char *              memberName);
 
-    void (*addIntegerRValueMember)(Object *            self,
-                                   enum AccessModifier accessModifier,
-                                   enum MemberType     memberType,
-                                   const char *        memberName,
-                                   IntegerRValue       integerRValue);
-    IntegerRValue (*getIntegerRValueMember)(Object *            self,
-                                            enum AccessModifier accessModifier,
-                                            enum MemberType     memberType,
-                                            const char *        memberName);
-    void (*addDoubleRValueMember)(Object *            self,
-                                  enum AccessModifier accessModifier,
-                                  enum MemberType     memberType,
-                                  const char *        memberName,
-                                  DoubleRValue        doubleRValue);
-    DoubleRValue (*getDoubleRValueMember)(Object *            self,
-                                          enum AccessModifier accessModifier,
-                                          enum MemberType     memberType,
-                                          const char *        memberName);
+    void (*addIntegerRValueMember)(
+            Object *self, enum MemberAccessModifier memberAccessModifier,
+            enum MemberType memberType, const char *memberName,
+            IntegerRValue integerRValue);
+    IntegerRValue (*getIntegerRValueMember)(
+            Object *self, enum MemberAccessModifier accessModifier,
+            enum MemberType memberType, const char *memberName);
+    void (*addDoubleRValueMember)(
+            Object *self, enum MemberAccessModifier memberAccessModifier,
+            enum MemberType memberType, const char *memberName,
+            DoubleRValue doubleRValue);
+    DoubleRValue (*getDoubleRValueMember)(
+            Object *self, enum MemberAccessModifier accessModifier,
+            enum MemberType memberType, const char *memberName);
 
     Legacy_Object *(*getImplementation)(Object *self, char *memberName);
 
     // TODO: rename.
-    void (*addMemberValue)(Object *self, enum AccessModifier accessModifier,
+    void (*addMemberValue)(Object *                  self,
+                           enum MemberAccessModifier memberAccessModifier,
                            enum MemberType memberType, const char *memberName,
                            Object *memberToAdd);
 

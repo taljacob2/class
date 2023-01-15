@@ -19,27 +19,28 @@
     ANONYMOUS_POINTER_AS_FIELD;                                                                         \
                                                                                                         \
     Object *(*getObjectMember)(                                                                         \
-            Object * self, enum AccessModifier accessModifier,                                          \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
             enum MemberType memberType, const char *memberName);                                        \
                                                                                                         \
     void (*addIntegerRValueMember)(                                                                     \
-            Object * self, enum AccessModifier accessModifier,                                          \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
             enum MemberType memberType, const char *memberName,                                         \
             IntegerRValue integerRValue);                                                               \
     IntegerRValue (*getIntegerRValueMember)(                                                            \
-            Object * self, enum AccessModifier accessModifier,                                          \
+            Object * self, enum MemberAccessModifier accessModifier,                                    \
             enum MemberType memberType, const char *memberName);                                        \
     void (*addDoubleRValueMember)(                                                                      \
-            Object * self, enum AccessModifier accessModifier,                                          \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
             enum MemberType memberType, const char *memberName,                                         \
             DoubleRValue doubleRValue);                                                                 \
     DoubleRValue (*getDoubleRValueMember)(                                                              \
-            Object * self, enum AccessModifier accessModifier,                                          \
+            Object * self, enum MemberAccessModifier accessModifier,                                    \
             enum MemberType memberType, const char *memberName);                                        \
                                                                                                         \
     Legacy_Object *(*getImplementation)(Object * self, char *memberName);                               \
                                                                                                         \
-    void (*addMemberValue)(Object * self, enum AccessModifier accessModifier,                           \
+    void (*addMemberValue)(Object * self,                                                               \
+                           enum MemberAccessModifier memberAccessModifier,                              \
                            enum MemberType memberType, const char *memberName,                          \
                            Object *memberToAdd);                                                        \
                                                                                                         \

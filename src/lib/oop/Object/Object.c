@@ -267,7 +267,7 @@ getAccessModifierMemberAndRemoveFromList(Legacy_List *accessModifierLegacyList,
 
 // "private" function.
 Legacy_List *getAccessModifierLegacyListByAccessModifier(
-        Object *self, enum AccessModifier accessModifier) {
+        Object *self, enum MemberAccessModifier accessModifier) {
     Legacy_List *accessModifierLegacyList = NULL;
 
     switch (accessModifier) {
@@ -310,10 +310,10 @@ Legacy_MemberList *getLegacyMemberListByMemberType(Object *        self,
 }
 
 // "private" function.
-Legacy_Object *getLegacyObjectMember(Object *            self,
-                                     enum AccessModifier accessModifier,
-                                     enum MemberType     memberType,
-                                     const char *        memberName) {
+Legacy_Object *getLegacyObjectMember(Object *                  self,
+                                     enum MemberAccessModifier accessModifier,
+                                     enum MemberType           memberType,
+                                     const char *              memberName) {
     Legacy_List *accessModifierLegacyList =
             getAccessModifierLegacyListByAccessModifier(self, accessModifier);
     Legacy_MemberList *legacyMemberList =
@@ -332,7 +332,7 @@ Legacy_Object *getLegacyObjectMember(Object *            self,
 }
 
 // "public" function.
-Object *getObjectMember(Object *self, enum AccessModifier accessModifier,
+Object *getObjectMember(Object *self, enum MemberAccessModifier accessModifier,
                         enum MemberType memberType, const char *memberName) {
     Legacy_Object *legacyObject =
             getLegacyObjectMember(self, accessModifier, memberType, memberName);
@@ -343,7 +343,7 @@ Object *getObjectMember(Object *self, enum AccessModifier accessModifier,
 }
 
 // "private" function.
-void *getLValueMember(Object *self, enum AccessModifier accessModifier,
+void *getLValueMember(Object *self, enum MemberAccessModifier accessModifier,
                       enum MemberType memberType, const char *memberName) {
     Legacy_Object *legacyObject =
             getLegacyObjectMember(self, accessModifier, memberType, memberName);
@@ -361,10 +361,9 @@ void *getLValueMember(Object *self, enum AccessModifier accessModifier,
 }
 
 // "private" function.
-IntegerRValue getIntegerRValueMemberValue(Object *            self,
-                                          enum AccessModifier accessModifier,
-                                          enum MemberType     memberType,
-                                          const char *        memberName) {
+IntegerRValue getIntegerRValueMemberValue(
+        Object *self, enum MemberAccessModifier accessModifier,
+        enum MemberType memberType, const char *memberName) {
     Legacy_Object *legacyObject =
             getLegacyObjectMember(self, accessModifier, memberType, memberName);
 
@@ -381,10 +380,10 @@ IntegerRValue getIntegerRValueMemberValue(Object *            self,
 }
 
 // "private" function.
-DoubleRValue getDoubleRValueMemberValue(Object *            self,
-                                        enum AccessModifier accessModifier,
-                                        enum MemberType     memberType,
-                                        const char *        memberName) {
+DoubleRValue
+getDoubleRValueMemberValue(Object *                  self,
+                           enum MemberAccessModifier accessModifier,
+                           enum MemberType memberType, const char *memberName) {
     Legacy_Object *legacyObject =
             getLegacyObjectMember(self, accessModifier, memberType, memberName);
 
@@ -699,7 +698,7 @@ void addPublicField(Object *self, char *memberName, Object *memberToAdd) {
 /* ----------------- Generic ADD MEMBER ------------------ */
 
 // "public" function.
-void addMemberValue(Object *self, enum AccessModifier accessModifier,
+void addMemberValue(Object *self, enum MemberAccessModifier accessModifier,
                     enum MemberType memberType, const char *memberName,
                     Object *memberToAdd) {
     switch (accessModifier) {
@@ -792,9 +791,9 @@ void setPrimitivePrivateFieldWhichIsStaticallyAllocated(
 /* ----------------- Generic SET MEMBER ------------------ */
 
 // "private" function.
-void getAccessModifierAndMemberType(Object *             object,
-                                    enum AccessModifier *outAccessModifier,
-                                    enum MemberType *    outMemberType) {
+void getAccessModifierAndMemberType(
+        Object *object, enum MemberAccessModifier *outAccessModifier,
+        enum MemberType *outMemberType) {
     const int THE_GIVEN_OBJECT_HAS_NO_PARENT_OBJECTS = -1;
 
     Legacy_Object *(*functionToInvoke)(Object *, Object *) =
@@ -846,8 +845,8 @@ void getAccessModifierAndMemberType(Object *             object,
 }
 
 // TODO:
-// "public" function.
-Object *setObjectMember(Object *self, Object *value) {
+// "private" function.
+Object *setSelfObject(Object *self, Object *value) {
     if (self == NULL) { return NULL; }
 
     ObjectDestructor(self);
@@ -857,8 +856,25 @@ Object *setObjectMember(Object *self, Object *value) {
 }
 
 // TODO:
+// "public" function.
+Object *setObjectMember(Object *                  self,
+                        enum MemberAccessModifier memberAccessModifier,
+                        enum MemberType memberType, const char *memberName) {
+    if (self == NULL) { return NULL; }
+
+    Object *objectMember =
+            getObjectMember(self, memberAccessModifier, memberType, memberName);
+
+
+    ObjectDestructor(self);
+    self = value;
+
+    return value;
+}
+
+// TODO:
 // "private" function.
-void *setLValueMember(Object *self, enum AccessModifier accessModifier,
+void *setLValueMember(Object *self, enum MemberAccessModifier accessModifier,
                       enum MemberType memberType, const char *memberName) {
     Legacy_Object *legacyObject =
             getLegacyObjectMember(self, accessModifier, memberType, memberName);
@@ -877,10 +893,9 @@ void *setLValueMember(Object *self, enum AccessModifier accessModifier,
 
 // TODO:
 // "private" function.
-IntegerRValue setIntegerRValueMemberValue(Object *            self,
-                                          enum AccessModifier accessModifier,
-                                          enum MemberType     memberType,
-                                          const char *        memberName) {
+IntegerRValue setIntegerRValueMemberValue(
+        Object *self, enum MemberAccessModifier accessModifier,
+        enum MemberType memberType, const char *memberName) {
     Legacy_Object *legacyObject =
             getLegacyObjectMember(self, accessModifier, memberType, memberName);
 
@@ -898,10 +913,10 @@ IntegerRValue setIntegerRValueMemberValue(Object *            self,
 
 // TODO:
 // "private" function.
-DoubleRValue setDoubleRValueMemberValue(Object *            self,
-                                        enum AccessModifier accessModifier,
-                                        enum MemberType     memberType,
-                                        const char *        memberName) {
+DoubleRValue
+setDoubleRValueMemberValue(Object *                  self,
+                           enum MemberAccessModifier accessModifier,
+                           enum MemberType memberType, const char *memberName) {
     Legacy_Object *legacyObject =
             getLegacyObjectMember(self, accessModifier, memberType, memberName);
 
@@ -968,7 +983,8 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
 /* ---------------- IntegerRValue ---------------- */
 
 // "public" function.
-void addIntegerRValueMember(Object *self, enum AccessModifier accessModifier,
+void addIntegerRValueMember(Object *                  self,
+                            enum MemberAccessModifier accessModifier,
                             enum MemberType memberType, const char *memberName,
                             IntegerRValue integerRValue) {
     addMemberValue(self, accessModifier, memberType, memberName,
@@ -976,17 +992,17 @@ void addIntegerRValueMember(Object *self, enum AccessModifier accessModifier,
 }
 
 // "public" function.
-IntegerRValue getIntegerRValueMember(Object *            self,
-                                     enum AccessModifier accessModifier,
-                                     enum MemberType     memberType,
-                                     const char *        memberName) {
+IntegerRValue getIntegerRValueMember(Object *                  self,
+                                     enum MemberAccessModifier accessModifier,
+                                     enum MemberType           memberType,
+                                     const char *              memberName) {
     return getIntegerRValueMemberValue(self, accessModifier, memberType,
                                        memberName);
 }
 
 //// "public" function.
 //// TODO:
-//void setIntegerRValueMember(Object *self, enum AccessModifier accessModifier,
+//void setIntegerRValueMember(Object *self, enum MemberAccessModifier accessModifier,
 //                            enum MemberType memberType, const char *memberName,
 //                            IntegerRValue integerRValue) {
 //    AtomicIntegerRValue *atomicIntegerRValue =
@@ -1002,7 +1018,8 @@ IntegerRValue getIntegerRValueMember(Object *            self,
 /* ---------------- DoubleRValue ---------------- */
 
 // "public" function.
-void addDoubleRValueMember(Object *self, enum AccessModifier accessModifier,
+void addDoubleRValueMember(Object *                  self,
+                           enum MemberAccessModifier accessModifier,
                            enum MemberType memberType, const char *memberName,
                            DoubleRValue doubleRValue) {
     addMemberValue(self, accessModifier, memberType, memberName,
@@ -1010,17 +1027,17 @@ void addDoubleRValueMember(Object *self, enum AccessModifier accessModifier,
 }
 
 // "public" function.
-DoubleRValue getDoubleRValueMember(Object *            self,
-                                   enum AccessModifier accessModifier,
-                                   enum MemberType     memberType,
-                                   const char *        memberName) {
+DoubleRValue getDoubleRValueMember(Object *                  self,
+                                   enum MemberAccessModifier accessModifier,
+                                   enum MemberType           memberType,
+                                   const char *              memberName) {
     return getDoubleRValueMemberValue(self, accessModifier, memberType,
                                       memberName);
 }
 
 //// TODO:
 //// "public" function.
-//void setDoubleRValueMember(Object *self, enum AccessModifier accessModifier,
+//void setDoubleRValueMember(Object *self, enum MemberAccessModifier accessModifier,
 //                           enum MemberType memberType, const char *memberName,
 //                           DoubleRValue doubleRValue) {
 //    addMemberValue(self, accessModifier, memberType, memberName,
