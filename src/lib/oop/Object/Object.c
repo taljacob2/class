@@ -309,7 +309,7 @@ Legacy_MemberList *getLegacyMemberListByMemberType(Object *        self,
     return legacyMemberList;
 }
 
-// "private" function.
+// "protected" function.
 Legacy_Object *
 getLegacyObjectMember(Object *                  self,
                       enum MemberAccessModifier memberAccessModifier,

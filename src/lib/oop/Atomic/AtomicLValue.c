@@ -22,6 +22,11 @@ extern void setPrimitivePrivateFieldWhichIsDynamicallyAllocated(
 extern void setPrimitivePrivateFieldWhichIsStaticallyAllocated(
         Object *self, char *memberName, void *staticallyAllocatedMemberToSet);
 
+extern Legacy_Object *
+getLegacyObjectMember(Object *                  self,
+                      enum MemberAccessModifier memberAccessModifier,
+                      enum MemberType memberType, const char *memberName);
+
 /* ----------------------------- Implementation ----------------------------- */
 
 /* ---------------- ADD ---------------- */
@@ -56,9 +61,8 @@ void addData_AtomicLValue(AtomicLValue *atomicLValue, void *data,
 // "protected" function.
 void *getData_AtomicLValue(AtomicLValue *atomicLValue) {
     Legacy_Object *dataContainer =
-            (Legacy_Object *) atomicLValue->getMemberValue(
-                    (Object *) atomicLValue, PRIVATE, FIELD,
-                    __ATOMIC_LVALUE_MEMBER_NAME__);
+            getLegacyObjectMember((Object *) atomicLValue, PRIVATE, FIELD,
+                                  __ATOMIC_LVALUE_MEMBER_NAME__);
 
     return strcmp(dataContainer->legacyObjectComponent->CLASS_NAME,
                   "Legacy_AtomicFreer") == 0
