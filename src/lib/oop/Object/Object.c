@@ -1126,17 +1126,25 @@ void init_fields(Object *object) {
     setObjectThatContainsThisObjectAsAMember(object, NULL);
 
     object->getObjectMember   = &getObjectMember;
-    object->getImplementation = &getImplementation;
-
+    object->getLValueMember = &getLValueMember;
     object->getIntegerRValueMember = &getIntegerRValueMember;
     object->getDoubleRValueMember  = &getDoubleRValueMember;
-    object->addIntegerRValueMember = &addIntegerRValueMember;
-    object->addDoubleRValueMember  = &addDoubleRValueMember;
+    object->getImplementation = &getImplementation;
 
     object->addObjectMember   = &addObjectMember;
-    object->addImplementation = &addImplementation;
+    object->addLValueMember   = &addLValueMember;
+    object->addIntegerRValueMember = &addIntegerRValueMember;
+    object->addDoubleRValueMember  = &addDoubleRValueMember;
+    object->addImplementation = &addImplementation; // TODO: remove redundant.
     object->addImplementationThatIsConstructedWithLegacy_Object =
             &addImplementationThatIsConstructedWithLegacy_Object;
+
+    object->setSelf = &setSelf;
+    object->setObjectMember   = &setObjectMember;
+    object->setLValueMember = &setLValueMember;
+    object->setIntegerRValueMember = &setIntegerRValueMember;
+    object->setDoubleRValueMember  = &setDoubleRValueMember;
+    object->setImplementation = &setImplementation; // TODO:
 }
 
 // "protected" function.
