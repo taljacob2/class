@@ -13,18 +13,6 @@ getData_AtomicIntegerRValue(AtomicIntegerRValue *atomicIntegerRValue);
 extern DoubleRValue
 getData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue);
 
-/* ------- SET ------- */
-
-void setData_AtomicLValue(AtomicLValue *atomicLValue, void *data,
-                          BOOLEAN isDataDynamicallyAllocated);
-
-//// TODO:
-//extern void
-//setData_AtomicIntegerRValue(AtomicIntegerRValue *atomicIntegerRValue);
-//
-//// TODO:
-//extern void setData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue);
-
 /* ---------------------------- GET POINTER VALUE --------------------------- */
 
 // "protected" function.
