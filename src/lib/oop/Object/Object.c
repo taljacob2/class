@@ -745,11 +745,6 @@ void addMemberValue(Object *self, enum AccessModifier accessModifier,
                     break;
             }
             break;
-        case SELF_ACCESS_MODIFIER:
-            // TODO:
-
-            break;
-
     }
 }
 
@@ -800,6 +795,8 @@ void setPrimitivePrivateFieldWhichIsStaticallyAllocated(
 void getAccessModifierAndMemberType(Object *             object,
                                     enum AccessModifier *outAccessModifier,
                                     enum MemberType *    outMemberType) {
+    const int THE_GIVEN_OBJECT_HAS_NO_PARENT_OBJECTS = -1;
+
     Legacy_Object *(*functionToInvoke)(Object *, Object *) =
             getFunctionToInvokeWhenObjectIsAboutToBeDestructed(object);
     if (functionToInvoke ==
@@ -843,8 +840,8 @@ void getAccessModifierAndMemberType(Object *             object,
         *outMemberType     = FIELD;
     } else if (functionToInvoke ==
                &getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList) {
-        *outAccessModifier = SELF_ACCESS_MODIFIER;
-        *outMemberType     = SELF_MEMBER_TYPE;
+        *outAccessModifier = THE_GIVEN_OBJECT_HAS_NO_PARENT_OBJECTS;
+        *outMemberType     = THE_GIVEN_OBJECT_HAS_NO_PARENT_OBJECTS;
     }
 }
 
@@ -853,18 +850,8 @@ void getAccessModifierAndMemberType(Object *             object,
 Object *setObjectMember(Object *self, Object *value) {
     if (self == NULL) { return NULL; }
 
-    // Extract parameters from `self`.
-    enum AccessModifier selfAccessModifier;
-    enum MemberType     selfMemberType;
-    getAccessModifierAndMemberType(self, &selfAccessModifier, &selfMemberType);
-    const char *selfMemberName = getMemberName(self);
-
-    // Destruct `self`. // TODO:
-    getLegacyObjectComponent(self)->destructable->destructor(self);
-
-    // Add new `value` as replacement of `self`.
-    addMemberValue(self, selfAccessModifier, selfMemberType, selfMemberName,
-                   value);
+    ObjectDestructor(self);
+    self = value;
 
     return value;
 }

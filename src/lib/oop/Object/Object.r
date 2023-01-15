@@ -5,8 +5,8 @@
 #include "AnonymousPointer.r"
 #include "Legacy_MemberList.r"
 
-enum AccessModifier { SELF_ACCESS_MODIFIER, PRIVATE, PUBLIC };
-enum MemberType { SELF_MEMBER_TYPE, METHOD, CONSTRUCTOR, DESTRUCTOR, FIELD };
+enum AccessModifier { PRIVATE, PUBLIC };
+enum MemberType { METHOD, CONSTRUCTOR, DESTRUCTOR, FIELD };
 
 // Forward declaration of incomplete type
 typedef struct object Object;
