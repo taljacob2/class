@@ -957,19 +957,18 @@ setDoubleRValueMemberValue(Object *                  self,
                            enum MemberAccessModifier memberAccessModifier,
                            enum MemberType memberType, const char *memberName,
                            DoubleRValue doubleRValueValueToSet) {
-    Legacy_Object *legacyObject = getLegacyObjectMember(
-            self, memberAccessModifier, memberType, memberName);
+    if (self == NULL) { return FALSE; }
 
-    DoubleRValue returnValue = 0;
+    Object *objectMember =
+            getObjectMember(self, memberAccessModifier, memberType, memberName);
+    if (objectMember == NULL) { return FALSE; }
 
-    if (legacyObject != NULL &&
-        strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
-               "AtomicDoubleRValue") == 0) {
-        returnValue = (DoubleRValue) getData_AtomicDoubleRValue(
-                (AtomicDoubleRValue *) legacyObject);
-    }
+    getLegacyObjectComponent(objectMember)
+            ->destructable->destructor(objectMember);
+    addDoubleRValueMember(self, memberAccessModifier, memberType, memberName,
+                          doubleRValueValueToSet);
 
-    return returnValue;
+    return TRUE;
 }
 
 /* ---------------------------- Implementation ------------------------------ */
