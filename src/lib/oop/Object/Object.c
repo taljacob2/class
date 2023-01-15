@@ -757,9 +757,19 @@ void addLValueMember(Object *                  self,
                      enum MemberAccessModifier memberAccessModifier,
                      enum MemberType memberType, const char *memberName,
                      void *lValueData, BOOLEAN isDataDynamicallyAllocated) {
+    AtomicLValue *atomicLValue =
+            AtomicLValueConstructor(lValueData, isDataDynamicallyAllocated);
+
+    if (memberType == DESTRUCTOR) {
+
+        // Abort `AutoDestructable` by destructing it.
+        AutoDestructableDestructor((AutoDestructable *) getAutoDestructable(
+                (Object *) atomicLValue));
+        setAutoDestructable((Object *) atomicLValue, NULL);
+    }
+
     addObjectMember(self, memberAccessModifier, memberType, memberName,
-                    (Object *) AtomicLValueConstructor(
-                            lValueData, isDataDynamicallyAllocated));
+                    (Object *) atomicLValue);
 }
 
 // "public" function.
