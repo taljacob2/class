@@ -79,8 +79,6 @@
      DoubleRValue doubleRValueValueToSet);
 
 #define IMPLEMENTATION      "__IMPLEMENTATION__"
-#define DEFAULT_DESTRUCTOR  "__DefaultDestructor__"
-#define DEFAULT_CONSTRUCTOR "__DefaultConstructor__"
 
 #define ____CLASS_STRUCT_NAME_EXTENSION___            ___
 #define ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___ Constructor

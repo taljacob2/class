@@ -176,6 +176,16 @@ Legacy_Node *findAccessModifierMemberName(Legacy_List *accessModifierLegacyList,
 }
 
 // "private" function.
+BOOLEAN
+isAccessModifierLegacyListContainsMember(Legacy_List *accessModifierLegacyList,
+                                         char *       memberName) {
+    return accessModifierLegacyList->findNodeByPredicateOfConstString(
+                   accessModifierLegacyList,
+                   predicateFindAccessModifierMemberNameByMemberName,
+                   memberName) != NULL;
+}
+
+// "private" function.
 void *findAccessModifierMemberNameAndRemoveFromList(
         Legacy_List *accessModifierLegacyList, char *memberName) {
     return accessModifierLegacyList->deleteNodeThatHasTheGivenData(
@@ -1131,6 +1141,63 @@ void *ObjectDestructor(Object *object) {
     return NULL;
 }
 
+void invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(
+        Object *self, enum MemberAccessModifier memberAccessModifier) {
+    Legacy_MemberList *destructorMemberList = getDestructorMemberList(self);
+    Legacy_List *      accessModifierLegacyList =
+            getAccessModifierLegacyListByAccessModifier(self,
+                                                        memberAccessModifier);
+
+    // TODO: in `Legacy_List`: make a Foreach and ForeachReversedOrder functions.
+    //TODO:
+    Legacy_List *list = destructorMemberList->memberEntryList;
+    if (list == NULL) { return; }
+
+    Legacy_Node *iterationNodePrev = NULL;
+    for (Legacy_Node *iterationNode = list->tail; iterationNode != NULL;
+         iterationNode              = iterationNode->prev) {
+        if (iterationNodePrev != NULL) {
+            Legacy_StringObjectContainerEntry *
+                    legacy_StringObjectContainerEntry = iterationNodePrev->data;
+
+            if (isAccessModifierLegacyListContainsMember(
+                        accessModifierLegacyList,
+                        legacy_StringObjectContainerEntry->key)) {
+
+                // Get the destructor and invoke it.
+                void *(*destructor)(Object *) =
+                        (void *(*) (Object *) )
+                                legacy_StringObjectContainerEntry->value;
+                destructor(self);
+            }
+        }
+
+        iterationNodePrev = iterationNode;
+    }
+
+    // `iterationNodePrev` is `legacy_list->head`.
+    if (iterationNodePrev != NULL) {
+        Legacy_StringObjectContainerEntry *legacy_StringObjectContainerEntry =
+                iterationNodePrev->data;
+
+        if (isAccessModifierLegacyListContainsMember(
+                    accessModifierLegacyList,
+                    legacy_StringObjectContainerEntry->key)) {
+
+            // Get the destructor and invoke it.
+            void *(*destructor)(Object *) =
+                    (void *(*) (Object *) )
+                            legacy_StringObjectContainerEntry->value;
+            destructor(self);
+        }
+    }
+}
+
+void *DefaultDestructor(Object *self) {
+
+    // Invoke all destructors in reversed order.
+}
+
 void init_fields(Object *object) {
     setPrivateMemberNameLegacy_List(object, Legacy_ListConstructor());
     setPublicMemberNameLegacy_List(object, Legacy_ListConstructor());
@@ -1195,11 +1262,11 @@ Object *ObjectConstructor(char *className) {
     Object *instance = ObjectConstructorWithoutAnyMembers(className);
 
     addObjectMember(
-            instance, PUBLIC, CONSTRUCTOR, DEFAULT_CONSTRUCTOR,
+            instance, PUBLIC, CONSTRUCTOR, "ObjectConstructor",
             (Object *) AtomicLValueConstructor(&ObjectConstructor, FALSE));
 
     addObjectMember(
-            instance, PUBLIC, DESTRUCTOR, DEFAULT_DESTRUCTOR,
+            instance, PUBLIC, DESTRUCTOR, "ObjectDestructor",
             (Object *) AtomicLValueConstructor(&ObjectDestructor, FALSE));
 
     return instance;
