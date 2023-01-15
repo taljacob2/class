@@ -1255,7 +1255,7 @@ Object *ObjectConstructorWithoutAnyMembers(char *className) {
                                           (Legacy_Object *) instance));
 
     static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&ObjectDestructor)};
+            .destructor = (void *(*const)(void *) )(&DefaultDestructor)};
     getLegacyObjectComponent(instance)->destructable = &destructable;
 
     return instance;
