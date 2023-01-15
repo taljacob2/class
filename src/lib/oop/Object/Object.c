@@ -865,8 +865,8 @@ void getAccessModifierAndMemberType(
     }
 }
 
-// TODO: maybe redundant code.
-// "private" function.
+// TODO: make public
+// "pubilc" function.
 Object *setSelfObject(Object *self, Object *value) {
     if (self == NULL) { return NULL; }
 
