@@ -53,7 +53,7 @@ void *AtomicDoubleRValueDestructor(AtomicDoubleRValue *atomicDoubleRValue) {
     legacyObjectOfDoubleNumberData->legacyObjectComponent->destructable
             ->destructor(legacyObjectOfDoubleNumberData);
 
-    return NULL;
+    return ObjectDestructor((Object *) atomicDoubleRValue);
 }
 
 AtomicDoubleRValue *AtomicDoubleRValueConstructor(DoubleRValue doubleRValue) {

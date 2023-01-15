@@ -79,7 +79,7 @@ void *AtomicLValueDestructor(AtomicLValue *atomicLValue) {
     legacyObjectOfData->legacyObjectComponent->destructable->destructor(
             legacyObjectOfData);
 
-    return NULL;
+    return ObjectDestructor((Object *) atomicLValue);
 }
 
 AtomicLValue *AtomicLValueConstructor(void *  data,
