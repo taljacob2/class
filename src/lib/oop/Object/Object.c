@@ -1022,26 +1022,48 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
 
 /* ------------------------------- toString --------------------------------= */
 
+const char *
+getAccessModifierToString(enum MemberAccessModifier memberAccessModifier) {
+    switch (memberAccessModifier) {
+        case PRIVATE:
+            return "private";
+        case PUBLIC:
+            return "public";
+    }
+}
+
+const char *getMemberTypeAsString(enum MemberType memberType) {
+    switch (memberType) {
+        case METHOD:
+            return "METHOD";
+        case CONSTRUCTOR:
+            return "CONSTRUCTOR";
+        case DESTRUCTOR:
+            return "DESTRUCTOR";
+        case FIELD:
+            return "FIELD";
+    }
+}
+
 void toString_MemberAccessModifierLegacy_ListPRIVATE(
-        Legacy_List *accessModifierList) {
+        Legacy_List *             accessModifierList,
+        enum MemberAccessModifier memberAccessModifier) {
     if (accessModifierList == NULL) { printf("NULL"); }
+
+    const char *accessModifierToString =
+            getAccessModifierToString(memberAccessModifier);
 
     Legacy_Node *iterationNodePrev = NULL;
     for (Legacy_Node *iterationNode           = accessModifierList->head;
          iterationNode != NULL; iterationNode = iterationNode->next) {
         if (iterationNodePrev != NULL) {
-            iterationNodePrev->
-
-                    Legacy_Object *legacyObject =
-                    iterationNodePrev->legacyObjectComponent->destructable
-                            ->destructor(iterationNodePrev);
-            if (legacyObject->legacyObjectComponent
-                        ->destructorInvocationStatus == WAS_NOT_INVOKED) {
-                legacyObject->legacyObjectComponent
-                        ->destructorInvocationStatus = WAS_INVOKED_ONCE;
-                legacyObject->legacyObjectComponent->destructable->destructor(
-                        legacyObject);
+            if (iterationNodePrev != accessModifierList->head) {
+                putchar('\n');
             }
+            puts(accessModifierToString);
+            putchar(' ');
+            puts((char *) iterationNodePrev->data);
+            putchar(';');
         }
 
         iterationNodePrev = iterationNode;
@@ -1049,16 +1071,11 @@ void toString_MemberAccessModifierLegacy_ListPRIVATE(
 
     // `iterationNodePrev` is `legacy_list->tail`.
     if (iterationNodePrev != NULL) {
-        Legacy_Object *legacyObject =
-                iterationNodePrev->legacyObjectComponent->destructable
-                        ->destructor(iterationNodePrev);
-        if (legacyObject->legacyObjectComponent->destructorInvocationStatus ==
-            WAS_NOT_INVOKED) {
-            legacyObject->legacyObjectComponent->destructorInvocationStatus =
-                    WAS_INVOKED_ONCE;
-            legacyObject->legacyObjectComponent->destructable->destructor(
-                    legacyObject);
-        }
+        if (iterationNodePrev != accessModifierList->head) { putchar('\n'); }
+        puts(accessModifierToString);
+        putchar(' ');
+        puts((char *) iterationNodePrev->data);
+        putchar(';');
     }
 }
 
@@ -1069,7 +1086,8 @@ void toStringMemberAccessModifierList(
     Legacy_List *legacyList = getAccessModifierLegacyListByAccessModifier(
             self, memberAccessModifier);
 
-    toString_MemberAccessModifierLegacy_ListPRIVATE(legacyList);
+    toString_MemberAccessModifierLegacy_ListPRIVATE(legacyList,
+                                                    memberAccessModifier);
 }
 //
 //// TODO: and make public.
