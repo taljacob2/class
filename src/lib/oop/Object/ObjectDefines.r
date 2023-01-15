@@ -21,29 +21,33 @@
     Object *(*getObjectMember)(                                                                         \
             Object * self, enum MemberAccessModifier memberAccessModifier,                              \
             enum MemberType memberType, const char *memberName);                                        \
-                                                                                                        \
-    void (*addIntegerRValueMember)(                                                                     \
+    void *(*getLValueMember)(                                                                           \
             Object * self, enum MemberAccessModifier memberAccessModifier,                              \
-            enum MemberType memberType, const char *memberName,                                         \
-            IntegerRValue integerRValue);                                                               \
+            enum MemberType memberType, const char *memberName);                                        \
     IntegerRValue (*getIntegerRValueMember)(                                                            \
             Object * self, enum MemberAccessModifier accessModifier,                                    \
             enum MemberType memberType, const char *memberName);                                        \
-    void (*addDoubleRValueMember)(                                                                      \
-            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
-            enum MemberType memberType, const char *memberName,                                         \
-            DoubleRValue doubleRValue);                                                                 \
     DoubleRValue (*getDoubleRValueMember)(                                                              \
             Object * self, enum MemberAccessModifier accessModifier,                                    \
             enum MemberType memberType, const char *memberName);                                        \
-                                                                                                        \
     Legacy_Object *(*getImplementation)(Object * self, char *memberName);                               \
                                                                                                         \
     void (*addObjectMember)(Object * self,                                                              \
                             enum MemberAccessModifier memberAccessModifier,                             \
                             enum MemberType           memberType,                                       \
                             const char *memberName, Object *memberToAdd);                               \
-                                                                                                        \
+    void (*addLValueMember)(                                                                            \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
+            enum MemberType memberType, const char *memberName,                                         \
+            void *lValueData, BOOLEAN isDataDynamicallyAllocated);                                      \
+    void (*addIntegerRValueMember)(                                                                     \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
+            enum MemberType memberType, const char *memberName,                                         \
+            IntegerRValue integerRValue);                                                               \
+    void (*addDoubleRValueMember)(                                                                      \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
+            enum MemberType memberType, const char *memberName,                                         \
+            DoubleRValue doubleRValue);                                                                 \
     void (*addImplementation)(                                                                          \
             Object * self, char *memberName,                                                            \
             Object *(                                                                                   \
@@ -53,7 +57,26 @@
             Object * self, char *memberName,                                                            \
             Object *(                                                                                   \
                     *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter)( \
-                    Legacy_Object *) );
+                    Legacy_Object *) );                                                                 \
+                                                                                                        \
+    Object *(*setSelf)(Object * self, Object * value);                                                  \
+    Object *(*setObjectMember)(                                                                         \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
+            enum MemberType memberType, const char *memberName,                                         \
+            Object *memberValueToSet);                                                                  \
+    void *(*setLValueMember)(                                                                           \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
+            enum MemberType memberType, const char *memberName,                                         \
+            void *  lValueDataValueToSet,                                                               \
+            BOOLEAN isDataDynamicallyAllocatedValueToSet);                                              \
+    BOOLEAN(*setIntegerRValueMember)                                                                    \
+    (Object * self, enum MemberAccessModifier memberAccessModifier,                                     \
+     enum MemberType memberType, const char *memberName,                                                \
+     IntegerRValue integerRValueValueToSet);                                                            \
+    BOOLEAN(*setDoubleRValueMember)                                                                     \
+    (Object * self, enum MemberAccessModifier memberAccessModifier,                                     \
+     enum MemberType memberType, const char *memberName,                                                \
+     DoubleRValue doubleRValueValueToSet);
 
 #define IMPLEMENTATION      "__IMPLEMENTATION__"
 #define DEFAULT_DESTRUCTOR  "__DefaultDestructor__"
