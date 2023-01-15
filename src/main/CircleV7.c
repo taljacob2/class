@@ -6,12 +6,12 @@ CircleV7 *CircleV7Constructor() {
 
     instance->addIntegerRValueMember(instance, PUBLIC, FIELD, "name",
                                      (IntegerRValue) "smallCircle");
-    printf("%s\n", (char *) instance->getIntegerRValueMember(instance, PUBLIC,
-                                                             FIELD, "name"));
+    printf("%s\n", (const char *) instance->getIntegerRValueMember(
+            instance, PUBLIC, FIELD, "name"));
     instance->setIntegerRValueMember(instance, PUBLIC, FIELD, "name",
                                      (IntegerRValue) "largeCircle");
-    printf("%s\n", (char *) instance->getIntegerRValueMember(instance, PUBLIC,
-                                                             FIELD, "name"));
+    printf("%s\n", (const char *) instance->getIntegerRValueMember(
+            instance, PUBLIC, FIELD, "name"));
 
 
     instance->addDoubleRValueMember(instance, PUBLIC, FIELD, "radius", 2.34);
