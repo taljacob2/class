@@ -332,7 +332,6 @@ Object *getObjectMember(Object *                  self,
     return returnValue;
 }
 
-// TODO: make public.
 // "public" function.
 void *getLValueMember(Object *                  self,
                       enum MemberAccessModifier memberAccessModifier,
@@ -743,7 +742,6 @@ void addObjectMember(Object *                  self,
     }
 }
 
-// TODO: make public
 // "public" function.
 void addLValueMember(Object *                  self,
                      enum MemberAccessModifier memberAccessModifier,
@@ -869,8 +867,7 @@ void getAccessModifierAndMemberType(
     }
 }
 
-// TODO: make public
-// "pubilc" function.
+// "public" function.
 Object *setSelf(Object *self, Object *value) {
     if (self == NULL) { return NULL; }
 
@@ -880,7 +877,6 @@ Object *setSelf(Object *self, Object *value) {
     return value;
 }
 
-// TODO: make public.
 // "public" function.
 Object *setObjectMember(Object *                  self,
                         enum MemberAccessModifier memberAccessModifier,
@@ -900,7 +896,6 @@ Object *setObjectMember(Object *                  self,
     return memberValueToSet;
 }
 
-// TODO: make public.
 // "public" function.
 void *setLValueMember(Object *                  self,
                       enum MemberAccessModifier memberAccessModifier,
@@ -921,7 +916,6 @@ void *setLValueMember(Object *                  self,
     return lValueDataValueToSet;
 }
 
-// TODO: make public
 // "public" function.
 BOOLEAN
 setIntegerRValueMember(Object *                  self,
@@ -942,7 +936,6 @@ setIntegerRValueMember(Object *                  self,
     return TRUE;
 }
 
-// TODO: make public.
 // "public" function.
 BOOLEAN
 setDoubleRValueMember(Object *                  self,
@@ -1125,26 +1118,26 @@ void init_fields(Object *object) {
     setMemberName(object, NULL);
     setObjectThatContainsThisObjectAsAMember(object, NULL);
 
-    object->getObjectMember   = &getObjectMember;
-    object->getLValueMember = &getLValueMember;
+    object->getObjectMember        = &getObjectMember;
+    object->getLValueMember        = &getLValueMember;
     object->getIntegerRValueMember = &getIntegerRValueMember;
     object->getDoubleRValueMember  = &getDoubleRValueMember;
-    object->getImplementation = &getImplementation;
+    object->getImplementation      = &getImplementation;
 
-    object->addObjectMember   = &addObjectMember;
-    object->addLValueMember   = &addLValueMember;
+    object->addObjectMember        = &addObjectMember;
+    object->addLValueMember        = &addLValueMember;
     object->addIntegerRValueMember = &addIntegerRValueMember;
     object->addDoubleRValueMember  = &addDoubleRValueMember;
     object->addImplementation = &addImplementation; // TODO: remove redundant.
     object->addImplementationThatIsConstructedWithLegacy_Object =
             &addImplementationThatIsConstructedWithLegacy_Object;
 
-    object->setSelf = &setSelf;
-    object->setObjectMember   = &setObjectMember;
-    object->setLValueMember = &setLValueMember;
+    object->setSelf                = &setSelf;
+    object->setObjectMember        = &setObjectMember;
+    object->setLValueMember        = &setLValueMember;
     object->setIntegerRValueMember = &setIntegerRValueMember;
     object->setDoubleRValueMember  = &setDoubleRValueMember;
-    object->setImplementation = &setImplementation; // TODO:
+    //    object->setImplementation = &setImplementation; // TODO:
 }
 
 // "protected" function.
