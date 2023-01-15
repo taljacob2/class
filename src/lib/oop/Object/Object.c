@@ -1000,7 +1000,32 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
     return returnValue;
 }
 
-/* ----------------------- Destructor Private ------------------------= */
+/* ------------------------------- toString --------------------------------= */
+
+// TODO: and make public.
+// "public" function.
+void toStringMemberAccessModifierList(
+        Object *self, enum MemberAccessModifier memberAccessModifier) {
+    Legacy_List *legacyList = getAccessModifierLegacyListByAccessModifier(
+            self, memberAccessModifier);
+
+    legacyList->toString(legacyList);
+}
+
+// TODO: and make public.
+// "public" function.
+void toStringMemberTypeList(Object *self, enum MemberType memberType) {
+    Legacy_MemberList *legacyMemberList =
+            getLegacyMemberListByMemberType(self, memberType);
+
+    legacyMemberList->toString(legacyMemberList);
+}
+
+// TODO: and make public.
+// "public" function.
+void toString_Object(Object *self) { get }
+
+/* -------------------------- Destructor Private ---------------------------= */
 
 // "private" function.
 void invokeDestructorOfAllNodesAndDoNotDeleteTheNodesFromMemberList(
