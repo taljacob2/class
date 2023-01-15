@@ -900,7 +900,8 @@ Object *setObjectMember(Object *                  self,
             getObjectMember(self, memberAccessModifier, memberType, memberName);
     if (objectMember == NULL) { return NULL; }
 
-    getLegacyObjectComponent(objectMember)->destructable->destructor(objectMember);
+    getLegacyObjectComponent(objectMember)
+            ->destructable->destructor(objectMember);
     addMemberValue(self, memberAccessModifier, memberType, memberName,
                    memberValueToSet);
 
@@ -920,35 +921,37 @@ void *setLValueMember(Object *                  self,
             getObjectMember(self, memberAccessModifier, memberType, memberName);
     if (objectMember == NULL) { return NULL; }
 
-    getLegacyObjectComponent(objectMember)->destructable->destructor(objectMember);
+    getLegacyObjectComponent(objectMember)
+            ->destructable->destructor(objectMember);
     addLValueMember(self, memberAccessModifier, memberType, memberName,
                     lValueDataValueToSet, isDataDynamicallyAllocatedValueToSet);
 
     return lValueDataValueToSet;
 }
 
-// TODO:
-// "private" function.
-IntegerRValue setIntegerRValueMemberValue(
-        Object *self, enum MemberAccessModifier memberAccessModifier,
-        enum MemberType memberType, const char *memberName) {
-    Legacy_Object *legacyObject = getLegacyObjectMember(
-            self, memberAccessModifier, memberType, memberName);
+// TODO: make public
+// "public" function.
+BOOLEAN
+setIntegerRValueMemberValue(Object *                  self,
+                            enum MemberAccessModifier memberAccessModifier,
+                            enum MemberType memberType, const char *memberName,
+                            IntegerRValue integerRValueToSet) {
+    if (self == NULL) { return FALSE; }
 
-    IntegerRValue returnValue = 0;
+    Object *objectMember =
+            getObjectMember(self, memberAccessModifier, memberType, memberName);
+    if (objectMember == NULL) { return FALSE; }
 
-    if (legacyObject != NULL &&
-        strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
-               "AtomicIntegerRValue") == 0) {
-        returnValue = (IntegerRValue) getData_AtomicIntegerRValue(
-                (AtomicIntegerRValue *) legacyObject);
-    }
+    getLegacyObjectComponent(objectMember)
+            ->destructable->destructor(objectMember);
+    addIntegerRValueMember(self, memberAccessModifier, memberType, memberName,
+                           integerRValueToSet);
 
-    return returnValue;
+    return TRUE;
 }
 
-// TODO:
-// "private" function.
+// TODO: make public.
+// "public" function.
 DoubleRValue
 setDoubleRValueMemberValue(Object *                  self,
                            enum MemberAccessModifier memberAccessModifier,
