@@ -869,6 +869,7 @@ Object *setObjectMember(Object *                  self,
 
     Object *objectMember =
             getObjectMember(self, memberAccessModifier, memberType, memberName);
+    if (objectMember == NULL) { return NULL; }
 
     ObjectDestructor(objectMember);
     addMemberValue(self, memberAccessModifier, memberType, memberName,
