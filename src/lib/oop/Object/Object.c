@@ -751,6 +751,17 @@ void addMemberValue(Object *                  self,
     }
 }
 
+// TODO: make public
+// "public" function.
+void addLValueMember(Object *                  self,
+                     enum MemberAccessModifier memberAccessModifier,
+                     enum MemberType memberType, const char *memberName,
+                     void *lValueData, BOOLEAN isDataDynamicallyAllocated) {
+    addMemberValue(self, memberAccessModifier, memberType, memberName,
+                   (Object *) AtomicLValueConstructor(
+                           lValueData, isDataDynamicallyAllocated));
+}
+
 /* ----------------------------- SET MEMBER --------------------------------- */
 
 // "protected" function.
@@ -848,7 +859,7 @@ void getAccessModifierAndMemberType(
     }
 }
 
-// TODO:
+// TODO: maybe redundant code.
 // "private" function.
 Object *setSelfObject(Object *self, Object *value) {
     if (self == NULL) { return NULL; }
@@ -859,7 +870,7 @@ Object *setSelfObject(Object *self, Object *value) {
     return value;
 }
 
-// TODO:
+// TODO: make public.
 // "public" function.
 Object *setObjectMember(Object *                  self,
                         enum MemberAccessModifier memberAccessModifier,
@@ -871,31 +882,31 @@ Object *setObjectMember(Object *                  self,
             getObjectMember(self, memberAccessModifier, memberType, memberName);
     if (objectMember == NULL) { return NULL; }
 
-    ObjectDestructor(objectMember);
+    getLegacyObjectComponent(objectMember)->destructable->destructor(objectMember);
     addMemberValue(self, memberAccessModifier, memberType, memberName,
                    memberValueToSet);
 
     return memberValueToSet;
 }
 
-// TODO:
-// "private" function.
+// TODO: make public.
+// "public" function.
 void *setLValueMember(Object *                  self,
                       enum MemberAccessModifier memberAccessModifier,
-                      enum MemberType memberType, const char *memberName) {
-    Legacy_Object *legacyObject = getLegacyObjectMember(
-            self, memberAccessModifier, memberType, memberName);
+                      enum MemberType memberType, const char *memberName,
+                      void *  lValueDataValueToSet,
+                      BOOLEAN isDataDynamicallyAllocatedValueToSet) {
+    if (self == NULL) { return NULL; }
 
-    void *returnValue = NULL;
+    Object *objectMember =
+            getObjectMember(self, memberAccessModifier, memberType, memberName);
+    if (objectMember == NULL) { return NULL; }
 
-    if (legacyObject != NULL &&
-        strcmp(legacyObject->legacyObjectComponent->CLASS_NAME,
-               "AtomicLValue") == 0) {
-        returnValue =
-                (void *) getData_AtomicLValue((AtomicLValue *) legacyObject);
-    }
+    getLegacyObjectComponent(objectMember)->destructable->destructor(objectMember);
+    addLValueMember(self, memberAccessModifier, memberType, memberName,
+                    lValueDataValueToSet, isDataDynamicallyAllocatedValueToSet);
 
-    return returnValue;
+    return lValueDataValueToSet;
 }
 
 // TODO:
@@ -986,17 +997,6 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
 /* ------------------------- ADD & GET & SET RVALUE ------------------------- */
 
 /* -------------------- LValue ------------------- */
-
-// TODO: make public
-// "public" function.
-void addLValueMember(Object *                  self,
-                     enum MemberAccessModifier memberAccessModifier,
-                     enum MemberType memberType, const char *memberName,
-                     void *lValueData, BOOLEAN isDataDynamicallyAllocated) {
-    addMemberValue(self, memberAccessModifier, memberType, memberName,
-                   (Object *) AtomicLValueConstructor(
-                           lValueData, isDataDynamicallyAllocated));
-}
 
 /* ---------------- IntegerRValue ---------------- */
 
