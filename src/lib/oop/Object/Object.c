@@ -1280,9 +1280,9 @@ Object *ObjectConstructor(char *className) {
 
     // TODO: make `DefaultConstructor` that invokes all constructors in straight order.
     instance->addLValueMember(instance, PUBLIC, CONSTRUCTOR,
-                              "ObjectConstructor", &ObjectConstructor, FALSE);
+                              "ObjectConstructor", LValue_CAST(&ObjectConstructor), FALSE);
     instance->addLValueMember(instance, PUBLIC, DESTRUCTOR, "ObjectDestructor",
-                              &ObjectDestructor, FALSE);
+                              LValue_CAST(&ObjectDestructor), FALSE);
 
     return instance;
 }
