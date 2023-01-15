@@ -2,3 +2,6 @@
 cmake-build-debug
 
 **/*.out
+
+# Ignore our static library builds.
+src/lib/**/*.a

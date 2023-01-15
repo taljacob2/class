@@ -757,9 +757,19 @@ void addLValueMember(Object *                  self,
                      enum MemberAccessModifier memberAccessModifier,
                      enum MemberType memberType, const char *memberName,
                      void *lValueData, BOOLEAN isDataDynamicallyAllocated) {
+    AtomicLValue *atomicLValue =
+            AtomicLValueConstructor(lValueData, isDataDynamicallyAllocated);
+
+    if (memberType == DESTRUCTOR) {
+
+        // Abort `AutoDestructable` by destructing it.
+        AutoDestructableDestructor((AutoDestructable *) getAutoDestructable(
+                (Object *) atomicLValue));
+        setAutoDestructable((Object *) atomicLValue, NULL);
+    }
+
     addObjectMember(self, memberAccessModifier, memberType, memberName,
-                    (Object *) AtomicLValueConstructor(
-                            lValueData, isDataDynamicallyAllocated));
+                    (Object *) atomicLValue);
 }
 
 // "public" function.
@@ -1200,9 +1210,19 @@ void invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(
 
 void *DefaultDestructor(Object *self) {
 
-    // Invoke all "public" destructors in reversed order.
-    invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(self, PUBLIC);
+    /*
+     * If `getLegacyObjectComponent(self)->destructable->destructor` was
+     * overwritten, then invoke it.
+     */
+    if (getLegacyObjectComponent(self)->destructable->destructor !=
+        (void *(*const)(void *) )(&DefaultDestructor)) {
+        getLegacyObjectComponent(self)->destructable->destructor(self);
+    } else {
 
+        // Invoke all "public" destructors in reversed order.
+        invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(self,
+                                                                      PUBLIC);
+    }
     return NULL;
 }
 
@@ -1269,10 +1289,12 @@ Object *ObjectConstructorWithoutAnyMembers(char *className) {
 Object *ObjectConstructor(char *className) {
     Object *instance = ObjectConstructorWithoutAnyMembers(className);
 
+    // TODO: make `DefaultConstructor` that invokes all constructors in straight order.
     instance->addLValueMember(instance, PUBLIC, CONSTRUCTOR,
-                              "ObjectConstructor", &ObjectConstructor, FALSE);
+                              "ObjectConstructor",
+                              LValue_CAST(&ObjectConstructor), FALSE);
     instance->addLValueMember(instance, PUBLIC, DESTRUCTOR, "ObjectDestructor",
-                              &ObjectDestructor, FALSE);
+                              LValue_CAST(&ObjectDestructor), FALSE);
 
     return instance;
 }
