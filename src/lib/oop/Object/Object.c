@@ -863,17 +863,14 @@ Object *setSelfObject(Object *self, Object *value) {
 // "public" function.
 Object *setObjectMember(Object *                  self,
                         enum MemberAccessModifier memberAccessModifier,
-                        enum MemberType memberType, const char *memberName) {
+                        enum MemberType memberType, const char *memberName,
+                        Object *memberValueToSet) {
     if (self == NULL) { return NULL; }
 
     Object *objectMember =
             getObjectMember(self, memberAccessModifier, memberType, memberName);
 
-
-    ObjectDestructor(self);
-    self = value;
-
-    return value;
+    return setSelfObject(objectMember, memberValueToSet);
 }
 
 // TODO:
