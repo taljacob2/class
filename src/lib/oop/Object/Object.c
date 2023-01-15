@@ -1064,9 +1064,9 @@ void toString_ObjectMemberAccessModifierLegacy_ListPRIVATE(
             if (iterationNodePrev != accessModifierList->head) {
                 putchar('\n');
             }
-            puts(accessModifierToString);
+            printf("%s", accessModifierToString);
             putchar(' ');
-            puts((char *) iterationNodePrev->data);
+            printf("%s", (char *) iterationNodePrev->data);
             putchar(';');
         }
 
@@ -1076,13 +1076,13 @@ void toString_ObjectMemberAccessModifierLegacy_ListPRIVATE(
     // `iterationNodePrev` is `legacy_list->tail`.
     if (iterationNodePrev != NULL) {
         if (iterationNodePrev != accessModifierList->head) { putchar('\n'); }
-        puts(accessModifierToString);
+        printf("%s", accessModifierToString);
         putchar(' ');
-        puts((char *) iterationNodePrev->data);
+        printf("%s", (char *) iterationNodePrev->data);
         putchar(';');
     }
 
-    putchar('\n');
+    if (accessModifierList->size > 0) { putchar('\n'); }
 }
 
 // "public" function.
@@ -1131,12 +1131,12 @@ void toString_ObjectMemberTypeListPRIVATE(Object *           self,
                     (Legacy_StringObjectContainerEntry *)
                             iterationNodePrev->data;
             char *memberName = (char *) entry->key;
-            puts(getAccessModifierToString(
-                    getAccessModifierOfMember(self, memberName)));
+            printf("%s", getAccessModifierToString(
+                                 getAccessModifierOfMember(self, memberName)));
             putchar(' ');
-            puts(memberTypeToString);
+            printf("%s", memberTypeToString);
             putchar(' ');
-            puts((char *) memberName);
+            printf("%s", (char *) memberName);
             putchar(';');
         }
 
@@ -1149,16 +1149,16 @@ void toString_ObjectMemberTypeListPRIVATE(Object *           self,
         Legacy_StringObjectContainerEntry *entry =
                 (Legacy_StringObjectContainerEntry *) iterationNodePrev->data;
         char *memberName = (char *) entry->key;
-        puts(getAccessModifierToString(
-                getAccessModifierOfMember(self, memberName)));
+        printf("%s", getAccessModifierToString(
+                             getAccessModifierOfMember(self, memberName)));
         putchar(' ');
-        puts(memberTypeToString);
+        printf("%s", memberTypeToString);
         putchar(' ');
-        puts((char *) memberName);
+        printf("%s", (char *) memberName);
         putchar(';');
     }
 
-    putchar('\n');
+    if (list->size > 0) { putchar('\n'); }
 }
 
 // "public" function.
