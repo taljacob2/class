@@ -31,9 +31,13 @@ AtomicIntegerRValueConstructor(IntegerRValue integerRValue) {
     getLegacyObjectComponent((Object *) instance)->CLASS_NAME =
             "AtomicIntegerRValue";
 
+
+    // TODO: add option to rename the member too.
     instance->setLValueMember((Object *) instance, PUBLIC, CONSTRUCTOR,
                               "AtomicIntegerRValueConstructor",
                               &AtomicIntegerRValueConstructor, FALSE);
+
+    // TODO: add option to rename the member too.
     instance->setLValueMember((Object *) instance, PUBLIC, DESTRUCTOR,
                               "AtomicIntegerRValueDestructor",
                               &AtomicIntegerRValueDestructor, FALSE);
