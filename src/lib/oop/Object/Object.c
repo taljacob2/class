@@ -1289,10 +1289,12 @@ Object *ObjectConstructorWithoutAnyMembers(char *className) {
 Object *ObjectConstructor(char *className) {
     Object *instance = ObjectConstructorWithoutAnyMembers(className);
 
-    // TODO: make `DefaultConstructor` that invokes all constructors in straight order.
-    instance->addLValueMember(instance, PUBLIC, CONSTRUCTOR,
-                              "ObjectConstructor",
-                              LValue_CAST(&ObjectConstructor), FALSE);
+    // TODO: maybe redundant code.
+    //    // TODO: make `DefaultConstructor` that invokes all constructors in straight order.
+    //    instance->addLValueMember(instance, PUBLIC, CONSTRUCTOR,
+    //                              "ObjectConstructor",
+    //                              LValue_CAST(&ObjectConstructor), FALSE);
+
     instance->addLValueMember(instance, PUBLIC, DESTRUCTOR, "ObjectDestructor",
                               LValue_CAST(&ObjectDestructor), FALSE);
 
