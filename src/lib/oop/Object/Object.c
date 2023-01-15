@@ -1046,7 +1046,7 @@ const char *getMemberTypeToString(enum MemberType memberType) {
 }
 
 // "private" function.
-void toString_MemberAccessModifierLegacy_ListPRIVATE(
+void toString_ObjectMemberAccessModifierLegacy_ListPRIVATE(
         Legacy_List *             accessModifierList,
         enum MemberAccessModifier memberAccessModifier) {
     if (accessModifierList == NULL) {
@@ -1081,17 +1081,19 @@ void toString_MemberAccessModifierLegacy_ListPRIVATE(
         puts((char *) iterationNodePrev->data);
         putchar(';');
     }
+
+    putchar('\n');
 }
 
 // TODO: and make public.
 // "public" function.
-void toStringMemberAccessModifierList(
+void toString_ObjectMemberAccessModifierList(
         Object *self, enum MemberAccessModifier memberAccessModifier) {
     Legacy_List *legacyList = getAccessModifierLegacyListByAccessModifier(
             self, memberAccessModifier);
 
-    toString_MemberAccessModifierLegacy_ListPRIVATE(legacyList,
-                                                    memberAccessModifier);
+    toString_ObjectMemberAccessModifierLegacy_ListPRIVATE(legacyList,
+                                                          memberAccessModifier);
 }
 
 // "private" function.
@@ -1105,9 +1107,9 @@ enum MemberAccessModifier getAccessModifierOfMember(Object *self,
 }
 
 // "private" function.
-void toString_MemberTypeListPRIVATE(Object *           self,
-                                    Legacy_MemberList *legacyMemberList,
-                                    enum MemberType    memberType) {
+void toString_ObjectMemberTypeListPRIVATE(Object *           self,
+                                          Legacy_MemberList *legacyMemberList,
+                                          enum MemberType    memberType) {
     if (legacyMemberList == NULL) {
         printf("NULL");
         return;
@@ -1156,20 +1158,37 @@ void toString_MemberTypeListPRIVATE(Object *           self,
         puts((char *) memberName);
         putchar(';');
     }
+
+    putchar('\n');
 }
 
 // TODO: and make public.
 // "public" function.
-void toStringMemberTypeList(Object *self, enum MemberType memberType) {
+void toString_ObjectMemberTypeList(Object *self, enum MemberType memberType) {
     Legacy_MemberList *legacyMemberList =
             getLegacyMemberListByMemberType(self, memberType);
 
-    toString_MemberTypeListPRIVATE(self, legacyMemberList, memberType);
+    toString_ObjectMemberTypeListPRIVATE(self, legacyMemberList, memberType);
 }
-//
-//// TODO: and make public.
-//// "public" function.
-//void toString_Object(Object *self) { get }
+
+// TODO: and make public.
+// "public" function.
+void toString_Object(Object *self) {
+    putchar('{');
+    toString_ObjectMemberAccessModifierList(self, PRIVATE);
+    putchar('\n');
+    toString_ObjectMemberAccessModifierList(self, PUBLIC);
+    putchar('\n');
+
+    toString_ObjectMemberTypeList(self, FIELD);
+    putchar('\n');
+    toString_ObjectMemberTypeList(self, CONSTRUCTOR);
+    putchar('\n');
+    toString_ObjectMemberTypeList(self, DESTRUCTOR);
+    putchar('\n');
+    toString_ObjectMemberTypeList(self, METHOD);
+    putchar('}');
+}
 
 /* -------------------------- Destructor Private ---------------------------= */
 
