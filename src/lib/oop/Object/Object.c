@@ -762,6 +762,24 @@ void addLValueMember(Object *                  self,
                            lValueData, isDataDynamicallyAllocated));
 }
 
+// "public" function.
+void addIntegerRValueMember(Object *                  self,
+                            enum MemberAccessModifier memberAccessModifier,
+                            enum MemberType memberType, const char *memberName,
+                            IntegerRValue integerRValue) {
+    addMemberValue(self, memberAccessModifier, memberType, memberName,
+                   (Object *) AtomicIntegerRValueConstructor(integerRValue));
+}
+
+// "public" function.
+void addDoubleRValueMember(Object *                  self,
+                           enum MemberAccessModifier memberAccessModifier,
+                           enum MemberType memberType, const char *memberName,
+                           DoubleRValue doubleRValue) {
+    addMemberValue(self, memberAccessModifier, memberType, memberName,
+                   (Object *) AtomicDoubleRValueConstructor(doubleRValue));
+}
+
 /* ----------------------------- SET MEMBER --------------------------------- */
 
 // "protected" function.
@@ -993,61 +1011,6 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
     free((void *) implementationMemberName);
     return returnValue;
 }
-
-/* ------------------------- ADD & GET & SET RVALUE ------------------------- */
-
-/* -------------------- LValue ------------------- */
-
-/* ---------------- IntegerRValue ---------------- */
-
-// "public" function.
-void addIntegerRValueMember(Object *                  self,
-                            enum MemberAccessModifier memberAccessModifier,
-                            enum MemberType memberType, const char *memberName,
-                            IntegerRValue integerRValue) {
-    addMemberValue(self, memberAccessModifier, memberType, memberName,
-                   (Object *) AtomicIntegerRValueConstructor(integerRValue));
-}
-
-// TODO: redundant. duplicate code.
-// "public" function.
-IntegerRValue
-getIntegerRValueMember(Object *                  self,
-                       enum MemberAccessModifier memberAccessModifier,
-                       enum MemberType memberType, const char *memberName) {
-    return getIntegerRValueMemberValue(self, memberAccessModifier, memberType,
-                                       memberName);
-}
-
-/* ---------------- DoubleRValue ---------------- */
-
-// "public" function.
-void addDoubleRValueMember(Object *                  self,
-                           enum MemberAccessModifier memberAccessModifier,
-                           enum MemberType memberType, const char *memberName,
-                           DoubleRValue doubleRValue) {
-    addMemberValue(self, memberAccessModifier, memberType, memberName,
-                   (Object *) AtomicDoubleRValueConstructor(doubleRValue));
-}
-
-// TODO: redundant. duplicate code.
-// "public" function.
-DoubleRValue
-getDoubleRValueMember(Object *                  self,
-                      enum MemberAccessModifier memberAccessModifier,
-                      enum MemberType memberType, const char *memberName) {
-    return getDoubleRValueMemberValue(self, memberAccessModifier, memberType,
-                                      memberName);
-}
-
-//// TODO:
-//// "public" function.
-//void setDoubleRValueMember(Object *self, enum MemberAccessModifier memberAccessModifier,
-//                           enum MemberType memberType, const char *memberName,
-//                           DoubleRValue doubleRValue) {
-//    addMemberValue(self, accessModifier, memberType, memberName,
-//                   (Object *) AtomicDoubleRValueConstructor(doubleRValue));
-//}
 
 /* ----------------------- Destructor Private ------------------------= */
 
