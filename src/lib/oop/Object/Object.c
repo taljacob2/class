@@ -870,7 +870,7 @@ void getAccessModifierAndMemberType(
 Object *setSelfObject(Object *self, Object *value) {
     if (self == NULL) { return NULL; }
 
-    ObjectDestructor(self);
+    getLegacyObjectComponent(self)->destructable->destructor(self);
     self = value;
 
     return value;
