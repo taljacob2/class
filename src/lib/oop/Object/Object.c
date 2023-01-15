@@ -935,7 +935,7 @@ BOOLEAN
 setIntegerRValueMemberValue(Object *                  self,
                             enum MemberAccessModifier memberAccessModifier,
                             enum MemberType memberType, const char *memberName,
-                            IntegerRValue integerRValueToSet) {
+                            IntegerRValue integerRValueValueToSet) {
     if (self == NULL) { return FALSE; }
 
     Object *objectMember =
@@ -945,17 +945,18 @@ setIntegerRValueMemberValue(Object *                  self,
     getLegacyObjectComponent(objectMember)
             ->destructable->destructor(objectMember);
     addIntegerRValueMember(self, memberAccessModifier, memberType, memberName,
-                           integerRValueToSet);
+                           integerRValueValueToSet);
 
     return TRUE;
 }
 
 // TODO: make public.
 // "public" function.
-DoubleRValue
+BOOLEAN
 setDoubleRValueMemberValue(Object *                  self,
                            enum MemberAccessModifier memberAccessModifier,
-                           enum MemberType memberType, const char *memberName) {
+                           enum MemberType memberType, const char *memberName,
+                           DoubleRValue doubleRValueValueToSet) {
     Legacy_Object *legacyObject = getLegacyObjectMember(
             self, memberAccessModifier, memberType, memberName);
 
