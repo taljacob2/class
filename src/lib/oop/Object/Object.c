@@ -870,7 +870,11 @@ Object *setObjectMember(Object *                  self,
     Object *objectMember =
             getObjectMember(self, memberAccessModifier, memberType, memberName);
 
-    return setSelfObject(objectMember, memberValueToSet);
+    ObjectDestructor(objectMember);
+    addMemberValue(self, memberAccessModifier, memberType, memberName,
+                   memberValueToSet);
+
+    return memberValueToSet;
 }
 
 // TODO:
