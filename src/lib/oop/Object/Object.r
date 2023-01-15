@@ -119,9 +119,9 @@ struct object {
      enum MemberType memberType, const char *memberName,
      DoubleRValue doubleRValueValueToSet);
 
-    void (*toStringMembersByMemberAccessModifier)(
+    BOOLEAN (*toStringMembersByMemberAccessModifier)(
             Object *self, enum MemberAccessModifier memberAccessModifier);
-    void (*toStringMembersByMemberType)(Object *        self,
+    BOOLEAN (*toStringMembersByMemberType)(Object *        self,
                                         enum MemberType memberType);
     void (*toString)(Object *self);
 };

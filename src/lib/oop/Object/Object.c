@@ -1086,13 +1086,15 @@ void toString_ObjectMemberAccessModifierLegacy_ListPRIVATE(
 }
 
 // "public" function.
-void toString_ObjectMemberAccessModifierList(
+BOOLEAN toString_ObjectMemberAccessModifierList(
         Object *self, enum MemberAccessModifier memberAccessModifier) {
     Legacy_List *legacyList = getAccessModifierLegacyListByAccessModifier(
             self, memberAccessModifier);
 
     toString_ObjectMemberAccessModifierLegacy_ListPRIVATE(legacyList,
                                                           memberAccessModifier);
+
+    return legacyList == NULL ? FALSE : legacyList->size;
 }
 
 // "private" function.
@@ -1162,29 +1164,36 @@ void toString_ObjectMemberTypeListPRIVATE(Object *           self,
 }
 
 // "public" function.
-void toString_ObjectMemberTypeList(Object *self, enum MemberType memberType) {
+BOOLEAN toString_ObjectMemberTypeList(Object *        self,
+                                      enum MemberType memberType) {
     Legacy_MemberList *legacyMemberList =
             getLegacyMemberListByMemberType(self, memberType);
 
     toString_ObjectMemberTypeListPRIVATE(self, legacyMemberList, memberType);
+
+    if (legacyMemberList == NULL) { return FALSE; }
+    const Legacy_List *list = legacyMemberList->memberEntryList;
+    return list == NULL ? FALSE : list->size;
 }
 
 // "public" function.
 void toString_Object(Object *self) {
-    putchar('{');
-    toString_ObjectMemberAccessModifierList(self, PRIVATE);
-    putchar('\n');
-    toString_ObjectMemberAccessModifierList(self, PUBLIC);
+
+    printf("%s {", getLegacyObjectComponent(self)->CLASS_NAME);
     putchar('\n');
 
-    toString_ObjectMemberTypeList(self, FIELD);
-    putchar('\n');
-    toString_ObjectMemberTypeList(self, CONSTRUCTOR);
-    putchar('\n');
-    toString_ObjectMemberTypeList(self, DESTRUCTOR);
-    putchar('\n');
-    toString_ObjectMemberTypeList(self, METHOD);
+    toString_ObjectMemberAccessModifierList(self, PRIVATE) ? putchar('\n')
+                                                           : FALSE;
+    toString_ObjectMemberAccessModifierList(self, PUBLIC) ? putchar('\n')
+                                                          : FALSE;
+
+    toString_ObjectMemberTypeList(self, FIELD) ? putchar('\n') : FALSE;
+    toString_ObjectMemberTypeList(self, CONSTRUCTOR) ? putchar('\n') : FALSE;
+    toString_ObjectMemberTypeList(self, DESTRUCTOR) ? putchar('\n') : FALSE;
+    toString_ObjectMemberTypeList(self, METHOD) ? putchar('\n') : FALSE;
+
     putchar('}');
+    putchar('\n');
 }
 
 /* -------------------------- Destructor Private ---------------------------= */
