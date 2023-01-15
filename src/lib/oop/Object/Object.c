@@ -1032,7 +1032,7 @@ getAccessModifierToString(enum MemberAccessModifier memberAccessModifier) {
     }
 }
 
-const char *getMemberTypeAsString(enum MemberType memberType) {
+const char *getMemberTypeToString(enum MemberType memberType) {
     switch (memberType) {
         case METHOD:
             return "METHOD";
@@ -1045,10 +1045,14 @@ const char *getMemberTypeAsString(enum MemberType memberType) {
     }
 }
 
+// "private" function.
 void toString_MemberAccessModifierLegacy_ListPRIVATE(
         Legacy_List *             accessModifierList,
         enum MemberAccessModifier memberAccessModifier) {
-    if (accessModifierList == NULL) { printf("NULL"); }
+    if (accessModifierList == NULL) {
+        printf("NULL");
+        return;
+    }
 
     const char *accessModifierToString =
             getAccessModifierToString(memberAccessModifier);
@@ -1089,15 +1093,79 @@ void toStringMemberAccessModifierList(
     toString_MemberAccessModifierLegacy_ListPRIVATE(legacyList,
                                                     memberAccessModifier);
 }
-//
-//// TODO: and make public.
-//// "public" function.
-//void toStringMemberTypeList(Object *self, enum MemberType memberType) {
-//    Legacy_MemberList *legacyMemberList =
-//            getLegacyMemberListByMemberType(self, memberType);
-//
-//    legacyMemberList->toString(legacyMemberList);
-//}
+
+// "private" function.
+enum MemberAccessModifier getAccessModifierOfMember(Object *self,
+                                                    char *  memberName) {
+    if (isPrivateMember(self, memberName)) {
+        return PRIVATE;
+    } else {
+        return PUBLIC;
+    }
+}
+
+// "private" function.
+void toString_MemberTypeListPRIVATE(Object *           self,
+                                    Legacy_MemberList *legacyMemberList,
+                                    enum MemberType    memberType) {
+    if (legacyMemberList == NULL) {
+        printf("NULL");
+        return;
+    }
+    if (legacyMemberList->memberEntryList == NULL) {
+        printf("NULL");
+        return;
+    }
+
+    const char *memberTypeToString = getMemberTypeToString(memberType);
+
+    const Legacy_List *list = legacyMemberList->memberEntryList;
+
+    Legacy_Node *iterationNodePrev = NULL;
+    for (Legacy_Node *iterationNode = list->head; iterationNode != NULL;
+         iterationNode              = iterationNode->next) {
+        if (iterationNodePrev != NULL) {
+            if (iterationNodePrev != list->head) { putchar('\n'); }
+            Legacy_StringObjectContainerEntry *entry =
+                    (Legacy_StringObjectContainerEntry *)
+                            iterationNodePrev->data;
+            char *memberName = (char *) entry->key;
+            puts(getAccessModifierToString(
+                    getAccessModifierOfMember(self, memberName)));
+            putchar(' ');
+            puts(memberTypeToString);
+            putchar(' ');
+            puts((char *) memberName);
+            putchar(';');
+        }
+
+        iterationNodePrev = iterationNode;
+    }
+
+    // `iterationNodePrev` is `legacy_list->tail`.
+    if (iterationNodePrev != NULL) {
+        if (iterationNodePrev != list->head) { putchar('\n'); }
+        Legacy_StringObjectContainerEntry *entry =
+                (Legacy_StringObjectContainerEntry *) iterationNodePrev->data;
+        char *memberName = (char *) entry->key;
+        puts(getAccessModifierToString(
+                getAccessModifierOfMember(self, memberName)));
+        putchar(' ');
+        puts(memberTypeToString);
+        putchar(' ');
+        puts((char *) memberName);
+        putchar(';');
+    }
+}
+
+// TODO: and make public.
+// "public" function.
+void toStringMemberTypeList(Object *self, enum MemberType memberType) {
+    Legacy_MemberList *legacyMemberList =
+            getLegacyMemberListByMemberType(self, memberType);
+
+    toString_MemberTypeListPRIVATE(self, legacyMemberList, memberType);
+}
 //
 //// TODO: and make public.
 //// "public" function.
