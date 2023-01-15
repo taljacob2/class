@@ -1022,15 +1022,55 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
 
 /* ------------------------------- toString --------------------------------= */
 
-//// TODO: and make public.
-//// "public" function.
-//void toStringMemberAccessModifierList(
-//        Object *self, enum MemberAccessModifier memberAccessModifier) {
-//    Legacy_List *legacyList = getAccessModifierLegacyListByAccessModifier(
-//            self, memberAccessModifier);
-//
-//    legacyList->toString(legacyList);
-//}
+void toString_MemberAccessModifierLegacy_ListPRIVATE(
+        Legacy_List *accessModifierList) {
+    if (accessModifierList == NULL) { printf("NULL"); }
+
+    Legacy_Node *iterationNodePrev = NULL;
+    for (Legacy_Node *iterationNode           = accessModifierList->head;
+         iterationNode != NULL; iterationNode = iterationNode->next) {
+        if (iterationNodePrev != NULL) {
+            iterationNodePrev->
+
+                    Legacy_Object *legacyObject =
+                    iterationNodePrev->legacyObjectComponent->destructable
+                            ->destructor(iterationNodePrev);
+            if (legacyObject->legacyObjectComponent
+                        ->destructorInvocationStatus == WAS_NOT_INVOKED) {
+                legacyObject->legacyObjectComponent
+                        ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+                legacyObject->legacyObjectComponent->destructable->destructor(
+                        legacyObject);
+            }
+        }
+
+        iterationNodePrev = iterationNode;
+    }
+
+    // `iterationNodePrev` is `legacy_list->tail`.
+    if (iterationNodePrev != NULL) {
+        Legacy_Object *legacyObject =
+                iterationNodePrev->legacyObjectComponent->destructable
+                        ->destructor(iterationNodePrev);
+        if (legacyObject->legacyObjectComponent->destructorInvocationStatus ==
+            WAS_NOT_INVOKED) {
+            legacyObject->legacyObjectComponent->destructorInvocationStatus =
+                    WAS_INVOKED_ONCE;
+            legacyObject->legacyObjectComponent->destructable->destructor(
+                    legacyObject);
+        }
+    }
+}
+
+// TODO: and make public.
+// "public" function.
+void toStringMemberAccessModifierList(
+        Object *self, enum MemberAccessModifier memberAccessModifier) {
+    Legacy_List *legacyList = getAccessModifierLegacyListByAccessModifier(
+            self, memberAccessModifier);
+
+    toString_MemberAccessModifierLegacy_ListPRIVATE(legacyList);
+}
 //
 //// TODO: and make public.
 //// "public" function.
