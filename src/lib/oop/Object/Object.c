@@ -791,16 +791,74 @@ void setPrimitivePrivateFieldWhichIsStaticallyAllocated(
 
 /* ----------------- Generic SET MEMBER ------------------ */
 
+// "private" function.
+void getAccessModifierAndMemberType(Object *             object,
+                                    enum AccessModifier *outAccessModifier,
+                                    enum MemberType *    outMemberType) {
+    const int THE_GIVEN_OBJECT_HAS_NO_PARENT_OBJECTS = -1;
+
+    Legacy_Object *(*functionToInvoke)(Object *, Object *) =
+            getFunctionToInvokeWhenObjectIsAboutToBeDestructed(object);
+    if (functionToInvoke ==
+        &getPrivateMethodAndRemoveFromPrivateAccessModifierAndMethodsMemberList) {
+        *outAccessModifier = PRIVATE;
+        *outMemberType     = METHOD;
+    } else if (
+            functionToInvoke ==
+            &getPublicMethodAndRemoveFromPublicAccessModifierAndMethodsMemberList) {
+        *outAccessModifier = PUBLIC;
+        *outMemberType     = METHOD;
+    } else if (
+            functionToInvoke ==
+            &getPrivateConstructorAndRemoveFromPrivateAccessModifierAndConstructorMemberList) {
+        *outAccessModifier = PRIVATE;
+        *outMemberType     = CONSTRUCTOR;
+    } else if (
+            functionToInvoke ==
+            &getPublicConstructorAndRemoveFromPublicAccessModifierAndConstructorMemberList) {
+        *outAccessModifier = PUBLIC;
+        *outMemberType     = CONSTRUCTOR;
+    } else if (
+            functionToInvoke ==
+            &getPrivateDestructorAndRemoveFromPrivateAccessModifierAndDestructorMemberList) {
+        *outAccessModifier = PRIVATE;
+        *outMemberType     = DESTRUCTOR;
+    } else if (
+            functionToInvoke ==
+            &getPublicDestructorAndRemoveFromPublicAccessModifierAndDestructorMemberList) {
+        *outAccessModifier = PUBLIC;
+        *outMemberType     = DESTRUCTOR;
+    } else if (
+            functionToInvoke ==
+            &getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList) {
+        *outAccessModifier = PRIVATE;
+        *outMemberType     = FIELD;
+    } else if (
+            functionToInvoke ==
+            &getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList) {
+        *outAccessModifier = PUBLIC;
+        *outMemberType     = FIELD;
+    } else if (functionToInvoke ==
+               &getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList) {
+        *outAccessModifier = THE_GIVEN_OBJECT_HAS_NO_PARENT_OBJECTS;
+        *outMemberType     = THE_GIVEN_OBJECT_HAS_NO_PARENT_OBJECTS;
+    }
+}
+
 // TODO:
 // "public" function.
 Object *setObjectMember(Object *self, enum AccessModifier accessModifier,
                         enum MemberType memberType, const char *memberName) {
-    Object *object =
+    Object *lastObject =
             getObjectMember(self, accessModifier, memberType, memberName);
-    if (object == NULL) { return NULL; }
+    if (lastObject == NULL) { return NULL; }
 
     // TODO:
     // set logic.
+
+
+    //    // Destruct last object.
+    //    getLegacyObjectComponent(lastObject)->destructable->destructor(lastObject);
 }
 
 // TODO:
