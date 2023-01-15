@@ -68,10 +68,12 @@ AtomicDoubleRValue *AtomicDoubleRValueConstructor(DoubleRValue doubleRValue) {
 
     setData_AtomicDoubleRValue(instance, primitiveDoubleNumberDataAllocation);
 
-    static Destructable const destructable = {
-            .destructor =
-                    (void *(*const)(void *) )(&AtomicDoubleRValueDestructor)};
-    getLegacyObjectComponent((Object *) instance)->destructable = &destructable;
+    instance->addLValueMember((Object *) instance, PUBLIC, CONSTRUCTOR,
+                              "AtomicDoubleRValueConstructor",
+                              &AtomicDoubleRValueConstructor, FALSE);
+    instance->addLValueMember((Object *) instance, PUBLIC, DESTRUCTOR,
+                              "AtomicDoubleRValueDestructor",
+                              &AtomicDoubleRValueDestructor, FALSE);
 
     return instance;
 }

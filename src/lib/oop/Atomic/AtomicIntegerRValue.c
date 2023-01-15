@@ -31,9 +31,12 @@ AtomicIntegerRValueConstructor(IntegerRValue integerRValue) {
     getLegacyObjectComponent((Object *) instance)->CLASS_NAME =
             "AtomicIntegerRValue";
 
-    static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&AtomicIntegerRValueDestructor)};
-    getLegacyObjectComponent((Object *) instance)->destructable = &destructable;
+    instance->setLValueMember((Object *) instance, PUBLIC, CONSTRUCTOR,
+                              "AtomicIntegerRValueConstructor",
+                              &AtomicIntegerRValueConstructor, FALSE);
+    instance->setLValueMember((Object *) instance, PUBLIC, DESTRUCTOR,
+                              "AtomicIntegerRValueDestructor",
+                              &AtomicIntegerRValueDestructor, FALSE);
 
     return instance;
 }

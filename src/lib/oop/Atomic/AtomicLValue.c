@@ -89,9 +89,12 @@ AtomicLValue *AtomicLValueConstructor(void *  data,
 
     addData_AtomicLValue(instance, data, isDataDynamicallyAllocated);
 
-    static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&AtomicLValueDestructor)};
-    getLegacyObjectComponent((Object *) instance)->destructable = &destructable;
+    instance->addLValueMember((Object *) instance, PUBLIC, CONSTRUCTOR,
+                              "AtomicLValueConstructor",
+                              &AtomicLValueConstructor, FALSE);
+    instance->addLValueMember((Object *) instance, PUBLIC, DESTRUCTOR,
+                              "AtomicLValueDestructor", &AtomicLValueDestructor,
+                              FALSE);
 
     return instance;
 }
