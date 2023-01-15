@@ -16,14 +16,6 @@ extern Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
         char *memberName, Object *objectThatContainsThisObjectAsAMember);
 
-// TODO: remove redundant Code
-extern void setPrimitivePrivateFieldWhichIsDynamicallyAllocated(
-        Object *self, char *memberName, void *dynamicallyAllocatedMemberToSet);
-
-// TODO: remove redundant Code
-extern void setPrimitivePrivateFieldWhichIsStaticallyAllocated(
-        Object *self, char *memberName, void *staticallyAllocatedMemberToSet);
-
 extern Legacy_Object *
 getLegacyObjectMember(Object *                  self,
                       enum MemberAccessModifier memberAccessModifier,
@@ -71,35 +63,6 @@ void *getData_AtomicLValue(AtomicLValue *atomicLValue) {
                    ? ((Legacy_AtomicFreer *) dataContainer)->data
                    : ((Legacy_Node *) dataContainer)->data;
 }
-
-/* ---------------- SET ---------------- */
-
-// TODO: remove redundant Code
-//// "private" function.
-//void setDataWhichIsDynamicallyAllocated_AtomicLValue(
-//        AtomicLValue *atomicLValue, void *dynamicallyAllocatedData) {
-//    setPrimitivePrivateFieldWhichIsDynamicallyAllocated(
-//            (Object *) atomicLValue, __ATOMIC_LVALUE_MEMBER_NAME__,
-//            dynamicallyAllocatedData);
-//}
-//
-//// "private" function.
-//void setDataWhichIsStaticallyAllocated_AtomicLValue(
-//        AtomicLValue *atomicLValue, void *staticallyAllocatedData) {
-//    setPrimitivePrivateFieldWhichIsStaticallyAllocated(
-//            (Object *) atomicLValue, __ATOMIC_LVALUE_MEMBER_NAME__,
-//            staticallyAllocatedData);
-//}
-//
-//// "protected" function.
-//void setData_AtomicLValue(AtomicLValue *atomicLValue, void *data,
-//                          BOOLEAN isDataDynamicallyAllocated) {
-//    if (isDataDynamicallyAllocated) {
-//        setDataWhichIsDynamicallyAllocated_AtomicLValue(atomicLValue, data);
-//    } else {
-//        setDataWhichIsStaticallyAllocated_AtomicLValue(atomicLValue, data);
-//    }
-//}
 
 /* ------ Constructor & Destructor ------ */
 
