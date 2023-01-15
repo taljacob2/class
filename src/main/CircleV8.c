@@ -8,6 +8,10 @@
 CircleV8 *CircleV8Constructor() {
     Object *instance = ObjectConstructor("CircleV8");
 
+    instance->addLValueMember(instance, PUBLIC, CONSTRUCTOR,
+                              "CircleV8Constructor",
+                              LValue_CAST(&CircleV8Constructor), FALSE);
+
 
     instance->addIntegerRValueMember(instance, PUBLIC, FIELD, "name",
                                      (IntegerRValue) "smallCircle");

@@ -2,6 +2,7 @@
 #define ATOMICLVALUE_H
 
 #include "../Object/Object.h"
+#include "LValueDefines.h"
 #include "Random.r"
 
 #define __ATOMIC_LVALUE_MEMBER_NAME__ "__ATOMIC_LVALUE_MEMBER_NAME__"
