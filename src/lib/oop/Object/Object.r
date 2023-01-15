@@ -5,7 +5,7 @@
 #include "AnonymousPointer.r"
 #include "Legacy_MemberList.r"
 
-enum AccessModifier { PRIVATE, PUBLIC };
+enum MemberAccessModifier { PRIVATE, PUBLIC };
 enum MemberType { METHOD, CONSTRUCTOR, DESTRUCTOR, FIELD };
 
 // Forward declaration of incomplete type
@@ -25,34 +25,39 @@ struct object {
     ANONYMOUS_POINTER_AS_FIELD;
     ANONYMOUS_POINTER_AS_FIELD;
 
-    TYPEOF_ANONYMOUS_POINTER(*getMemberValue)
-    (Object *self, enum AccessModifier accessModifier,
-     enum MemberType memberType, const char *memberName);
-
-    void (*addIntegerRValueMember)(Object *            self,
-                                   enum AccessModifier accessModifier,
-                                   enum MemberType     memberType,
-                                   const char *        memberName,
-                                   IntegerRValue       integerRValue);
-    IntegerRValue (*getIntegerRValueMember)(Object *            self,
-                                            enum AccessModifier accessModifier,
-                                            enum MemberType     memberType,
-                                            const char *        memberName);
-    void (*addDoubleRValueMember)(Object *            self,
-                                  enum AccessModifier accessModifier,
-                                  enum MemberType     memberType,
-                                  const char *        memberName,
-                                  DoubleRValue        doubleRValue);
-    DoubleRValue (*getDoubleRValueMember)(Object *            self,
-                                          enum AccessModifier accessModifier,
-                                          enum MemberType     memberType,
-                                          const char *        memberName);
-
+    Object *(*getObjectMember)(Object *                  self,
+                               enum MemberAccessModifier memberAccessModifier,
+                               enum MemberType           memberType,
+                               const char *              memberName);
+    void *(*getLValueMember)(Object *                  self,
+                             enum MemberAccessModifier memberAccessModifier,
+                             enum MemberType           memberType,
+                             const char *              memberName);
+    IntegerRValue (*getIntegerRValueMember)(
+            Object *self, enum MemberAccessModifier accessModifier,
+            enum MemberType memberType, const char *memberName);
+    DoubleRValue (*getDoubleRValueMember)(
+            Object *self, enum MemberAccessModifier accessModifier,
+            enum MemberType memberType, const char *memberName);
     Legacy_Object *(*getImplementation)(Object *self, char *memberName);
 
-    void (*addMemberValue)(Object *self, enum AccessModifier accessModifier,
-                           enum MemberType memberType, const char *memberName,
-                           Object *memberToAdd);
+    void (*addObjectMember)(Object *                  self,
+                            enum MemberAccessModifier memberAccessModifier,
+                            enum MemberType memberType, const char *memberName,
+                            Object *memberToAdd);
+    void (*addLValueMember)(Object *                  self,
+                            enum MemberAccessModifier memberAccessModifier,
+                            enum MemberType memberType, const char *memberName,
+                            void *  lValueData,
+                            BOOLEAN isDataDynamicallyAllocated);
+    void (*addIntegerRValueMember)(
+            Object *self, enum MemberAccessModifier memberAccessModifier,
+            enum MemberType memberType, const char *memberName,
+            IntegerRValue integerRValue);
+    void (*addDoubleRValueMember)(
+            Object *self, enum MemberAccessModifier memberAccessModifier,
+            enum MemberType memberType, const char *memberName,
+            DoubleRValue doubleRValue);
 
     /**
      * Adds the implementation to the `fieldsLegacy_MemberList`, as a "public" field.
@@ -93,6 +98,26 @@ struct object {
             Object *(
                     *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter)(
                     Legacy_Object *) );
+
+    Object *(*setSelf)(Object *self, Object *value);
+    Object *(*setObjectMember)(Object *                  self,
+                               enum MemberAccessModifier memberAccessModifier,
+                               enum MemberType           memberType,
+                               const char *              memberName,
+                               Object *                  memberValueToSet);
+    void *(*setLValueMember)(Object *                  self,
+                             enum MemberAccessModifier memberAccessModifier,
+                             enum MemberType memberType, const char *memberName,
+                             void *  lValueDataValueToSet,
+                             BOOLEAN isDataDynamicallyAllocatedValueToSet);
+    BOOLEAN (*setIntegerRValueMember)
+    (Object *self, enum MemberAccessModifier memberAccessModifier,
+     enum MemberType memberType, const char *memberName,
+     IntegerRValue integerRValueValueToSet);
+    BOOLEAN (*setDoubleRValueMember)
+    (Object *self, enum MemberAccessModifier memberAccessModifier,
+     enum MemberType memberType, const char *memberName,
+     DoubleRValue doubleRValueValueToSet);
 };
 
 void *ObjectDestructor(Object *object);

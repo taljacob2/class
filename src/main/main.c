@@ -97,9 +97,9 @@ int main() {
 
     //
     //
-    //    // TODO: Problem found. `addMemberValue` does not work properly.
+    //    // TODO: Problem found. `addObjectMember` does not work properly.
     //    Object *object = ObjectConstructor("Object");
-    //    object->addMemberValue(object, PUBLIC, FIELD, "nestedObject",
+    //    object->addObjectMember(object, PUBLIC, FIELD, "nestedObject",
     //                           ObjectConstructor("Object2"));
 
     //
@@ -108,7 +108,7 @@ int main() {
     //    float *floatAllocation = (float *)malloc(sizeof(float));
     //    *floatAllocation = 2.34f;
     //
-    ////    instance->addMemberValue(instance, PUBLIC, FIELD, "radius",
+    ////    instance->addObjectMember(instance, PUBLIC, FIELD, "radius",
     ////                             (Object *) AtomicLValueConstructor(floatAllocation, TRUE));
     //
     //    AtomicLValue *atomicLValue = AtomicLValueConstructor(floatAllocation, TRUE);

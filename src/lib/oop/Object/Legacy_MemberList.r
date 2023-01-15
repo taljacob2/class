@@ -27,6 +27,13 @@ struct legacy_memberList {
     Legacy_Object *(*addMemberWhichIsPrimitive)(
             Legacy_MemberList *self, char *memberName,
             void *dynamicallyAllocatedPrimitive);
+
+    Legacy_Object *(*setMemberWhichIsLegacy_Object)(
+            Legacy_MemberList *legacyMemberList, char *memberName,
+            Legacy_Object *legacyObjectContainer);
+    Legacy_Object *(*setMemberWhichIsPrimitive)(
+            Legacy_MemberList *legacyMemberList, char *memberName,
+            void *dynamicallyAllocatedPrimitive);
 };
 
 Legacy_MemberList *Legacy_MemberListConstructor();
