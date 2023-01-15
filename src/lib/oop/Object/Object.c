@@ -985,7 +985,18 @@ Legacy_Object *getImplementation(Object *self, char *memberName) {
 
 /* ------------------------- ADD & GET & SET RVALUE ------------------------- */
 
-// TODO: redundant. duplicate code.
+/* -------------------- LValue ------------------- */
+
+// TODO: make public
+// "public" function.
+void addLValueMember(Object *                  self,
+                     enum MemberAccessModifier memberAccessModifier,
+                     enum MemberType memberType, const char *memberName,
+                     void *lValueData, BOOLEAN isDataDynamicallyAllocated) {
+    addMemberValue(self, memberAccessModifier, memberType, memberName,
+                   (Object *) AtomicLValueConstructor(
+                           lValueData, isDataDynamicallyAllocated));
+}
 
 /* ---------------- IntegerRValue ---------------- */
 
@@ -998,6 +1009,7 @@ void addIntegerRValueMember(Object *                  self,
                    (Object *) AtomicIntegerRValueConstructor(integerRValue));
 }
 
+// TODO: redundant. duplicate code.
 // "public" function.
 IntegerRValue
 getIntegerRValueMember(Object *                  self,
@@ -1006,21 +1018,6 @@ getIntegerRValueMember(Object *                  self,
     return getIntegerRValueMemberValue(self, memberAccessModifier, memberType,
                                        memberName);
 }
-
-//// "public" function.
-//// TODO:
-//void setIntegerRValueMember(Object *self, enum MemberAccessModifier accessModifier,
-//                            enum MemberType memberType, const char *memberName,
-//                            IntegerRValue integerRValue) {
-//    AtomicIntegerRValue *atomicIntegerRValue =
-//            (AtomicIntegerRValue *) getObjectMember(self, accessModifier,
-//                                                   memberType, memberName);
-//
-//    set
-//
-//    addMemberValue(self, accessModifier, memberType, memberName,
-//                   (Object *) AtomicIntegerRValueConstructor(integerRValue));
-//}
 
 /* ---------------- DoubleRValue ---------------- */
 
@@ -1033,6 +1030,7 @@ void addDoubleRValueMember(Object *                  self,
                    (Object *) AtomicDoubleRValueConstructor(doubleRValue));
 }
 
+// TODO: redundant. duplicate code.
 // "public" function.
 DoubleRValue
 getDoubleRValueMember(Object *                  self,
