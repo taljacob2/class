@@ -16,9 +16,11 @@ extern Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
         char *memberName, Object *objectThatContainsThisObjectAsAMember);
 
+// TODO: remove redundant Code
 extern void setPrimitivePrivateFieldWhichIsDynamicallyAllocated(
         Object *self, char *memberName, void *dynamicallyAllocatedMemberToSet);
 
+// TODO: remove redundant Code
 extern void setPrimitivePrivateFieldWhichIsStaticallyAllocated(
         Object *self, char *memberName, void *staticallyAllocatedMemberToSet);
 

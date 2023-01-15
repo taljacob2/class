@@ -6,12 +6,17 @@ extern Object *ObjectConstructorWithoutAnyMembers(char *className);
 
 extern Legacy_ObjectComponent *getLegacyObjectComponent(Object *object);
 
-extern void addPrimitivePrivateFieldWhichIsDynamicallyAllocated(Object *self, char *memberName,
-                                     void *dynamicallyAllocatedMemberToAdd);
+extern void addPrimitivePrivateFieldWhichIsDynamicallyAllocated(
+        Object *self, char *memberName, void *dynamicallyAllocatedMemberToAdd);
 
 extern Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
         char *memberName, Object *objectThatContainsThisObjectAsAMember);
+
+extern Legacy_Object *
+getLegacyObjectMember(Object *                  self,
+                      enum MemberAccessModifier memberAccessModifier,
+                      enum MemberType memberType, const char *memberName);
 
 /* ----------------------------- Implementation ----------------------------- */
 
@@ -29,9 +34,8 @@ getData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue) {
 
     // "double" number as DoubleRValue.
     Legacy_Object *doubleNumberDataContainer =
-            (Legacy_Object *) atomicDoubleRValue->getMemberValue(
-                    (Object *) atomicDoubleRValue, PRIVATE, FIELD,
-                    __DOUBLE_RVALUE_MEMBER_NAME__);
+            getLegacyObjectMember((Object *) atomicDoubleRValue, PRIVATE, FIELD,
+                                  __DOUBLE_RVALUE_MEMBER_NAME__);
     DoubleRValue *doubleNumber =
             (DoubleRValue *) (((Legacy_Node *) doubleNumberDataContainer)
                                       ->data);

@@ -7,6 +7,10 @@ CircleV7 *CircleV7Constructor() {
                                      (IntegerRValue) "smallCircle");
     printf("%s\n", (char *) instance->getIntegerRValueMember(instance, PUBLIC,
                                                              FIELD, "name"));
+    instance->setIntegerRValueMember(instance, PUBLIC, FIELD, "name",
+                                     (IntegerRValue) "largeCircle");
+    printf("%s\n", (char *) instance->getIntegerRValueMember(instance, PUBLIC,
+                                                             FIELD, "name"));
 
 
     instance->addDoubleRValueMember(instance, PUBLIC, FIELD, "radius", 2.34);
@@ -25,7 +29,7 @@ CircleV7 *CircleV7Constructor() {
             instance, PUBLIC, FIELD, "radiusAllocatedInt",
             (Object *) AtomicLValueConstructor(radiusAllocated, TRUE));
     printf("%d\n", *((int *) instance->getObjectMember(instance, PUBLIC, FIELD,
-                                                      "radiusAllocatedInt")));
+                                                       "radiusAllocatedInt")));
 
 
     return (CircleV7 *) instance;
