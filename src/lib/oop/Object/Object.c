@@ -689,10 +689,10 @@ void addPublicField(Object *self, char *memberName, Object *memberToAdd) {
 /* ----------------- Generic ADD MEMBER ------------------ */
 
 // "public" function.
-void addMemberValue(Object *                  self,
-                    enum MemberAccessModifier memberAccessModifier,
-                    enum MemberType memberType, const char *memberName,
-                    Object *memberToAdd) {
+void addObjectMember(Object *                  self,
+                     enum MemberAccessModifier memberAccessModifier,
+                     enum MemberType memberType, const char *memberName,
+                     Object *memberToAdd) {
     switch (memberAccessModifier) {
         case PRIVATE:
             switch (memberType) {
@@ -745,9 +745,9 @@ void addLValueMember(Object *                  self,
                      enum MemberAccessModifier memberAccessModifier,
                      enum MemberType memberType, const char *memberName,
                      void *lValueData, BOOLEAN isDataDynamicallyAllocated) {
-    addMemberValue(self, memberAccessModifier, memberType, memberName,
-                   (Object *) AtomicLValueConstructor(
-                           lValueData, isDataDynamicallyAllocated));
+    addObjectMember(self, memberAccessModifier, memberType, memberName,
+                    (Object *) AtomicLValueConstructor(
+                            lValueData, isDataDynamicallyAllocated));
 }
 
 // "public" function.
@@ -755,8 +755,8 @@ void addIntegerRValueMember(Object *                  self,
                             enum MemberAccessModifier memberAccessModifier,
                             enum MemberType memberType, const char *memberName,
                             IntegerRValue integerRValue) {
-    addMemberValue(self, memberAccessModifier, memberType, memberName,
-                   (Object *) AtomicIntegerRValueConstructor(integerRValue));
+    addObjectMember(self, memberAccessModifier, memberType, memberName,
+                    (Object *) AtomicIntegerRValueConstructor(integerRValue));
 }
 
 // "public" function.
@@ -764,8 +764,8 @@ void addDoubleRValueMember(Object *                  self,
                            enum MemberAccessModifier memberAccessModifier,
                            enum MemberType memberType, const char *memberName,
                            DoubleRValue doubleRValue) {
-    addMemberValue(self, memberAccessModifier, memberType, memberName,
-                   (Object *) AtomicDoubleRValueConstructor(doubleRValue));
+    addObjectMember(self, memberAccessModifier, memberType, memberName,
+                    (Object *) AtomicDoubleRValueConstructor(doubleRValue));
 }
 
 /* ----------------------------- SET MEMBER --------------------------------- */
@@ -867,7 +867,7 @@ void getAccessModifierAndMemberType(
 
 // TODO: make public
 // "pubilc" function.
-Object *setSelfObject(Object *self, Object *value) {
+Object *setSelf(Object *self, Object *value) {
     if (self == NULL) { return NULL; }
 
     getLegacyObjectComponent(self)->destructable->destructor(self);
@@ -890,8 +890,8 @@ Object *setObjectMember(Object *                  self,
 
     getLegacyObjectComponent(objectMember)
             ->destructable->destructor(objectMember);
-    addMemberValue(self, memberAccessModifier, memberType, memberName,
-                   memberValueToSet);
+    addObjectMember(self, memberAccessModifier, memberType, memberName,
+                    memberValueToSet);
 
     return memberValueToSet;
 }
@@ -920,10 +920,10 @@ void *setLValueMember(Object *                  self,
 // TODO: make public
 // "public" function.
 BOOLEAN
-setIntegerRValueMemberValue(Object *                  self,
-                            enum MemberAccessModifier memberAccessModifier,
-                            enum MemberType memberType, const char *memberName,
-                            IntegerRValue integerRValueValueToSet) {
+setIntegerRValueMember(Object *                  self,
+                       enum MemberAccessModifier memberAccessModifier,
+                       enum MemberType memberType, const char *memberName,
+                       IntegerRValue integerRValueValueToSet) {
     if (self == NULL) { return FALSE; }
 
     Object *objectMember =
@@ -941,10 +941,10 @@ setIntegerRValueMemberValue(Object *                  self,
 // TODO: make public.
 // "public" function.
 BOOLEAN
-setDoubleRValueMemberValue(Object *                  self,
-                           enum MemberAccessModifier memberAccessModifier,
-                           enum MemberType memberType, const char *memberName,
-                           DoubleRValue doubleRValueValueToSet) {
+setDoubleRValueMember(Object *                  self,
+                      enum MemberAccessModifier memberAccessModifier,
+                      enum MemberType memberType, const char *memberName,
+                      DoubleRValue doubleRValueValueToSet) {
     if (self == NULL) { return FALSE; }
 
     Object *objectMember =
@@ -969,7 +969,7 @@ void addImplementation(
                 const char *) ) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
 
-    addMemberValue(
+    addObjectMember(
             self, PUBLIC, FIELD, (char *) implementationMemberName,
             constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter(
                     getLegacyObjectComponent(self)->CLASS_NAME));
@@ -985,7 +985,7 @@ void addImplementationThatIsConstructedWithLegacy_Object(
                 Legacy_Object *) ) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
 
-    addMemberValue(
+    addObjectMember(
             self, PUBLIC, FIELD, (char *) implementationMemberName,
             constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter(
                     (Legacy_Object *) self));
@@ -1129,7 +1129,7 @@ void init_fields(Object *object) {
     object->addIntegerRValueMember = &addIntegerRValueMember;
     object->addDoubleRValueMember  = &addDoubleRValueMember;
 
-    object->addMemberValue    = &addMemberValue;
+    object->addObjectMember   = &addObjectMember;
     object->addImplementation = &addImplementation;
     object->addImplementationThatIsConstructedWithLegacy_Object =
             &addImplementationThatIsConstructedWithLegacy_Object;
@@ -1164,11 +1164,11 @@ Object *ObjectConstructorWithoutAnyMembers(char *className) {
 Object *ObjectConstructor(char *className) {
     Object *instance = ObjectConstructorWithoutAnyMembers(className);
 
-    addMemberValue(
+    addObjectMember(
             instance, PUBLIC, CONSTRUCTOR, DEFAULT_CONSTRUCTOR,
             (Object *) AtomicLValueConstructor(&ObjectConstructor, FALSE));
 
-    addMemberValue(
+    addObjectMember(
             instance, PUBLIC, DESTRUCTOR, DEFAULT_DESTRUCTOR,
             (Object *) AtomicLValueConstructor(&ObjectDestructor, FALSE));
 

@@ -39,10 +39,10 @@
                                                                                                         \
     Legacy_Object *(*getImplementation)(Object * self, char *memberName);                               \
                                                                                                         \
-    void (*addMemberValue)(Object * self,                                                               \
-                           enum MemberAccessModifier memberAccessModifier,                              \
-                           enum MemberType memberType, const char *memberName,                          \
-                           Object *memberToAdd);                                                        \
+    void (*addObjectMember)(Object * self,                                                              \
+                            enum MemberAccessModifier memberAccessModifier,                             \
+                            enum MemberType           memberType,                                       \
+                            const char *memberName, Object *memberToAdd);                               \
                                                                                                         \
     void (*addImplementation)(                                                                          \
             Object * self, char *memberName,                                                            \
