@@ -23,6 +23,8 @@ add_executable(class src/main/main.c src/lib/oop/Object/AutoDestructable.r
         src/lib/oop/Object/AnonymousPointer.r src/main/CircleV3.c src/main/CircleV4.h src/lib/oop/Object/Quote.h
         src/main/CircleV4.c src/main/CircleV5.h src/main/CircleV5.c src/lib/oop/Object/Concat.h
         src/lib/oop/Object/AnonymousPointer.c src/lib/oop/Object/Concat.c
+        src/lib/oop/Atomic/Random.r src/lib/oop/Atomic/Random.c
+        src/lib/oop/AnonymousObject/AnonymousObject.h
         src/lib/oop/AnonymousObject/AnonymousObject.h
         src/lib/oop/AnonymousObject/AnonymousObject.r src/lib/oop/AnonymousObject/AnonymousObject.c src/lib/oop/AnonymousObject/BitDefines.r
-        src/lib/oop/AnonymousObject/Random.r src/lib/oop/AnonymousObject/Random.c src/main/CircleV6.h src/main/CircleV6.c)
+        src/main/CircleV6.h src/main/CircleV6.c src/lib/oop/Atomic/AtomicLValue.h src/lib/oop/Atomic/AtomicLValue.c src/lib/oop/Atomic/Func.h src/lib/oop/Atomic/AtomicIntegerRValue.h src/lib/oop/Atomic/AtomicIntegerRValue.c src/main/CircleV7.h src/main/CircleV7.c src/lib/oop/Atomic/RValueDefines.h src/lib/oop/Atomic/AtomicDoubleRValue.h src/lib/oop/Atomic/AtomicDoubleRValue.c src/main/CircleV8.h src/main/CircleV8.c src/lib/oop/Atomic/LValueDefines.h)

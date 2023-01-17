@@ -18,32 +18,36 @@
     ANONYMOUS_POINTER_AS_FIELD;                                                                         \
     ANONYMOUS_POINTER_AS_FIELD;                                                                         \
                                                                                                         \
-    Legacy_Object *(*getPrivateMethod)(Object * self, char *memberName);                                \
-    Legacy_Object *(*getPublicMethod)(Object * self, char *memberName);                                 \
-    Legacy_Object *(*getPrivateConstructor)(Object * self, char *memberName);                           \
-    Legacy_Object *(*getPublicConstructor)(Object * self, char *memberName);                            \
-    Legacy_Object *(*getPrivateDestructor)(Object * self, char *memberName);                            \
-    Legacy_Object *(*getPublicDestructor)(Object * self, char *memberName);                             \
-    Legacy_Object *(*getPrivateField)(Object * self, char *memberName);                                 \
-    Legacy_Object *(*getPublicField)(Object * self, char *memberName);                                  \
+    Object *(*getObjectMember)(                                                                         \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
+            enum MemberType memberType, const char *memberName);                                        \
+    void *(*getLValueMember)(                                                                           \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
+            enum MemberType memberType, const char *memberName);                                        \
+    IntegerRValue (*getIntegerRValueMember)(                                                            \
+            Object * self, enum MemberAccessModifier accessModifier,                                    \
+            enum MemberType memberType, const char *memberName);                                        \
+    DoubleRValue (*getDoubleRValueMember)(                                                              \
+            Object * self, enum MemberAccessModifier accessModifier,                                    \
+            enum MemberType memberType, const char *memberName);                                        \
     Legacy_Object *(*getImplementation)(Object * self, char *memberName);                               \
                                                                                                         \
-    void (*addPrivateMethod)(Object * self, char *memberName,                                           \
-                             Object *memberToAdd);                                                      \
-    void (*addPublicMethod)(Object * self, char *memberName,                                            \
-                            Object *memberToAdd);                                                       \
-    void (*addPrivateConstructor)(Object * self, char *memberName,                                      \
-                                  Object *memberToAdd);                                                 \
-    void (*addPublicConstructor)(Object * self, char *memberName,                                       \
-                                 Object *memberToAdd);                                                  \
-    void (*addPrivateDestructor)(Object * self, char *memberName,                                       \
-                                 Object *memberToAdd);                                                  \
-    void (*addPublicDestructor)(Object * self, char *memberName,                                        \
-                                Object *memberToAdd);                                                   \
-    void (*addPrivateField)(Object * self, char *memberName,                                            \
-                            Object *memberToAdd);                                                       \
-    void (*addPublicField)(Object * self, char *memberName,                                             \
-                           Object *memberToAdd);                                                        \
+    void (*addObjectMember)(Object * self,                                                              \
+                            enum MemberAccessModifier memberAccessModifier,                             \
+                            enum MemberType           memberType,                                       \
+                            const char *memberName, Object *memberToAdd);                               \
+    void (*addLValueMember)(                                                                            \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
+            enum MemberType memberType, const char *memberName,                                         \
+            void *lValueData, BOOLEAN isDataDynamicallyAllocated);                                      \
+    void (*addIntegerRValueMember)(                                                                     \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
+            enum MemberType memberType, const char *memberName,                                         \
+            IntegerRValue integerRValue);                                                               \
+    void (*addDoubleRValueMember)(                                                                      \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
+            enum MemberType memberType, const char *memberName,                                         \
+            DoubleRValue doubleRValue);                                                                 \
     void (*addImplementation)(                                                                          \
             Object * self, char *memberName,                                                            \
             Object *(                                                                                   \
@@ -53,7 +57,33 @@
             Object * self, char *memberName,                                                            \
             Object *(                                                                                   \
                     *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter)( \
-                    Legacy_Object *) );
+                    Legacy_Object *) );                                                                 \
+                                                                                                        \
+    Object *(*setSelf)(Object * self, Object * value);                                                  \
+    Object *(*setObjectMember)(                                                                         \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
+            enum MemberType memberType, const char *memberName,                                         \
+            Object *memberValueToSet);                                                                  \
+    void *(*setLValueMember)(                                                                           \
+            Object * self, enum MemberAccessModifier memberAccessModifier,                              \
+            enum MemberType memberType, const char *memberName,                                         \
+            void *  lValueDataValueToSet,                                                               \
+            BOOLEAN isDataDynamicallyAllocatedValueToSet);                                              \
+    BOOLEAN(*setIntegerRValueMember)                                                                    \
+    (Object * self, enum MemberAccessModifier memberAccessModifier,                                     \
+     enum MemberType memberType, const char *memberName,                                                \
+     IntegerRValue integerRValueValueToSet);                                                            \
+    BOOLEAN(*setDoubleRValueMember)                                                                     \
+    (Object * self, enum MemberAccessModifier memberAccessModifier,                                     \
+     enum MemberType memberType, const char *memberName,                                                \
+     DoubleRValue doubleRValueValueToSet);                                                              \
+                                                                                                        \
+    BOOLEAN (*toStringMembersByMemberAccessModifier)                                                    \
+    (Object * self, enum MemberAccessModifier memberAccessModifier);                                    \
+    BOOLEAN (*toStringMembersByMemberType)                                                              \
+    (Object * self, enum MemberType memberType);                                                        \
+    void (*toString)(Object * self);
+
 
 #define IMPLEMENTATION "__IMPLEMENTATION__"
 
@@ -69,23 +99,7 @@
     struct CONCAT_SURROUND(ClassName, ____CLASS_STRUCT_NAME_EXTENSION___) { \
                                                                             \
         OBJECT_FIELDS                                                       \
-    };                                                                      \
-                                                                            \
-    ClassName *CONCAT(ClassName,                                            \
-                      ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___)();
-
-
-#define DEFINE_CLASS_C(ClassName)                                         \
-                                                                          \
-    ClassName *CONCAT(ClassName,                                          \
-                      ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___)() {  \
-        return (ClassName *) ObjectConstructor(QUOTE(ClassName));         \
-    }                                                                     \
-                                                                          \
-    void CONCAT(ClassName, ___CLASS_DESTRUCTOR_METHOD_NAME_EXTENSION___)( \
-            ClassName * object) {                                         \
-        ObjectDestructor((Object *) object);                              \
-    }
+    };
 
 
 #endif //OBJECTDEFINES_H

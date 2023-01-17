@@ -4,7 +4,7 @@
 //// TODO: "private".
 //Legacy_AtomicFreer *getLegacy_AtomicFreer(AtomicInteger *atomicInteger) {
 //    return ((Legacy_AtomicFreer *) atomicInteger->methodsLegacy_MemberList->getMemberByName(
-//            atomicInteger->methodsLegacy_MemberList, __ATOMIC_MEMBER_NAME__));
+//            atomicInteger->methodsLegacy_MemberList, __ATOMIC_LVALUE_MEMBER_NAME__));
 //}
 //
 //// TODO: "private". very dangerous.
@@ -27,7 +27,7 @@
 //    int *valuePointer = malloc(sizeof(int));
 //    *valuePointer     = value;
 //    atomicInteger->methodsLegacy_MemberList->addMemberWhichIsPrimitive(
-//            atomicInteger->methodsLegacy_MemberList, __ATOMIC_MEMBER_NAME__, valuePointer);
+//            atomicInteger->methodsLegacy_MemberList, __ATOMIC_LVALUE_MEMBER_NAME__, valuePointer);
 //}
 //
 //void *AtomicIntegerDestructor(AtomicInteger *atomicInteger) {

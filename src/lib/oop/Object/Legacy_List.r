@@ -39,6 +39,11 @@ struct legacy_list {
      */
     void *(*Legacy_ListDestructorWithInvokingDeconstructorOfEachNodeData)(
             Legacy_List *list);
+
+    void *(*setByStringToSearch)(Legacy_List *list, void *dataToSet,
+                                 BOOLEAN (*predicate)(const Legacy_Node *,
+                                                      const char *const),
+                                 const char *stringToSearch);
 };
 
 Legacy_List *Legacy_ListConstructor();

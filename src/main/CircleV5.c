@@ -1,4 +1,4 @@
 #include "CircleV5.h"
 
-
-DEFINE_CLASS_C(CircleV5)
+/// @deprecated
+//DEFINE_CLASS_C(CircleV5)

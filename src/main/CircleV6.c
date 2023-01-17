@@ -1,5 +1,6 @@
 #include "CircleV6.h"
 
+/// @deprecated
 //DEFINE_CLASS_C(CircleV6)
 
 

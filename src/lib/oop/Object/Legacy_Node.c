@@ -18,6 +18,14 @@ void *Legacy_NodeDestructor(Legacy_Node *node) {
     return nodeData;
 }
 
+void *setNodeData(Legacy_Node *node, void *data) {
+    if (node == NULL) { return NULL; }
+
+    void *lastData = node->data;
+    node->data     = data;
+    return lastData;
+}
+
 void constructor_Legacy_Node_fields(Legacy_Node *node) {
     node->legacyObjectComponent =
             Legacy_ObjectComponentConstructorClassName("Legacy_Node");
@@ -29,6 +37,8 @@ void constructor_Legacy_Node_fields(Legacy_Node *node) {
     node->data = NULL;
     node->next = NULL;
     node->prev = NULL;
+
+    node->setNodeData = &setNodeData;
 }
 
 Legacy_Node *Legacy_NodeConstructor() {

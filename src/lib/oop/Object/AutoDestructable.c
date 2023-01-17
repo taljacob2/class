@@ -46,7 +46,7 @@ Legacy_Object *AutoDestructableDestructor(AutoDestructable *autoDestructable) {
     if (autoDestructable->allocatedAddress->legacyObjectComponent
                 ->destructorInvocationStatus == WAS_NOT_INVOKED) {
         autoDestructable->allocatedAddress->legacyObjectComponent
-                        ->destructorInvocationStatus = WAS_INVOKED_ONCE;
+                ->destructorInvocationStatus = WAS_INVOKED_ONCE;
 
         deleteAllocationAddressIfNeeded(autoDestructable);
     }
@@ -97,12 +97,6 @@ AutoDestructable *AutoDestructableConstructorWithLegacy_Object(
     }
 
     constructor_AutoDestructable_fields(instance);
-
-    instance->legacyObjectComponent->CLASS_NAME =
-            legacyObjectToSaveItsAddressToAllocationTable == NULL
-                    ? "AutoDestructable"
-                    : legacyObjectToSaveItsAddressToAllocationTable
-                              ->legacyObjectComponent->CLASS_NAME;
 
     /*
      * If `legacyObjectToSaveItsAddressToAllocationTable` is `NULL` use
