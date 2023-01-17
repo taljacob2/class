@@ -76,11 +76,16 @@
     BOOLEAN(*setDoubleRValueMember)                                                                     \
     (Object * self, enum MemberAccessModifier memberAccessModifier,                                     \
      enum MemberType memberType, const char *memberName,                                                \
-     DoubleRValue doubleRValueValueToSet);
+     DoubleRValue doubleRValueValueToSet);                                                              \
+                                                                                                        \
+    BOOLEAN (*toStringMembersByMemberAccessModifier)                                                    \
+    (Object * self, enum MemberAccessModifier memberAccessModifier);                                    \
+    BOOLEAN (*toStringMembersByMemberType)                                                              \
+    (Object * self, enum MemberType memberType);                                                        \
+    void (*toString)(Object * self);
 
-#define IMPLEMENTATION      "__IMPLEMENTATION__"
-#define DEFAULT_DESTRUCTOR  "__DefaultDestructor__"
-#define DEFAULT_CONSTRUCTOR "__DefaultConstructor__"
+
+#define IMPLEMENTATION "__IMPLEMENTATION__"
 
 #define ____CLASS_STRUCT_NAME_EXTENSION___            ___
 #define ___CLASS_CONSTRUCTOR_METHOD_NAME_EXTENSION___ Constructor
