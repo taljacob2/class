@@ -53,6 +53,8 @@ CircleV7 *CircleV7Constructor() {
 
 
     instance->toString(instance);
+//    instance->toStringMembersByMemberAccessModifier(instance, PUBLIC);
+//    instance->toStringMembersByMemberType(instance, DESTRUCTOR);
 
     return (CircleV7 *) instance;
 }
