@@ -14,7 +14,5 @@ Get-ChildItem -Path .\ -Filter *.c -File -Name | ForEach-Object {
 
     # Compile .c to .obj.
     & $cl64 /c "$_"
-
-    Write-Output "$_"
 }
 
