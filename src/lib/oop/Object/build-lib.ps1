@@ -1,14 +1,19 @@
-$LIBRARY_NAME="Object"
-$cl="D:\Tal\Visual Studio - Community 2019\IDE - Installation\VC\Tools\MSVC\14.24.28314\bin\Hostx64\x64\cl.exe"
+$PATH_TO_VISUAL_STUDIO="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE"
 
-$vcvars64="D:\Tal\Visual Studio - Community 2019\IDE - Installation\VC\Auxiliary\Build\vcvars64.bat"
+$vcvars64="$PATH_TO_VISUAL_STUDIO\..\..\VC\Auxiliary\Build\vcvars64.bat"
+
+$cl64="$PATH_TO_VISUAL_STUDIO\..\..\VC\Tools\MSVC\14.24.28314\bin\Hostx64\x64\cl.exe"
+
+# --------------------------------
+
+$LIBRARY_NAME="Object"
 
 & $vcvars64
 
 Get-ChildItem -Path .\ -Filter *.c -File -Name | ForEach-Object {
 
     # Compile .c to .obj.
-    & $cl /c "$_"
+    & $cl64 /c "$_"
 
     Write-Output "$_"
 }
