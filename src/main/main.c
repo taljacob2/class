@@ -117,7 +117,13 @@ int main() {
     //    AtomicLValueDestructor(atomicLValue);
 
 
-    CircleV7 *circleV7 = CircleV7Constructor();
+//    CircleV7 *circleV7 = CircleV7Constructor();
+
+
+
+
+
+
 
 
     return 0;
