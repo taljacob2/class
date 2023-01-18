@@ -2,7 +2,7 @@ $PATH_TO_VISUAL_STUDIO="C:\Program Files\Microsoft Visual Studio\2022\Community\
 
 $vcvars64=$(Get-ChildItem "$PATH_TO_VISUAL_STUDIO\..\..\VC\Auxiliary\Build\vcvars64.bat")
 
-$cl64=$(Get-ChildItem "$PATH_TO_VISUAL_STUDIO\..\..\VC\Tools\MSVC\14.24.28314\bin\Hostx64\x64\cl.exe")
+$cl64=$(Get-ChildItem "$PATH_TO_VISUAL_STUDIO\..\..\VC\Tools\MSVC\*\bin\Hostx64\x64\cl.exe")
 
 # --------------------------------
 
