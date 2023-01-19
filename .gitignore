@@ -12,3 +12,6 @@ src/lib/**/*.obj
 # Ignore static-library builds.
 src/lib/**/*.a
 src/lib/**/*.lib
+
+# Ignore shared local variables file from `config.bat`.
+**/shared-config-local-variables.bat
