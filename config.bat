@@ -23,6 +23,12 @@ REM       ----------------------- Path Variables ----------------------
 
 SET ROOT_PATH=cd
 
+SET SRC_PATH=%ROOT_PATH%/src
+SET MAIN_PATH=%SRC_PATH%/main
+SET TEST_PATH=%SRC_PATH%/test
+SET LIB_PATH=%SRC_PATH%/lib
+SET OUTPUT_LIB_PATH=%LIB_PATH%/oop
+
 SET OUTPUT_LIB_FILE_NAME=oop
 
 REM -------------------------------- Code End ----------------------------------
