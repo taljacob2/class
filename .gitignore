@@ -5,3 +5,7 @@ cmake-build-debug
 
 # Ignore our static library builds.
 src/lib/**/*.a
+
+# Ignore object files.
+src/lib/**/*.o
+src/lib/**/*.obj
