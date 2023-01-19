@@ -1452,7 +1452,8 @@ Object *ObjectConstructor(char *className) {
     //                              "ObjectConstructor",
     //                              LValue_CAST(&ObjectConstructor), FALSE);
 
-    instance->addLValueMember(instance, PUBLIC, DESTRUCTOR, "ObjectDestructor",
+    instance->addLValueMember(instance, PUBLIC, DESTRUCTOR,
+                              "void *ObjectDestructor(Object *object)",
                               LValue_CAST(&ObjectDestructor), FALSE);
 
     return instance;
