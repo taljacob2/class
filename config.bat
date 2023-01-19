@@ -81,7 +81,7 @@ GOTO :EOF
 
     CALL %FILE_NAME%
 
-    REM Optional.
-    REM Since we have already `CALL`ed the `%FILE_NAME%` it is okay to delete it.
-    del /F %FILE_NAME%
+    @REM REM Optional.
+    @REM REM Since we have already `CALL`ed the `%FILE_NAME%` it is okay to delete it.
+    @REM del /F %FILE_NAME%
 GOTO :EOF
