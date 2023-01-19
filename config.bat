@@ -11,7 +11,7 @@ SET PATH_TO_VISUAL_STUDIO=D:\Tal\Visual Studio - Community 2019\IDE - Installati
 SET vcvars64=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars64.bat
 SET vcvars32=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars32.bat
 
-SET cl_BASE_PATH=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Tools\MSVC\*
+SET TOOLS_BASE_PATH=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Tools\MSVC\*
 SET cl64=\bin\Hostx64\x64\cl.exe
 SET cl32=\bin\Hostx86\x86\cl.exe
 
@@ -20,5 +20,5 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :RunCl
-for /D %%I in ("%cl_BASE_PATH%") do "%%~I%cl64%" %~1
+for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%cl64%" %~1
 GOTO :EOF
