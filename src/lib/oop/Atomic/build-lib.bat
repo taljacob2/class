@@ -12,6 +12,10 @@ SET LIBRARY_NAME=Atomic
 
 CALL :CompileAllCFilesInCurrentDirectory
 CALL :LibAllObjFilesInCurrentDirectory
+
+REM Cleanup *.obj files.
+del /F *.obj
+
 GOTO :EOF
 
 REM ------------------------------- Functions ----------------------------------
