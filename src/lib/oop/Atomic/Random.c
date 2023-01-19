@@ -62,13 +62,14 @@ unsigned char *getRandomString(size_t stringLenToGenerate) {
 
 /*
  * See more here: https://www.geeksforgeeks.org/functions-that-are-executed-before-and-after-main-in-c/
+ * See `Initialize.h`.
  */
 
-/*
- * Apply the constructor attribute to runBeforeMain_Random() so that it is
- * executed before main()
- */
-void runBeforeMain_Random(void) __attribute__((constructor));
+INITIALIZER(runBeforeMain_Random) {
 
-/* implementation of runBeforeMain_Random */
-void runBeforeMain_Random(void) { initRand(); }
+    /*
+     * Apply the constructor attribute to runBeforeMain_Random() so that it is
+     * executed before main()
+     */
+    initRand();
+}
