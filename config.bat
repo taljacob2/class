@@ -24,5 +24,9 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :RunCl
-for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%cl64%" %~1
+    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%cl64%" %~1
+GOTO :EOF
+
+:RunLib
+    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%lib64%" %~1
 GOTO :EOF

@@ -16,8 +16,8 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :CompileAllCFilesInCurrentDirectory
-CALL "%vcvars64%"
-for %%f in (*.c) do (
-    CALL %CONFIG% :RunCl "/c %%f"
-)
+    CALL "%vcvars64%"
+    for %%f in (*.c) do (
+        CALL %CONFIG% :RunCl "/c %%f"
+    )
 GOTO :EOF
