@@ -32,13 +32,13 @@ for /f %%f in ('dir /s/b/a:d') do (
     for /f %%i in ('dir /b ^| findstr /e .lib') do (
         SET SUB_LIB_NAME=%%i
     )
-    REM DEBUG    
-    echo !SUB_LIB_NAME!
-
+    
 	cd ..
 
-    REM add ` %%f\!SUB_LIB_NAME!` to `subLibList`. Notice the preceeding `' '`.
-    SET subLibList=!subLibList! %%f\!SUB_LIB_NAME!
+    REM Add ` %%f\!SUB_LIB_NAME!` to `subLibList`, only if `!SUB_LIB_NAME!`
+    REM is not empty. Notice the preceeding `' '`.
+    REM See https://stackoverflow.com/a/41586321/14427765
+    if defined SUB_LIB_NAME ( SET subLibList=!subLibList! %%f\!SUB_LIB_NAME! )
 
     REM DEBUG
     echo !subLibList!
