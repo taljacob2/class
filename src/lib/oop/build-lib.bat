@@ -18,42 +18,31 @@ REM See https://www.geeksforgeeks.org/batch-script-iterating-over-an-array/
 REM Initialize with nothing.
 SET subLibList=
 
-for /f %%f in ('dir /s/b/a:d') do (
-    @REM @REM REM DEBUG
-    @REM echo %%f
+REM IMPORTANT: `SETLOCAL EnableDelayedExpansion` enables the use of variables
+REM            inside "for loops".
+REM NOTE: to use the variables, you should call them with `!var!` and not the
+REM       usual `%var%`.
+REM See https://stackoverflow.com/a/13805466/14427765
+SETLOCAL EnableDelayedExpansion
 
+for /f %%f in ('dir /s/b/a:d') do (
 	cd "%%f"
 
-    @REM REM DEBUG
-    @REM cd
-
-    @REM REM DEBUG
-    @REM dir /b | findstr /e .lib
-
-    REM not sure if needed
-    setlocal EnableDelayedExpansion
-
     REM See https://stackoverflow.com/a/57802962/14427765
-    FOR /F %%i IN ('dir /b ^| findstr /e .lib') DO (
-        echo %%i
-        SET SUB_LIB_NAME="%%i"
-
-        REM DEBUG
-        echo %SUB_LIB_NAME%
+    for /f %%i in ('dir /b ^| findstr /e .lib') do (
+        SET SUB_LIB_NAME=%%i
     )
-    @REM SET SUB_LIB_NAME='dir /b ^| findstr /e .lib'
+    REM DEBUG    
+    echo !SUB_LIB_NAME!
 
-    REM DEBUG
-    @REM SET SUB_LIB_NAME=dir /b | findstr /e .lib
-    echo %SUB_LIB_NAME%
 	cd ..
 
-    REM add `%%f%/%SUB_LIB_NAME%` to `subLibList`. Notice the preceeding `' '`.
-    @REM SET subLibList=%subLibList% %%f\%SUB_LIB_NAME%
-    SET subLibList=hey
+    @REM REM add `%%f%/%SUB_LIB_NAME%` to `subLibList`. Notice the preceeding `' '`.
+    @REM SET subLibList=%subLibList% %%f\!SUB_LIB_NAME!
+    @REM @REM SET subLibList=hey
 
-    REM DEBUG
-    echo %subLibList%
+    @REM REM DEBUG
+    @REM echo !subLibList!
 )
 
 
