@@ -39,13 +39,10 @@ for /f %%f in ('dir /s/b/a:d') do (
     REM is not empty. Notice the preceeding `' '`.
     REM See https://stackoverflow.com/a/41586321/14427765
     if defined SUB_LIB_NAME ( SET subLibList=!subLibList! %%f\!SUB_LIB_NAME! )
-
-    REM DEBUG
-    echo !subLibList!
 )
 
+if defined subLibList ( 
+    CALL %CONFIG% :RunLib "/out:%LIBRARY_NAME%.lib !subLibList!"
+)
 
-@REM REM DEBUG
-@REM echo %subLibList%
-
-@REM CALL %CONFIG% :RunLib "/out:%LIBRARY_NAME%.lib %subLibList%"
+GOTO :EOF
