@@ -157,27 +157,26 @@ Legacy_AllocationTableList *Legacy_AllocationTableListConstructor() {
 
 /*
  * See more here: https://www.geeksforgeeks.org/functions-that-are-executed-before-and-after-main-in-c/
+ * See `Initialize.h`.
  */
 
-/*
- * Apply the constructor attribute to runBeforeMain_Legacy_AllocationTableList()
- * so that it is executed before main()
- */
-void runBeforeMain_Legacy_AllocationTableList(void)
-        __attribute__((constructor));
-
-/*
- * Apply the destructor attribute to runAfterMain_Legacy_AllocationTableList()
- * so that it is executed after main()
- */
-void runAfterMain_Legacy_AllocationTableList(void) __attribute__((destructor));
-
-/* implementation of runBeforeMain_Legacy_AllocationTableList */
-void runBeforeMain_Legacy_AllocationTableList(void) {
-    getLegacy_AllocationTableList();
-}
 
 /* implementation of runAfterMain_Legacy_AllocationTableList */
-void runAfterMain_Legacy_AllocationTableList(void) {
+static void runAfterMain_Legacy_AllocationTableList(void) {
     Legacy_AllocationTableListDestructor(getLegacy_AllocationTableList());
+}
+
+INITIALIZER(runBeforeMain_Legacy_AllocationTableList) {
+
+    /*
+     * Apply the constructor attribute to runBeforeMain_Legacy_AllocationTableList()
+     * so that it is executed before main()
+     */
+    getLegacy_AllocationTableList();
+
+    /*
+     * Apply the destructor attribute to runAfterMain_Legacy_AllocationTableList()
+     * so that it is executed after main()
+     */
+    atexit(runAfterMain_Legacy_AllocationTableList);
 }
