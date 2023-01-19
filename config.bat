@@ -78,10 +78,4 @@ GOTO :EOF
     echo SET OUTPUT_LIB_PATH=%OUTPUT_LIB_PATH%>> %FILE_NAME%
     echo.>> %FILE_NAME%
     echo GOTO :EOF>> %FILE_NAME%
-
-    CALL %FILE_NAME%
-
-    @REM REM Optional.
-    @REM REM Since we have already `CALL`ed the `%FILE_NAME%` it is okay to delete it.
-    @REM del /F %FILE_NAME%
 GOTO :EOF
