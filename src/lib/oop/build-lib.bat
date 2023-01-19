@@ -37,12 +37,11 @@ for /f %%f in ('dir /s/b/a:d') do (
 
 	cd ..
 
-    @REM REM add `%%f%/%SUB_LIB_NAME%` to `subLibList`. Notice the preceeding `' '`.
-    @REM SET subLibList=%subLibList% %%f\!SUB_LIB_NAME!
-    @REM @REM SET subLibList=hey
+    REM add ` %%f\!SUB_LIB_NAME!` to `subLibList`. Notice the preceeding `' '`.
+    SET subLibList=!subLibList! %%f\!SUB_LIB_NAME!
 
-    @REM REM DEBUG
-    @REM echo !subLibList!
+    REM DEBUG
+    echo !subLibList!
 )
 
 
