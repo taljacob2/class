@@ -3,6 +3,11 @@
 
 #include "../Object/AnonymousPointer.r"
 
-#define LValue_CAST(lValue) ((void *) (TYPEOF_ANONYMOUS_POINTER) lValue)
+/**
+ * `LValue` resembles any pointer type.
+ * For example:
+ * `char *`, `void *`, `int **`.
+ */
+typedef TYPEOF_ANONYMOUS_POINTER LValue;
 
 #endif //LVALUEDEFINES_H
