@@ -21,7 +21,7 @@
     Object *(*getObjectMember)(                                                                         \
             Object * self, enum MemberAccessModifier memberAccessModifier,                              \
             enum MemberType memberType, const char *memberName);                                        \
-    void *(*getLValueMember)(                                                                           \
+    LValue (*getLValueMember)(                                                                          \
             Object * self, enum MemberAccessModifier memberAccessModifier,                              \
             enum MemberType memberType, const char *memberName);                                        \
     IntegerRValue (*getIntegerRValueMember)(                                                            \
@@ -39,7 +39,7 @@
     void (*addLValueMember)(                                                                            \
             Object * self, enum MemberAccessModifier memberAccessModifier,                              \
             enum MemberType memberType, const char *memberName,                                         \
-            void *lValueData, BOOLEAN isDataDynamicallyAllocated);                                      \
+            LValue lValueData, BOOLEAN isDataDynamicallyAllocated);                                     \
     void (*addIntegerRValueMember)(                                                                     \
             Object * self, enum MemberAccessModifier memberAccessModifier,                              \
             enum MemberType memberType, const char *memberName,                                         \
@@ -64,10 +64,10 @@
             Object * self, enum MemberAccessModifier memberAccessModifier,                              \
             enum MemberType memberType, const char *memberName,                                         \
             Object *memberValueToSet);                                                                  \
-    void *(*setLValueMember)(                                                                           \
+    LValue (*setLValueMember)(                                                                          \
             Object * self, enum MemberAccessModifier memberAccessModifier,                              \
             enum MemberType memberType, const char *memberName,                                         \
-            void *  lValueDataValueToSet,                                                               \
+            LValue  lValueDataValueToSet,                                                               \
             BOOLEAN isDataDynamicallyAllocatedValueToSet);                                              \
     BOOLEAN(*setIntegerRValueMember)                                                                    \
     (Object * self, enum MemberAccessModifier memberAccessModifier,                                     \
@@ -78,9 +78,9 @@
      enum MemberType memberType, const char *memberName,                                                \
      DoubleRValue doubleRValueValueToSet);                                                              \
                                                                                                         \
-    BOOLEAN (*toStringMembersByMemberAccessModifier)                                                    \
+    BOOLEAN(*toStringMembersByMemberAccessModifier)                                                     \
     (Object * self, enum MemberAccessModifier memberAccessModifier);                                    \
-    BOOLEAN (*toStringMembersByMemberType)                                                              \
+    BOOLEAN(*toStringMembersByMemberType)                                                               \
     (Object * self, enum MemberType memberType);                                                        \
     void (*toString)(Object * self);
 

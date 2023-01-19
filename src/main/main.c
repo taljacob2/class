@@ -121,9 +121,9 @@ int main() {
 
     // Invoke Destructor of CircleV7.
     void (*ObjectDestructor)(Object * object) =
-            (void (*)(Object *))(TYPEOF_ANONYMOUS_POINTER) circleV7
-                    ->getLValueMember((Object *) circleV7, PUBLIC, DESTRUCTOR,
-                                      "void *ObjectDestructor(Object *object)");
+            (void (*)(Object *)) circleV7->getLValueMember(
+                    (Object *) circleV7, PUBLIC, DESTRUCTOR,
+                    "void *ObjectDestructor(Object *object)");
     ObjectDestructor((Object *) circleV7);
 
 

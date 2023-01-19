@@ -82,12 +82,12 @@ void *AtomicLValueDestructor(AtomicLValue *atomicLValue) {
     return ObjectDestructor((Object *) atomicLValue);
 }
 
-AtomicLValue *AtomicLValueConstructor(void *  data,
+AtomicLValue *AtomicLValueConstructor(LValue  data,
                                       BOOLEAN isDataDynamicallyAllocated) {
     AtomicLValue *instance =
             (AtomicLValue *) ObjectConstructorWithoutAnyMembers("AtomicLValue");
 
-    addData_AtomicLValue(instance, data, isDataDynamicallyAllocated);
+    addData_AtomicLValue(instance, (void *) data, isDataDynamicallyAllocated);
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&AtomicLValueDestructor)};

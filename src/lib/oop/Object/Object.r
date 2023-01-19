@@ -1,6 +1,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include "../Atomic/LValueDefines.h"
 #include "../Atomic/RValueDefines.h"
 #include "AnonymousPointer.r"
 #include "Legacy_MemberList.r"
@@ -29,10 +30,10 @@ struct object {
                                enum MemberAccessModifier memberAccessModifier,
                                enum MemberType           memberType,
                                const char *              memberName);
-    void *(*getLValueMember)(Object *                  self,
-                             enum MemberAccessModifier memberAccessModifier,
-                             enum MemberType           memberType,
-                             const char *              memberName);
+    LValue (*getLValueMember)(Object *                  self,
+                              enum MemberAccessModifier memberAccessModifier,
+                              enum MemberType           memberType,
+                              const char *              memberName);
     IntegerRValue (*getIntegerRValueMember)(
             Object *self, enum MemberAccessModifier accessModifier,
             enum MemberType memberType, const char *memberName);
@@ -48,7 +49,7 @@ struct object {
     void (*addLValueMember)(Object *                  self,
                             enum MemberAccessModifier memberAccessModifier,
                             enum MemberType memberType, const char *memberName,
-                            void *  lValueData,
+                            LValue  lValueData,
                             BOOLEAN isDataDynamicallyAllocated);
     void (*addIntegerRValueMember)(
             Object *self, enum MemberAccessModifier memberAccessModifier,
@@ -105,11 +106,12 @@ struct object {
                                enum MemberType           memberType,
                                const char *              memberName,
                                Object *                  memberValueToSet);
-    void *(*setLValueMember)(Object *                  self,
-                             enum MemberAccessModifier memberAccessModifier,
-                             enum MemberType memberType, const char *memberName,
-                             void *  lValueDataValueToSet,
-                             BOOLEAN isDataDynamicallyAllocatedValueToSet);
+    LValue (*setLValueMember)(Object *                  self,
+                              enum MemberAccessModifier memberAccessModifier,
+                              enum MemberType           memberType,
+                              const char *              memberName,
+                              LValue                    lValueDataValueToSet,
+                              BOOLEAN isDataDynamicallyAllocatedValueToSet);
     BOOLEAN(*setIntegerRValueMember)
     (Object *self, enum MemberAccessModifier memberAccessModifier,
      enum MemberType memberType, const char *memberName,
@@ -119,10 +121,10 @@ struct object {
      enum MemberType memberType, const char *memberName,
      DoubleRValue doubleRValueValueToSet);
 
-    BOOLEAN (*toStringMembersByMemberAccessModifier)(
-            Object *self, enum MemberAccessModifier memberAccessModifier);
-    BOOLEAN (*toStringMembersByMemberType)(Object *        self,
-                                        enum MemberType memberType);
+    BOOLEAN(*toStringMembersByMemberAccessModifier)
+    (Object *self, enum MemberAccessModifier memberAccessModifier);
+    BOOLEAN(*toStringMembersByMemberType)
+    (Object *self, enum MemberType memberType);
     void (*toString)(Object *self);
 };
 

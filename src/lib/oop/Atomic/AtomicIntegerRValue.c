@@ -26,13 +26,14 @@ AtomicIntegerRValueConstructor(IntegerRValue integerRValue) {
     *primitiveDataAllocation               = integerRValue;
     AtomicIntegerRValue *instance =
             (AtomicIntegerRValue *) AtomicLValueConstructor(
-                    primitiveDataAllocation, TRUE);
+                    (LValue) primitiveDataAllocation, TRUE);
 
     getLegacyObjectComponent((Object *) instance)->CLASS_NAME =
             "AtomicIntegerRValue";
 
     static Destructable const destructable = {
-            .destructor = (void *(*const)(void *) )(&AtomicIntegerRValueDestructor)};
+            .destructor =
+                    (void *(*const)(void *) )(&AtomicIntegerRValueDestructor)};
     getLegacyObjectComponent((Object *) instance)->destructable = &destructable;
 
     return instance;

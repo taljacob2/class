@@ -343,9 +343,9 @@ Object *getObjectMember(Object *                  self,
 }
 
 // "public" function.
-void *getLValueMember(Object *                  self,
-                      enum MemberAccessModifier memberAccessModifier,
-                      enum MemberType memberType, const char *memberName) {
+LValue getLValueMember(Object *                  self,
+                       enum MemberAccessModifier memberAccessModifier,
+                       enum MemberType memberType, const char *memberName) {
     Legacy_Object *legacyObject = getLegacyObjectMember(
             self, memberAccessModifier, memberType, memberName);
 
@@ -358,7 +358,7 @@ void *getLValueMember(Object *                  self,
                 (void *) getData_AtomicLValue((AtomicLValue *) legacyObject);
     }
 
-    return returnValue;
+    return (LValue) returnValue;
 }
 
 // TODO: make public.
@@ -756,7 +756,7 @@ void addObjectMember(Object *                  self,
 void addLValueMember(Object *                  self,
                      enum MemberAccessModifier memberAccessModifier,
                      enum MemberType memberType, const char *memberName,
-                     void *lValueData, BOOLEAN isDataDynamicallyAllocated) {
+                     LValue lValueData, BOOLEAN isDataDynamicallyAllocated) {
     AtomicLValue *atomicLValue =
             AtomicLValueConstructor(lValueData, isDataDynamicallyAllocated);
 
@@ -917,16 +917,16 @@ Object *setObjectMember(Object *                  self,
 }
 
 // "public" function.
-void *setLValueMember(Object *                  self,
-                      enum MemberAccessModifier memberAccessModifier,
-                      enum MemberType memberType, const char *memberName,
-                      void *  lValueDataValueToSet,
-                      BOOLEAN isDataDynamicallyAllocatedValueToSet) {
-    if (self == NULL) { return NULL; }
+LValue setLValueMember(Object *                  self,
+                       enum MemberAccessModifier memberAccessModifier,
+                       enum MemberType memberType, const char *memberName,
+                       LValue  lValueDataValueToSet,
+                       BOOLEAN isDataDynamicallyAllocatedValueToSet) {
+    if (self == NULL) { return (LValue) NULL; }
 
     Object *objectMember =
             getObjectMember(self, memberAccessModifier, memberType, memberName);
-    if (objectMember == NULL) { return NULL; }
+    if (objectMember == NULL) { return (LValue) NULL; }
 
     getLegacyObjectComponent(objectMember)
             ->destructable->destructor(objectMember);
@@ -1450,11 +1450,11 @@ Object *ObjectConstructor(char *className) {
     //    // TODO: make `DefaultConstructor` that invokes all constructors in straight order.
     //    instance->addLValueMember(instance, PUBLIC, CONSTRUCTOR,
     //                              "ObjectConstructor",
-    //                              LValue_CAST(&ObjectConstructor), FALSE);
+    //                              (LValue) &ObjectConstructor, FALSE);
 
     instance->addLValueMember(instance, PUBLIC, DESTRUCTOR,
                               "void *ObjectDestructor(Object *object)",
-                              LValue_CAST(&ObjectDestructor), FALSE);
+                              (LValue) &ObjectDestructor, FALSE);
 
     return instance;
 }

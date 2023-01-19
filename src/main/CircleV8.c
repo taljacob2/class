@@ -10,7 +10,7 @@ CircleV8 *CircleV8Constructor() {
 
     instance->addLValueMember(instance, PUBLIC, CONSTRUCTOR,
                               "CircleV8Constructor",
-                              LValue_CAST(&CircleV8Constructor), FALSE);
+                              (LValue) &CircleV8Constructor, FALSE);
 
 
     instance->addIntegerRValueMember(instance, PUBLIC, FIELD, "name",
@@ -43,20 +43,20 @@ CircleV8 *CircleV8Constructor() {
     int *radiusAllocated = malloc(sizeof(int));
     *radiusAllocated     = 2;
     instance->addLValueMember(instance, PUBLIC, FIELD, "radiusAllocatedInt",
-                              radiusAllocated, TRUE);
+                              (LValue) radiusAllocated, TRUE);
     printf("%d\n", *((int *) instance->getLValueMember(instance, PUBLIC, FIELD,
                                                        "radiusAllocatedInt")));
 
     int *radiusAllocatedNew = malloc(sizeof(int));
     *radiusAllocatedNew     = 313;
     instance->setLValueMember(instance, PUBLIC, FIELD, "radiusAllocatedInt",
-                              radiusAllocatedNew, TRUE);
+                              (LValue) radiusAllocatedNew, TRUE);
     printf("%d\n", *((int *) instance->getLValueMember(instance, PUBLIC, FIELD,
                                                        "radiusAllocatedInt")));
 
     int radiusStaticallyAllocated = 444;
     instance->setLValueMember(instance, PUBLIC, FIELD, "radiusAllocatedInt",
-                              &radiusStaticallyAllocated, FALSE);
+                              (LValue) &radiusStaticallyAllocated, FALSE);
     printf("%d\n", *((int *) instance->getLValueMember(instance, PUBLIC, FIELD,
                                                        "radiusAllocatedInt")));
 

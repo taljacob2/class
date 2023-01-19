@@ -9,7 +9,7 @@
 
 DEFINE_CLASS_H(AtomicLValue)
 
-AtomicLValue *AtomicLValueConstructor(void *  data,
+AtomicLValue *AtomicLValueConstructor(LValue  data,
                                       BOOLEAN isDataDynamicallyAllocated);
 
 #endif //ATOMICLVALUE_H
