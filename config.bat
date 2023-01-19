@@ -19,6 +19,8 @@ SET lib32=\bin\Hostx86\x86\lib.exe
 SET link64=\bin\Hostx64\x64\link.exe
 SET link32=\bin\Hostx86\x86\link.exe
 
+SET OUTPUT_LIB_FILE_NAME=oop
+
 GOTO :EOF
 
 REM ------------------------------- Functions ----------------------------------
