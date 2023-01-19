@@ -16,7 +16,7 @@ CALL shared-config-local-variables.bat
 
 REM ---------------------------------- Code ------------------------------------
 
-CALL %CONFIG% :RunCl "^
+SET RunClArgs=^
 /Fe:%MAIN_PATH%\main.exe ^
 %MAIN_PATH%\main.c ^
 %MAIN_PATH%\Circle.c ^
@@ -27,8 +27,9 @@ CALL %CONFIG% :RunCl "^
 %MAIN_PATH%\CircleV6.c ^
 %MAIN_PATH%\CircleV7.c ^
 %MAIN_PATH%\CircleV8.c ^
-%OUTPUT_LIB_PATH%\%OUTPUT_LIB_FILE_NAME%.lib ^
-"
+%OUTPUT_LIB_PATH%\%OUTPUT_LIB_FILE_NAME%.lib
+
+CALL %CONFIG% :RunCl "%RunClArgs%"
 
 
 del /F shared-config-local-variables.bat
