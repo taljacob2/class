@@ -3,7 +3,7 @@ CALL %*
 
 REM ---------------------------------- Code ------------------------------------
 
-SET ROOT_PATH=cd
+REM       ------------ Visual Studio Environment Variables ------------
 
 REM SET PATH_TO_VISUAL_STUDIO=C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE
 SET PATH_TO_VISUAL_STUDIO=D:\Tal\Visual Studio - Community 2019\IDE - Installation\Common7\IDE
@@ -19,7 +19,13 @@ SET lib32=\bin\Hostx86\x86\lib.exe
 SET link64=\bin\Hostx64\x64\link.exe
 SET link32=\bin\Hostx86\x86\link.exe
 
+REM       ----------------------- Path Variables ----------------------
+
+SET ROOT_PATH=cd
+
 SET OUTPUT_LIB_FILE_NAME=oop
+
+REM -------------------------------- Code End ----------------------------------
 
 GOTO :EOF
 
@@ -31,4 +37,8 @@ GOTO :EOF
 
 :RunLib
     for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%lib64%" %~1
+GOTO :EOF
+
+:RunLink
+    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%link64%" %~1
 GOTO :EOF
