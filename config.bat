@@ -62,7 +62,9 @@ GOTO :EOF
 GOTO :EOF
 
 :SetLocalVariablesAsGlobal
-    REM Writes the local variables to an external batch file, and `CALL`s it.
+    REM Writes the local variables to an external batch file.
+    REM The user should `CALL %FILE_NAME%` to use the external batch file.
+    REM
     REM See https://superuser.com/a/1389294
     REM See https://www.tutorialspoint.com/batch_script/batch_script_appending_files.htm
 
