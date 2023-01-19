@@ -28,6 +28,9 @@ SETLOCAL EnableDelayedExpansion
 for /f %%f in ('dir /s/b/a:d') do (
 	cd "%%f"
 
+    REM Execute the submodule's  `build-lib.bat`.
+    build-lib.bat
+
     REM See https://stackoverflow.com/a/57802962/14427765
     for /f %%i in ('dir /b ^| findstr /e .lib') do (
         SET SUB_LIB_NAME=%%i
