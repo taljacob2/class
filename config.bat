@@ -14,6 +14,10 @@ SET vcvars32=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars32.bat
 SET TOOLS_BASE_PATH=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Tools\MSVC\*
 SET cl64=\bin\Hostx64\x64\cl.exe
 SET cl32=\bin\Hostx86\x86\cl.exe
+SET lib64=\bin\Hostx64\x64\lib.exe
+SET lib32=\bin\Hostx86\x86\lib.exe
+SET link64=\bin\Hostx64\x64\link.exe
+SET link32=\bin\Hostx86\x86\link.exe
 
 GOTO :EOF
 
