@@ -1,4 +1,6 @@
 @echo off
+CALL %*
+GOTO :EOF
 
 SET ROOT_PATH=cd
 
@@ -11,3 +13,9 @@ SET vcvars32=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars32.bat
 SET cl_BASE_PATH=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Tools\MSVC\*
 SET cl64=\bin\Hostx64\x64\cl.exe
 SET cl32=\bin\Hostx86\x86\cl.exe
+
+REM ------------------------------- Functions ----------------------------------
+
+:RunCl
+for /D %%I in ("%cl_BASE_PATH%") do "%%~I%cl64%" %~1
+GOTO :EOF
