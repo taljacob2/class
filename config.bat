@@ -21,7 +21,18 @@ SET link32=\bin\Hostx86\x86\link.exe
 
 REM       ----------------------- Path Variables ----------------------
 
-SET ROOT_PATH=cd
+REM IMPORTANT: `SETLOCAL EnableDelayedExpansion` enables the use of variables
+REM            inside "for loops".
+REM NOTE: to use the variables, you should call them with `!var!` and not the
+REM       usual `%var%`.
+REM See https://stackoverflow.com/a/13805466/14427765
+SETLOCAL EnableDelayedExpansion
+
+REM See https://stackoverflow.com/a/57802962/14427765
+for /f %%i in ('cd') do (
+    SET ROOT_PATH=%%i
+)
+SET ROOT_PATH=!ROOT_PATH!
 
 SET SRC_PATH=%ROOT_PATH%/src
 SET MAIN_PATH=%SRC_PATH%/main
