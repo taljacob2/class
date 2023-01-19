@@ -16,9 +16,6 @@ CALL shared-config-local-variables.bat
 
 REM ---------------------------------- Code ------------------------------------
 
-REM DEBUG
-echo %OUTPUT_LIB_PATH%
-
 cd "%OUTPUT_LIB_PATH%"
 CALL build-lib.bat
 cd "%ROOT_PATH%"
