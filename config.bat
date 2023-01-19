@@ -21,6 +21,8 @@ SET link32=\bin\Hostx86\x86\link.exe
 
 REM       ----------------------- Path Variables ----------------------
 
+SET OUTPUT_LIB_FILE_NAME=oop
+
 REM IMPORTANT: `SETLOCAL EnableDelayedExpansion` enables the use of variables
 REM            inside "for loops".
 REM NOTE: to use the variables, you should call them with `!var!` and not the
@@ -32,24 +34,16 @@ REM See https://stackoverflow.com/a/57802962/14427765
 for /f %%i in ('cd') do (
     SET ROOT_PATH=%%i
 )
-SET ROOT_PATH=!ROOT_PATH!
-
-REM DEBUG
-echo %ROOT_PATH%
 
 SET SRC_PATH=%ROOT_PATH%\src
-
-REM DEBUG
-echo %SRC_PATH%
-
 SET MAIN_PATH=%SRC_PATH%\main
 SET TEST_PATH=%SRC_PATH%\test
 SET LIB_PATH=%SRC_PATH%\lib
 SET OUTPUT_LIB_PATH=%LIB_PATH%\oop
 
-SET OUTPUT_LIB_FILE_NAME=oop
-
 REM -------------------------------- Code End ----------------------------------
+
+CALL :SetLocalVariablesAsGlobal
 
 GOTO :EOF
 
@@ -65,4 +59,29 @@ GOTO :EOF
 
 :RunLink
     for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%link64%" %~1
+GOTO :EOF
+
+:SetLocalVariablesAsGlobal
+    REM Writes the local variables to an external batch file, and `CALL`s it.
+    REM See https://superuser.com/a/1389294
+    REM See https://www.tutorialspoint.com/batch_script/batch_script_appending_files.htm
+
+    SET FILE_NAME=shared-config-local-variables.bat
+
+    echo @echo off> %FILE_NAME%
+    echo.>> %FILE_NAME%
+    echo SET ROOT_PATH=%ROOT_PATH%>> %FILE_NAME%
+    echo SET SRC_PATH=%SRC_PATH%>> %FILE_NAME%
+    echo SET MAIN_PATH=%MAIN_PATH%>> %FILE_NAME%
+    echo SET TEST_PATH=%TEST_PATH%>> %FILE_NAME%
+    echo SET LIB_PATH=%LIB_PATH%>> %FILE_NAME%
+    echo SET OUTPUT_LIB_PATH=%OUTPUT_LIB_PATH%>> %FILE_NAME%
+    echo.>> %FILE_NAME%
+    echo GOTO :EOF>> %FILE_NAME%
+
+    CALL %FILE_NAME%
+
+    REM Optional.
+    REM Since we have already `CALL`ed the `%FILE_NAME%` it is okay to delete it.
+    del /F %FILE_NAME%
 GOTO :EOF
