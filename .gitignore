@@ -1,11 +1,14 @@
 .idea
 cmake-build-debug
 
+# Ignore executable builds.
 **/*.out
+**/*.exe
 
-# Ignore our static library builds.
-src/lib/**/*.a
-
-# Ignore object files.
+# Ignore object-file builds.
 src/lib/**/*.o
 src/lib/**/*.obj
+
+# Ignore static-library builds.
+src/lib/**/*.a
+src/lib/**/*.lib
