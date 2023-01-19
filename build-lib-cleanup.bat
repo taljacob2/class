@@ -20,4 +20,5 @@ del /S/F %OUTPUT_LIB_PATH%\*.lib
 del /S/F %OUTPUT_LIB_PATH%\*.obj
 del /S/F shared-config-local-variables.bat
 
+del /F shared-config-local-variables.bat
 GOTO :EOF

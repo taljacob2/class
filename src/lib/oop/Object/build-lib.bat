@@ -24,6 +24,7 @@ CALL :LibAllObjFilesInCurrentDirectory
 REM Cleanup *.obj files.
 del /F *.obj
 
+del /F shared-config-local-variables.bat
 GOTO :EOF
 
 REM ------------------------------- Functions ----------------------------------
