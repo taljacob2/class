@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "Concat.h"
 
 const char *concat(const char *firstString, const char *secondString) {
