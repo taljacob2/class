@@ -180,9 +180,9 @@ BOOLEAN
 isAccessModifierLegacyListContainsMember(Legacy_List *accessModifierLegacyList,
                                          char *       memberName) {
     return accessModifierLegacyList->findNodeByPredicateOfConstString(
-                   accessModifierLegacyList,
-                   predicateFindAccessModifierMemberNameByMemberName,
-                   memberName) != NULL;
+            accessModifierLegacyList,
+            predicateFindAccessModifierMemberNameByMemberName,
+            memberName) != NULL;
 }
 
 // "private" function.
@@ -840,7 +840,7 @@ void getAccessModifierAndMemberType(
     const int THE_GIVEN_OBJECT_HAS_NO_PARENT_OBJECTS = -1;
 
     Legacy_Object *(*functionToInvoke)(Object *, Object *) =
-            getFunctionToInvokeWhenObjectIsAboutToBeDestructed(object);
+    getFunctionToInvokeWhenObjectIsAboutToBeDestructed(object);
     if (functionToInvoke ==
         &getPrivateMethodAndRemoveFromPrivateAccessModifierAndMethodsMemberList) {
         *outMemberAccessModifier = PRIVATE;
@@ -982,7 +982,7 @@ setDoubleRValueMember(Object *                  self,
 void addImplementation(
         Object *self, char *memberName,
         Object *(
-                *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(
+        *constructorOfMemberClassToImplement__ThisConstructorHasAClassNameAsAParameter)(
                 const char *) ) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
 
@@ -998,7 +998,7 @@ void addImplementation(
 void addImplementationThatIsConstructedWithLegacy_Object(
         Object *self, char *memberName,
         Object *(
-                *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter)(
+        *constructorOfMemberClassToImplement__ThisConstructorHasALegacy_ObjectAsParameter)(
                 Legacy_Object *) ) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
 
@@ -1094,7 +1094,7 @@ BOOLEAN toString_ObjectMemberAccessModifierList(
     toString_ObjectMemberAccessModifierLegacy_ListPRIVATE(legacyList,
                                                           memberAccessModifier);
 
-    return legacyList == NULL ? FALSE : legacyList->size;
+    return legacyList == NULL ? FALSE : (BOOLEAN) legacyList->size;
 }
 
 // "private" function.
@@ -1134,7 +1134,7 @@ void toString_ObjectMemberTypeListPRIVATE(Object *           self,
                             iterationNodePrev->data;
             char *memberName = (char *) entry->key;
             printf("%s", getAccessModifierToString(
-                                 getAccessModifierOfMember(self, memberName)));
+                    getAccessModifierOfMember(self, memberName)));
             putchar(' ');
             printf("%s", memberTypeToString);
             putchar(' ');
@@ -1152,7 +1152,7 @@ void toString_ObjectMemberTypeListPRIVATE(Object *           self,
                 (Legacy_StringObjectContainerEntry *) iterationNodePrev->data;
         char *memberName = (char *) entry->key;
         printf("%s", getAccessModifierToString(
-                             getAccessModifierOfMember(self, memberName)));
+                getAccessModifierOfMember(self, memberName)));
         putchar(' ');
         printf("%s", memberTypeToString);
         putchar(' ');
@@ -1173,7 +1173,7 @@ BOOLEAN toString_ObjectMemberTypeList(Object *        self,
 
     if (legacyMemberList == NULL) { return FALSE; }
     const Legacy_List *list = legacyMemberList->memberEntryList;
-    return list == NULL ? FALSE : list->size;
+    return list == NULL ? FALSE : (BOOLEAN) list->size;
 }
 
 // "public" function.
@@ -1276,7 +1276,7 @@ void destructObjectSelf(Object *object) {
 
     // Invoke `getFunctionToInvokeWhenObjectIsAboutToBeDestructed`.
     Legacy_Object *(*functionToInvoke)(Object *, Object *) =
-            getFunctionToInvokeWhenObjectIsAboutToBeDestructed(object);
+    getFunctionToInvokeWhenObjectIsAboutToBeDestructed(object);
     functionToInvoke(object, getObjectThatContainsThisObjectAsAMember(object));
 
     // Destruct `autoDestructable`.
@@ -1322,16 +1322,16 @@ void invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(
                     legacy_StringObjectContainerEntry = iterationNodePrev->data;
 
             if (isAccessModifierLegacyListContainsMember(
-                        accessModifierLegacyList,
-                        legacy_StringObjectContainerEntry->key)) {
+                    accessModifierLegacyList,
+                    legacy_StringObjectContainerEntry->key)) {
                 AtomicLValue *atomicLValueThatContainsDestructor =
                         (AtomicLValue *)
                                 legacy_StringObjectContainerEntry->value;
 
                 // Get the destructor and invoke it.
                 void *(*destructor)(Object *) =
-                        (void *(*) (Object *) ) getData_AtomicLValue(
-                                atomicLValueThatContainsDestructor);
+                (void *(*) (Object *) ) getData_AtomicLValue(
+                        atomicLValueThatContainsDestructor);
                 destructor(self);
             }
         }
@@ -1345,15 +1345,15 @@ void invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(
                 iterationNodePrev->data;
 
         if (isAccessModifierLegacyListContainsMember(
-                    accessModifierLegacyList,
-                    legacy_StringObjectContainerEntry->key)) {
+                accessModifierLegacyList,
+                legacy_StringObjectContainerEntry->key)) {
             AtomicLValue *atomicLValueThatContainsDestructor =
                     (AtomicLValue *) legacy_StringObjectContainerEntry->value;
 
             // Get the destructor and invoke it.
             void *(*destructor)(Object *) =
-                    (void *(*) (Object *) ) getData_AtomicLValue(
-                            atomicLValueThatContainsDestructor);
+            (void *(*) (Object *) ) getData_AtomicLValue(
+                    atomicLValueThatContainsDestructor);
             destructor(self);
         }
     }
@@ -1429,7 +1429,7 @@ Object *ObjectConstructorWithoutAnyMembers(char *className) {
     init_fields(instance);
 
     setAutoDestructable(instance, AutoDestructableConstructorWithLegacy_Object(
-                                          (Legacy_Object *) instance));
+            (Legacy_Object *) instance));
 
     static Destructable const destructable = {
             .destructor = (void *(*const)(void *) )(&DefaultDestructor)};
