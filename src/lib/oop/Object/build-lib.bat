@@ -30,7 +30,7 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :CompileAllCFilesInCurrentDirectory
-    CALL "%vcvars64%"
+    CALL "%vcvars%"
     for %%f in (*.c) do (
         CALL %CONFIG% :RunCl "/c %%f"
     )
