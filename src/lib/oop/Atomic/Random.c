@@ -53,6 +53,7 @@ unsigned char *getRandomString(size_t stringLenToGenerate) {
                 valueToSet = getRandomNumberLetter();
                 break;
         }
+#pragma warning(suppress : 6386)
         string[i] = valueToSet;
     }
 
