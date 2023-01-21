@@ -30,13 +30,19 @@ if defined IS_USER_MACHINE_64_BIT (
     SET userMachineBits=x32
 )
 
+if defined IS_HOST_MACHINE_64_BIT (
+    SET hostMachineBits=x64
+) else (
+    SET hostMachineBits=x32
+)
+
 SET TOOLS_BASE_PATH=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Tools\MSVC\*
-SET cl64=\bin\Hostx64\%userMachineBits%\cl.exe
-SET cl32=\bin\Hostx86\%userMachineBits%\cl.exe
-SET lib64=\bin\Hostx64\%userMachineBits%\lib.exe
-SET lib32=\bin\Hostx86\%userMachineBits%\lib.exe
-SET link64=\bin\Hostx64\%userMachineBits%\link.exe
-SET link32=\bin\Hostx86\%userMachineBits%\link.exe
+SET cl64=\bin\Host%hostMachineBits%\%userMachineBits%\cl.exe
+SET cl32=\bin\Host%hostMachineBits%\%userMachineBits%\cl.exe
+SET lib64=\bin\Host%hostMachineBits%\%userMachineBits%\lib.exe
+SET lib32=\bin\Host%hostMachineBits%\%userMachineBits%\lib.exe
+SET link64=\bin\Host%hostMachineBits%\%userMachineBits%\link.exe
+SET link32=\bin\Host%hostMachineBits%\%userMachineBits%\link.exe
 
 REM       ----------------------- Path Variables ----------------------
 
