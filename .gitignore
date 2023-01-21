@@ -15,3 +15,8 @@ src/lib/**/*.lib
 
 # Ignore shared local variables file from `config.bat`.
 **/shared-config-local-variables.bat
+
+# Ignore MSVC compilation temp files.
+**/*.idb
+**/*.pdb
+**/*.pch
