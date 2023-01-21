@@ -10,10 +10,19 @@ REM               --------- START: Edit to you liking ---------
 REM SET PATH_TO_VISUAL_STUDIO=C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE
 SET PATH_TO_VISUAL_STUDIO=D:\Tal\Visual Studio - Community 2019\IDE - Installation\Common7\IDE
 
+REM Comment out the following line, to set it to 32 bits. Else, 64 will be set.
 SET IS_HOST_MACHINE_64_BIT=.
+
+REM Comment out the following line, to set it to 32 bits. Else, 64 will be set.
 SET IS_USER_MACHINE_64_BIT=.
 
 REM               --------- END: Edit to you liking ---------
+
+if defined IS_HOST_MACHINE_64_BIT (
+    SET hostMachineBits=x64
+) else (
+    SET hostMachineBits=x32
+)
 
 SET vcvars64=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars64.bat
 SET vcvars32=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars32.bat
@@ -30,19 +39,10 @@ if defined IS_USER_MACHINE_64_BIT (
     SET userMachineBits=x32
 )
 
-if defined IS_HOST_MACHINE_64_BIT (
-    SET hostMachineBits=x64
-) else (
-    SET hostMachineBits=x32
-)
-
 SET TOOLS_BASE_PATH=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Tools\MSVC\*
-SET cl64=\bin\Host%hostMachineBits%\%userMachineBits%\cl.exe
-SET cl32=\bin\Host%hostMachineBits%\%userMachineBits%\cl.exe
-SET lib64=\bin\Host%hostMachineBits%\%userMachineBits%\lib.exe
-SET lib32=\bin\Host%hostMachineBits%\%userMachineBits%\lib.exe
-SET link64=\bin\Host%hostMachineBits%\%userMachineBits%\link.exe
-SET link32=\bin\Host%hostMachineBits%\%userMachineBits%\link.exe
+SET cl=\bin\Host%hostMachineBits%\%userMachineBits%\cl.exe
+SET lib=\bin\Host%hostMachineBits%\%userMachineBits%\lib.exe
+SET link=\bin\Host%hostMachineBits%\%userMachineBits%\link.exe
 
 REM       ----------------------- Path Variables ----------------------
 
@@ -75,15 +75,15 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :RunCl
-    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%cl64%" %~1
+    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%cl%" %~1
 GOTO :EOF
 
 :RunLib
-    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%lib64%" %~1
+    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%lib%" %~1
 GOTO :EOF
 
 :RunLink
-    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%link64%" %~1
+    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%link%" %~1
 GOTO :EOF
 
 :SetLocalVariablesAsGlobal
