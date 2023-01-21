@@ -22,9 +22,9 @@ CALL :CompileAllCFilesInCurrentDirectory
 CALL :LibAllObjFilesInCurrentDirectory
 
 REM Cleanup temp files.
-del /F *.obj
-del /F *.idb
-del /F *.pdb
+del /F *.obj >NUL 2>&1
+del /F *.idb >NUL 2>&1
+del /F *.pdb >NUL 2>&1
 
 del /F shared-config-local-variables.bat
 GOTO :EOF
