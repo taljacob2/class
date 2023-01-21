@@ -20,9 +20,10 @@ echo releasing msvc here...
 
 
 del /F shared-config-local-variables.bat >NUL 2>&1
-exit
 
-REM NOTE that we are intentionally not invoking `GOTO :EOF`.
-@REM GOTO :EOF
+
+REM Instead of `GOTO :EOF` we execute `exit`, so this file would be able to be
+REM executed as a thread.
+exit
 
 REM ------------------------------- Functions ----------------------------------
