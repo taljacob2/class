@@ -5,34 +5,38 @@ REM ---------------------------------- Code ------------------------------------
 
 REM       ------------ Visual Studio Environment Variables ------------
 
+REM               --------- START: Edit to you liking ---------
+
 REM SET PATH_TO_VISUAL_STUDIO=C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE
 SET PATH_TO_VISUAL_STUDIO=D:\Tal\Visual Studio - Community 2019\IDE - Installation\Common7\IDE
 
-SET MACHINE_64=.
-REM SET MACHINE_32=.
+SET USER_MACHINE_IS_64=.
+REM SET USER_MACHINE_IS_32=.
+
+REM               --------- END: Edit to you liking ---------
 
 SET vcvars64=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars64.bat
 SET vcvars32=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars32.bat
 
-if defined MACHINE_64 (
+if defined USER_MACHINE_IS_64 (
     SET vcvars=%vcvars64%
 ) else (
     SET vcvars=%vcvars32%
 )
 
-if defined MACHINE_64 (
-    SET secondPathInVSTOOLS=x64
+if defined USER_MACHINE_IS_64 (
+    SET userMachineBits=x64
 ) else (
-    SET secondPathInVSTOOLS=x32
+    SET userMachineBits=x32
 )
 
 SET TOOLS_BASE_PATH=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Tools\MSVC\*
-SET cl64=\bin\Hostx64\%secondPathInVSTOOLS%\cl.exe
-SET cl32=\bin\Hostx86\%secondPathInVSTOOLS%\cl.exe
-SET lib64=\bin\Hostx64\%secondPathInVSTOOLS%\lib.exe
-SET lib32=\bin\Hostx86\%secondPathInVSTOOLS%\lib.exe
-SET link64=\bin\Hostx64\%secondPathInVSTOOLS%\link.exe
-SET link32=\bin\Hostx86\%secondPathInVSTOOLS%\link.exe
+SET cl64=\bin\Hostx64\%userMachineBits%\cl.exe
+SET cl32=\bin\Hostx86\%userMachineBits%\cl.exe
+SET lib64=\bin\Hostx64\%userMachineBits%\lib.exe
+SET lib32=\bin\Hostx86\%userMachineBits%\lib.exe
+SET link64=\bin\Hostx64\%userMachineBits%\link.exe
+SET link32=\bin\Hostx86\%userMachineBits%\link.exe
 
 REM       ----------------------- Path Variables ----------------------
 
