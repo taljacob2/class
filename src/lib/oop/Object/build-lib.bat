@@ -21,8 +21,10 @@ SET LIBRARY_NAME=Object
 CALL :CompileAllCFilesInCurrentDirectory
 CALL :LibAllObjFilesInCurrentDirectory
 
-REM Cleanup *.obj files.
+REM Cleanup temp files.
 del /F *.obj
+del /F *.idb
+del /F *.pdb
 
 del /F shared-config-local-variables.bat
 GOTO :EOF
