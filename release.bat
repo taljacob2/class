@@ -20,18 +20,15 @@ CALL :ReleaseMSVC
 
 CALL :ReleaseGCC
 
-
-
-
 del /F shared-config-local-variables.bat >NUL 2>&1
 GOTO :EOF
 
 REM ------------------------------- Functions ----------------------------------
 
 :ReleaseMSVC
-    CALL release-msvc.bat
+    start release-msvc.bat
 GOTO :EOF
 
 :ReleaseGCC
-
+    start wsl -e ./release-gcc.sh
 GOTO :EOF

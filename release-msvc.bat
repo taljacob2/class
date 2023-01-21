@@ -16,10 +16,13 @@ CALL shared-config-local-variables.bat
 
 REM ---------------------------------- Code ------------------------------------
 
-
+echo releasing msvc here...
 
 
 del /F shared-config-local-variables.bat >NUL 2>&1
-GOTO :EOF
+exit
+
+REM NOTE that we are intentionally not invoking `GOTO :EOF`.
+@REM GOTO :EOF
 
 REM ------------------------------- Functions ----------------------------------

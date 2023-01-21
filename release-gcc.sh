@@ -2,3 +2,6 @@
 
 source ./config.sh
 
+echo releasing gcc here...
+
+exit
