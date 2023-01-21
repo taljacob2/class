@@ -10,21 +10,21 @@ REM               --------- START: Edit to you liking ---------
 REM SET PATH_TO_VISUAL_STUDIO=C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE
 SET PATH_TO_VISUAL_STUDIO=D:\Tal\Visual Studio - Community 2019\IDE - Installation\Common7\IDE
 
-SET USER_MACHINE_IS_64=.
-SET HOST_MACHINE_IS_64=.
+SET IS_HOST_MACHINE_64_BIT=.
+SET IS_USER_MACHINE_64_BIT=.
 
 REM               --------- END: Edit to you liking ---------
 
 SET vcvars64=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars64.bat
 SET vcvars32=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars32.bat
 
-if defined USER_MACHINE_IS_64 (
+if defined IS_USER_MACHINE_64_BIT (
     SET vcvars=%vcvars64%
 ) else (
     SET vcvars=%vcvars32%
 )
 
-if defined USER_MACHINE_IS_64 (
+if defined IS_USER_MACHINE_64_BIT (
     SET userMachineBits=x64
 ) else (
     SET userMachineBits=x32
