@@ -32,9 +32,6 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :CompileAllCFilesInCurrentDirectory
-    @REM for %%f in (*.c) do (
-    @REM     CALL %CONFIG% :RunCl "/c %%f"
-    @REM )
     CALL %CONFIG% :RunCl "/c /I"%LIBRARY_NAME%.h" *.c"
 GOTO :EOF
 
