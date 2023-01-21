@@ -13,7 +13,7 @@ REM Comment out the following line, to set it to 32 bits. Else, 64 will be set.
 SET IS_USER_MACHINE_64_BIT=.
 
 REM Comment out the following line, to set it to RELEASE Mode. Else, DEBUG Mode Will be set.
-SET IS_DEBUG_MODE=.
+REM SET IS_DEBUG_MODE=.
 
 REM               --------- END: Edit to you liking ---------
 
@@ -36,7 +36,7 @@ if defined IS_DEBUG_MODE (
     /WX- /Zc:forScope /RTC1 /Gd /MDd /FC /EHsc /nologo /diagnostics:column
 ) else (
     SET clOptions=^
-    /permissive- /GS /GL /W3 /Gy /Zc:wchar_t /Z7 ^
+    /permissive- /GS /GL /W3 /Gy /Zc:wchar_t /Zi ^
     /Gm- /O2 /sdl /Fd"this.pdb" /Zc:inline /fp:precise ^
     /D "NDEBUG" /D "_CONSOLE" /D "_WINDLL" /D "_UNICODE" /D "UNICODE" ^
     /errorReport:prompt /WX- /Zc:forScope /Gd /Oi /MD /FC ^
