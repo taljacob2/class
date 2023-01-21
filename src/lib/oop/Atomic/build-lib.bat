@@ -30,9 +30,10 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :CompileAllCFilesInCurrentDirectory
-    for %%f in (*.c) do (
-        CALL %CONFIG% :RunCl "/c %%f"
-    )
+    @REM for %%f in (*.c) do (
+    @REM     CALL %CONFIG% :RunCl "/c %%f"
+    @REM )
+    CALL %CONFIG% :RunCl "/I"%LIBRARY_NAME%.h" *.c"
 GOTO :EOF
 
 :LibAllObjFilesInCurrentDirectory

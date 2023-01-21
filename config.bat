@@ -61,7 +61,16 @@ REM ------------------------------- Functions ----------------------------------
     REM See warning levels of all warning codes: https://learn.microsoft.com/en-us/cpp/preprocessor/compiler-warnings-that-are-off-by-default?view=msvc-170
     REM See All warnings https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warnings-by-compiler-version?view=msvc-170
     REM See All compiler warnings https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warnings-c4800-through-c4999?view=msvc-170
-    cl /W3 /D_CRT_SECURE_NO_WARNINGS %~1
+
+    cl /JMC /permissive- /GS /W3 /Zc:wchar_t ^
+    /ZI /Gm- /Od /sdl ^
+    /Zc:inline /fp:precise ^
+    /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" ^
+    /errorReport:prompt /WX- /Zc:forScope /RTC1 /Gd /MDd /FC ^
+    /EHsc /nologo ^
+    /diagnostics:column ^
+    /D "_CRT_SECURE_NO_WARNINGS" %~1
+
 GOTO :EOF
 
 :RunLib
