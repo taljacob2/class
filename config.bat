@@ -61,6 +61,7 @@ REM ------------------------------- Functions ----------------------------------
     REM See warning levels of all warning codes: https://learn.microsoft.com/en-us/cpp/preprocessor/compiler-warnings-that-are-off-by-default?view=msvc-170
     REM See All warnings https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warnings-by-compiler-version?view=msvc-170
     REM See All compiler warnings https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warnings-c4800-through-c4999?view=msvc-170
+    REM See https://github.com/taljacob2/oop/issues/65
 
     cl /JMC /permissive- /GS /W3 /Zc:wchar_t ^
     /ZI /Gm- /Od /sdl ^
