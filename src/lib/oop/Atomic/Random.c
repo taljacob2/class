@@ -1,6 +1,6 @@
 #include "Random.r"
 
-void initRand() { srand(time(NULL)); }
+void initRand() { srand((unsigned int) time(NULL)); }
 
 unsigned char getIndexByChar(unsigned char charToCalculate,
                              unsigned char baseChar) {
@@ -37,6 +37,7 @@ unsigned char getRandomNumberLetter() {
 unsigned char *getRandomString(size_t stringLenToGenerate) {
     unsigned char *string =
             malloc(sizeof(unsigned char) * (stringLenToGenerate + 1));
+    if (string == NULL) { return NULL; }
     string[stringLenToGenerate] = 0;
 
     for (size_t i = 0; i < stringLenToGenerate; i++) {
@@ -52,6 +53,7 @@ unsigned char *getRandomString(size_t stringLenToGenerate) {
                 valueToSet = getRandomNumberLetter();
                 break;
         }
+#pragma warning(suppress : 6386)
         string[i] = valueToSet;
     }
 

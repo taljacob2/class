@@ -21,8 +21,9 @@ SET LIBRARY_NAME=AnonymousObject
 CALL :CompileAllCFilesInCurrentDirectory
 CALL :LibAllObjFilesInCurrentDirectory
 
-REM Cleanup *.obj files.
-del /F *.obj
+REM Cleanup temp files.
+del /F *.obj >NUL 2>&1
+del /F *.idb >NUL 2>&1
 
 del /F shared-config-local-variables.bat
 GOTO :EOF
@@ -30,10 +31,7 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :CompileAllCFilesInCurrentDirectory
-    CALL "%vcvars64%"
-    for %%f in (*.c) do (
-        CALL %CONFIG% :RunCl "/c %%f"
-    )
+    CALL %CONFIG% :RunCl "/c /I"%LIBRARY_NAME%.h" *.c"
 GOTO :EOF
 
 :LibAllObjFilesInCurrentDirectory

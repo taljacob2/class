@@ -21,7 +21,6 @@ SET RunClArgs=^
 %TEST_PATH%\main.c ^
 %OUTPUT_LIB_PATH%\%OUTPUT_LIB_FILE_NAME%.lib
 
-CALL "%vcvars64%"
 CALL %CONFIG% :RunCl "%RunClArgs%"
 
 REM Cleanup *.obj files.

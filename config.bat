@@ -1,23 +1,48 @@
 @echo off
-CALL %*
 
 REM ---------------------------------- Code ------------------------------------
 
 REM       ------------ Visual Studio Environment Variables ------------
 
+REM               --------- START: Edit to you liking ---------
+
 REM SET PATH_TO_VISUAL_STUDIO=C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE
 SET PATH_TO_VISUAL_STUDIO=D:\Tal\Visual Studio - Community 2019\IDE - Installation\Common7\IDE
+
+REM Comment out the following line, to set it to 32 bits. Else, 64 will be set.
+SET IS_USER_MACHINE_64_BIT=.
+
+REM Comment out the following line, to set it to RELEASE Mode. Else, DEBUG Mode Will be set.
+SET IS_DEBUG_MODE=.
+
+REM               --------- END: Edit to you liking ---------
 
 SET vcvars64=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars64.bat
 SET vcvars32=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars32.bat
 
-SET TOOLS_BASE_PATH=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Tools\MSVC\*
-SET cl64=\bin\Hostx64\x64\cl.exe
-SET cl32=\bin\Hostx86\x86\cl.exe
-SET lib64=\bin\Hostx64\x64\lib.exe
-SET lib32=\bin\Hostx86\x86\lib.exe
-SET link64=\bin\Hostx64\x64\link.exe
-SET link32=\bin\Hostx86\x86\link.exe
+if defined IS_USER_MACHINE_64_BIT (
+    SET vcvars=%vcvars64%
+) else (
+    SET vcvars=%vcvars32%
+)
+
+if defined IS_DEBUG_MODE (
+    SET clOptions=^
+    /JMC /permissive- /GS /W3 /Zc:wchar_t ^
+    /ZI /Gm- /Od /sdl ^
+    /Fd"this.pdb" ^
+    /Zc:inline /fp:precise ^
+    /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /errorReport:prompt ^
+    /WX- /Zc:forScope /RTC1 /Gd /MDd /FC /EHsc /nologo /diagnostics:column
+) else (
+    SET clOptions=^
+    /permissive- /GS /GL /W3 /Gy /Zc:wchar_t /Z7 ^
+    /Gm- /O2 /sdl /Fd"this.pdb" /Zc:inline /fp:precise ^
+    /D "NDEBUG" /D "_CONSOLE" /D "_WINDLL" /D "_UNICODE" /D "UNICODE" ^
+    /errorReport:prompt /WX- /Zc:forScope /Gd /Oi /MD /FC ^
+    /EHsc /nologo ^
+    /diagnostics:column
+)
 
 REM       ----------------------- Path Variables ----------------------
 
@@ -43,6 +68,8 @@ SET OUTPUT_LIB_PATH=%LIB_PATH%\oop
 
 REM -------------------------------- Code End ----------------------------------
 
+CALL %*
+
 CALL :SetLocalVariablesAsGlobal
 
 GOTO :EOF
@@ -50,15 +77,22 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :RunCl
-    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%cl64%" %~1
+    REM See warning levels: https://learn.microsoft.com/en-us/cpp/build/reference/compiler-option-warning-level?view=msvc-170
+    REM `/W3` is the default warning level for the Visual Studio IDE.
+    REM See warning levels of all warning codes: https://learn.microsoft.com/en-us/cpp/preprocessor/compiler-warnings-that-are-off-by-default?view=msvc-170
+    REM See All warnings https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warnings-by-compiler-version?view=msvc-170
+    REM See All compiler warnings https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warnings-c4800-through-c4999?view=msvc-170
+    REM See https://github.com/taljacob2/oop/issues/65
+
+    cl %clOptions% /D "_CRT_SECURE_NO_WARNINGS" %~1
 GOTO :EOF
 
 :RunLib
-    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%lib64%" %~1
+    lib /LTCG /NOLOGO %~1
 GOTO :EOF
 
 :RunLink
-    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%link64%" %~1
+    link %~1
 GOTO :EOF
 
 :SetLocalVariablesAsGlobal
@@ -67,17 +101,22 @@ GOTO :EOF
     REM
     REM See https://superuser.com/a/1389294
     REM See https://www.tutorialspoint.com/batch_script/batch_script_appending_files.htm
+    REM See https://stackoverflow.com/a/14604414/14427765
 
     SET FILE_NAME=shared-config-local-variables.bat
 
-    echo @echo off> %FILE_NAME%
-    echo.>> %FILE_NAME%
-    echo SET ROOT_PATH=%ROOT_PATH%>> %FILE_NAME%
-    echo SET SRC_PATH=%SRC_PATH%>> %FILE_NAME%
-    echo SET MAIN_PATH=%MAIN_PATH%>> %FILE_NAME%
-    echo SET TEST_PATH=%TEST_PATH%>> %FILE_NAME%
-    echo SET LIB_PATH=%LIB_PATH%>> %FILE_NAME%
-    echo SET OUTPUT_LIB_PATH=%OUTPUT_LIB_PATH%>> %FILE_NAME%
-    echo.>> %FILE_NAME%
-    echo GOTO :EOF>> %FILE_NAME%
+    >%FILE_NAME% (
+        echo @echo off
+        echo.
+        echo SET ROOT_PATH=%ROOT_PATH%
+        echo SET SRC_PATH=%SRC_PATH%
+        echo SET MAIN_PATH=%MAIN_PATH%
+        echo SET TEST_PATH=%TEST_PATH%
+        echo SET LIB_PATH=%LIB_PATH%
+        echo SET OUTPUT_LIB_PATH=%OUTPUT_LIB_PATH%
+        echo.
+        echo CALL "%vcvars%" ^>NUL 2^>^&1
+        echo.
+        echo GOTO :EOF
+    )
 GOTO :EOF

@@ -1029,6 +1029,8 @@ getAccessModifierToString(enum MemberAccessModifier memberAccessModifier) {
             return "private";
         case PUBLIC:
             return "public";
+        default:
+            return NULL;
     }
 }
 
@@ -1042,6 +1044,8 @@ const char *getMemberTypeToString(enum MemberType memberType) {
             return "DESTRUCTOR";
         case FIELD:
             return "FIELD";
+        default:
+            return NULL;
     }
 }
 
@@ -1094,7 +1098,7 @@ BOOLEAN toString_ObjectMemberAccessModifierList(
     toString_ObjectMemberAccessModifierLegacy_ListPRIVATE(legacyList,
                                                           memberAccessModifier);
 
-    return legacyList == NULL ? FALSE : legacyList->size;
+    return legacyList == NULL ? FALSE : (BOOLEAN) legacyList->size;
 }
 
 // "private" function.
@@ -1173,7 +1177,7 @@ BOOLEAN toString_ObjectMemberTypeList(Object *        self,
 
     if (legacyMemberList == NULL) { return FALSE; }
     const Legacy_List *list = legacyMemberList->memberEntryList;
-    return list == NULL ? FALSE : list->size;
+    return list == NULL ? FALSE : (BOOLEAN) list->size;
 }
 
 // "public" function.
