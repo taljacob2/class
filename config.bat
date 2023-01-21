@@ -11,7 +11,7 @@ REM SET PATH_TO_VISUAL_STUDIO=C:\Program Files\Microsoft Visual Studio\2022\Comm
 SET PATH_TO_VISUAL_STUDIO=D:\Tal\Visual Studio - Community 2019\IDE - Installation\Common7\IDE
 
 SET USER_MACHINE_IS_64=.
-REM SET USER_MACHINE_IS_32=.
+SET HOST_MACHINE_IS_64=.
 
 REM               --------- END: Edit to you liking ---------
 
