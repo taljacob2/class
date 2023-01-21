@@ -1,5 +1,4 @@
 @echo off
-CALL %*
 
 REM ---------------------------------- Code ------------------------------------
 
@@ -11,18 +10,9 @@ REM SET PATH_TO_VISUAL_STUDIO=C:\Program Files\Microsoft Visual Studio\2022\Comm
 SET PATH_TO_VISUAL_STUDIO=D:\Tal\Visual Studio - Community 2019\IDE - Installation\Common7\IDE
 
 REM Comment out the following line, to set it to 32 bits. Else, 64 will be set.
-SET IS_HOST_MACHINE_64_BIT=.
-
-REM Comment out the following line, to set it to 32 bits. Else, 64 will be set.
 SET IS_USER_MACHINE_64_BIT=.
 
 REM               --------- END: Edit to you liking ---------
-
-if defined IS_HOST_MACHINE_64_BIT (
-    SET hostMachineBits=x64
-) else (
-    SET hostMachineBits=x32
-)
 
 SET vcvars64=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars64.bat
 SET vcvars32=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars32.bat
@@ -32,17 +22,6 @@ if defined IS_USER_MACHINE_64_BIT (
 ) else (
     SET vcvars=%vcvars32%
 )
-
-if defined IS_USER_MACHINE_64_BIT (
-    SET userMachineBits=x64
-) else (
-    SET userMachineBits=x32
-)
-
-SET TOOLS_BASE_PATH=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Tools\MSVC\*
-SET cl=\bin\Host%hostMachineBits%\%userMachineBits%\cl.exe
-SET lib=\bin\Host%hostMachineBits%\%userMachineBits%\lib.exe
-SET link=\bin\Host%hostMachineBits%\%userMachineBits%\link.exe
 
 REM       ----------------------- Path Variables ----------------------
 
@@ -68,6 +47,8 @@ SET OUTPUT_LIB_PATH=%LIB_PATH%\oop
 
 REM -------------------------------- Code End ----------------------------------
 
+CALL %*
+
 CALL :SetLocalVariablesAsGlobal
 
 GOTO :EOF
@@ -75,15 +56,18 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :RunCl
-    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%cl%" %~1
+    @REM for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%cl%" %~1
+    cl %~1
 GOTO :EOF
 
 :RunLib
-    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%lib%" %~1
+    @REM for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%lib%" %~1
+    lib %~1
 GOTO :EOF
 
 :RunLink
-    for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%link%" %~1
+    @REM for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%link%" %~1
+    link %~1
 GOTO :EOF
 
 :SetLocalVariablesAsGlobal
@@ -103,6 +87,8 @@ GOTO :EOF
     echo SET TEST_PATH=%TEST_PATH%>> %FILE_NAME%
     echo SET LIB_PATH=%LIB_PATH%>> %FILE_NAME%
     echo SET OUTPUT_LIB_PATH=%OUTPUT_LIB_PATH%>> %FILE_NAME%
+    echo.>> %FILE_NAME%
+    echo CALL "%vcvars%">> %FILE_NAME%
     echo.>> %FILE_NAME%
     echo GOTO :EOF>> %FILE_NAME%
 GOTO :EOF
