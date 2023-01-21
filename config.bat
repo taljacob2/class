@@ -65,7 +65,7 @@ REM ------------------------------- Functions ----------------------------------
 GOTO :EOF
 
 :RunLib
-    lib %~1
+    lib /NOLOGO %~1
 GOTO :EOF
 
 :RunLink
