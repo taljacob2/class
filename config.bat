@@ -12,6 +12,9 @@ SET PATH_TO_VISUAL_STUDIO=D:\Tal\Visual Studio - Community 2019\IDE - Installati
 REM Comment out the following line, to set it to 32 bits. Else, 64 will be set.
 SET IS_USER_MACHINE_64_BIT=.
 
+REM Comment out the following line, to set it to RELEASE Mode. Else, DEBUG Mode Will be set.
+SET IS_DEBUG_MODE=.
+
 REM               --------- END: Edit to you liking ---------
 
 SET vcvars64=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars64.bat
@@ -21,6 +24,24 @@ if defined IS_USER_MACHINE_64_BIT (
     SET vcvars=%vcvars64%
 ) else (
     SET vcvars=%vcvars32%
+)
+
+if defined IS_DEBUG_MODE (
+    SET clOptions=^
+    /JMC /permissive- /GS /W3 /Zc:wchar_t ^
+    /ZI /Gm- /Od /sdl ^
+    /Fd"this.pdb" ^
+    /Zc:inline /fp:precise ^
+    /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /errorReport:prompt ^
+    /WX- /Zc:forScope /RTC1 /Gd /MDd /FC /EHsc /nologo /diagnostics:column
+) else (
+    SET clOptions=^
+    /permissive- /GS /GL /W3 /Gy /Zc:wchar_t /Z7 ^
+    /Gm- /O2 /sdl /Fd"this.pdb" /Zc:inline /fp:precise ^
+    /D "NDEBUG" /D "_CONSOLE" /D "_WINDLL" /D "_UNICODE" /D "UNICODE" ^
+    /errorReport:prompt /WX- /Zc:forScope /Gd /Oi /MD /FC ^
+    /EHsc /nologo ^
+    /diagnostics:column
 )
 
 REM       ----------------------- Path Variables ----------------------
@@ -63,31 +84,7 @@ REM ------------------------------- Functions ----------------------------------
     REM See All compiler warnings https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warnings-c4800-through-c4999?view=msvc-170
     REM See https://github.com/taljacob2/oop/issues/65
 
-    @REM cl /JMC /permissive- /GS /W3 /Zc:wchar_t ^
-    @REM /ZI /Gm- /Od /sdl ^
-    @REM /Zc:inline /fp:precise ^
-    @REM /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" ^
-    @REM /errorReport:prompt /WX- /Zc:forScope /RTC1 /Gd /MDd /FC ^
-    @REM /EHsc /nologo ^
-    @REM /diagnostics:column ^
-    @REM /D "_CRT_SECURE_NO_WARNINGS" %~1
-
-    cl /JMC /permissive- /GS /W3 /Zc:wchar_t ^
-    /ZI /Gm- /Od /sdl ^
-    /Fd"this.pdb" ^
-    /Zc:inline /fp:precise ^
-    /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /errorReport:prompt ^
-    /WX- /Zc:forScope /RTC1 /Gd /MDd /FC /EHsc /nologo /diagnostics:column ^
-    /D "_CRT_SECURE_NO_WARNINGS" %~1
-
-    @REM cl /permissive- /GS /GL /W3 /Gy /Zc:wchar_t /Z7 ^
-    @REM /Gm- /O2 /sdl /Fd"Release\vc143.pdb" /Zc:inline /fp:precise ^
-    @REM /D "NDEBUG" /D "_CONSOLE" /D "_WINDLL" /D "_UNICODE" /D "UNICODE" ^
-    @REM /errorReport:prompt /WX- /Zc:forScope /Gd /Oi /MD /FC ^
-    @REM /EHsc /nologo /Fo"Release\" ^
-    @REM /diagnostics:column ^
-    @REM /D "_CRT_SECURE_NO_WARNINGS" %~1
-
+    cl %clOptions% /D "_CRT_SECURE_NO_WARNINGS" %~1
 GOTO :EOF
 
 :RunLib
