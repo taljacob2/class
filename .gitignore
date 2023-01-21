@@ -20,3 +20,4 @@ src/lib/**/*.lib
 **/*.idb
 **/*.pdb
 **/*.pch
+**/*.ilk

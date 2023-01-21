@@ -16,11 +16,16 @@ CALL shared-config-local-variables.bat
 
 REM ---------------------------------- Code ------------------------------------
 
-del /S/F %OUTPUT_LIB_PATH%\*.lib
-del /S/F %OUTPUT_LIB_PATH%\*.obj
+del /S/F %OUTPUT_LIB_PATH%\*.lib >NUL 2>&1
+del /S/F %OUTPUT_LIB_PATH%\*.obj >NUL 2>&1
+del /S/F *.pdb >NUL 2>&1
+del /S/F *.idb >NUL 2>&1
 
-del /F %MAIN_PATH%\main.exe
-del /F %TEST_PATH%\main.exe
+del /F %MAIN_PATH%\main.ilk >NUL 2>&1
+del /F %MAIN_PATH%\main.exe >NUL 2>&1
 
-del /S/F shared-config-local-variables.bat
+del /F %TEST_PATH%\main.exe >NUL 2>&1
+del /F %TEST_PATH%\main.ilk >NUL 2>&1
+
+del /S/F shared-config-local-variables.bat >NUL 2>&1
 GOTO :EOF

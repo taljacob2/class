@@ -63,19 +63,35 @@ REM ------------------------------- Functions ----------------------------------
     REM See All compiler warnings https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warnings-c4800-through-c4999?view=msvc-170
     REM See https://github.com/taljacob2/oop/issues/65
 
+    @REM cl /JMC /permissive- /GS /W3 /Zc:wchar_t ^
+    @REM /ZI /Gm- /Od /sdl ^
+    @REM /Zc:inline /fp:precise ^
+    @REM /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" ^
+    @REM /errorReport:prompt /WX- /Zc:forScope /RTC1 /Gd /MDd /FC ^
+    @REM /EHsc /nologo ^
+    @REM /diagnostics:column ^
+    @REM /D "_CRT_SECURE_NO_WARNINGS" %~1
+
     cl /JMC /permissive- /GS /W3 /Zc:wchar_t ^
     /ZI /Gm- /Od /sdl ^
+    /Fd"this.pdb" ^
     /Zc:inline /fp:precise ^
-    /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" ^
-    /errorReport:prompt /WX- /Zc:forScope /RTC1 /Gd /MDd /FC ^
-    /EHsc /nologo ^
-    /diagnostics:column ^
+    /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /errorReport:prompt ^
+    /WX- /Zc:forScope /RTC1 /Gd /MDd /FC /EHsc /nologo /diagnostics:column ^
     /D "_CRT_SECURE_NO_WARNINGS" %~1
+
+    @REM cl /permissive- /GS /GL /W3 /Gy /Zc:wchar_t /Z7 ^
+    @REM /Gm- /O2 /sdl /Fd"Release\vc143.pdb" /Zc:inline /fp:precise ^
+    @REM /D "NDEBUG" /D "_CONSOLE" /D "_WINDLL" /D "_UNICODE" /D "UNICODE" ^
+    @REM /errorReport:prompt /WX- /Zc:forScope /Gd /Oi /MD /FC ^
+    @REM /EHsc /nologo /Fo"Release\" ^
+    @REM /diagnostics:column ^
+    @REM /D "_CRT_SECURE_NO_WARNINGS" %~1
 
 GOTO :EOF
 
 :RunLib
-    lib /NOLOGO %~1
+    lib /LTCG /NOLOGO %~1
 GOTO :EOF
 
 :RunLink
