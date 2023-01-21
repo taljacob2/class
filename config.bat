@@ -73,19 +73,22 @@ GOTO :EOF
     REM
     REM See https://superuser.com/a/1389294
     REM See https://www.tutorialspoint.com/batch_script/batch_script_appending_files.htm
+    REM See https://stackoverflow.com/a/14604414/14427765
 
     SET FILE_NAME=shared-config-local-variables.bat
 
-    echo @echo off> %FILE_NAME%
-    echo.>> %FILE_NAME%
-    echo SET ROOT_PATH=%ROOT_PATH%>> %FILE_NAME%
-    echo SET SRC_PATH=%SRC_PATH%>> %FILE_NAME%
-    echo SET MAIN_PATH=%MAIN_PATH%>> %FILE_NAME%
-    echo SET TEST_PATH=%TEST_PATH%>> %FILE_NAME%
-    echo SET LIB_PATH=%LIB_PATH%>> %FILE_NAME%
-    echo SET OUTPUT_LIB_PATH=%OUTPUT_LIB_PATH%>> %FILE_NAME%
-    echo.>> %FILE_NAME%
-    echo CALL "%vcvars%">> %FILE_NAME%
-    echo.>> %FILE_NAME%
-    echo GOTO :EOF>> %FILE_NAME%
+    >%FILE_NAME% (
+        echo @echo off
+        echo.
+        echo SET ROOT_PATH=%ROOT_PATH%
+        echo SET SRC_PATH=%SRC_PATH%
+        echo SET MAIN_PATH=%MAIN_PATH%
+        echo SET TEST_PATH=%TEST_PATH%
+        echo SET LIB_PATH=%LIB_PATH%
+        echo SET OUTPUT_LIB_PATH=%OUTPUT_LIB_PATH%
+        echo.
+        echo CALL "%vcvars%"
+        echo.
+        echo GOTO :EOF
+    )
 GOTO :EOF
