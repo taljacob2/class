@@ -87,7 +87,7 @@ GOTO :EOF
         echo SET LIB_PATH=%LIB_PATH%
         echo SET OUTPUT_LIB_PATH=%OUTPUT_LIB_PATH%
         echo.
-        echo CALL "%vcvars%"
+        echo CALL "%vcvars%" ^>NUL 2^>^&1
         echo.
         echo GOTO :EOF
     )
