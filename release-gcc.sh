@@ -17,9 +17,10 @@ copyHeaderFilesAndStaticLibrary() {
 
     for f in "$OUTPUT_LIB_PATH"/* ; do
         if [ -d "$f" ]; then
-            directoryName=$(basename "$f")      
 
             # "$f" is a directory. Will not run if no directories are available.
+
+            directoryName=$(basename "$f")
 
             # Create that directory in "$OOP_DIRECTORY".
             mkdir -p "$OOP_DIRECTORY/$directoryName"
