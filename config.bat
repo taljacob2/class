@@ -30,14 +30,13 @@ if defined IS_DEBUG_MODE (
     SET clOptions=^
     /JMC /permissive- /GS /W3 /Zc:wchar_t ^
     /ZI /Gm- /Od /sdl ^
-    /Fd"this.pdb" ^
     /Zc:inline /fp:precise ^
     /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /errorReport:prompt ^
     /WX- /Zc:forScope /RTC1 /Gd /MDd /FC /EHsc /nologo /diagnostics:column
 ) else (
     SET clOptions=^
     /permissive- /GS /GL /W3 /Gy /Zc:wchar_t /Zi ^
-    /Gm- /O2 /sdl /Fd"this.pdb" /Zc:inline /fp:precise ^
+    /Gm- /O2 /sdl /Zc:inline /fp:precise ^
     /D "NDEBUG" /D "_CONSOLE" /D "_WINDLL" /D "_UNICODE" /D "UNICODE" ^
     /errorReport:prompt /WX- /Zc:forScope /Gd /Oi /MD /FC ^
     /EHsc /nologo ^
