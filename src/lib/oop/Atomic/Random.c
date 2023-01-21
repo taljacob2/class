@@ -1,6 +1,6 @@
 #include "Random.r"
 
-void initRand() { srand(time(NULL)); }
+void initRand() { srand((unsigned int) time(NULL)); }
 
 unsigned char getIndexByChar(unsigned char charToCalculate,
                              unsigned char baseChar) {

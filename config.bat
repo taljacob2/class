@@ -56,7 +56,12 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :RunCl
-    cl %~1
+    REM See warning levels: https://learn.microsoft.com/en-us/cpp/build/reference/compiler-option-warning-level?view=msvc-170
+    REM `/W3` is the default warning level for the Visual Studio IDE.
+    REM See warning levels of all warning codes: https://learn.microsoft.com/en-us/cpp/preprocessor/compiler-warnings-that-are-off-by-default?view=msvc-170
+    REM See All warnings https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warnings-by-compiler-version?view=msvc-170
+    REM See All compiler warnings https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warnings-c4800-through-c4999?view=msvc-170
+    cl /W3 /D_CRT_SECURE_NO_WARNINGS %~1
 GOTO :EOF
 
 :RunLib
