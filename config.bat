@@ -56,17 +56,14 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :RunCl
-    @REM for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%cl%" %~1
     cl %~1
 GOTO :EOF
 
 :RunLib
-    @REM for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%lib%" %~1
     lib %~1
 GOTO :EOF
 
 :RunLink
-    @REM for /D %%I in ("%TOOLS_BASE_PATH%") do "%%~I%link%" %~1
     link %~1
 GOTO :EOF
 
