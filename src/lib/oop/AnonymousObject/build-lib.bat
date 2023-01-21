@@ -35,7 +35,7 @@ REM ------------------------------- Functions ----------------------------------
     @REM for %%f in (*.c) do (
     @REM     CALL %CONFIG% :RunCl "/c %%f"
     @REM )
-    CALL %CONFIG% :RunCl "/I"%LIBRARY_NAME%.h" *.c"
+    CALL %CONFIG% :RunCl "/c /I"%LIBRARY_NAME%.h" *.c"
 GOTO :EOF
 
 :LibAllObjFilesInCurrentDirectory
