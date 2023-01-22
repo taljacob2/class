@@ -16,14 +16,32 @@ CALL shared-config-local-variables.bat
 
 REM ---------------------------------- Code ------------------------------------
 
-echo releasing msvc here...
+echo releasing msvc...
+
+SET OOP_DIRECTORY=release/gcc/%OUTPUT_LIB_FILE_NAME%
+
+CALL :CleanupAndPrepareDirectory
+
+REM Build the static library.
+CALL build-lib.bat
+
+CALL :CopyHeaderFilesAndStaticLibrary
+
+echo done.
 
 
 del /F shared-config-local-variables.bat >NUL 2>&1
-
 
 REM Instead of `GOTO :EOF` we execute `exit`, so this file would be able to be
 REM executed as a thread.
 exit
 
 REM ------------------------------- Functions ----------------------------------
+
+:CleanupAndPrepareDirectory
+
+GOTO :EOF
+
+:CopyHeaderFilesAndStaticLibrary
+
+GOTO :EOF
