@@ -31,6 +31,8 @@ CALL :CopyHeaderFilesAndStaticLibrary
 @REM REM Cleanup the static library build.
 @REM CALL cleanup.bat
 
+@REM CALL :ArchiveStaticLibrary
+
 echo done.
 
 
@@ -55,3 +57,15 @@ GOTO :EOF
     xcopy /Y /E "%OUTPUT_LIB_PATH%\*.h" "%OOP_DIRECTORY%" >NUL 2>&1
     xcopy /Y /E "%OUTPUT_LIB_PATH%\*.r" "%OOP_DIRECTORY%" >NUL 2>&1
 GOTO :EOF
+
+@REM :ArchiveStaticLibrary
+@REM     for /f %%i in ('cd') do (
+@REM         SET THIS_PATH=%%i
+@REM     )
+
+@REM     REM Zip `OOP_DIRECTORY`.
+@REM     REM Starting windows 10 build 17063, you can use TAR.
+@REM     cd "%MSVC_DIRECTORY%"
+@REM     tar -cf %OUTPUT_LIB_FILE_NAME%.zip "%OUTPUT_LIB_FILE_NAME%"
+@REM     cd "%THIS_PATH%"    
+@REM GOTO :EOF
