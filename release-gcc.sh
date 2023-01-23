@@ -34,6 +34,8 @@ copyHeaderFilesAndStaticLibrary() {
     done
 }
 
+# ---------------------------------- Code --------------------------------------
+
 echo releasing gcc...
 
 cleanupAndPrepareDirectory

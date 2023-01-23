@@ -16,9 +16,9 @@ CALL shared-config-local-variables.bat
 
 REM ---------------------------------- Code ------------------------------------
 
-echo releasing msvc...
-
 SET OOP_DIRECTORY=release/msvc/%OUTPUT_LIB_FILE_NAME%
+
+echo releasing msvc...
 
 CALL :CleanupAndPrepareDirectory
 
