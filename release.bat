@@ -30,5 +30,5 @@ REM ------------------------------- Functions ----------------------------------
 GOTO :EOF
 
 :ReleaseGCC
-    start /I wsl -e ./release-gcc.sh ^&^& exit
+    start /I wsl -e ./release-gcc.sh
 GOTO :EOF
