@@ -18,7 +18,7 @@ REM ---------------------------------- Code ------------------------------------
 
 echo releasing msvc...
 
-SET OOP_DIRECTORY=release/gcc/%OUTPUT_LIB_FILE_NAME%
+SET OOP_DIRECTORY=release/msvc/%OUTPUT_LIB_FILE_NAME%
 
 CALL :CleanupAndPrepareDirectory
 
@@ -40,6 +40,13 @@ REM ------------------------------- Functions ----------------------------------
 
 :CleanupAndPrepareDirectory
 
+    REM Cleaup last release.
+    del /S/F "%OOP_DIRECTORY%" >NUL 2>&1
+
+    REM Make sure there is an empty directory for the relaese.
+    if not exist "%OOP_DIRECTORY%" ( 
+        mkdir "%OOP_DIRECTORY%"
+    )
 GOTO :EOF
 
 :CopyHeaderFilesAndStaticLibrary
