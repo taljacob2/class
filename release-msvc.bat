@@ -31,10 +31,7 @@ echo done.
 
 
 del /F shared-config-local-variables.bat >NUL 2>&1
-
-REM Instead of `GOTO :EOF` we execute `exit`, so this file would be able to be
-REM executed as a thread.
-exit
+GOTO :EOF
 
 REM ------------------------------- Functions ----------------------------------
 

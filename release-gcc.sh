@@ -45,4 +45,4 @@ copyHeaderFilesAndStaticLibrary
 
 echo done.
 
-exit  # This line is mandatory for executing this file as a thread.
+exit
