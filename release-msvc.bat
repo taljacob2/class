@@ -47,5 +47,7 @@ REM ------------------------------- Functions ----------------------------------
 GOTO :EOF
 
 :CopyHeaderFilesAndStaticLibrary
-
+    xcopy /Y /E "%OUTPUT_LIB_PATH%\%OUTPUT_LIB_FILE_NAME%.lib" "%OOP_DIRECTORY%" >NUL 2>&1
+    xcopy /Y /E "%OUTPUT_LIB_PATH%\*.h" "%OOP_DIRECTORY%" >NUL 2>&1
+    xcopy /Y /E "%OUTPUT_LIB_PATH%\*.r" "%OOP_DIRECTORY%" >NUL 2>&1
 GOTO :EOF
