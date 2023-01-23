@@ -41,7 +41,7 @@ REM ------------------------------- Functions ----------------------------------
 :CleanupAndPrepareDirectory
 
     REM Cleaup last release.
-    del /S/F "%OOP_DIRECTORY%" >NUL 2>&1
+    rmdir /S/Q "%OOP_DIRECTORY%" >NUL 2>&1
 
     REM Make sure there is an empty directory for the relaese.
     if not exist "%OOP_DIRECTORY%" ( 
