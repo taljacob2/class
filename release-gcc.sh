@@ -45,6 +45,9 @@ cleanupAndPrepareDirectory
 
 copyHeaderFilesAndStaticLibrary
 
+# # Cleanup the static library build.
+# ./cleanup.sh
+
 echo done.
 
 exit

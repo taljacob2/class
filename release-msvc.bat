@@ -27,6 +27,9 @@ CALL build-lib.bat
 
 CALL :CopyHeaderFilesAndStaticLibrary
 
+@REM REM Cleanup the static library build.
+@REM CALL cleanup.bat
+
 echo done.
 
 
