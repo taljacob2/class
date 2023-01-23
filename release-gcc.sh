@@ -2,6 +2,8 @@
 
 source ./config.sh
 
+OOP_DIRECTORY=release/gcc/"$OUTPUT_LIB_FILE_NAME"
+
 cleanupAndPrepareDirectory() {
 
     # Cleaup last release.
@@ -33,8 +35,6 @@ copyHeaderFilesAndStaticLibrary() {
 }
 
 echo releasing gcc...
-
-OOP_DIRECTORY=release/gcc/"$OUTPUT_LIB_FILE_NAME"
 
 cleanupAndPrepareDirectory
 
