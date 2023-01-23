@@ -16,7 +16,8 @@ CALL shared-config-local-variables.bat
 
 REM ---------------------------------- Code ------------------------------------
 
-SET OOP_DIRECTORY=release/msvc/%OUTPUT_LIB_FILE_NAME%
+SET MSVC_DIRECTORY=release/msvc
+SET OOP_DIRECTORY=%MSVC_DIRECTORY%/%OUTPUT_LIB_FILE_NAME%
 
 echo releasing msvc...
 
@@ -41,7 +42,7 @@ REM ------------------------------- Functions ----------------------------------
 :CleanupAndPrepareDirectory
 
     REM Cleaup last release.
-    rmdir /S/Q "%OOP_DIRECTORY%" >NUL 2>&1
+    rmdir /S/Q "%MSVC_DIRECTORY%" >NUL 2>&1
 
     REM Make sure there is an empty directory for the relaese.
     if not exist "%OOP_DIRECTORY%" ( 
