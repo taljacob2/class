@@ -26,9 +26,9 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :ReleaseMSVC
-    start cmd /c release-msvc.bat
+    start /I cmd /c release-msvc.bat
 GOTO :EOF
 
 :ReleaseGCC
-    start wsl -e ./release-gcc.sh ^&^& exit
+    start /I wsl -e ./release-gcc.sh ^&^& exit
 GOTO :EOF
