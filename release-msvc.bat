@@ -66,6 +66,6 @@ GOTO :EOF
     REM Zip `OOP_DIRECTORY`.
     REM Starting windows 10 build 17063, you can use TAR.
     cd "%MSVC_DIRECTORY%"
-    tar -cf %OUTPUT_LIB_FILE_NAME%.zip "%OUTPUT_LIB_FILE_NAME%"
+    tar -cf "%OUTPUT_LIB_FILE_NAME%-msvc.zip" "%OUTPUT_LIB_FILE_NAME%"
     cd "%THIS_PATH%"    
 GOTO :EOF
