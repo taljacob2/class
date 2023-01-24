@@ -1,0 +1,3 @@
+
+# Force `.bat` files to end with CRLF.
+*.bat text eol=crlf
