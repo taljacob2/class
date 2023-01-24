@@ -2,7 +2,8 @@
 
 source ./config.sh
 
-OOP_DIRECTORY=release/gcc/"$OUTPUT_LIB_FILE_NAME"
+GCC_DIRECTORY=release/gcc
+OOP_DIRECTORY="$GCC_DIRECTORY"/"$OUTPUT_LIB_FILE_NAME"
 
 cleanupAndPrepareDirectory() {
 
@@ -34,6 +35,14 @@ copyHeaderFilesAndStaticLibrary() {
     done
 }
 
+archiveStaticLibrary() {
+    local THIS_PATH=`pwd`
+
+    cd "$GCC_DIRECTORY"
+    tar -cf "$OUTPUT_LIB_FILE_NAME-gcc.tar.gz" "$OUTPUT_LIB_FILE_NAME"
+    cd "$THIS_PATH"
+}
+
 # ---------------------------------- Code --------------------------------------
 
 echo releasing gcc...
@@ -47,6 +56,8 @@ copyHeaderFilesAndStaticLibrary
 
 # # Cleanup the static library build.
 # ./cleanup.sh
+
+archiveStaticLibrary
 
 echo done.
 
