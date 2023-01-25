@@ -15,7 +15,7 @@ CALL %CONFIG%
 CALL shared-config-local-variables.bat
 
 REM ---------------------------------- Code ------------------------------------
-@REM SET ERRORLEVEL=0
+
 SET ERRORLEVEL_MissingParameters=1
 SET ERRORLEVEL_GetHelp=2
 
