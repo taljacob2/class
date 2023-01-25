@@ -37,8 +37,7 @@ if %ERRORLEVEL%==%ERRORLEVEL_MissingParameters% (
     exit /b %ERRORLEVEL_MissingParameters%
 )
 
-@REM CALL :PushRelease
-
+CALL :PushRelease
 
 
 del /F shared-config-local-variables.bat >NUL 2>&1
