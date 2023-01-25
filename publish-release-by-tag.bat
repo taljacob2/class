@@ -77,7 +77,7 @@ REM ------------------------------- Functions ----------------------------------
     exit /b %ERRORLEVEL_GetHelp%
 GOTO :EOF
 
-:GetParametersRaw    
+:GetParametersRaw
     :GetOptionParametersLoop
     IF NOT "%1"=="" (
         IF "%1"=="help" (
