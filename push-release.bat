@@ -191,5 +191,5 @@ GOTO :EOF
       -H "Authorization: Bearer %token%" ^
       -H "X-GitHub-Api-Version: 2022-11-28" ^
       https://api.github.com/repos/taljacob2/oop/releases ^
-      -d '{"tag_name":"%tagname%","target_commitish":"master","name":"%name%","body":%body%,"draft":%draft%,"prerelease":%prerelease%,"generate_release_notes":true}'
+      -d '{"tag_name":"%tagname%","target_commitish":"master","name":%name%,"body":%body%,"draft":%draft%,"prerelease":%prerelease%,"generate_release_notes":true}'
 GOTO :EOF
