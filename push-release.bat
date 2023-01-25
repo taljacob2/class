@@ -39,6 +39,7 @@ echo Creating a local release...
 CALL release.bat
 echo Done.
 
+CALL :ConvertQuotesParametersToEscapeSequenceWithQuotes
 echo Pushing the release to GitHub...
 CALL :PushRelease
 
@@ -187,6 +188,14 @@ GOTO :EOF
 :AddEscapeSequenceToQuotes
     SET variableWithoutQuotes=%~1
     SET returnValueOfAddEscapeSequenceToQuotes=\"%variableWithoutQuotes%\"
+GOTO :EOF
+
+:ConvertQuotesParametersToEscapeSequenceWithQuotes
+    CALL :AddEscapeSequenceToQuotes %name%
+    SET name=%variableWithEscapeSequenceToQuotes%
+
+    CALL :AddEscapeSequenceToQuotes %body%
+    SET body=%variableWithEscapeSequenceToQuotes%
 GOTO :EOF
 
 :PushRelease
