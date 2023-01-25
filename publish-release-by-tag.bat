@@ -22,14 +22,7 @@ CALL :GetParametersRaw
 
 CALL :AssertAndDefaultParameters
 
-
-@REM curl ^
-@REM   -X POST ^
-@REM   -H "Accept: application/vnd.github+json" ^
-@REM   -H "Authorization: Bearer %token%" ^
-@REM   -H "X-GitHub-Api-Version: 2022-11-28" ^
-@REM   https://api.github.com/repos/taljacob2/oop/releases ^
-@REM   -d '{"tag_name":"v1.0.0","target_commitish":"master","name":"v1.0.0","body":"Description of the release","draft":false,"prerelease":false,"generate_release_notes":false}'
+CALL :PushRelease
 
 
 
@@ -69,6 +62,20 @@ REM ------------------------------- Functions ----------------------------------
             SET prerelease=%2
             SHIFT
         )
+        IF "%1"=="-body" (
+
+            REM Optional. Defaults to an empty string `""`.
+            REM A string, that will add a body description to the release.
+            SET body=%2
+            SHIFT
+        )
+        IF "%1"=="-draft" (
+
+            REM Optional. Defaults to `false`.
+            REM A literal text, that determines if the release will be set as a draft or not.
+            SET draft=%2
+            SHIFT
+        )
 
         SHIFT
         GOTO :GetOptionParametersLoop
@@ -93,13 +100,33 @@ GOTO :EOF
         exit /b 2
     )
 
-    REM Default `-name` parameter to `-tagname`'s value converted to string.
+    REM Defaults `-name` parameter to `-tagname`'s value converted to string.
     if not defined name (
         SET name="%tagname%"
     )
 
-    REM Default `-prerelease` parameter to `true`.
+    REM Defaults `-prerelease` parameter to `true`.
     if not defined prerelease (
         SET prerelease=true
     )
+
+    REM Defaults `-body` parameter to `""`.
+    if not defined body (
+        SET body=""
+    )
+
+    REM Defaults `-draft` parameter to `false`.
+    if not defined draft (
+        SET draft=false
+    )
+GOTO :EOF
+
+:PushRelease
+    curl ^
+      -X POST ^
+      -H "Accept: application/vnd.github+json" ^
+      -H "Authorization: Bearer %token%" ^
+      -H "X-GitHub-Api-Version: 2022-11-28" ^
+      https://api.github.com/repos/taljacob2/oop/releases ^
+      -d '{"tag_name":"%tagname%","target_commitish":"master","name":"%name%","body":%body%,"draft":%draft%,"prerelease":%prerelease%,"generate_release_notes":true}'
 GOTO :EOF
