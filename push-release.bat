@@ -184,6 +184,11 @@ GOTO :EOF
     )
 GOTO :EOF
 
+:AddEscapeSequenceToQuotes
+    SET variableWithoutQuotes=%~1
+    SET returnValueOfAddEscapeSequenceToQuotes=\"%variableWithoutQuotes%\"
+GOTO :EOF
+
 :PushRelease
     curl ^
       -X POST ^
