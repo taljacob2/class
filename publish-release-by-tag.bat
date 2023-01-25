@@ -16,9 +16,8 @@ CALL shared-config-local-variables.bat
 
 REM ---------------------------------- Code ------------------------------------
 @REM SET ERRORLEVEL=0
-SET ERRORLEVEL_NoToken=1
-SET ERRORLEVEL_NoTagName=2
-SET ERRORLEVEL_GetHelp=3
+SET ERRORLEVEL_MissingParameters=1
+SET ERRORLEVEL_GetHelp=2
 
 
 @REM CALL release.bat
@@ -32,6 +31,12 @@ if %ERRORLEVEL%==%ERRORLEVEL_GetHelp% (
 )
 
 CALL :AssertAndDefaultParameters
+
+if %ERRORLEVEL%==%ERRORLEVEL_MissingParameters% (
+
+    REM `:AssertAndDefaultParameters` threw an error. Quit script.
+    exit /b %ERRORLEVEL_MissingParameters%
+)
 
 @REM CALL :PushRelease
 
@@ -145,7 +150,7 @@ GOTO :EOF
         REM Quit script with an errorlevel.
         echo ERROR: Missing "token" parameter. Please pass a GitHub token that has "push" credentials and try again. Do it like so: "-token <YOUR-TOKEN>".
         echo Run `publish-release-by-tag.bat help` for help.
-        exit /b %ERRORLEVEL_NoToken%
+        exit /b %ERRORLEVEL_MissingParameters%
     )
 
     REM Assert `-tagname` parameter.
@@ -154,7 +159,7 @@ GOTO :EOF
         REM Quit script with an errorlevel.
         echo ERROR: Missing "tagname" parameter. Please pass an existing "tag" name and try again. Do it like so: "-tagname <EXISTING-TAG-NAME>".
         echo Run `publish-release-by-tag.bat help` for help.
-        exit /b %ERRORLEVEL_NoTagName%
+        exit /b %ERRORLEVEL_MissingParameters%
     )
 
     REM Defaults `-name` parameter to `-tagname`'s value converted to string.
