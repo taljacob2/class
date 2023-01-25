@@ -35,8 +35,11 @@ if %ERRORLEVEL%==%ERRORLEVEL_MissingParameters% (
     exit /b %ERRORLEVEL_MissingParameters%
 )
 
+echo Creating a local release...
 CALL release.bat
+echo Done.
 
+echo Pushing the release to GitHub...
 CALL :PushRelease
 
 
