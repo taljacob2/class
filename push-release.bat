@@ -51,17 +51,17 @@ REM ------------------------------- Functions ----------------------------------
     echo.
     echo Usage (The order of the options does not matter):
     echo ```
-    echo publish-release-by-tag.bat -token ^<YOUR-TOKEN^> -tagname ^<EXISTING-TAG-NAME^> [-name ^<"RELEASE-NAME"^>] [-prerelease ^<true/false^>] [-body ^<"RELEASE-BODY"^>] [-draft ^<true/false^>]
+    echo push-release.bat -token ^<YOUR-TOKEN^> -tagname ^<EXISTING-TAG-NAME^> [-name ^<"RELEASE-NAME"^>] [-prerelease ^<true/false^>] [-body ^<"RELEASE-BODY"^>] [-draft ^<true/false^>]
     echo ```
     echo.
     echo Example 1:
     echo ```
-    echo publish-release-by-tag.bat -token ghp_IqIMN0ZH6z0wIEB4T9A2g4EHMy8Ji42q4HA5 -tagname v1.0.0
+    echo push-release.bat -token ghp_IqIMN0ZH6z0wIEB4T9A2g4EHMy8Ji42q4HA5 -tagname v1.0.0
     echo ```
     echo.
     echo Example 2:
     echo ```
-    echo publish-release-by-tag.bat -token ghp_IqIMN0ZH6z0wIEB4T9A2g4EHMy8Ji42q4HA5 -tagname v1.0.0 -name "My First Release" -body "This is the first release for this repository." -prerelease true
+    echo push-release.bat -token ghp_IqIMN0ZH6z0wIEB4T9A2g4EHMy8Ji42q4HA5 -tagname v1.0.0 -name "My First Release" -body "This is the first release for this repository." -prerelease true
     echo ```
     echo.
     echo -token (REQUIRED)         Sets a token to access the GitHub repository.
@@ -148,7 +148,7 @@ GOTO :EOF
 
         REM Quit script with an errorlevel.
         echo ERROR: Missing "token" parameter. Please pass a GitHub token that has "push" credentials and try again. Do it like so: "-token <YOUR-TOKEN>".
-        echo Run `publish-release-by-tag.bat help` for help.
+        echo Run `push-release.bat help` for help.
         exit /b %ERRORLEVEL_MissingParameters%
     )
 
@@ -157,7 +157,7 @@ GOTO :EOF
 
         REM Quit script with an errorlevel.
         echo ERROR: Missing "tagname" parameter. Please pass an existing "tag" name and try again. Do it like so: "-tagname <EXISTING-TAG-NAME>".
-        echo Run `publish-release-by-tag.bat help` for help.
+        echo Run `push-release.bat help` for help.
         exit /b %ERRORLEVEL_MissingParameters%
     )
 
