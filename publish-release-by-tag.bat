@@ -144,6 +144,7 @@ GOTO :EOF
 
         REM Quit script with an errorlevel.
         echo ERROR: Missing "token" parameter. Please pass a GitHub token that has "push" credentials and try again. Do it like so: "-token <YOUR-TOKEN>".
+        echo Run `publish-release-by-tag.bat help` for help.
         exit /b %ERRORLEVEL_NoToken%
     )
 
@@ -152,6 +153,7 @@ GOTO :EOF
 
         REM Quit script with an errorlevel.
         echo ERROR: Missing "tagname" parameter. Please pass an existing "tag" name and try again. Do it like so: "-tagname <EXISTING-TAG-NAME>".
+        echo Run `publish-release-by-tag.bat help` for help.
         exit /b %ERRORLEVEL_NoTagName%
     )
 
