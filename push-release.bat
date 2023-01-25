@@ -73,7 +73,7 @@ REM ------------------------------- Functions ----------------------------------
     echo -name                     A string, that will set the name of the release.
     echo                           Defaults to `-tagname`'s value.
     echo -prerelease               A literal text. May be `true` or `false`.
-    echo                           Defaults to `true`.
+    echo                           Defaults to `false`.
     echo -body                     A string, that will add a body description to the release.
     echo                           Defaults to an empty string `""`.
     echo -draft                    A literal text, that determines if the release will be set as a draft or not.
@@ -168,9 +168,9 @@ GOTO :EOF
         SET name="%tagname%"
     )
 
-    REM Defaults `-prerelease` parameter to `true`.
+    REM Defaults `-prerelease` parameter to `false`.
     if not defined prerelease (
-        SET prerelease=true
+        SET prerelease=false
     )
 
     REM Defaults `-body` parameter to `""`.
