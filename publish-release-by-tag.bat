@@ -15,14 +15,25 @@ CALL %CONFIG%
 CALL shared-config-local-variables.bat
 
 REM ---------------------------------- Code ------------------------------------
+@REM SET ERRORLEVEL=0
+SET ERRORLEVEL_NoToken=1
+SET ERRORLEVEL_NoTagName=2
+SET ERRORLEVEL_GetHelp=3
+
 
 @REM CALL release.bat
 
-CALL :GetParametersRaw
+CALL :GetParametersRaw %*
+
+if %ERRORLEVEL%==%ERRORLEVEL_GetHelp% (
+
+    REM `:GetHelp` was called. Quit script.
+    exit /b %ERRORLEVEL_GetHelp%
+)
 
 CALL :AssertAndDefaultParameters
 
-CALL :PushRelease
+@REM CALL :PushRelease
 
 
 
@@ -31,9 +42,25 @@ GOTO :EOF
 
 REM ------------------------------- Functions ----------------------------------
 
-:GetParametersRaw
+:GetHelp
+    echo Pushes an official release to the GitHub repository, so it will be displayed in `https://api.github.com/repos/taljacob2/oop/releases`.
+    
+    REM Quit script with an errorlevel.
+    exit /b %ERRORLEVEL_GetHelp%
+GOTO :EOF
+
+:GetParametersRaw    
     :GetOptionParametersLoop
     IF NOT "%1"=="" (
+        IF "%1"=="help" (
+            CALL :GetHelp
+
+            if %ERRORLEVEL%==%ERRORLEVEL_GetHelp% (
+
+                REM `:GetHelp` was called. Quit script.
+                exit /b %ERRORLEVEL_GetHelp%
+            )
+        )
         IF "%1"=="-token" (
 
             REM Required.
@@ -89,7 +116,7 @@ GOTO :EOF
 
         REM Quit script with an errorlevel.
         echo ERROR: Missing "token" parameter. Please pass a GitHub token and try again. Do it like so: "-token <YOUR-TOKEN>".
-        exit /b 1
+        exit /b %ERRORLEVEL_NoToken%
     )
 
     REM Assert `-tagname` parameter.
@@ -97,7 +124,7 @@ GOTO :EOF
 
         REM Quit script with an errorlevel.
         echo ERROR: Missing "tagname" parameter. Please pass an existing "tag" name and try again. Do it like so: "-tagname <EXISTING-TAG-NAME>".
-        exit /b 2
+        exit /b %ERRORLEVEL_NoTagName%
     )
 
     REM Defaults `-name` parameter to `-tagname`'s value converted to string.
