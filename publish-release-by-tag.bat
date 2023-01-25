@@ -19,8 +19,7 @@ REM ---------------------------------- Code ------------------------------------
 SET ERRORLEVEL_MissingParameters=1
 SET ERRORLEVEL_GetHelp=2
 
-
-@REM CALL release.bat
+CALL release.bat
 
 CALL :GetParametersRaw %*
 
