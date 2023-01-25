@@ -19,8 +19,6 @@ REM ---------------------------------- Code ------------------------------------
 SET ERRORLEVEL_MissingParameters=1
 SET ERRORLEVEL_GetHelp=2
 
-CALL release.bat
-
 CALL :GetParametersRaw %*
 
 if %ERRORLEVEL%==%ERRORLEVEL_GetHelp% (
@@ -36,6 +34,8 @@ if %ERRORLEVEL%==%ERRORLEVEL_MissingParameters% (
     REM `:AssertAndDefaultParameters` threw an error. Quit script.
     exit /b %ERRORLEVEL_MissingParameters%
 )
+
+CALL release.bat
 
 CALL :PushRelease
 
