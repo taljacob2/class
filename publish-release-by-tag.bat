@@ -43,7 +43,35 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :GetHelp
-    echo Pushes an official release to the GitHub repository, so it will be displayed in `https://api.github.com/repos/taljacob2/oop/releases`.
+    echo Pushes an official release to the GitHub repository's "master" branch, so it will be displayed in `https://api.github.com/repos/taljacob2/oop/releases`.
+    echo.
+    echo Usage (The order of the options does not matter):
+    echo ```
+    echo publish-release-by-tag.bat -token ^<YOUR-TOKEN^> -tagname ^<EXISTING-TAG-NAME^> [-name ^<"RELEASE-NAME"^>] [-prerelease ^<true/false^>] [-body ^<"RELEASE-BODY"^>] [-draft ^<true/false^>]
+    echo ```
+    echo.
+    echo Example 1:
+    echo ```
+    echo publish-release-by-tag.bat -token ghp_IqIMN0ZH6z0wIEB4T9A2g4EHMy8Ji42q4HA5 -tagname v1.0.0
+    echo ```
+    echo.
+    echo Example 2:
+    echo ```
+    echo publish-release-by-tag.bat -token ghp_IqIMN0ZH6z0wIEB4T9A2g4EHMy8Ji42q4HA5 -tagname v1.0.0 -name "My First Release" -body "This is the first release for this repository." -prerelease true
+    echo ```
+    echo.
+    echo -token (REQUIRED)         Sets a token to access the GitHub repository.
+    echo                           The token must have "push" credentials to the repository.
+    echo -tagname (REQUIRED)       Sets the "tag" name to relate to this release.
+    echo                           Prerequisites: The "tag" should already exist in the "master" branch before you call this script.
+    echo -name                     A string, that will set the name of the release.
+    echo                           Defaults to `-tagname`'s value.
+    echo -prerelease               A literal text. May be `true` or `false`.
+    echo                           Defaults to `true`.
+    echo -body                     A string, that will add a body description to the release.
+    echo                           Defaults to an empty string `""`.
+    echo -draft                    A literal text, that determines if the release will be set as a draft or not.
+    echo                           Defaults to `false`.
     
     REM Quit script with an errorlevel.
     exit /b %ERRORLEVEL_GetHelp%
@@ -64,7 +92,7 @@ GOTO :EOF
         IF "%1"=="-token" (
 
             REM Required.
-            REM A literal text. A GitHub token with a "push" access to the repository.
+            REM A literal text. A GitHub token with a "push" credentials to the repository.
             SET token=%2
             SHIFT
         )
@@ -115,7 +143,7 @@ GOTO :EOF
     if not defined token (
 
         REM Quit script with an errorlevel.
-        echo ERROR: Missing "token" parameter. Please pass a GitHub token and try again. Do it like so: "-token <YOUR-TOKEN>".
+        echo ERROR: Missing "token" parameter. Please pass a GitHub token that has "push" credentials and try again. Do it like so: "-token <YOUR-TOKEN>".
         exit /b %ERRORLEVEL_NoToken%
     )
 
