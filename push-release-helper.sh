@@ -59,5 +59,4 @@ uploadAssetUrl=`echo $pushReleaseResponse | jq -r '.upload_url'`
 uploadAsset "$uploadAssetUrl" "$GCC_RELEASE_PATH" "$GCC_RELEASE_NAME"
 uploadAsset "$uploadAssetUrl" "$MSVC_RELEASE_PATH" "$MSVC_RELEASE_NAME"
 
-
-sleep 10
+exit
