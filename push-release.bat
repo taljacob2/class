@@ -36,7 +36,7 @@ if %ERRORLEVEL%==%ERRORLEVEL_MissingParameters% (
 )
 
 echo Creating a local release...
-CALL release.bat
+start /I /WAIT /B cmd /c release.bat
 echo Done.
 
 echo Pushing the release to GitHub...
