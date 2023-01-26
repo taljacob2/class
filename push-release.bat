@@ -39,7 +39,7 @@ echo Creating a local release...
 CALL release.bat
 echo Done.
 
-CALL :ConvertQuotesParametersToEscapeSequenceWithQuotes
+@REM CALL :ConvertQuotesParametersToEscapeSequenceWithQuotes
 echo Pushing the release to GitHub...
 CALL :PushRelease
 
@@ -185,25 +185,38 @@ GOTO :EOF
     )
 GOTO :EOF
 
-:AddEscapeSequenceToQuotes
-    SET variableWithoutQuotes=%~1
-    SET returnValueOfAddEscapeSequenceToQuotes=\"%variableWithoutQuotes%\"
-GOTO :EOF
+@REM :AddEscapeSequenceToQuotes
+@REM     SET variableWithoutQuotes=%~1
+@REM     SET returnValueOfAddEscapeSequenceToQuotes=\"%variableWithoutQuotes%\"
+@REM GOTO :EOF
 
-:ConvertQuotesParametersToEscapeSequenceWithQuotes
-    CALL :AddEscapeSequenceToQuotes %name%
-    SET name=%returnValueOfAddEscapeSequenceToQuotes%
+@REM :ConvertQuotesParametersToEscapeSequenceWithQuotes
+@REM     CALL :AddEscapeSequenceToQuotes %name%
+@REM     SET name=%returnValueOfAddEscapeSequenceToQuotes%
 
-    CALL :AddEscapeSequenceToQuotes %body%
-    SET body=%returnValueOfAddEscapeSequenceToQuotes%
-GOTO :EOF
+@REM     CALL :AddEscapeSequenceToQuotes %body%
+@REM     SET body=%returnValueOfAddEscapeSequenceToQuotes%
+@REM GOTO :EOF
 
 :PushRelease
-    curl ^
-      -X POST ^
-      -H "Accept: application/vnd.github+json" ^
-      -H "Authorization: Bearer %token%" ^
-      -H "X-GitHub-Api-Version: 2022-11-28" ^
-      https://api.github.com/repos/taljacob2/oop/releases ^
-      -d "{\"tag_name\":\"%tagname%\",\"target_commitish\":\"master\",\"name\":%name%,\"body\":%body%,\"draft\":%draft%,\"prerelease\":%prerelease%,\"generate_release_notes\":true}"
+
+    start /I /WAIT wsl -e ./push-release-helper.sh %token% %tagname% %name% %body% %draft% %prerelease%
+
+    @REM SET CURL_PUSH_RELEASE_COMMAND=^
+    @REM     curl ^
+    @REM     -X POST ^
+    @REM     -H "Accept: application/vnd.github+json" ^
+    @REM     -H "Authorization: Bearer %token%" ^
+    @REM     -H "X-GitHub-Api-Version: 2022-11-28" ^
+    @REM     https://api.github.com/repos/taljacob2/oop/releases ^
+    @REM     -d "{\"tag_name\":\"%tagname%\",\"target_commitish\":\"master\",\"name\":%name%,\"body\":%body%,\"draft\":%draft%,\"prerelease\":%prerelease%,\"generate_release_notes\":true}"
+
+
+
+    @REM for /f %%i in ('%CURL_PUSH_RELEASE_COMMAND%') do (
+    @REM     SET response=%%i
+    @REM )
+
+echo %response%
+
 GOTO :EOF
