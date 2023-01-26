@@ -16,19 +16,15 @@ CALL shared-config-local-variables.bat
 
 REM ---------------------------------- Code ------------------------------------
 
-CALL :ReleaseMSVC
+REM - Run all threads.
+REM - Wait for all threads to finish before continuing.
+REM See https://stackoverflow.com/a/33586872/14427765
+REM See https://stackoverflow.com/a/56381920/14427765
+(
+    start /I cmd /c release-msvc.bat
+    start /I wsl -e ./release-gcc.sh
+) | SET /P "="
 
-CALL :ReleaseGCC
 
 del /F shared-config-local-variables.bat >NUL 2>&1
-GOTO :EOF
-
-REM ------------------------------- Functions ----------------------------------
-
-:ReleaseMSVC
-    start /I cmd /c release-msvc.bat
-GOTO :EOF
-
-:ReleaseGCC
-    start /I wsl -e ./release-gcc.sh
 GOTO :EOF

@@ -16,7 +16,6 @@ CALL shared-config-local-variables.bat
 
 REM ---------------------------------- Code ------------------------------------
 
-SET MSVC_DIRECTORY=release/msvc
 SET OOP_DIRECTORY=%MSVC_DIRECTORY%/%OUTPUT_LIB_FILE_NAME%
 
 echo releasing msvc...
@@ -66,6 +65,6 @@ GOTO :EOF
     REM Zip `OOP_DIRECTORY`.
     REM Starting windows 10 build 17063, you can use TAR.
     cd "%MSVC_DIRECTORY%"
-    tar -cf "%OUTPUT_LIB_FILE_NAME%-msvc.zip" "%OUTPUT_LIB_FILE_NAME%"
+    tar -cf "%MSVC_RELEASE_NAME%" "%OUTPUT_LIB_FILE_NAME%"
     cd "%THIS_PATH%"    
 GOTO :EOF
