@@ -20,5 +20,5 @@ cd "%OUTPUT_LIB_PATH%"
 CALL build-lib.bat
 cd "%ROOT_PATH%"
 
-del /F shared-config-local-variables.bat
+del /F shared-config-local-variables.bat >NUL 2>&1
 GOTO :EOF

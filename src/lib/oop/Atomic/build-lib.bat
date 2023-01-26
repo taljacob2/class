@@ -25,7 +25,7 @@ REM Cleanup temp files.
 del /F *.obj >NUL 2>&1
 del /F *.idb >NUL 2>&1
 
-del /F shared-config-local-variables.bat
+del /F shared-config-local-variables.bat >NUL 2>&1
 GOTO :EOF
 
 REM ------------------------------- Functions ----------------------------------

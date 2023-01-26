@@ -26,5 +26,5 @@ CALL %CONFIG% :RunCl "%RunClArgs%"
 REM Cleanup *.obj files.
 del /F *.obj
 
-del /F shared-config-local-variables.bat
+del /F shared-config-local-variables.bat >NUL 2>&1
 GOTO :EOF

@@ -49,5 +49,5 @@ if defined subLibList (
     CALL %CONFIG% :RunLib "/out:%LIBRARY_NAME%.lib !subLibList!"
 )
 
-del /F shared-config-local-variables.bat
+del /F shared-config-local-variables.bat >NUL 2>&1
 GOTO :EOF
