@@ -49,7 +49,7 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :GetHelp
-    echo Pushes an official release to the GitHub repository's "master" branch, so it will be displayed in `https://api.github.com/repos/taljacob2/oop/releases`.
+    echo Pushes an official release with assets, to the GitHub repository's "master" branch, so it will be displayed in `https://api.github.com/repos/taljacob2/oop/releases`.
     echo.
     echo Usage (The order of the options does not matter):
     echo ```
