@@ -2,7 +2,6 @@
 
 source ./config.sh
 
-GCC_DIRECTORY=release/gcc
 OOP_DIRECTORY="$GCC_DIRECTORY"/"$OUTPUT_LIB_FILE_NAME"
 
 cleanupAndPrepareDirectory() {
@@ -39,7 +38,7 @@ archiveStaticLibrary() {
     local THIS_PATH=`pwd`
 
     cd "$GCC_DIRECTORY"
-    tar -cf "$OUTPUT_LIB_FILE_NAME-gcc.tar.gz" "$OUTPUT_LIB_FILE_NAME"
+    tar -cf "$GCC_RELEASE_NAME" "$OUTPUT_LIB_FILE_NAME"
     cd "$THIS_PATH"
 }
 

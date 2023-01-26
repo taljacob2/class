@@ -185,5 +185,5 @@ GOTO :EOF
 GOTO :EOF
 
 :PushRelease
-    start /I /WAIT wsl -e ./push-release-helper.sh %token% %tagname% %name% %body% %draft% %prerelease%
+    start /I /WAIT wsl -e ./push-release-helper.sh %token% %tagname% %name% %body% %draft% %prerelease% %MSVC_RELEASE_PATH% %MSVC_RELEASE_NAME%
 GOTO :EOF

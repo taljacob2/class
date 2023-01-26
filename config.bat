@@ -46,6 +46,9 @@ if defined IS_DEBUG_MODE (
 REM       ----------------------- Path Variables ----------------------
 
 SET OUTPUT_LIB_FILE_NAME=oop
+SET MSVC_DIRECTORY=release/msvc
+SET MSVC_RELEASE_NAME=%OUTPUT_LIB_FILE_NAME%-msvc.zip
+SET MSVC_RELEASE_PATH=%MSVC_DIRECTORY%/%MSVC_RELEASE_NAME%
 
 REM IMPORTANT: `SETLOCAL EnableDelayedExpansion` enables the use of variables
 REM            inside "for loops".
