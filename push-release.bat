@@ -39,7 +39,6 @@ echo Creating a local release...
 CALL release.bat
 echo Done.
 
-@REM CALL :ConvertQuotesParametersToEscapeSequenceWithQuotes
 echo Pushing the release to GitHub...
 CALL :PushRelease
 
@@ -185,38 +184,6 @@ GOTO :EOF
     )
 GOTO :EOF
 
-@REM :AddEscapeSequenceToQuotes
-@REM     SET variableWithoutQuotes=%~1
-@REM     SET returnValueOfAddEscapeSequenceToQuotes=\"%variableWithoutQuotes%\"
-@REM GOTO :EOF
-
-@REM :ConvertQuotesParametersToEscapeSequenceWithQuotes
-@REM     CALL :AddEscapeSequenceToQuotes %name%
-@REM     SET name=%returnValueOfAddEscapeSequenceToQuotes%
-
-@REM     CALL :AddEscapeSequenceToQuotes %body%
-@REM     SET body=%returnValueOfAddEscapeSequenceToQuotes%
-@REM GOTO :EOF
-
 :PushRelease
-
     start /I /WAIT wsl -e ./push-release-helper.sh %token% %tagname% %name% %body% %draft% %prerelease%
-
-    @REM SET CURL_PUSH_RELEASE_COMMAND=^
-    @REM     curl ^
-    @REM     -X POST ^
-    @REM     -H "Accept: application/vnd.github+json" ^
-    @REM     -H "Authorization: Bearer %token%" ^
-    @REM     -H "X-GitHub-Api-Version: 2022-11-28" ^
-    @REM     https://api.github.com/repos/taljacob2/oop/releases ^
-    @REM     -d "{\"tag_name\":\"%tagname%\",\"target_commitish\":\"master\",\"name\":%name%,\"body\":%body%,\"draft\":%draft%,\"prerelease\":%prerelease%,\"generate_release_notes\":true}"
-
-
-
-    @REM for /f %%i in ('%CURL_PUSH_RELEASE_COMMAND%') do (
-    @REM     SET response=%%i
-    @REM )
-
-echo %response%
-
 GOTO :EOF
