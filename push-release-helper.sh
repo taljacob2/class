@@ -8,8 +8,8 @@ draft=$1; shift
 prerelease=$1; shift
 
 pushRelease() {    
-    local AUTHORIZATION="Authorization: Bearer $token"
-    local JSON_POST={\"tag_name\":\"$tagname\",\"target_commitish\":\"master\",\"name\":\"$name\",\"body\":\"$body\",\"draft\":$draft,\"prerelease\":$prerelease,\"generate_release_notes\":true}
+    AUTHORIZATION="Authorization: Bearer $token"
+    JSON_POST={\"tag_name\":\"$tagname\",\"target_commitish\":\"master\",\"name\":\"$name\",\"body\":\"$body\",\"draft\":$draft,\"prerelease\":$prerelease,\"generate_release_notes\":true}
     
 
     curl \
