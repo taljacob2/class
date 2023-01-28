@@ -4,13 +4,13 @@
 
 ## Download The Latest Release Of `oop` [Here](https://github.com/taljacob2/oop/releases/)
 
-- For compiling with GNU's GCC, download `oop-gcc.tar.gz`
-- For compiling with Microsoft's MSVC, download `oop-msvc.zip`
+- For compiling with GNU's GCC, download `oop-gcc.tar.gz`.
+- For compiling with Microsoft's MSVC, download `oop-msvc.zip`.
 
 ## Introduction
 
-- For GNU's GCC see [GCC Introducion](docs/GCCIntroduction.md)
-- For Microsoft's MSVC see [MSVC Introducion](docs/MSVCIntroduction.md)
+- For GNU's GCC see [GCC Introducion](docs/GCCIntroduction.md).
+- For Microsoft's MSVC see [MSVC Introducion](docs/MSVCIntroduction.md).
 
 ### Polymorphism
 
