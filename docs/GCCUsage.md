@@ -1,4 +1,4 @@
-# Introduction - Compiling With GNU's GCC
+# Usage - Compiling With GNU's GCC
 
 ## Import `oop` To Your Program
 

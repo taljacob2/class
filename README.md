@@ -7,10 +7,10 @@
 - For compiling with GNU's GCC, download `oop-gcc.tar.gz`.
 - For compiling with Microsoft's MSVC, download `oop-msvc.zip`.
 
-## Introduction
+## Usage
 
-- For GNU's GCC see [GCC Introducion](docs/GCCIntroduction.md).
-- For Microsoft's MSVC see [MSVC Introducion](docs/MSVCIntroduction.md).
+- For GNU's GCC see [GCC Usage](docs/GCCUsage.md).
+- For Microsoft's MSVC see [MSVC Usage](docs/MSVCUsage.md).
 
 ### Polymorphism
 

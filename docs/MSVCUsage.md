@@ -1,4 +1,4 @@
-# Introduction - Compiling With Microsoft's MSVC
+# Usage - Compiling With Microsoft's MSVC
 
 ## Import `oop` To Your Program
 
