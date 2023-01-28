@@ -31,7 +31,7 @@ It allows us to check for memory leaks
 
 ### Test Your Code With Valgrind Remotely
 
-**Either compiler you choose, (especially with MSVC) when you push your commits to GitHub,
+**Either compiler you choose (especially with MSVC), when you push your commits to GitHub,
 watch the ["Build & Test" GitHub Action](https://github.com/taljacob2/oop/actions/workflows/build.yml) and verify that "Run With Valgrind" Step is finishing successfully without any memory leaks. The ["Build & Test" GitHub Action](https://github.com/taljacob2/oop/actions/workflows/build.yml)
 is triggered on every commit push. So feel free to test your code for memory leaks.**
 
