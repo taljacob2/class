@@ -4,6 +4,7 @@
 #include "CircleV4.h"
 #include "CircleV5.h"
 #include "CircleV7.h"
+#include "CircleV8.h"
 
 extern void *AtomicLValueDestructor(AtomicLValue *atomicLValue);
 
@@ -131,6 +132,7 @@ int main() {
     // Invoke Destructor of CircleV7 by macro.
     DESTRUCT_OBJECT(circleV7);
 
+    CircleV8 *circleV8 = CircleV8Constructor();
 
     return 0;
 }
