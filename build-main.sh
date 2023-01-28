@@ -3,7 +3,7 @@
 source ./config.sh
 
 # Build main program.
-gcc -g -Wall -Wpedantic \
+gcc -g -Wall -Wpedantic -ANSI -std=c89 \
 "$MAIN_PATH"/main.c \
 "$MAIN_PATH"/Circle.c \
 "$MAIN_PATH"/CircleV2.c \
