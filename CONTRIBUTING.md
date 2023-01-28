@@ -46,4 +46,4 @@ For example:
 
 ## Building & Pushing A New Release
 
-See [Release.md](docs/Release.md)
+See [Release.md](docs/Release.md).
