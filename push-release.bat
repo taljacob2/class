@@ -76,7 +76,7 @@ REM ------------------------------- Functions ----------------------------------
     echo -prerelease               A literal text. May be `true` or `false`.
     echo                           Defaults to `false`.
     echo -body                     A string, that will add a body description to the release.
-    echo                           Defaults to an empty string `""`.
+    echo                           Defaults to an empty string (with one space) `" "`.
     echo -draft                    A literal text, that determines if the release will be set as a draft or not.
     echo                           Defaults to `false`.
     
@@ -126,7 +126,7 @@ GOTO :EOF
         )
         IF "%1"=="-body" (
 
-            REM Optional. Defaults to an empty string `""`.
+            REM Optional. Defaults to an empty string `" "`.
             REM A string, that will add a body description to the release.
             SET body=%2
             SHIFT
@@ -174,9 +174,9 @@ GOTO :EOF
         SET prerelease=false
     )
 
-    REM Defaults `-body` parameter to `""`.
+    REM Defaults `-body` parameter to `" "`.
     if not defined body (
-        SET body=""
+        SET body=" "
     )
 
     REM Defaults `-draft` parameter to `false`.
