@@ -52,7 +52,7 @@ Extract the archive, and place the `oop` directory at your project's root path.
 
 ## Define Your Own New Object
 
-See [Define Your Own Object](DefineYourOwnObject.md)
+See [Define Your Own Object](DefineYourOwnObject.md).
 
 ## Build & Execute
 
