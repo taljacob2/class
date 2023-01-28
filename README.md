@@ -1,109 +1,16 @@
 # OOP For C Language
 
-[oop.a](src/lib/oop/oop.a) is a static library in C, that allows the use of OOP.
+`oop` is a static library, that allows the use of OOP in C language.
+
+## Download The Latest Release Of `oop` [Here](https://github.com/taljacob2/oop/releases/)
+
+- For compiling with GNU's GCC, download `oop-gcc.tar.gz`
+- For compiling with Microsoft's MSVC, download `oop-msvc.zip`
 
 ## Introduction
 
-### Import `oop.a` To Your Program
-
-In your project's path, create an empty file named `main.c`.
-
-#### Download The Latest Release Of `oop.a` [Here](https://github.com/taljacob2/oop/releases/)
-
-Place the "oop" directory in your project's path.
-```
-.
-├── main.c
-└── oop
-    ├── Atomic
-    │   ├── Atomic.h
-    │   ├── AtomicInteger.h
-    ├── Object
-    │   ├── AnonymousPointer.h
-    │   ├── AutoDestructable.r
-    │   ├── Bool.h
-    │   ├── Concat.h
-    │   ├── Destructable.r
-    │   ├── InvocationStatus.r
-    │   ├── Legacy_AllocationTable.r
-    │   ├── Legacy_AllocationTableList.r
-    │   ├── Legacy_AtomicFreer.r
-    │   ├── Legacy_List.r
-    │   ├── Legacy_MemberList.r
-    │   ├── Legacy_Node.r
-    │   ├── Legacy_Object.r
-    │   ├── Legacy_ObjectComponent.r
-    │   ├── Legacy_StringObjectContainerEntry.r
-    │   ├── MemberList.r
-    │   ├── Object.a
-    │   ├── Object.h
-    │   ├── Object.r
-    │   ├── ObjectDefines.r
-    │   ├── Quote.h
-    ├── oop.a
-    └── oop.h
-```
-
-### Define Your Own New Object
-
-Use the [Object](src/lib/oop/Object/Object.r) object to implement your own objects.
-
-To do so, you need to create 2 files.
-- One with `.h` extension.
-- One with `.c` extension.
-
-Use the following template to implement your object.
-For example, you wish to define a new object with the "class name" of `Circle`:
-
-- Create a new file named `Circle.h` with the following content:
-  ```c
-  #ifndef CIRCLE_H
-  #define CIRCLE_H
-
-  #include "oop/oop.h"
-
-  DEFINE_CLASS_H(Circle)
-
-  #endif /* CIRCLE_H */
-  ```
-
-- Create a new file named `Circle.c` with the following content:
-  ```c
-  #include "Circle.h"
-
-  DEFINE_CLASS_C(Circle)
-  ``` 
- 
-### Use Your Newly Defined Object
-
-### Create Your Program
-
-- Create a file named `main.c`.
-
-- Use `Circle` in `main.c`.
-  ```c
-  #include "oop/oop.h"
-
-  int main() {
-      Circle *circle = CircleConstructor();
-
-      /* `circle` is automatically freed */
-
-      return 0;
-  }
-  ```
-
-#### Build & Execute
-
-- Build your program with `gcc`:
-  ```
-  gcc main.c Circle.c -L. oop/oop.a
-  ```
-
-- Run the program:
-  ```
-  ./a.out
-  ```
+- For GNU's GCC see [GCC Introducion](docs/GCCIntroduction.md)
+- For Microsoft's MSVC see [MSVC Introducion](docs/MSVCIntroduction.md)
 
 > ##### NOTE 1 FOR DEVELOPERS ONLY
 > Every object is polymorphed with [Legacy_Object](src/lib/oop/Object/Legacy_Object.r)
