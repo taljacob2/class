@@ -127,13 +127,6 @@ For example, you wish to define a new object with the "class name" of `Circle`:
 
 - Use `Circle` in `main.c`.
   ```c
-
-  /* For 64bit compilation */
-  #pragma comment(lib, "oop/oop.lib")
-
-  /* For 32bit compilation */
-  /* #pragma comment(lib, "oop/oop32.lib") */
-
   #include "oop/oop.h"
 
   int main() {
