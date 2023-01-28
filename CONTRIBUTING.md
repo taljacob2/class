@@ -47,6 +47,6 @@ For example:
 
 ![image](https://user-images.githubusercontent.com/70590583/215257406-ce0645ce-5f09-4ef2-aed3-a2eb5f8d5edd.png)
 
-## Building & Pushing A New Release
+## Build A Local Release With Assets / GitHub Release With Assets
 
 See [Release.md](docs/Release.md).
