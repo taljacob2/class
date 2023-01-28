@@ -53,6 +53,8 @@ For example, you wish to define a new object with the "class name" of `Circle`:
   ```c
   #include "oop/oop.h"
 
+  #include "Circle.h"
+
   int main() {
       Circle *circle = CircleConstructor();
 
