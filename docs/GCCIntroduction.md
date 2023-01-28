@@ -4,7 +4,7 @@
 
 In your project's root path, create an empty file named `main.c`.
 
-Once you have downloaded the latest release of `oop-gcc.tar.gz`,
+Once you have downloaded the latest [release](https://github.com/taljacob2/oop/releases) of `oop-gcc.tar.gz`,
 
 Extract the archive, and place the `oop` directory at your project's root path.
 ```
