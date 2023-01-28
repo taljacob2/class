@@ -24,7 +24,14 @@ Thus, every class you create, is polymorphed with [`Object`](src/lib//oop/Object
 
 ### Dynamic Allocation
 
-Do not worry again about dynamic allocation (eg. malloc, calloc...).
+When you use [`Object`](src/lib//oop/Object/Object.r)s, you do not need to worry
+again about dynamic allocation (eg. malloc, calloc...).
+
+[`Object`](src/lib//oop/Object/Object.r)s allocate themselves (with `calloc`) in
+their constructor, and **automatically destruct themselves** (with `free`) after
+the `main`.
+
+Although, in case you want to manually invoke the object's destructor (similarly to CPP's `delete` function) you may do so by invoking the `DESTRUCT_OBJECT(objectToDestruct)` macro.
 
 > ##### NOTE 2 FOR DEVELOPERS ONLY
 > Every [`Object`](src/lib//oop/Object/Object.r) is composed of [`AutoDestructable`](src/lib/oop/Object/AutoDestructable.r), which handles the object to **automatically be destructed after the `main`** (see
