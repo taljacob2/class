@@ -25,7 +25,7 @@ Thus, every class you create, is polymorphed with [`Object`](src/lib//oop/Object
 ### Dynamic Allocation
 
 When you use [`Object`](src/lib//oop/Object/Object.r)s, you do not need to worry
-again about dynamic allocation (eg. malloc, calloc...).
+again about dynamic allocation (e.g. `malloc`, `calloc`...).
 
 [`Object`](src/lib//oop/Object/Object.r)s allocate themselves (with `calloc`) in
 their constructor, and **automatically destruct themselves** (with `free`) after
