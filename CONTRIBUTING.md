@@ -35,6 +35,10 @@ It allows us to check for memory leaks
 watch the ["Build & Test" GitHub Action](https://github.com/taljacob2/oop/actions/workflows/build.yml) and verify that the "Run With Valgrind" step is finishing successfully without any memory leaks. The ["Build & Test" GitHub Action](https://github.com/taljacob2/oop/actions/workflows/build.yml)
 is triggered on every commit push. So feel free to test your code for memory leaks.**
 
+For example:
+
+![image](https://user-images.githubusercontent.com/70590583/215257406-ce0645ce-5f09-4ef2-aed3-a2eb5f8d5edd.png)
+
 ## Build & Run
 
 ## Build `oop.a` (When Developing `oop.a`)
