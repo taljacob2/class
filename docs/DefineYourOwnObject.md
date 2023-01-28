@@ -1,4 +1,4 @@
-# Define You Own Object
+# Define Your Own Object
 
 Use the [Object](src/lib/oop/Object/Object.r) object to implement your own objects.
 
