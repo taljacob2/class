@@ -1,6 +1,6 @@
 # Define Your Own Object
 
-Use the [Object](src/lib/oop/Object/Object.r) object to implement your own objects.
+Use the [Object](../src/lib/oop/Object/Object.r) object to implement your own objects.
 
 To do so, you need to create 2 files.
 - One with `.h` extension.
