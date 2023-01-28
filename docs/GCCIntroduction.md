@@ -1,102 +1,69 @@
-## Introduction
+# Introduction - Compiling With GNU's GCC
 
-### Import `oop` To Your Program
+## Import `oop` To Your Program
 
 In your project's root path, create an empty file named `main.c`.
 
-Once you have downloaded the latest release of `oop`,
+Once you have downloaded the latest release of `oop-gcc.tar.gz`,
 
 Extract the archive, and place the `oop` directory at your project's root path.
 ```
 .
 ├── main.c
 └── oop
+    ├── AnonymousObject
+    │   ├── AnonymousObject.h
+    │   ├── AnonymousObject.r
+    │   └── BitDefines.r
     ├── Atomic
-    │   ├── Atomic.h
-    │   ├── AtomicInteger.h
+    │   ├── Atomic.h
+    │   ├── AtomicDoubleRValue.h
+    │   ├── AtomicInteger.h
+    │   ├── AtomicIntegerRValue.h
+    │   ├── AtomicLValue.h
+    │   ├── Func.h
+    │   ├── LValueDefines.h
+    │   ├── RValueDefines.h
+    │   └── Random.r
     ├── Object
-    │   ├── AnonymousPointer.h
-    │   ├── AutoDestructable.r
-    │   ├── Bool.h
-    │   ├── Concat.h
-    │   ├── Destructable.r
-    │   ├── InvocationStatus.r
-    │   ├── Legacy_AllocationTable.r
-    │   ├── Legacy_AllocationTableList.r
-    │   ├── Legacy_AtomicFreer.r
-    │   ├── Legacy_List.r
-    │   ├── Legacy_MemberList.r
-    │   ├── Legacy_Node.r
-    │   ├── Legacy_Object.r
-    │   ├── Legacy_ObjectComponent.r
-    │   ├── Legacy_StringObjectContainerEntry.r
-    │   ├── MemberList.r
-    │   ├── Object.a
-    │   ├── Object.h
-    │   ├── Object.r
-    │   ├── ObjectDefines.r
-    │   ├── Quote.h
+    │   ├── AnonymousPointer.r
+    │   ├── AutoDestructable.r
+    │   ├── Bool.h
+    │   ├── Concat.h
+    │   ├── Destructable.r
+    │   ├── InvocationStatus.r
+    │   ├── Legacy_AllocationTable.r
+    │   ├── Legacy_AllocationTableList.r
+    │   ├── Legacy_AtomicFreer.r
+    │   ├── Legacy_List.r
+    │   ├── Legacy_MemberList.r
+    │   ├── Legacy_Node.r
+    │   ├── Legacy_Object.r
+    │   ├── Legacy_ObjectComponent.r
+    │   ├── Legacy_StringObjectContainerEntry.r
+    │   ├── Object.h
+    │   ├── Object.r
+    │   ├── ObjectDefines.r
+    │   └── Quote.h    
+    ├── oop.h
     ├── oop.a
-    └── oop.h
+    └── oop32.a
 ```
 
-### Define Your Own New Object
+## Define Your Own New Object
 
-Use the [Object](src/lib/oop/Object/Object.r) object to implement your own objects.
+See [Define Your Own Object](DefineYourOwnObject.md)
 
-To do so, you need to create 2 files.
-- One with `.h` extension.
-- One with `.c` extension.
-
-Use the following template to implement your object.
-For example, you wish to define a new object with the "class name" of `Circle`:
-
-- Create a new file named `Circle.h` with the following content:
-  ```c
-  #ifndef CIRCLE_H
-  #define CIRCLE_H
-
-  #include "oop/oop.h"
-
-  DEFINE_CLASS_H(Circle)
-
-  #endif /* CIRCLE_H */
-  ```
-
-- Create a new file named `Circle.c` with the following content:
-  ```c
-  #include "Circle.h"
-
-  DEFINE_CLASS_C(Circle)
-  ``` 
- 
-### Use Your Newly Defined Object
-
-### Create Your Program
-
-- Create a file named `main.c`.
-
-- Use `Circle` in `main.c`.
-  ```c
-  #include "oop/oop.h"
-
-  int main() {
-      Circle *circle = CircleConstructor();
-
-      /* `circle` is automatically freed */
-
-      return 0;
-  }
-  ```
-
-#### Build & Execute
+## Build & Execute
 
 - Build your program with `gcc`:
+
   ```
   gcc main.c Circle.c -L. oop/oop.a
   ```
 
 - Run the program:
+
   ```
   ./a.out
   ```
