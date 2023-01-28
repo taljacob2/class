@@ -12,24 +12,23 @@
 - For GNU's GCC see [GCC Introducion](docs/GCCIntroduction.md)
 - For Microsoft's MSVC see [MSVC Introducion](docs/MSVCIntroduction.md)
 
+### Polymorphism
+
+When creating a new class with the `DEFINE_CLASS_H` macro keyword, you actually polymorph the new class with the [`Object`](src/lib//oop/Object/Object.r) class.
+
+Thus, every class you create, is polymorphed with [`Object`](src/lib//oop/Object/Object.r).
+
 > ##### NOTE 1 FOR DEVELOPERS ONLY
-> Every object is polymorphed with [Legacy_Object](src/lib/oop/Object/Legacy_Object.r)
-  (it is the most polymorhpic object).
+> Every object is polymorphed with [`Legacy_Object`](src/lib/oop/Object/Legacy_Object.r)
+  (it is the **most polymorhpic object in the library**).
 
 ### Dynamic Allocation
 
 Do not worry again about dynamic allocation (eg. malloc, calloc...).
 
 > ##### NOTE 2 FOR DEVELOPERS ONLY
-> As said in [NOTE 1 FOR DEVELOPERS ONLY](#NOTE-1-FOR-DEVELOPERS-ONLY),
-> 
-> Because every object that is composed of [AutoDestructable](src/lib/oop/Object/AutoDestructable.r)
-> is being handled automatically to be destructed (see
-> [Legacy_AllocationTableList](/src/lib/oop/Object/Legacy_AllocationTableList.r)).
-> 
-> To do so, make sure you inject an implementation of
-> [Destructable](src/lib/oop/Object/Destructable.r) to your object's
-> [Legacy_ObjectComponent](src/lib/oop/Object/Legacy_ObjectComponent.r).
+> Every [`Object`](src/lib//oop/Object/Object.r) is composed of [`AutoDestructable`](src/lib/oop/Object/AutoDestructable.r), which handles the object to **automatically be destructed after the `main`** (see
+> [`Legacy_AllocationTableList`](/src/lib/oop/Object/Legacy_AllocationTableList.r)).
 
 ## Contributing
 
