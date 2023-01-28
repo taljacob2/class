@@ -1,5 +1,7 @@
 # Developing - Compiling With GNU's GCC
 
+Execute the following commands with *bash*.
+
 ## Build `oop` (Specifically developing the `oop.a` static library)
 
 Build `oop.a` library (which is composed from all its sub-libraries)
