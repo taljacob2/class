@@ -41,6 +41,7 @@ echo Done.
 
 echo Pushing the release to GitHub...
 CALL :PushRelease
+echo Done.
 
 
 del /F shared-config-local-variables.bat >NUL 2>&1
