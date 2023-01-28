@@ -14,7 +14,7 @@ It allows us to check for memory leaks
 
 - **In case you choose to work with GCC**:
 
-  - You may test your code with Valgrind locally.
+  - You probably own a *NIX machine, and thus you may test your code with Valgrind locally.
   
     To do so, please install Valgrind with:
     ```
