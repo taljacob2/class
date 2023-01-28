@@ -102,4 +102,10 @@
     };
 
 
+#define DESTRUCT_OBJECT(objectToDestruct)                    \
+    ((void (*)(Object *)) objectToDestruct->getLValueMember( \
+            (Object *) objectToDestruct, PUBLIC, DESTRUCTOR, \
+            "void *ObjectDestructor(Object *object)"))(      \
+            (Object *) objectToDestruct)
+
 #endif //OBJECTDEFINES_H

@@ -1,128 +1,41 @@
 # OOP For C Language
 
-[oop.a](src/lib/oop/oop.a) is a static library in C, that allows the use of OOP.
+`oop` is a static library, that allows the use of OOP in C language.
 
-## Introduction
+## Download The Latest Release Of `oop` [Here](https://github.com/taljacob2/oop/releases/)
 
-### Import `oop.a` To Your Program
+- For compiling with GNU's GCC, download `oop-gcc.tar.gz`.
+- For compiling with Microsoft's MSVC, download `oop-msvc.zip`.
 
-In your project's path, create an empty file named `main.c`.
+## Usage
 
-#### Download The Latest Release Of `oop.a` [Here](https://github.com/taljacob2/oop/releases/)
+- For GNU's GCC see [GCC Usage](docs/GCCUsage.md).
+- For Microsoft's MSVC see [MSVC Usage](docs/MSVCUsage.md).
 
-Place the "oop" directory in your project's path.
-```
-.
-├── main.c
-└── oop
-    ├── Atomic
-    │   ├── Atomic.h
-    │   ├── AtomicInteger.h
-    ├── Object
-    │   ├── AnonymousPointer.h
-    │   ├── AutoDestructable.r
-    │   ├── Bool.h
-    │   ├── Concat.h
-    │   ├── Destructable.r
-    │   ├── InvocationStatus.r
-    │   ├── Legacy_AllocationTable.r
-    │   ├── Legacy_AllocationTableList.r
-    │   ├── Legacy_AtomicFreer.r
-    │   ├── Legacy_List.r
-    │   ├── Legacy_MemberList.r
-    │   ├── Legacy_Node.r
-    │   ├── Legacy_Object.r
-    │   ├── Legacy_ObjectComponent.r
-    │   ├── Legacy_StringObjectContainerEntry.r
-    │   ├── MemberList.r
-    │   ├── Object.a
-    │   ├── Object.h
-    │   ├── Object.r
-    │   ├── ObjectDefines.r
-    │   ├── Quote.h
-    ├── oop.a
-    └── oop.h
-```
+### Polymorphism
 
-### Define Your Own New Object
+When creating a new class with the `DEFINE_CLASS_H` macro keyword, you actually polymorph the new class with the [`Object`](src/lib//oop/Object/Object.r) class.
 
-Use the [Object](src/lib/oop/Object/Object.r) object to implement your own objects.
-
-To do so, you need to create 2 files.
-- One with `.h` extension.
-- One with `.c` extension.
-
-Use the following template to implement your object.
-For example, you wish to define a new object with the "class name" of `Circle`:
-
-- Create a new file named `Circle.h` with the following content:
-  ```c
-  #ifndef CIRCLE_H
-  #define CIRCLE_H
-
-  #include "oop/oop.h"
-
-  DEFINE_CLASS_H(Circle)
-
-  #endif /* CIRCLE_H */
-  ```
-
-- Create a new file named `Circle.c` with the following content:
-  ```c
-  #include "Circle.h"
-
-  DEFINE_CLASS_C(Circle)
-  ``` 
- 
-### Use Your Newly Defined Object
-
-### Create Your Program
-
-- Create a file named `main.c`.
-
-- Use `Circle` in `main.c`.
-  ```c
-  #include "oop/oop.h"
-
-  int main() {
-      Circle *circle = CircleConstructor();
-
-      /* `circle` is automatically freed */
-
-      return 0;
-  }
-  ```
-
-#### Build & Execute
-
-- Build your program with `gcc`:
-  ```
-  gcc main.c Circle.c -L. oop/oop.a
-  ```
-
-- Run the program:
-  ```
-  ./a.out
-  ```
+Thus, every class you create, is polymorphed with [`Object`](src/lib//oop/Object/Object.r).
 
 > ##### NOTE 1 FOR DEVELOPERS ONLY
-> Every object is polymorphed with [Legacy_Object](src/lib/oop/Object/Legacy_Object.r)
-  (it is the most polymorhpic object).
+> Every object is polymorphed with [`Legacy_Object`](src/lib/oop/Object/Legacy_Object.r)
+  (it is the **most polymorhpic object in the library**).
 
 ### Dynamic Allocation
 
-Do not worry again about dynamic allocation (eg. malloc, calloc...).
+When you use [`Object`](src/lib//oop/Object/Object.r)s, you do not need to worry
+again about dynamic allocation (e.g. `malloc`, `calloc`...).
+
+[`Object`](src/lib//oop/Object/Object.r)s allocate themselves (with `calloc`) in
+their constructor, and **automatically destruct themselves** (with `free`) after
+the `main`.
+
+Although, in case you want to manually invoke the object's destructor (similarly to CPP's `delete` function) you may do so by invoking the `DESTRUCT_OBJECT(objectToDestruct)` macro.
 
 > ##### NOTE 2 FOR DEVELOPERS ONLY
-> As said in [NOTE 1 FOR DEVELOPERS ONLY](#NOTE-1-FOR-DEVELOPERS-ONLY),
-> 
-> Because every object that is composed of [AutoDestructable](src/lib/oop/Object/AutoDestructable.r)
-> is being handled automatically to be destructed (see
-> [Legacy_AllocationTableList](/src/lib/oop/Object/Legacy_AllocationTableList.r)).
-> 
-> To do so, make sure you inject an implementation of
-> [Destructable](src/lib/oop/Object/Destructable.r) to your object's
-> [Legacy_ObjectComponent](src/lib/oop/Object/Legacy_ObjectComponent.r).
+> Every [`Object`](src/lib//oop/Object/Object.r) is composed of [`AutoDestructable`](src/lib/oop/Object/AutoDestructable.r), which handles the object to **automatically be destructed after the `main`** (see
+> [`Legacy_AllocationTableList`](/src/lib/oop/Object/Legacy_AllocationTableList.r)).
 
 ## Contributing
 
