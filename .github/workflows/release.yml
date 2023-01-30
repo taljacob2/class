@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Enable Developer Command Prompt
+        uses: ilammy/msvc-dev-cmd@v1
       - name: Release locally
         run: |
           ./release.bat
