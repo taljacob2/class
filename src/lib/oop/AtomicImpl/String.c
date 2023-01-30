@@ -20,8 +20,10 @@ String *StringConstructor() {
                                      (IntegerRValue) "");
 
     String *instanceAsAtomicImpl = ((String *) instance);
-    instanceAsAtomicImpl->get    = &get_String;
-    instanceAsAtomicImpl->set    = &set_String;
+    instanceAsAtomicImpl =
+            realloc(instanceAsAtomicImpl, sizeof(*instanceAsAtomicImpl));
+    instanceAsAtomicImpl->get = &get_String;
+    instanceAsAtomicImpl->set = &set_String;
 
     return (String *) instance;
 }

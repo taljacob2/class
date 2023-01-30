@@ -136,9 +136,9 @@ int main() {
 
 
     String *string = StringConstructor();
-    printf("%s\n", string->get(string));
-    string->set(string, (IntegerRValue) "hello");
-    printf("%s\n", string->get(string));
+//    printf("%s\n", string->get(string));
+//    string->set(string, (IntegerRValue) "hello");
+//    printf("%s\n", string->get(string));
 
     return 0;
 }
