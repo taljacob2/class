@@ -85,6 +85,43 @@
     void (*toString)(Object * self);
 
 
+#define OBJECT_FIELDS_ALL_FIELDS_PRIVATE \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+                                         \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+                                         \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+                                         \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+                                         \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;          \
+    ANONYMOUS_POINTER_AS_FIELD;
+
+
 #define IMPLEMENTATION "__IMPLEMENTATION__"
 
 #define ____CLASS_STRUCT_NAME_EXTENSION___            ___
@@ -100,6 +137,15 @@
                                                                             \
         OBJECT_FIELDS                                                       \
     };
+
+#define DEFINE_CLASS_H_ALL_FIELDS_PRIVATE(ClassName)                        \
+                                                                            \
+    typedef struct CONCAT_SURROUND(                                         \
+            ClassName, ____CLASS_STRUCT_NAME_EXTENSION___) ClassName;       \
+                                                                            \
+    struct CONCAT_SURROUND(ClassName, ____CLASS_STRUCT_NAME_EXTENSION___) { \
+                                                                            \
+        OBJECT_FIELDS_ALL_FIELDS_PRIVATE
 
 
 #define DESTRUCT_OBJECT(objectToDestruct)                    \

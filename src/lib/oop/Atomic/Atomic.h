@@ -4,4 +4,6 @@
 #include "AtomicInteger.h"
 #include "AtomicDoubleRValue.h"
 
+#include "Impl/String.h"
+
 #endif //ATOMIC_H

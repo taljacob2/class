@@ -5,7 +5,11 @@
 #include "../../Object/Object.h"
 #include "AtomicImplDefines.h"
 
-DEFINE_CLASS_H(String)
+DEFINE_CLASS_H_ALL_FIELDS_PRIVATE(String)
+char *(*get)(String *self);
+BOOLEAN (*set)(String *self, IntegerRValue integerRValueToSet);
+}
+;
 
 String *StringConstructor();
 
