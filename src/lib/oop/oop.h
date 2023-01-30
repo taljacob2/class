@@ -4,10 +4,11 @@
 #include "Atomic/Atomic.h"
 #include "Object/Object.h"
 #include "AnonymousObject/AnonymousObject.h"
+#include "AtomicImpl/AtomicImpl.h"
 
 #ifdef _WIN32
 	#ifdef _WIN64
-		#pragma comment(lib, "oop/oop.lib")		
+		#pragma comment(lib, "oop/oop.lib")
 	#endif
 	#ifdef WIN32
 		#pragma comment(lib, "oop/oop32.lib")
