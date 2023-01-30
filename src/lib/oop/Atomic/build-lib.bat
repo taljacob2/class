@@ -1,4 +1,4 @@
-@echo off
+@REM @echo off
 
 REM IMPORTANT: `SETLOCAL EnableDelayedExpansion` enables the use of variables
 REM            inside "for loops".
