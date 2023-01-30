@@ -21,8 +21,8 @@ REM - Wait for all threads to finish before continuing.
 REM See https://stackoverflow.com/a/33586872/14427765
 REM See https://stackoverflow.com/a/56381920/14427765
 (
-    start /I cmd /c release-msvc.bat
-    start /I wsl -e ./release-gcc.sh
+    start /B /I cmd /c release-msvc.bat
+    start /B /I wsl -e ./release-gcc.sh
 ) | SET /P "="
 
 
