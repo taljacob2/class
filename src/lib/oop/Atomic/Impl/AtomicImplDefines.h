@@ -1,0 +1,6 @@
+#ifndef ATOMICIMPLDEFINES_H
+#define ATOMICIMPLDEFINES_H
+
+#define __ATOMIC_DATA__ "data"
+
+#endif //ATOMICIMPLDEFINES_H
