@@ -5,11 +5,18 @@
 #include "../Object/Object.h"
 #include "AtomicImplDefines.h"
 
-DEFINE_CLASS_H_ALL_FIELDS_PRIVATE(String)
-char *(*get)(String *self);
-BOOLEAN (*set)(String *self, IntegerRValue integerRValueToSet);
-}
-;
+
+// Forward declaration of incomplete type
+typedef struct string String;
+
+struct string {
+
+    /// Implements `Object` anonymously.
+    ANONYMOUS_POINTER_AS_FIELD;
+
+    char *(*get)(String *self);
+    BOOLEAN (*set)(String *self, IntegerRValue integerRValueToSet);
+};
 
 String *StringConstructor();
 
