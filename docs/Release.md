@@ -3,7 +3,7 @@
 This doc tells how to create a new release, and push it to GitHub Releases
 at https://api.github.com/repos/taljacob2/oop/releases
 
-## Building The Release Assets Locally (Probably there should be no reason for you to use this)
+## Build The Release Assets Locally (Probably there should be no reason for you to use this)
 
 Builds the final static library and its header files to the `release` directory, and archives them (i.e. `.zip`, `.tar.gz`).
 
@@ -26,7 +26,7 @@ only build the MSVC release, by opening CMD and running:
   ./release-gcc.sh
   ```
 
-## Uploading A Release With Assets To GitHub
+## Upload A Release With Assets To GitHub
 
 Uploads a Release to GitHub, and attaches the assets in the `release` directory to it.
 
