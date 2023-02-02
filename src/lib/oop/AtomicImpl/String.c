@@ -12,20 +12,9 @@ static BOOLEAN set_String(String *self, IntegerRValue integerRValueToSet) {
                                           __ATOMIC_DATA__, integerRValueToSet);
 }
 
-static void *StringDestructor(String *self) {
-    free(self);
-    return NULL;
-}
-
-static Object *initObject_String() {
-    Object *object = ObjectConstructor("String");
-
+static Object *initObject_String(Object *object) {
     object->addIntegerRValueMember(object, PRIVATE, FIELD, __ATOMIC_DATA__,
                                    (IntegerRValue) "");
-
-    object->addLValueMember(object, PUBLIC, DESTRUCTOR,
-                            "void *StringDestructor(String *self)",
-                            (LValue) &StringDestructor, FALSE);
 
     return object;
 }
@@ -35,8 +24,9 @@ String *StringConstructor() {
     if (instance == NULL) { /* error handling here */
     }
 
-    // Assign `Object` to its anonymous field.
-    setObject_ObjectContainer(instance, initObject_String());
+    initObjectContainer((ObjectContainer *) instance, "String");
+
+    initObject_String(getObject_ObjectContainer(instance));
 
     // Assign values at the additional block.
     instance->get = &get_String;

@@ -11,7 +11,13 @@ typedef struct string String;
 
 struct string {
 
-    /// Implements `Object` anonymously.
+    /// Implements `Legacy_ObjectComponent` privately.
+    ANONYMOUS_POINTER_AS_FIELD;
+
+    /// Implements `AutoDestructable` privately.
+    ANONYMOUS_POINTER_AS_FIELD;
+
+    /// Implements `Object` privately.
     ANONYMOUS_POINTER_AS_FIELD;
 
     char *(*get)(String *self);
