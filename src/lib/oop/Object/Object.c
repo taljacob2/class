@@ -1336,7 +1336,7 @@ void invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(
                 void *(*destructor)(Object *) =
                         (void *(*) (Object *) ) getData_AtomicLValue(
                                 atomicLValueThatContainsDestructor);
-                destructor(self);
+                if (destructor != NULL) { destructor(self); }
             }
         }
 
@@ -1358,7 +1358,7 @@ void invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(
             void *(*destructor)(Object *) =
                     (void *(*) (Object *) ) getData_AtomicLValue(
                             atomicLValueThatContainsDestructor);
-            destructor(self);
+            if (destructor != NULL) { destructor(self); }
         }
     }
 }
