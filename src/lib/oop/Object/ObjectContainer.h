@@ -31,6 +31,6 @@ void              setObject_ObjectContainer(void *self, Object *object);
 
 /* --------------------------------- */
 
-void initObjectContainer(ObjectContainer *self, char *className);
+void ObjectContainerConstructor(ObjectContainer *self, char *className);
 
 #endif //OBJECTCONTAINER_H

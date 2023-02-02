@@ -24,7 +24,7 @@ String *StringConstructor() {
     if (instance == NULL) { /* error handling here */
     }
 
-    initObjectContainer((ObjectContainer *) instance, "String");
+    ObjectContainerConstructor((ObjectContainer *) instance, "String");
 
     initObject_String(getObject_ObjectContainer(instance));
 
