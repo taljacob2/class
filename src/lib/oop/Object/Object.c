@@ -52,8 +52,8 @@ Legacy_MemberList *getFieldsMemberList(Object *object) {
 }
 
 // "private" function.
-Legacy_MemberList *getAutoDestructable(Object *object) {
-    return (Legacy_MemberList *) getAnonymousPointerValueByIndex(object, 7);
+AutoDestructable *getAutoDestructable(Object *object) {
+    return (AutoDestructable *) getAnonymousPointerValueByIndex(object, 7);
 }
 
 // "private" function.
@@ -763,8 +763,8 @@ void addLValueMember(Object *                  self,
     if (memberType == DESTRUCTOR) {
 
         // Abort `AutoDestructable` by destructing it.
-        AutoDestructableDestructor((AutoDestructable *) getAutoDestructable(
-                (Object *) atomicLValue));
+        AutoDestructableDestructor(
+                getAutoDestructable((Object *) atomicLValue));
         setAutoDestructable((Object *) atomicLValue, NULL);
     }
 
@@ -1284,8 +1284,7 @@ void destructObjectSelf(Object *object) {
     functionToInvoke(object, getObjectThatContainsThisObjectAsAMember(object));
 
     // Destruct `autoDestructable`.
-    AutoDestructableDestructor(
-            (AutoDestructable *) getAutoDestructable(object));
+    AutoDestructableDestructor(getAutoDestructable(object));
 
     // Destruct `legacyObjectComponent`.
     free(getLegacyObjectComponent(object));
