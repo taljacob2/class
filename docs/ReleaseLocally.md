@@ -3,9 +3,16 @@
 There probably should be no reason for you to execute `release.bat` manually by yourself,
 but this is how it works: 
 
-## Build The Release Assets Locally
+1. Builds the final static libraries (i.e. `oop.a`, `oop.lib`), and places them at the `release` directory.
+2. Copies the header files (i.e. `.r`, `.h`), and places them at the `release` directory.
+3. Creates archives (i.e. `.tar.gz`, `.zip`) for `gcc` and `msvc` compilers, that contain the static library and its header files (from steps 1 and 2), and places them at the `release` directory.
 
-Builds the final static library and its header files to the `release` directory, and archives them (i.e. `.zip`, `.tar.gz`).
+Screenshot example, after executing `release.bat`:
+
+![image](https://user-images.githubusercontent.com/70590583/216243905-9afd8c5b-1e28-428b-bf3c-12854dd24fa4.png)
+
+
+## Build The Release Assets Locally
 
 - ### **(THE RECOMMENDED WAY):** Build MSVC And GCC At Once
 
