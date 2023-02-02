@@ -36,3 +36,8 @@ only build the MSVC release**, by opening CMD and running:
   ```
   ./release-gcc.sh
   ```
+
+---
+
+The `release` directory is ignored by `.gitignore`.
+So after you create it, feel free to delete it if you want to.
