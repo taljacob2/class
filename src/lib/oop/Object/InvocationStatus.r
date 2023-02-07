@@ -3,4 +3,4 @@
 
 enum InvocationStatus { WAS_NOT_INVOKED, WAS_INVOKED_ONCE };
 
-#endif //INVOCATIONSTATUS_H
+#endif /* INVOCATIONSTATUS_H */

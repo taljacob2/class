@@ -5,7 +5,7 @@
 #include "Atomic.h"
 
 //TODO:
-//// Forward declaration of incomplete type
+///* Forward declaration of incomplete type */
 //typedef struct atomicInteger AtomicInteger;
 //
 //struct atomicInteger {
@@ -18,4 +18,4 @@
 //AtomicInteger *AtomicIntegerConstructor();
 
 
-#endif //ATOMICINTEGER_H
+#endif /* ATOMICINTEGER_H */

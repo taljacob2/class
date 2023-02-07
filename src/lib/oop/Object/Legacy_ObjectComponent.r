@@ -5,7 +5,7 @@
 #include "InvocationStatus.r"
 #include <stdlib.h>
 
-// Forward declaration of incomplete type
+/* Forward declaration of incomplete type */
 typedef struct legacy_ObjectComponent Legacy_ObjectComponent;
 
 struct legacy_ObjectComponent {
@@ -19,4 +19,4 @@ struct legacy_ObjectComponent {
 Legacy_ObjectComponent *
 Legacy_ObjectComponentConstructorClassName(const char *className);
 
-#endif //LEGACY_OBJECTCOMPONENT_H
+#endif /* LEGACY_OBJECTCOMPONENT_H */

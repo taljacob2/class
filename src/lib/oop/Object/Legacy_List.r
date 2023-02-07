@@ -7,12 +7,12 @@
 #include <limits.h>
 #include <stdlib.h>
 
-// Forward declaration of incomplete type
+/* Forward declaration of incomplete type */
 typedef struct legacy_list Legacy_List;
 
 struct legacy_list {
 
-    /// `Legacy_List` implements `Legacy_ObjectComponent`.
+    /** `Legacy_List` implements `Legacy_ObjectComponent`. */
     Legacy_ObjectComponent *legacyObjectComponent;
 
     Legacy_Node *head;
@@ -48,4 +48,4 @@ struct legacy_list {
 
 Legacy_List *Legacy_ListConstructor();
 
-#endif //CLASS_LEGACY_LIST_R
+#endif /* CLASS_LEGACY_LIST_R */

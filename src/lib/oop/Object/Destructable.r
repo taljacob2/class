@@ -1,9 +1,9 @@
 #ifndef DESTRUCTABLE_H
 #define DESTRUCTABLE_H
 
-/// Interface.
+/** Interface. */
 typedef struct {
     void *(*const destructor)(void *self);
 } Destructable;
 
-#endif //DESTRUCTABLE_H
+#endif /* DESTRUCTABLE_H */

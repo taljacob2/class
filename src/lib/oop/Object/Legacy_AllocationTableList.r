@@ -10,12 +10,12 @@
 
 #define __GENERIC_ALLOCATION_TABLE_NAME__ "__GENERIC_ALLOCATION_TABLE_NAME__"
 
-// Forward declaration of incomplete type
+/* Forward declaration of incomplete type */
 typedef struct legacy_allocationTableList Legacy_AllocationTableList;
 
 struct legacy_allocationTableList {
 
-    /// `Legacy_AllocationTableList` implements `Legacy_ObjectComponent`.
+    /** `Legacy_AllocationTableList` implements `Legacy_ObjectComponent`. */
     Legacy_ObjectComponent *object;
 
     Legacy_List *allocationTableList;
@@ -41,4 +41,4 @@ Legacy_AllocationTable *getGenericLegacy_AllocationTable();
 
 Legacy_AllocationTableList *Legacy_AllocationTableListConstructor();
 
-#endif //ALLOCATIONTABLELIST_H
+#endif /* ALLOCATIONTABLELIST_H */

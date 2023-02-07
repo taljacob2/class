@@ -4,7 +4,7 @@
 #include "../lib/oop/Object/Object.h"
 
 
-// Forward declaration of incomplete type
+/* Forward declaration of incomplete type */
 typedef struct circlev3 CircleV3;
 
 struct circlev3 {

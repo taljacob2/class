@@ -6,12 +6,12 @@
 #include "Legacy_StringObjectContainerEntry.r"
 
 
-// Forward declaration of incomplete type
+/* Forward declaration of incomplete type */
 typedef struct legacy_memberList Legacy_MemberList;
 
 struct legacy_memberList {
 
-    /// `Legacy_MemberList` implements `Legacy_ObjectComponent`.
+    /** `Legacy_MemberList` implements `Legacy_ObjectComponent`. */
     Legacy_ObjectComponent *legacyObjectComponent;
 
     Legacy_List *memberEntryList;
@@ -38,4 +38,4 @@ struct legacy_memberList {
 
 Legacy_MemberList *Legacy_MemberListConstructor();
 
-#endif //LEGACY_MEMBERLIST_H
+#endif /* LEGACY_MEMBERLIST_H */
