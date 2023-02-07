@@ -43,11 +43,19 @@ REM       usual `%var%`.
 REM See https://stackoverflow.com/a/13805466/14427765
 SETLOCAL EnableDelayedExpansion
 
+CALL :SetRemainingArgs %*
+
+for %%i in (%args%) do (
+  set /a i+=1
+  set element[!i!]=%%i
+  echo !element[%%i]!
+)
+
 SET OUTPUT_LIB_FILE_NAME_PURE_CONST=oop
 SET OUTPUT_LIB_FILE_NAME_64_BIT_CONST=%OUTPUT_LIB_FILE_NAME_PURE_CONST%
 SET OUTPUT_LIB_FILE_NAME_32_BIT_CONST=%OUTPUT_LIB_FILE_NAME_PURE_CONST%32
 
-CALL :GetParametersRaw %*
+CALL :GetParametersRaw %args%
 
 if "%BITS%"=="64" (
     SET vcvars=%vcvars64%
@@ -72,7 +80,7 @@ SET OUTPUT_LIB_PATH=%LIB_PATH%\oop
 
 REM -------------------------------- Code End ----------------------------------
 
-CALL %*
+CALL %args%
 
 CALL :SetLocalVariablesAsGlobal
 
@@ -88,15 +96,15 @@ REM ------------------------------- Functions ----------------------------------
     REM See All compiler warnings https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warnings-c4800-through-c4999?view=msvc-170
     REM See https://github.com/taljacob2/oop/issues/65
 
-    cl %clOptions% /D "_CRT_SECURE_NO_WARNINGS" %~1
+    cl %clOptions% /D "_CRT_SECURE_NO_WARNINGS" %args%~1
 GOTO :EOF
 
 :RunLib
-    lib /LTCG /NOLOGO %~1
+    lib /LTCG /NOLOGO %args%~1
 GOTO :EOF
 
 :RunLink
-    link %~1
+    link %args%~1
 GOTO :EOF
 
 :SetLocalVariablesAsGlobal
@@ -132,6 +140,21 @@ GOTO :EOF
     )
 GOTO :EOF
 
+:SetRemainingArgs
+    REM See https://superuser.com/a/743547
+    REM See https://stackoverflow.com/a/9363989/14427765
+
+    set "args="
+    :parse
+    if "%~1" neq "" (
+        set args=%args% %1
+        shift
+        goto :parse
+    )
+    if defined args set args=%args:~1%
+
+GOTO :EOF
+
 :GetParametersRaw
 
     REM Default is 64 bit. Thus, set `BITS` value to `64` by default.
@@ -145,6 +168,11 @@ GOTO :EOF
             REM A literal text. May be `32` or `64`.
             SET BITS=32
             SET OUTPUT_LIB_FILE_NAME=%OUTPUT_LIB_FILE_NAME_32_BIT_CONST%
+            SHIFT
+        )
+        IF "%1"=="64" (
+
+            REM Optional. Defaults to `64`.
             SHIFT
         )
 
