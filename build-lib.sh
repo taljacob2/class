@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source ./config.sh
+source ./config.sh $1
 
 cd "$OUTPUT_LIB_PATH"
-./build-lib.sh
+./build-lib.sh $1
 cd "$ROOT_PATH"
