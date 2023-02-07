@@ -13,13 +13,13 @@ OUTPUT_LIB_FILE_NAME_32_BIT_CONST=oop32
 GCC_OPTIONS_64_BIT_CONST="-m64"
 GCC_OPTIONS_32_BIT_CONST="-m32"
 
-# Default is 64 bit. Thus, set `$IS_64_BIT` value to `true` by default.
-IS_64_BIT=${1:-true}
+# Default is 64 bit. Thus, set `$BITS` value to `64` by default.
+BITS=${1:-64}
 
 OUTPUT_LIB_FILE_NAME="$OUTPUT_LIB_FILE_NAME_64_BIT_CONST"
 GCC_OPTIONS="$GCC_OPTIONS_64_BIT_CONST"
 
-if [ "$IS_64_BIT" == false ]; then
+if [ "$BITS" == 32 ]; then
 
   OUTPUT_LIB_FILE_NAME="$OUTPUT_LIB_FILE_NAME_32_BIT_CONST"
   GCC_OPTIONS="$GCC_OPTIONS_32_BIT_CONST"
