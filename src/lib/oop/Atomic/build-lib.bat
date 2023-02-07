@@ -10,7 +10,7 @@ SETLOCAL EnableDelayedExpansion
 REM --------------------------------- Imports ----------------------------------
 
 REM IMPORT
-SET CONFIG=../../../../config.bat
+SET CONFIG=../../../../config.bat %1
 CALL %CONFIG%
 CALL shared-config-local-variables.bat
 
