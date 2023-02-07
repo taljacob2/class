@@ -21,13 +21,31 @@ program with or without Valgrind.
 
 Execute the following commands with *bash*.
 
-### Build `oop` (Specifically developing the `oop.a` static library)
+### Build `oop` for 64 bit (Specifically developing the `oop.a` static library)
 
 Build `oop.a` library (which is composed from all its sub-libraries)
 by executing the following script:
 ```
 ./build-lib.sh
 ```
+
+> ### Build `oop` for 32 bit (Specifically developing the `oop32.a` static library)
+> 
+> Build `oop32.a` library (which is composed from all its sub-libraries)
+> by executing the following script:
+> ```
+> ./build-lib.sh 32
+> ```
+>
+> #### IMPORTANT:
+>
+> In case you own a 64 bit host machine, and you want to execute this command,
+> you **MUST** install an additional prerequisite:
+> ```
+> sudo apt-get install build-essential libc6-dev-i386
+> ```
+> See https://github.com/taljacob2/oop/issues/72#issuecomment-1420434722 for
+> more details.
 
 ### Build & Run `main`
 
