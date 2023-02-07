@@ -4,7 +4,7 @@ REM ---------------------------------- Code ------------------------------------
 
 REM       ------------ Visual Studio Environment Variables ------------
 
-REM               --------- START: Edit to you liking ---------
+REM               --------- START: Edit to your liking ---------
 
 REM SET PATH_TO_VISUAL_STUDIO=C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE
 SET PATH_TO_VISUAL_STUDIO=D:\Tal\Visual Studio - Community 2019\IDE - Installation\Common7\IDE
@@ -15,7 +15,7 @@ SET IS_USER_MACHINE_64_BIT=.
 REM Comment out the following line, to set it to RELEASE Mode. Else, DEBUG Mode Will be set.
 REM SET IS_DEBUG_MODE=.
 
-REM               --------- END: Edit to you liking ---------
+REM               --------- END: Edit to your liking ---------
 
 SET vcvars64=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars64.bat
 SET vcvars32=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars32.bat

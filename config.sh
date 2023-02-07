@@ -34,9 +34,9 @@ GCC_DIRECTORY=release/gcc
 GCC_RELEASE_NAME="$OUTPUT_LIB_FILE_NAME-gcc.tar.gz"
 GCC_RELEASE_PATH="$GCC_DIRECTORY"/"$GCC_RELEASE_NAME"
 
-# --------- START: Edit to you liking ---------
+# --------- START: Edit to your liking ---------
 
 RUN_WITH_VALGRIND=true
 VALGRIND_OPTIONS="--leak-check=full --show-leak-kinds=all"
 
-# --------- END: Edit to you liking -----------
+# --------- END: Edit to your liking -----------

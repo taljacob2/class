@@ -4,8 +4,8 @@
 
 This file bundles variables that are used by other `.sh` files.
 
-Between the `--------- START: Edit to you liking ---------` and 
-`--------- END: Edit to you liking -----------` comments, you are
+Between the `--------- START: Edit to your liking ---------` and 
+`--------- END: Edit to your liking -----------` comments, you are
 allowed to change the values of the variables to you liking.
 
 For example:
