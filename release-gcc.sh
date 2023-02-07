@@ -14,7 +14,8 @@ cleanupAndPrepareDirectory() {
 }
 
 copyHeaderFilesAndStaticLibrary() {
-    cp "$OUTPUT_LIB_PATH"/"$OUTPUT_LIB_FILE_NAME.a" "$OOP_DIRECTORY"
+    cp "$OUTPUT_LIB_PATH"/"$OUTPUT_LIB_FILE_NAME_64_BIT_CONST.a" "$OOP_DIRECTORY"
+    cp "$OUTPUT_LIB_PATH"/"$OUTPUT_LIB_FILE_NAME_32_BIT_CONST.a" "$OOP_DIRECTORY"
     cp "$OUTPUT_LIB_PATH"/"$OUTPUT_LIB_FILE_NAME.h" "$OOP_DIRECTORY"
 
     for f in "$OUTPUT_LIB_PATH"/* ; do
@@ -50,6 +51,7 @@ cleanupAndPrepareDirectory
 
 # Build the static library.
 ./build-lib.sh
+./build-lib.sh 32
 
 copyHeaderFilesAndStaticLibrary
 
