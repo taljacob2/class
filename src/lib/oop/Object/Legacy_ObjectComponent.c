@@ -1,6 +1,6 @@
 #include "Legacy_ObjectComponent.r"
 
-// Pre-declare privately.
+/* Pre-declare privately. */
 Legacy_ObjectComponent *Legacy_ObjectComponentConstructor();
 
 /**

@@ -3,11 +3,11 @@
 Legacy_AllocationTableList *getLegacy_AllocationTableList() {
     static Legacy_AllocationTableList *instance = NULL;
 
-    // Do lock here.
+    /* Do lock here. */
     if (instance == NULL) {
         instance = Legacy_AllocationTableListConstructor();
     }
-    // Do unlock.
+    /* Do unlock. */
 
     return instance;
 }
@@ -53,7 +53,7 @@ BOOLEAN predicateFindLegacy_AllocationTableByClassName(
                   allocationTableClassName) == 0;
 }
 
-/// @attention This is **not** generic.
+/** @attention This is **not** generic. */
 void DestructLegacy_AllocationTableListNonGeneric(
         Legacy_List *allocationTableList) {
     if (allocationTableList == NULL) { return; }
@@ -63,12 +63,12 @@ void DestructLegacy_AllocationTableListNonGeneric(
          iterationNode != NULL; iterationNode = iterationNode->next) {
         if (iterationNodePrev != NULL) {
 
-            // Destruct Node and retrieve the data.
+            /* Destruct Node and retrieve the data. */
             Legacy_AllocationTable *prevAllocationTable =
                     iterationNodePrev->legacyObjectComponent->destructable
                             ->destructor(iterationNodePrev);
 
-            // Destruct data.
+            /* Destruct data. */
             prevAllocationTable->legacyObjectComponent->destructable
                     ->destructor(prevAllocationTable);
         }
@@ -76,15 +76,15 @@ void DestructLegacy_AllocationTableListNonGeneric(
         iterationNodePrev = iterationNode;
     }
 
-    // `iterationNodePrev` is `legacy_allocationTableList->tail`.
+    /* `iterationNodePrev` is `legacy_allocationTableList->tail`. */
     if (iterationNodePrev != NULL) {
 
-        // Destruct Node and retrieve the data.
+        /* Destruct Node and retrieve the data. */
         Legacy_AllocationTable *prevAllocationTable =
                 iterationNodePrev->legacyObjectComponent->destructable
                         ->destructor(iterationNodePrev);
 
-        // Destruct data.
+        /* Destruct data. */
         prevAllocationTable->legacyObjectComponent->destructable->destructor(
                 prevAllocationTable);
     }
@@ -94,7 +94,7 @@ void DestructLegacy_AllocationTableListNonGeneric(
     free(allocationTableList);
 }
 
-/// @attention This is **not** generic.
+/** @attention This is **not** generic. */
 void Legacy_AllocationTableListDestructor(
         Legacy_AllocationTableList *allocationTableList) {
     if (allocationTableList == NULL) { return; }
@@ -153,7 +153,7 @@ Legacy_AllocationTableList *Legacy_AllocationTableListConstructor() {
     return instance;
 }
 
-// -----------------------------------------------------------------------------
+/* -------------------------------------------------------------------------- */
 
 /*
  * See more here: https://www.geeksforgeeks.org/functions-that-are-executed-before-and-after-main-in-c/

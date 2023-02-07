@@ -23,7 +23,7 @@ getLegacyObjectMember(Object *                  self,
 void setData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue,
                                 void *primitiveDoubleNumberDataAllocation) {
 
-    // Set `doubleNumber`.
+    /* Set `doubleNumber`. */
     addPrimitivePrivateFieldWhichIsDynamicallyAllocated(
             (Object *) atomicDoubleRValue, __DOUBLE_RVALUE_MEMBER_NAME__,
             primitiveDoubleNumberDataAllocation);
@@ -32,7 +32,7 @@ void setData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue,
 DoubleRValue
 getData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue) {
 
-    // "double" number as DoubleRValue.
+    /* "double" number as DoubleRValue. */
     Legacy_Object *doubleNumberDataContainer =
             getLegacyObjectMember((Object *) atomicDoubleRValue, PRIVATE, FIELD,
                                   __DOUBLE_RVALUE_MEMBER_NAME__);
@@ -45,7 +45,7 @@ getData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue) {
 
 void *AtomicDoubleRValueDestructor(AtomicDoubleRValue *atomicDoubleRValue) {
 
-    // `doubleNumber`.
+    /* `doubleNumber`. */
     Legacy_Object *legacyObjectOfDoubleNumberData =
             getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
                     __DOUBLE_RVALUE_MEMBER_NAME__,
@@ -61,7 +61,7 @@ AtomicDoubleRValue *AtomicDoubleRValueConstructor(DoubleRValue doubleRValue) {
             (AtomicDoubleRValue *) ObjectConstructorWithoutAnyMembers(
                     "AtomicDoubleRValue");
 
-    // Create `doubleNumber`.
+    /* Create `doubleNumber`. */
     DoubleRValue *primitiveDoubleNumberDataAllocation =
             malloc(sizeof(DoubleRValue));
     *primitiveDoubleNumberDataAllocation = doubleRValue;

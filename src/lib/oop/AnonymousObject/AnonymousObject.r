@@ -12,4 +12,4 @@
  */
 Object *AnonymousObjectConstructor();
 
-#endif //ANONYMOUSOBJECT_H
+#endif /* ANONYMOUSOBJECT_H */

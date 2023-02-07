@@ -13,4 +13,4 @@ AtomicDoubleRValue *AtomicDoubleRValueConstructor(DoubleRValue doubleRValue);
 #define __DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__ \
     "__DOUBLE_RVALUE_MANTISSA_NUMBER_MEMBER_NAME__"
 
-#endif //CLASS_ATOMICDOUBLERVALUE_H
+#endif /* CLASS_ATOMICDOUBLERVALUE_H */

@@ -321,7 +321,8 @@ getLegacyObjectMember(Object *                  self,
     Legacy_Object *legacyObject = getAccessModifierMember(
             accessModifierLegacyList, legacyMemberList, (char *) memberName);
 
-    // TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__` locations.
+    /* TODO: DEBUG. Need to print to stderr, with `__LINE__` and `__FILE__`
+                 locations. */
     if (legacyObject == NULL) {
         fprintf(stderr, "The memberName `%s` was not found in the Object.\n",
                 memberName);
@@ -410,7 +411,7 @@ getDoubleRValueMember(Object *                  self,
 /* "private" function. */
 Legacy_Object *getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
-    return NULL; // Does nothing.
+    return NULL; /* Does nothing. */
 }
 
 /* --------------- Methods --------------- */
@@ -537,13 +538,13 @@ void addAccessModifierMemberList(Legacy_List *      accessModifierLegacyList,
                                  char *memberName, Object *memberToAdd) {
     setMemberName(memberToAdd, memberName);
 
-    // Add `memberName` to accessModifierList.
+    /* Add `memberName` to accessModifierList. */
     accessModifierLegacyList->addAsUnique(
             accessModifierLegacyList,
             Legacy_NodeConstructorWithData(memberName),
             predicateFindAccessModifierMemberNameByMemberName, memberName);
 
-    // Add member to MemberList.
+    /* Add member to MemberList. */
     legacyMemberList->addMemberWhichIsLegacy_Object(
             legacyMemberList, memberName, (Legacy_Object *) memberToAdd);
 }
@@ -553,13 +554,13 @@ void addPrimitiveAccessModifierMemberList(Legacy_List *accessModifierLegacyList,
                                           Legacy_MemberList *legacyMemberList,
                                           char *memberName, void *memberToAdd) {
 
-    // Add `memberName` to accessModifierList.
+    /* Add `memberName` to accessModifierList. */
     accessModifierLegacyList->addAsUnique(
             accessModifierLegacyList,
             Legacy_NodeConstructorWithData(memberName),
             predicateFindAccessModifierMemberNameByMemberName, memberName);
 
-    // Add member to MemberList.
+    /* Add member to MemberList. */
     legacyMemberList->addMemberWhichIsPrimitive(legacyMemberList, memberName,
                                                 memberToAdd);
 }
@@ -570,13 +571,13 @@ void addPrimitiveAccessModifierMemberListWhichIsStaticallyAllocated(
         Legacy_MemberList *legacyMemberList, char *memberName,
         void *memberToAdd) {
 
-    // Add `memberName` to accessModifierList.
+    /* Add `memberName` to accessModifierList. */
     accessModifierLegacyList->addAsUnique(
             accessModifierLegacyList,
             Legacy_NodeConstructorWithData(memberName),
             predicateFindAccessModifierMemberNameByMemberName, memberName);
 
-    // Add member to MemberList.
+    /* Add member to MemberList. */
     legacyMemberList->addMemberWhichIsLegacy_Object(
             legacyMemberList, memberName,
             (Legacy_Object *) Legacy_NodeConstructorWithData(memberToAdd));
@@ -762,7 +763,7 @@ void addLValueMember(Object *                  self,
 
     if (memberType == DESTRUCTOR) {
 
-        // Abort `AutoDestructable` by destructing it.
+        /* Abort `AutoDestructable` by destructing it. */
         AutoDestructableDestructor(
                 getAutoDestructable((Object *) atomicLValue));
         setAutoDestructable((Object *) atomicLValue, NULL);
@@ -797,7 +798,7 @@ void setPrimitiveAccessModifierMemberListWhichIsDynamicallyAllocated(
         Legacy_MemberList *legacyMemberList, char *memberName,
         void *memberToSet) {
 
-    // Set member to MemberList.
+    /* Set member to MemberList. */
     legacyMemberList->setMemberWhichIsPrimitive(legacyMemberList, memberName,
                                                 memberToSet);
 }
@@ -807,7 +808,7 @@ void setPrimitiveAccessModifierMemberListWhichIsStaticallyAllocated(
         Legacy_MemberList *legacyMemberList, char *memberName,
         void *memberToSet) {
 
-    // Set member to MemberList.
+    /* Set member to MemberList. */
     legacyMemberList->setMemberWhichIsLegacy_Object(
             legacyMemberList, memberName,
             (Legacy_Object *) Legacy_NodeConstructorWithData(memberToSet));
@@ -1078,7 +1079,7 @@ void toString_ObjectMemberAccessModifierLegacy_ListPRIVATE(
         iterationNodePrev = iterationNode;
     }
 
-    // `iterationNodePrev` is `legacy_list->tail`.
+    /* `iterationNodePrev` is `legacy_list->tail`. */
     if (iterationNodePrev != NULL) {
         if (iterationNodePrev != accessModifierList->head) { putchar('\n'); }
         printf("%s", accessModifierToString);
@@ -1150,7 +1151,7 @@ void toString_ObjectMemberTypeListPRIVATE(Object *           self,
         iterationNodePrev = iterationNode;
     }
 
-    // `iterationNodePrev` is `legacy_list->tail`.
+    /* `iterationNodePrev` is `legacy_list->tail`. */
     if (iterationNodePrev != NULL) {
         if (iterationNodePrev != list->head) { putchar('\n'); }
         Legacy_StringObjectContainerEntry *entry =
@@ -1222,7 +1223,7 @@ void invokeDestructorOfAllNodesAndDoNotDeleteTheNodesFromMemberList(
         iterationNodePrev = iterationNode;
     }
 
-    // `iterationNodePrev` is `legacy_list->head`.
+    /* `iterationNodePrev` is `legacy_list->head`. */
     if (iterationNodePrev != NULL) {
         Legacy_StringObjectContainerEntry *entry = iterationNodePrev->data;
         entry->value->legacyObjectComponent->destructable->destructor(
@@ -1233,11 +1234,11 @@ void invokeDestructorOfAllNodesAndDoNotDeleteTheNodesFromMemberList(
 /* "private" function. */
 void destructMemberList(Legacy_MemberList *legacyMemberList) {
 
-    // Destruct `legacyMemberList` Legacy_Objects.
+    /* Destruct `legacyMemberList` Legacy_Objects. */
     invokeDestructorOfAllNodesAndDoNotDeleteTheNodesFromMemberList(
             legacyMemberList);
 
-    // Destruct `legacyMemberList` supposing it is empty of Nodes.
+    /* Destruct `legacyMemberList` supposing it is empty of Nodes. */
     free(legacyMemberList->memberEntryList->legacyObjectComponent);
     free(legacyMemberList->memberEntryList);
     free(legacyMemberList->legacyObjectComponent);
@@ -1247,7 +1248,7 @@ void destructMemberList(Legacy_MemberList *legacyMemberList) {
 /* "private" function. */
 void destructAccessModifierList(Legacy_List *legacyList) {
 
-    // Destruct `accessModifierLegacy_List` supposing it is empty of Nodes.
+    /* Destruct `accessModifierLegacy_List` supposing it is empty of Nodes. */
     free(legacyList->legacyObjectComponent);
     free(legacyList);
 }
@@ -1256,22 +1257,22 @@ void destructAccessModifierList(Legacy_List *legacyList) {
 void destructObjectMembers(Object *object) {
     if (object == NULL) { return; }
 
-    // Destruct `methodsLegacy_MemberList`.
+    /* Destruct `methodsLegacy_MemberList`. */
     destructMemberList(getMethodsMemberList(object));
 
-    // Destruct `constructorLegacy_MemberList`.
+    /* Destruct `constructorLegacy_MemberList`. */
     destructMemberList(getConstructorMemberList(object));
 
-    // Destruct `destructorLegacy_MemberList`.
+    /* Destruct `destructorLegacy_MemberList`. */
     destructMemberList(getDestructorMemberList(object));
 
-    // Destruct `fieldsLegacy_MemberList`.
+    /* Destruct `fieldsLegacy_MemberList`. */
     destructMemberList(getFieldsMemberList(object));
 
-    // Destruct `privateMemberNameLegacy_List`.
+    /* Destruct `privateMemberNameLegacy_List`. */
     destructAccessModifierList(getPrivateMemberNameLegacy_List(object));
 
-    // Destruct `publicMemberNameLegacy_List`.
+    /* Destruct `publicMemberNameLegacy_List`. */
     destructAccessModifierList(getPublicMemberNameLegacy_List(object));
 }
 
