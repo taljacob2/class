@@ -8,12 +8,31 @@ TEST_PATH="$SRC_PATH"/test
 LIB_PATH="$SRC_PATH"/lib
 OUTPUT_LIB_PATH="$LIB_PATH"/oop
 
-OUTPUT_LIB_FILE_NAME=oop
+OUTPUT_LIB_FILE_NAME_64_BIT_CONST=oop
+OUTPUT_LIB_FILE_NAME_32_BIT_CONST=oop32
+GCC_OPTIONS_64_BIT_CONST="-m64"
+GCC_OPTIONS_32_BIT_CONST="-m32"
+
+# Default is 64 bit. Thus, set `$IS_64_BIT` value to `true` by default.
+IS_64_BIT=${1:-true}
+
+OUTPUT_LIB_FILE_NAME="$OUTPUT_LIB_FILE_NAME_64_BIT_CONST"
+GCC_OPTIONS="$GCC_OPTIONS_64_BIT_CONST"
+
+if [ "$IS_64_BIT" == false ]; then
+
+  OUTPUT_LIB_FILE_NAME="$OUTPUT_LIB_FILE_NAME_32_BIT_CONST"
+  GCC_OPTIONS="$GCC_OPTIONS_32_BIT_CONST"
+
+fi
+
 GCC_DIRECTORY=release/gcc
 GCC_RELEASE_NAME="$OUTPUT_LIB_FILE_NAME-gcc.tar.gz"
 GCC_RELEASE_PATH="$GCC_DIRECTORY"/"$GCC_RELEASE_NAME"
 
-# --------- Edit to you liking: ---------
+# --------- START: Edit to you liking ---------
 
 RUN_WITH_VALGRIND=true
 VALGRIND_OPTIONS="--leak-check=full --show-leak-kinds=all"
+
+# --------- END: Edit to you liking -----------
