@@ -1,9 +1,9 @@
 #!/bin/bash
 
-source ./config.sh
+source ./config.sh "$1"
 
 # Build main program.
-gcc -g -Wall -Wextra -Wpedantic -std=c99 \
+gcc $GCC_OPTIONS -g -Wall -Wextra -Wpedantic -std=c99 \
 "$MAIN_PATH"/main.c \
 "$MAIN_PATH"/Circle.c \
 "$MAIN_PATH"/CircleV2.c \
