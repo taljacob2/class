@@ -33,10 +33,8 @@ for f in *; do
         cd "$f"
         ./build-lib.sh "$1" # Build the static library.
 
-echo "$SUB_LIBRARY_REGEX" # TODO: DEBUG
         # Add paths of all static libraries to the list.
         for staticLibraryName in "$(find *.a $SUB_LIBRARY_REGEX)"; do
-        echo $staticLibraryName # TODO: DEBUG
           if [ -f "$staticLibraryName" ]; then
             staticLibraryList+=("$f/$staticLibraryName")
           fi
