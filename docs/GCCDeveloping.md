@@ -21,7 +21,9 @@ program with or without Valgrind.
 
 Execute the following commands with *bash*.
 
-- ### Build `oop` for 64 bit (Specifically developing the `oop.a` static library)
+### Build `oop`
+
+- #### For 64 bit (Specifically developing the `oop.a` static library)
   
   Build `oop.a` library (which is composed from all its sub-libraries)
   by executing the following script:
@@ -29,14 +31,14 @@ Execute the following commands with *bash*.
   ./build-lib.sh
   ```
 
-- ### Build `oop` for 32 bit (Specifically developing the `oop32.a` static library)
+- #### For 32 bit (Specifically developing the `oop32.a` static library)
   
   Build `oop32.a` library (which is composed from all its sub-libraries)
   by executing the following script:
   ```
   ./build-lib.sh 32
   ```
-  #### IMPORTANT:
+  ##### IMPORTANT:
   In case you own a 64 bit host machine, and you want to execute this command,
   you **MUST** install an additional prerequisite:
   ```
