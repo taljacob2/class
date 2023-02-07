@@ -21,7 +21,7 @@ program with or without Valgrind.
 
 Execute the following commands with *bash*.
 
-### Build `oop`
+### Build `oop` Static Library
 
 - #### For 64 bit (Specifically developing the `oop.a` static library)
   
