@@ -7,4 +7,4 @@ DEFINE_CLASS_H(CircleV7)
 
 CircleV7 *CircleV7Constructor();
 
-#endif //CIRCLEV7_H
+#endif /* CIRCLEV7_H */

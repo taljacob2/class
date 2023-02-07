@@ -3,7 +3,7 @@
 void *CircleDestructor(Circle *circle) {
     AutoDestructableDestructor(circle->autoDestructable);
 
-    // ... Continue destructing `Circle` here ...
+    /* ... Continue destructing `Circle` here ... */
 
     free(circle->legacyObjectComponent);
     free(circle);

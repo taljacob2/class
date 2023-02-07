@@ -1,9 +1,9 @@
 #include "CircleV8.h"
 
-//const char *getName(CircleV8 *self) {
-//    return (const char *) self->getIntegerRValueMember((Object *) self, PUBLIC,
-//                                                       FIELD, "name");
-//}
+/*const char *getName(CircleV8 *self) {
+    return (const char *) self->getIntegerRValueMember((Object *) self, PUBLIC,
+                                                       FIELD, "name");
+}*/
 
 CircleV8 *CircleV8Constructor() {
     Object *instance = ObjectConstructor("CircleV8");

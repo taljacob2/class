@@ -9,10 +9,10 @@ typedef struct circle Circle;
 
 struct circle {
 
-    /// `Circle` implements `Legacy_ObjectComponent`.
+    /** `Circle` implements `Legacy_ObjectComponent`. */
     Legacy_ObjectComponent *legacyObjectComponent;
 
-    /// `Circle` implements `AutoDestructable`.
+    /** `Circle` implements `AutoDestructable`. */
     AutoDestructable *autoDestructable;
 
     int radius;
@@ -20,4 +20,4 @@ struct circle {
 
 Circle *CircleConstructor();
 
-#endif //CIRCLE_H
+#endif /* CIRCLE_H */

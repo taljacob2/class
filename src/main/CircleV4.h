@@ -6,4 +6,4 @@
 
 DEFINE_CLASS_H(CircleV4)
 
-#endif //CIRCLEV4_H
+#endif /* CIRCLEV4_H */

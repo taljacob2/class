@@ -13,4 +13,4 @@ struct circlev3 {
 };
 
 
-#endif //CIRCLEV3_H
+#endif /* CIRCLEV3_H */

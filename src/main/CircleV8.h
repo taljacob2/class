@@ -7,4 +7,4 @@ DEFINE_CLASS_H(CircleV8)
 
 CircleV8 *CircleV8Constructor();
 
-#endif //CIRCLEV8_H
+#endif /* CIRCLEV8_H */
