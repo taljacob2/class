@@ -40,7 +40,7 @@ Execute the following commands with *bash*.
   ```
 
   ##### IMPORTANT:
-  
+
   In case you own a 64 bit host machine, and you want to execute this command,
   you **MUST** install an additional prerequisite, with:
   ```
@@ -51,13 +51,21 @@ Execute the following commands with *bash*.
 
 ### Build & Run `main`
 
-#### Build Your Own Program With Linking `oop.a` To It (Mainly For Testing `oop.a`)
+#### Build Your Own Program With Linking `oop` To It (Mainly For Testing `oop`)
 
-Build your own program ([main.c](../src/main/main.c) for example) while linking the
-`oop.a` library to it.
-```
-./build-main.sh
-```
+- For 64 bit (Specifically developing the `oop.a` static library)
+  Build your own program ([main.c](../src/main/main.c) for example) while linking the
+  `oop.a` library to it.
+  ```
+  ./build-main.sh
+  ```
+
+- For 32 bit (Specifically developing the `oop32.a` static library)
+  Build your own program ([main.c](../src/main/main.c) for example) while linking the
+  `oop32.a` library to it.
+  ```
+  ./build-main.sh 32
+  ```
 
 #### Run [main.c](../src/main/main.c)
 
