@@ -128,11 +128,11 @@ int main() {
     CircleV7 *circleV7 = CircleV7Constructor();
 
     /* Invoke Destructor of CircleV7. */
-    void (*ObjectDestructor)(Object * object) =
+/*    void (*ObjectDestructor)(Object * object) =
             (void (*)(Object *)) circleV7->getLValueMember(
                     (Object *) circleV7, PUBLIC, DESTRUCTOR,
                     "void *ObjectDestructor(Object *object)");
-    ObjectDestructor((Object *) circleV7);
+    ObjectDestructor((Object *) circleV7);*/
 
     /* ---- OR ---- */
 
