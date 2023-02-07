@@ -52,7 +52,7 @@ getMemberStringObjectContainerEntryValueByNameAndDeleteMemberFromList(
     return returnValue;
 }
 
-// "public" function.
+/* "public" function. */
 Legacy_Object *
 getMemberByName_Legacy_MemberList(Legacy_MemberList *legacyMemberList,
                                   char *             memberName) {
@@ -60,14 +60,14 @@ getMemberByName_Legacy_MemberList(Legacy_MemberList *legacyMemberList,
                                                           memberName);
 }
 
-// "public" function.
+/* "public" function. */
 Legacy_Object *getMemberByName_Legacy_MemberListAndDeleteMemberFromList(
         Legacy_MemberList *legacyMemberList, char *memberName) {
     return getMemberStringObjectContainerEntryValueByNameAndDeleteMemberFromList(
             legacyMemberList, memberName);
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_Object *addMember(Legacy_MemberList *legacyMemberList, char *memberName,
                          Legacy_Object *member) {
     Legacy_Node *objectEntryNode = Legacy_NodeConstructorWithData(
@@ -81,7 +81,7 @@ Legacy_Object *addMember(Legacy_MemberList *legacyMemberList, char *memberName,
     return member;
 }
 
-// "public" function.
+/* "public" function. */
 Legacy_Object *
 addMemberWhichIsLegacy_Object(Legacy_MemberList *legacyMemberList,
                               char *             memberName,
@@ -89,7 +89,7 @@ addMemberWhichIsLegacy_Object(Legacy_MemberList *legacyMemberList,
     return addMember(legacyMemberList, memberName, legacyObjectContainer);
 }
 
-// "public" function.
+/* "public" function. */
 Legacy_Object *addMemberWhichIsPrimitive(Legacy_MemberList *legacyMemberList,
                                          char *             memberName,
                                          void *dynamicallyAllocatedPrimitive) {
@@ -99,7 +99,7 @@ Legacy_Object *addMemberWhichIsPrimitive(Legacy_MemberList *legacyMemberList,
                     dynamicallyAllocatedPrimitive));
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_Object *setMember(Legacy_MemberList *legacyMemberList, char *memberName,
                          Legacy_Object *member) {
 

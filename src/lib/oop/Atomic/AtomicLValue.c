@@ -25,7 +25,7 @@ getLegacyObjectMember(Object *                  self,
 
 /* ---------------- ADD ---------------- */
 
-// "private" function.
+/* "private" function. */
 void addDataWhichIsDynamicallyAllocated_AtomicLValue(
         AtomicLValue *atomicLValue, void *dynamicallyAllocatedData) {
     addPrimitivePrivateFieldWhichIsDynamicallyAllocated(
@@ -33,7 +33,7 @@ void addDataWhichIsDynamicallyAllocated_AtomicLValue(
             dynamicallyAllocatedData);
 }
 
-// "private" function.
+/* "private" function. */
 void addDataWhichIsStaticallyAllocated_AtomicLValue(
         AtomicLValue *atomicLValue, void *staticallyAllocatedData) {
     addPrimitivePrivateFieldWhichIsStaticallyAllocated(
@@ -52,7 +52,7 @@ void addData_AtomicLValue(AtomicLValue *atomicLValue, void *data,
 
 /* ---------------- GET ---------------- */
 
-// "protected" function.
+/* "protected" function. */
 void *getData_AtomicLValue(AtomicLValue *atomicLValue) {
     Legacy_Object *dataContainer =
             getLegacyObjectMember((Object *) atomicLValue, PRIVATE, FIELD,

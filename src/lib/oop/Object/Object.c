@@ -15,108 +15,108 @@ getData_AtomicDoubleRValue(AtomicDoubleRValue *atomicDoubleRValue);
 
 /* ---------------------------- GET POINTER VALUE --------------------------- */
 
-// "protected" function.
+/* "protected" function. */
 Legacy_ObjectComponent *getLegacyObjectComponent(Object *object) {
     return (Legacy_ObjectComponent *) getAnonymousPointerValueByIndex(object,
                                                                       0);
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_List *getPrivateMemberNameLegacy_List(Object *object) {
     return (Legacy_List *) getAnonymousPointerValueByIndex(object, 1);
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_List *getPublicMemberNameLegacy_List(Object *object) {
     return (Legacy_List *) getAnonymousPointerValueByIndex(object, 2);
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_MemberList *getMethodsMemberList(Object *object) {
     return (Legacy_MemberList *) getAnonymousPointerValueByIndex(object, 3);
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_MemberList *getConstructorMemberList(Object *object) {
     return (Legacy_MemberList *) getAnonymousPointerValueByIndex(object, 4);
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_MemberList *getDestructorMemberList(Object *object) {
     return (Legacy_MemberList *) getAnonymousPointerValueByIndex(object, 5);
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_MemberList *getFieldsMemberList(Object *object) {
     return (Legacy_MemberList *) getAnonymousPointerValueByIndex(object, 6);
 }
 
-// "private" function.
+/* "private" function. */
 AutoDestructable *getAutoDestructable(Object *object) {
     return (AutoDestructable *) getAnonymousPointerValueByIndex(object, 7);
 }
 
-// "private" function.
+/* "private" function. */
 void *getFunctionToInvokeWhenObjectIsAboutToBeDestructed(Object *object) {
     return (void *) getAnonymousPointerValueByIndex(object, 8);
 }
 
-// "protected" function.
+/* "protected" function. */
 const char *getMemberName(Object *object) {
     return (const char *) getAnonymousPointerValueByIndex(object, 9);
 }
 
-// "private" function.
+/* "private" function. */
 Object *getObjectThatContainsThisObjectAsAMember(Object *object) {
     return (Object *) getAnonymousPointerValueByIndex(object, 10);
 }
 
 /* --------------------------- SET POINTER VALUE ---------------------------- */
 
-// "private" function.
+/* "private" function. */
 void setLegacyObjectComponent(Object *                object,
                               Legacy_ObjectComponent *legacyObjectComponent) {
     setAnonymousPointerValueByIndex(object, 0, legacyObjectComponent);
 }
 
-// "private" function.
+/* "private" function. */
 void setPrivateMemberNameLegacy_List(Object *object, Legacy_List *legacyList) {
     setAnonymousPointerValueByIndex(object, 1, legacyList);
 }
 
-// "private" function.
+/* "private" function. */
 void setPublicMemberNameLegacy_List(Object *object, Legacy_List *legacyList) {
     setAnonymousPointerValueByIndex(object, 2, legacyList);
 }
 
-// "private" function.
+/* "private" function. */
 void setMethodsMemberList(Object *object, Legacy_MemberList *legacyMemberList) {
     setAnonymousPointerValueByIndex(object, 3, legacyMemberList);
 }
 
-// "private" function.
+/* "private" function. */
 void setConstructorMemberList(Object *           object,
                               Legacy_MemberList *legacyMemberList) {
     setAnonymousPointerValueByIndex(object, 4, legacyMemberList);
 }
 
-// "private" function.
+/* "private" function. */
 void setDestructorMemberList(Object *           object,
                              Legacy_MemberList *legacyMemberList) {
     setAnonymousPointerValueByIndex(object, 5, legacyMemberList);
 }
 
-// "private" function.
+/* "private" function. */
 void setFieldsMemberList(Object *object, Legacy_MemberList *legacyMemberList) {
     setAnonymousPointerValueByIndex(object, 6, legacyMemberList);
 }
 
-// "private" function.
+/* "private" function. */
 void setAutoDestructable(Object *object, AutoDestructable *autoDestructable) {
     setAnonymousPointerValueByIndex(object, 7, autoDestructable);
 }
 
-// "private" function.
+/* "private" function. */
 /**
  * @param object Object that is about to be destructed.
  * @param getMemberAndRemoveFromAccessModifierAndMemberList For example
@@ -131,12 +131,12 @@ void setFunctionToInvokeWhenObjectIsAboutToBeDestructed(
             object, 8, getMemberAndRemoveFromAccessModifierAndMemberList);
 }
 
-// "protected" function.
+/* "protected" function. */
 void setMemberName(Object *object, const char *memberName) {
     setAnonymousPointerValueByIndex(object, 9, (void *) memberName);
 }
 
-// "private" function.
+/* "private" function. */
 void setObjectThatContainsThisObjectAsAMember(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
     setAnonymousPointerValueByIndex(object, 10,
@@ -145,21 +145,21 @@ void setObjectThatContainsThisObjectAsAMember(
 
 /* ------------------ */
 
-//// TODO: figure out how to return a function type
+/*//// TODO: figure out how to return a function type
 ////  READ MORE HERE:
 ////  https://www.geeksforgeeks.org/returning-a-function-pointer-from-a-function-in-c-cpp/
 //
-//// "private" function.
+///* "private" function. */
 //Legacy_Object *(*getPrivateMethod_FUNCTION)(Object *object,
 //                                            char *memberName)(Object *object) {
 //    return (Legacy_Object *
 //            (*) (Object * object, char *memberName)(Object * object))
 //            getAnonymousPointerByIndex(object, 7);
-//}
+//}*/
 
 /* ----------------------------- GET MEMBER --------------------------------- */
 
-// "private" function.
+/* "private" function. */
 BOOLEAN predicateFindAccessModifierMemberNameByMemberName(
         const Legacy_Node *nodeThatPointsToMemberName,
         const char *const  stringToSearch) {
@@ -167,7 +167,7 @@ BOOLEAN predicateFindAccessModifierMemberNameByMemberName(
                   stringToSearch) == 0;
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_Node *findAccessModifierMemberName(Legacy_List *accessModifierLegacyList,
                                           char *       memberName) {
     return accessModifierLegacyList->findNodeByPredicateOfConstString(
@@ -175,7 +175,7 @@ Legacy_Node *findAccessModifierMemberName(Legacy_List *accessModifierLegacyList,
             predicateFindAccessModifierMemberNameByMemberName, memberName);
 }
 
-// "private" function.
+/* "private" function. */
 BOOLEAN
 isAccessModifierLegacyListContainsMember(Legacy_List *accessModifierLegacyList,
                                          char *       memberName) {
@@ -185,50 +185,50 @@ isAccessModifierLegacyListContainsMember(Legacy_List *accessModifierLegacyList,
                    memberName) != NULL;
 }
 
-// "private" function.
+/* "private" function. */
 void *findAccessModifierMemberNameAndRemoveFromList(
         Legacy_List *accessModifierLegacyList, char *memberName) {
     return accessModifierLegacyList->deleteNodeThatHasTheGivenData(
             accessModifierLegacyList, memberName);
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_Node *findPrivateMemberName(Object *object, char *memberName) {
     return findAccessModifierMemberName(getPrivateMemberNameLegacy_List(object),
                                         memberName);
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_Node *findPublicMemberName(Object *object, char *memberName) {
     return findAccessModifierMemberName(getPublicMemberNameLegacy_List(object),
                                         memberName);
 }
 
-// "private" function.
+/* "private" function. */
 BOOLEAN isPrivateMember(Object *object, char *memberName) {
     return findPrivateMemberName(object, memberName) != NULL;
 }
 
-// "private" function.
+/* "private" function. */
 BOOLEAN isPublicMember(Object *object, char *memberName) {
     return findPublicMemberName(object, memberName) != NULL;
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_Object *
 findMemberInMemberListByMemberName(Legacy_MemberList *legacyMemberList,
                                    char *             memberName) {
     return legacyMemberList->getMemberByName(legacyMemberList, memberName);
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_Object *findMemberInMemberListByMemberNameAndRemoveFromList(
         Legacy_MemberList *legacyMemberList, char *memberName) {
     return legacyMemberList->getMemberByNameAndDeleteMemberFromList(
             legacyMemberList, memberName);
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_Object *getAccessModifierMember(Legacy_List *accessModifierLegacyList,
                                        Legacy_MemberList *legacyMemberList,
                                        char *             memberName) {
@@ -243,7 +243,7 @@ Legacy_Object *getAccessModifierMember(Legacy_List *accessModifierLegacyList,
     return findMemberInMemberListByMemberNameReturnValue;
 }
 
-// "protected" function.
+/* "protected" function. */
 Legacy_Object *
 getAccessModifierMemberAndRemoveFromList(Legacy_List *accessModifierLegacyList,
                                          Legacy_MemberList *legacyMemberList,
@@ -263,7 +263,7 @@ getAccessModifierMemberAndRemoveFromList(Legacy_List *accessModifierLegacyList,
 
 /* ----------------- Generic GET MEMBER ------------------ */
 
-// "private" function.
+/* "private" function. */
 Legacy_List *getAccessModifierLegacyListByAccessModifier(
         Object *self, enum MemberAccessModifier memberAccessModifier) {
     Legacy_List *accessModifierLegacyList = NULL;
@@ -281,7 +281,7 @@ Legacy_List *getAccessModifierLegacyListByAccessModifier(
     return accessModifierLegacyList;
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_MemberList *getLegacyMemberListByMemberType(Object *        self,
                                                    enum MemberType memberType) {
     Legacy_MemberList *legacyMemberList = NULL;
@@ -307,7 +307,7 @@ Legacy_MemberList *getLegacyMemberListByMemberType(Object *        self,
     return legacyMemberList;
 }
 
-// "protected" function.
+/* "protected" function. */
 Legacy_Object *
 getLegacyObjectMember(Object *                  self,
                       enum MemberAccessModifier memberAccessModifier,
@@ -330,7 +330,7 @@ getLegacyObjectMember(Object *                  self,
     return legacyObject;
 }
 
-// "public" function.
+/* "public" function. */
 Object *getObjectMember(Object *                  self,
                         enum MemberAccessModifier memberAccessModifier,
                         enum MemberType memberType, const char *memberName) {
@@ -342,7 +342,7 @@ Object *getObjectMember(Object *                  self,
     return returnValue;
 }
 
-// "public" function.
+/* "public" function. */
 LValue getLValueMember(Object *                  self,
                        enum MemberAccessModifier memberAccessModifier,
                        enum MemberType memberType, const char *memberName) {
@@ -361,8 +361,8 @@ LValue getLValueMember(Object *                  self,
     return (LValue) returnValue;
 }
 
-// TODO: make public.
-// "public" function.
+/* TODO: make public. */
+/* "public" function. */
 IntegerRValue
 getIntegerRValueMember(Object *                  self,
                        enum MemberAccessModifier memberAccessModifier,
@@ -382,8 +382,8 @@ getIntegerRValueMember(Object *                  self,
     return returnValue;
 }
 
-// TODO: make public.
-// "public" function.
+/* TODO: make public. */
+/* "public" function. */
 DoubleRValue
 getDoubleRValueMember(Object *                  self,
                       enum MemberAccessModifier memberAccessModifier,
@@ -407,7 +407,7 @@ getDoubleRValueMember(Object *                  self,
 
 /* --------------- Nothing --------------- */
 
-// "private" function.
+/* "private" function. */
 Legacy_Object *getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
     return NULL; // Does nothing.
@@ -415,7 +415,7 @@ Legacy_Object *getNoMemberAndRemoveFromNoAccessModifierAndNoMemberList(
 
 /* --------------- Methods --------------- */
 
-// "private" function.
+/* "private" function. */
 Legacy_Object *
 getPublicMethodAndRemoveFromPublicAccessModifierAndMethodsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
@@ -427,7 +427,7 @@ getPublicMethodAndRemoveFromPublicAccessModifierAndMethodsMemberList(
             (char *) getMemberName(object));
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_Object *
 getPrivateMethodAndRemoveFromPrivateAccessModifierAndMethodsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
@@ -441,7 +441,7 @@ getPrivateMethodAndRemoveFromPrivateAccessModifierAndMethodsMemberList(
 
 /* ------------- Constructor ------------- */
 
-// "private" function.
+/* "private" function. */
 Legacy_Object *
 getPublicConstructorAndRemoveFromPublicAccessModifierAndConstructorMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
@@ -453,7 +453,7 @@ getPublicConstructorAndRemoveFromPublicAccessModifierAndConstructorMemberList(
             (char *) getMemberName(object));
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_Object *
 getPrivateConstructorAndRemoveFromPrivateAccessModifierAndConstructorMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
@@ -467,7 +467,7 @@ getPrivateConstructorAndRemoveFromPrivateAccessModifierAndConstructorMemberList(
 
 /* ------------- Destructor ------------- */
 
-// "private" function.
+/* "private" function. */
 Legacy_Object *
 getPublicDestructorAndRemoveFromPublicAccessModifierAndDestructorMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
@@ -479,7 +479,7 @@ getPublicDestructorAndRemoveFromPublicAccessModifierAndDestructorMemberList(
             (char *) getMemberName(object));
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_Object *
 getPrivateDestructorAndRemoveFromPrivateAccessModifierAndDestructorMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
@@ -493,7 +493,7 @@ getPrivateDestructorAndRemoveFromPrivateAccessModifierAndDestructorMemberList(
 
 /* --------------- Fields --------------- */
 
-// "private" function.
+/* "private" function. */
 Legacy_Object *
 getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
@@ -505,7 +505,7 @@ getPublicFieldAndRemoveFromPublicAccessModifierAndFieldsMemberList(
             (char *) getMemberName(object));
 }
 
-// "private" function.
+/* "private" function. */
 Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
         Object *object, Object *objectThatContainsThisObjectAsAMember) {
@@ -517,7 +517,7 @@ getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList(
             (char *) getMemberName(object));
 }
 
-// "protected" function.
+/* "protected" function. */
 Legacy_Object *
 getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
         char *memberName, Object *objectThatContainsThisObjectAsAMember) {
@@ -531,7 +531,7 @@ getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberListProtected(
 
 /* ----------------------------- ADD MEMBER --------------------------------- */
 
-// "private" function.
+/* "private" function. */
 void addAccessModifierMemberList(Legacy_List *      accessModifierLegacyList,
                                  Legacy_MemberList *legacyMemberList,
                                  char *memberName, Object *memberToAdd) {
@@ -548,7 +548,7 @@ void addAccessModifierMemberList(Legacy_List *      accessModifierLegacyList,
             legacyMemberList, memberName, (Legacy_Object *) memberToAdd);
 }
 
-// "protected" function.
+/* "protected" function. */
 void addPrimitiveAccessModifierMemberList(Legacy_List *accessModifierLegacyList,
                                           Legacy_MemberList *legacyMemberList,
                                           char *memberName, void *memberToAdd) {
@@ -564,7 +564,7 @@ void addPrimitiveAccessModifierMemberList(Legacy_List *accessModifierLegacyList,
                                                 memberToAdd);
 }
 
-// "protected" function.
+/* "protected" function. */
 void addPrimitiveAccessModifierMemberListWhichIsStaticallyAllocated(
         Legacy_List *      accessModifierLegacyList,
         Legacy_MemberList *legacyMemberList, char *memberName,
@@ -586,7 +586,7 @@ void addPrimitiveAccessModifierMemberListWhichIsStaticallyAllocated(
 
 /* --------------- Methods --------------- */
 
-// "public" function.
+/* "public" function. */
 void addPrivateMethod(Object *self, char *memberName, Object *memberToAdd) {
     setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
@@ -597,7 +597,7 @@ void addPrivateMethod(Object *self, char *memberName, Object *memberToAdd) {
             getPrivateMethodAndRemoveFromPrivateAccessModifierAndMethodsMemberList);
 }
 
-// "public" function.
+/* "public" function. */
 void addPublicMethod(Object *self, char *memberName, Object *memberToAdd) {
     setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
@@ -610,7 +610,7 @@ void addPublicMethod(Object *self, char *memberName, Object *memberToAdd) {
 
 /* ------------- Constructor ------------- */
 
-// "public" function.
+/* "public" function. */
 void addPrivateConstructor(Object *self, char *memberName,
                            Object *memberToAdd) {
     setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
@@ -622,7 +622,7 @@ void addPrivateConstructor(Object *self, char *memberName,
             getPrivateConstructorAndRemoveFromPrivateAccessModifierAndConstructorMemberList);
 }
 
-// "public" function.
+/* "public" function. */
 void addPublicConstructor(Object *self, char *memberName, Object *memberToAdd) {
     setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
@@ -635,7 +635,7 @@ void addPublicConstructor(Object *self, char *memberName, Object *memberToAdd) {
 
 /* ------------- Destructor ------------- */
 
-// "public" function.
+/* "public" function. */
 void addPrivateDestructor(Object *self, char *memberName, Object *memberToAdd) {
     setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
@@ -646,7 +646,7 @@ void addPrivateDestructor(Object *self, char *memberName, Object *memberToAdd) {
             getPrivateDestructorAndRemoveFromPrivateAccessModifierAndDestructorMemberList);
 }
 
-// "public" function.
+/* "public" function. */
 void addPublicDestructor(Object *self, char *memberName, Object *memberToAdd) {
     setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
@@ -659,7 +659,7 @@ void addPublicDestructor(Object *self, char *memberName, Object *memberToAdd) {
 
 /* --------------- Fields --------------- */
 
-// "public" function.
+/* "public" function. */
 void addPrivateField(Object *self, char *memberName, Object *memberToAdd) {
     setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPrivateMemberNameLegacy_List(self),
@@ -670,7 +670,7 @@ void addPrivateField(Object *self, char *memberName, Object *memberToAdd) {
             getPrivateFieldAndRemoveFromPrivateAccessModifierAndFieldsMemberList);
 }
 
-// "protected" function.
+/* "protected" function. */
 void addPrimitivePrivateFieldWhichIsDynamicallyAllocated(
         Object *self, char *memberName, void *dynamicallyAllocatedMemberToAdd) {
     setObjectThatContainsThisObjectAsAMember(self, self);
@@ -679,7 +679,7 @@ void addPrimitivePrivateFieldWhichIsDynamicallyAllocated(
                                          dynamicallyAllocatedMemberToAdd);
 }
 
-// "protected" function.
+/* "protected" function. */
 void addPrimitivePrivateFieldWhichIsStaticallyAllocated(
         Object *self, char *memberName, void *staticallyAllocatedMemberToAdd) {
     setObjectThatContainsThisObjectAsAMember(self, self);
@@ -688,7 +688,7 @@ void addPrimitivePrivateFieldWhichIsStaticallyAllocated(
             memberName, staticallyAllocatedMemberToAdd);
 }
 
-// "public" function.
+/* "public" function. */
 void addPublicField(Object *self, char *memberName, Object *memberToAdd) {
     setObjectThatContainsThisObjectAsAMember(memberToAdd, self);
     addAccessModifierMemberList(getPublicMemberNameLegacy_List(self),
@@ -701,7 +701,7 @@ void addPublicField(Object *self, char *memberName, Object *memberToAdd) {
 
 /* ----------------- Generic ADD MEMBER ------------------ */
 
-// "public" function.
+/* "public" function. */
 void addObjectMember(Object *                  self,
                      enum MemberAccessModifier memberAccessModifier,
                      enum MemberType memberType, const char *memberName,
@@ -752,7 +752,7 @@ void addObjectMember(Object *                  self,
     }
 }
 
-// "public" function.
+/* "public" function. */
 void addLValueMember(Object *                  self,
                      enum MemberAccessModifier memberAccessModifier,
                      enum MemberType memberType, const char *memberName,
@@ -772,7 +772,7 @@ void addLValueMember(Object *                  self,
                     (Object *) atomicLValue);
 }
 
-// "public" function.
+/* "public" function. */
 void addIntegerRValueMember(Object *                  self,
                             enum MemberAccessModifier memberAccessModifier,
                             enum MemberType memberType, const char *memberName,
@@ -781,7 +781,7 @@ void addIntegerRValueMember(Object *                  self,
                     (Object *) AtomicIntegerRValueConstructor(integerRValue));
 }
 
-// "public" function.
+/* "public" function. */
 void addDoubleRValueMember(Object *                  self,
                            enum MemberAccessModifier memberAccessModifier,
                            enum MemberType memberType, const char *memberName,
@@ -792,7 +792,7 @@ void addDoubleRValueMember(Object *                  self,
 
 /* ----------------------------- SET MEMBER --------------------------------- */
 
-// "protected" function.
+/* "protected" function. */
 void setPrimitiveAccessModifierMemberListWhichIsDynamicallyAllocated(
         Legacy_MemberList *legacyMemberList, char *memberName,
         void *memberToSet) {
@@ -802,7 +802,7 @@ void setPrimitiveAccessModifierMemberListWhichIsDynamicallyAllocated(
                                                 memberToSet);
 }
 
-// "protected" function.
+/* "protected" function. */
 void setPrimitiveAccessModifierMemberListWhichIsStaticallyAllocated(
         Legacy_MemberList *legacyMemberList, char *memberName,
         void *memberToSet) {
@@ -813,7 +813,7 @@ void setPrimitiveAccessModifierMemberListWhichIsStaticallyAllocated(
             (Legacy_Object *) Legacy_NodeConstructorWithData(memberToSet));
 }
 
-// "protected" function.
+/* "protected" function. */
 void setPrimitivePrivateFieldWhichIsDynamicallyAllocated(
         Object *self, char *memberName, void *dynamicallyAllocatedMemberToSet) {
     setObjectThatContainsThisObjectAsAMember(self, self);
@@ -822,7 +822,7 @@ void setPrimitivePrivateFieldWhichIsDynamicallyAllocated(
             dynamicallyAllocatedMemberToSet);
 }
 
-// "protected" function.
+/* "protected" function. */
 void setPrimitivePrivateFieldWhichIsStaticallyAllocated(
         Object *self, char *memberName, void *staticallyAllocatedMemberToSet) {
     setObjectThatContainsThisObjectAsAMember(self, self);
@@ -833,7 +833,7 @@ void setPrimitivePrivateFieldWhichIsStaticallyAllocated(
 
 /* ----------------- Generic SET MEMBER ------------------ */
 
-// "private" function.
+/* "private" function. */
 void getAccessModifierAndMemberType(
         Object *object, enum MemberAccessModifier *outMemberAccessModifier,
         enum MemberType *outMemberType) {
@@ -887,7 +887,7 @@ void getAccessModifierAndMemberType(
     }
 }
 
-// "public" function.
+/* "public" function. */
 Object *setSelf(Object *self, Object *value) {
     if (self == NULL) { return NULL; }
 
@@ -897,7 +897,7 @@ Object *setSelf(Object *self, Object *value) {
     return value;
 }
 
-// "public" function.
+/* "public" function. */
 Object *setObjectMember(Object *                  self,
                         enum MemberAccessModifier memberAccessModifier,
                         enum MemberType memberType, const char *memberName,
@@ -916,7 +916,7 @@ Object *setObjectMember(Object *                  self,
     return memberValueToSet;
 }
 
-// "public" function.
+/* "public" function. */
 LValue setLValueMember(Object *                  self,
                        enum MemberAccessModifier memberAccessModifier,
                        enum MemberType memberType, const char *memberName,
@@ -936,7 +936,7 @@ LValue setLValueMember(Object *                  self,
     return lValueDataValueToSet;
 }
 
-// "public" function.
+/* "public" function. */
 BOOLEAN
 setIntegerRValueMember(Object *                  self,
                        enum MemberAccessModifier memberAccessModifier,
@@ -956,7 +956,7 @@ setIntegerRValueMember(Object *                  self,
     return TRUE;
 }
 
-// "public" function.
+/* "public" function. */
 BOOLEAN
 setDoubleRValueMember(Object *                  self,
                       enum MemberAccessModifier memberAccessModifier,
@@ -978,7 +978,8 @@ setDoubleRValueMember(Object *                  self,
 
 /* ---------------------------- Implementation ------------------------------ */
 
-// "public" function. TODO: remove redundant code
+/* "public" function. */
+/* TODO: remove redundant code */
 void addImplementation(
         Object *self, char *memberName,
         Object *(
@@ -994,7 +995,7 @@ void addImplementation(
     free((void *) implementationMemberName);
 }
 
-// "public" function.
+/* "public" function. */
 void addImplementationThatIsConstructedWithLegacy_Object(
         Object *self, char *memberName,
         Object *(
@@ -1010,8 +1011,8 @@ void addImplementationThatIsConstructedWithLegacy_Object(
     free((void *) implementationMemberName);
 }
 
-// "public" function.
-// TODO: change return type to (Object *)
+/* "public" function. */
+/* TODO: change return type to (Object *) */
 Legacy_Object *getImplementation(Object *self, char *memberName) {
     const char *implementationMemberName = concat(IMPLEMENTATION, memberName);
     Legacy_Object *returnValue           = (Legacy_Object *) getObjectMember(
@@ -1049,7 +1050,7 @@ const char *getMemberTypeToString(enum MemberType memberType) {
     }
 }
 
-// "private" function.
+/* "private" function. */
 void toString_ObjectMemberAccessModifierLegacy_ListPRIVATE(
         Legacy_List *             accessModifierList,
         enum MemberAccessModifier memberAccessModifier) {
@@ -1089,7 +1090,7 @@ void toString_ObjectMemberAccessModifierLegacy_ListPRIVATE(
     if (accessModifierList->size > 0) { putchar('\n'); }
 }
 
-// "public" function.
+/* "public" function. */
 BOOLEAN toString_ObjectMemberAccessModifierList(
         Object *self, enum MemberAccessModifier memberAccessModifier) {
     Legacy_List *legacyList = getAccessModifierLegacyListByAccessModifier(
@@ -1101,7 +1102,7 @@ BOOLEAN toString_ObjectMemberAccessModifierList(
     return legacyList == NULL ? FALSE : (BOOLEAN) legacyList->size;
 }
 
-// "private" function.
+/* "private" function. */
 enum MemberAccessModifier getAccessModifierOfMember(Object *self,
                                                     char *  memberName) {
     if (isPrivateMember(self, memberName)) {
@@ -1111,7 +1112,7 @@ enum MemberAccessModifier getAccessModifierOfMember(Object *self,
     }
 }
 
-// "private" function.
+/* "private" function. */
 void toString_ObjectMemberTypeListPRIVATE(Object *           self,
                                           Legacy_MemberList *legacyMemberList,
                                           enum MemberType    memberType) {
@@ -1167,7 +1168,7 @@ void toString_ObjectMemberTypeListPRIVATE(Object *           self,
     if (list->size > 0) { putchar('\n'); }
 }
 
-// "public" function.
+/* "public" function. */
 BOOLEAN toString_ObjectMemberTypeList(Object *        self,
                                       enum MemberType memberType) {
     Legacy_MemberList *legacyMemberList =
@@ -1180,7 +1181,7 @@ BOOLEAN toString_ObjectMemberTypeList(Object *        self,
     return list == NULL ? FALSE : (BOOLEAN) list->size;
 }
 
-// "public" function.
+/* "public" function. */
 void toString_Object(Object *self) {
 
     printf("%s {", getLegacyObjectComponent(self)->CLASS_NAME);
@@ -1202,7 +1203,7 @@ void toString_Object(Object *self) {
 
 /* -------------------------- Destructor Private ---------------------------= */
 
-// "private" function.
+/* "private" function. */
 void invokeDestructorOfAllNodesAndDoNotDeleteTheNodesFromMemberList(
         Legacy_MemberList *legacyMemberList) {
     if (legacyMemberList == NULL) { return; }
@@ -1229,7 +1230,7 @@ void invokeDestructorOfAllNodesAndDoNotDeleteTheNodesFromMemberList(
     }
 }
 
-// "private" function.
+/* "private" function. */
 void destructMemberList(Legacy_MemberList *legacyMemberList) {
 
     // Destruct `legacyMemberList` Legacy_Objects.
@@ -1243,7 +1244,7 @@ void destructMemberList(Legacy_MemberList *legacyMemberList) {
     free(legacyMemberList);
 }
 
-// "private" function.
+/* "private" function. */
 void destructAccessModifierList(Legacy_List *legacyList) {
 
     // Destruct `accessModifierLegacy_List` supposing it is empty of Nodes.
@@ -1251,7 +1252,7 @@ void destructAccessModifierList(Legacy_List *legacyList) {
     free(legacyList);
 }
 
-// "private" function.
+/* "private" function. */
 void destructObjectMembers(Object *object) {
     if (object == NULL) { return; }
 
@@ -1274,7 +1275,7 @@ void destructObjectMembers(Object *object) {
     destructAccessModifierList(getPublicMemberNameLegacy_List(object));
 }
 
-// "private" function.
+/* "private" function. */
 void destructObjectSelf(Object *object) {
     if (object == NULL) { return; }
 
@@ -1294,8 +1295,8 @@ void destructObjectSelf(Object *object) {
 
 /* ----------------------- Constructor & Destructor ------------------------= */
 
-/// TODO: public. TODO: test if we can invoke the `ObjectDestructor` multiple times and
-///     it will be still okay. maybe rename to something secret.
+/* TODO: public. TODO: test if we can invoke the `ObjectDestructor` multiple times and
+                 it will be still okay. maybe rename to something secret. */
 void *ObjectDestructor(Object *object) {
     if (object == NULL) { return NULL; }
 
@@ -1420,7 +1421,7 @@ void init_fields(Object *object) {
     object->toString                    = &toString_Object;
 }
 
-// "protected" function.
+/* "protected" function. */
 Object *ObjectConstructorWithoutAnyMembers(char *className) {
     Object *instance = calloc(1, sizeof *instance);
     if (instance == NULL) { /* error handling here */
@@ -1441,7 +1442,7 @@ Object *ObjectConstructorWithoutAnyMembers(char *className) {
     return instance;
 }
 
-/// TODO: public. maybe rename to something secret.
+/* TODO: public. maybe rename to something secret. */
 /**
  * memory allocating `sizeof(Object)`, then invoking legacy_ObjectComponent's
  * constructor, and MemberList's constructor.
