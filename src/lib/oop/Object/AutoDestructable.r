@@ -10,15 +10,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Forward declaration of incomplete type
+/* Forward declaration of incomplete type */
 typedef struct autoDestructable AutoDestructable;
 
 struct autoDestructable {
 
-    /// `AutoDestructable` implements `Legacy_ObjectComponent`.
+    /** `AutoDestructable` implements `Legacy_ObjectComponent`. */
     Legacy_ObjectComponent *legacyObjectComponent;
 
-    /// Sensitive data. DO NOT TOUCH!
+    /** Sensitive data. DO NOT TOUCH! */
     Legacy_Object *allocatedAddress;
 };
 
@@ -53,4 +53,4 @@ AutoDestructable *AutoDestructableConstructor();
 
 Legacy_Object *AutoDestructableDestructor(AutoDestructable *autoDestructable);
 
-#endif //AUTODESTRUCTABLE_H
+#endif /* AUTODESTRUCTABLE_H */

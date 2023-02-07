@@ -5,4 +5,4 @@
 #define FALSE 0
 typedef char BOOLEAN;
 
-#endif //BOOL_H
+#endif /* BOOL_H */

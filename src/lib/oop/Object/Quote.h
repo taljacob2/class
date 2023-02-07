@@ -11,4 +11,4 @@
     const char *_stringVarName_ =                                \
             QUOTE(macroTextToSetAsConstCharValueInTheGiven_stringVarName_);
 
-#endif //QUOTE_H
+#endif /* QUOTE_H */

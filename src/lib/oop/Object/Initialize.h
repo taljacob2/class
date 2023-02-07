@@ -1,7 +1,7 @@
 #ifndef INITIALIZE_H
 #define INITIALIZE_H
 
-// See https://stackoverflow.com/a/2390626/14427765
+/* See https://stackoverflow.com/a/2390626/14427765 */
 
 /*
  * Example of use:
@@ -79,4 +79,4 @@
 #endif
 
 
-#endif //INITIALIZE_H
+#endif /* INITIALIZE_H */

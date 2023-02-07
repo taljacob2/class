@@ -109,4 +109,4 @@
                                "void *ObjectDestructor(Object *object)"))( \
             (Object *) objectToDestruct)
 
-#endif //OBJECTDEFINES_H
+#endif /* OBJECTDEFINES_H */

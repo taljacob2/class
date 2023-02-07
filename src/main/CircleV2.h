@@ -5,7 +5,7 @@
 
 
 //
-//// Forward declaration of incomplete type
+///* Forward declaration of incomplete type */
 //typedef struct circlev2 CircleV2;
 //
 ///**

@@ -29,4 +29,4 @@ void setAnonymousPointerValueByIndex(void *self, size_t index,
 void setAnonymousPointerValue(TYPEOF_ANONYMOUS_POINTER *anonymousPointer,
                               void *                    valueToSet);
 
-#endif //ANONYMOUSPOINTER_H
+#endif /* ANONYMOUSPOINTER_H */

@@ -17,4 +17,4 @@ typedef TYPEOF_ANONYMOUS_POINTER IntegerRValue;
  */
 typedef double DoubleRValue;
 
-#endif //RVALUEDEFINES_H
+#endif /* RVALUEDEFINES_H */

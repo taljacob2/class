@@ -10,4 +10,4 @@
  */
 typedef TYPEOF_ANONYMOUS_POINTER LValue;
 
-#endif //LVALUEDEFINES_H
+#endif /* LVALUEDEFINES_H */

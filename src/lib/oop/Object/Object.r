@@ -9,10 +9,10 @@
 enum MemberAccessModifier { PRIVATE, PUBLIC };
 enum MemberType { METHOD, CONSTRUCTOR, DESTRUCTOR, FIELD };
 
-// Forward declaration of incomplete type
+/* Forward declaration of incomplete type */
 typedef struct object Object;
 
-/// @see how to polymorph https://stackoverflow.com/a/8194632/14427765
+/** @see how to polymorph https://stackoverflow.com/a/8194632/14427765 */
 struct object {
     ANONYMOUS_POINTER_AS_FIELD;
     ANONYMOUS_POINTER_AS_FIELD;
@@ -134,4 +134,4 @@ Object *ObjectConstructor(char *className);
 
 #include "ObjectDefines.r"
 
-#endif //OBJECT_H
+#endif /* OBJECT_H */
