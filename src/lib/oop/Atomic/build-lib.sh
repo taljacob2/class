@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./../../../../config.sh $1
+source ./../../../../config.sh "$1"
 
 : '
 Read more about creating a static library here:
