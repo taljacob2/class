@@ -12,4 +12,4 @@ DEFINE_CLASS_H(AtomicLValue)
 AtomicLValue *AtomicLValueConstructor(LValue  data,
                                       BOOLEAN isDataDynamicallyAllocated);
 
-#endif //ATOMICLVALUE_H
+#endif /* ATOMICLVALUE_H */

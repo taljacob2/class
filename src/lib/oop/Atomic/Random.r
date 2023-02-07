@@ -13,4 +13,4 @@ unsigned char getRandomNumberLetter();
 
 unsigned char *getRandomString(size_t stringLenToGenerate);
 
-#endif //RANDOM_H
+#endif /* RANDOM_H */

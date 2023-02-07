@@ -11,4 +11,4 @@ DEFINE_CLASS_H(AtomicIntegerRValue)
 AtomicIntegerRValue *
 AtomicIntegerRValueConstructor(IntegerRValue integerRValue);
 
-#endif //ATOMICINTEGERRVALUE_H
+#endif /* ATOMICINTEGERRVALUE_H */
