@@ -9,9 +9,6 @@ REM               --------- START: Edit to your liking ---------
 REM SET PATH_TO_VISUAL_STUDIO=C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE
 SET PATH_TO_VISUAL_STUDIO=D:\Tal\Visual Studio - Community 2019\IDE - Installation\Common7\IDE
 
-REM Comment out the following line, to set it to 32 bits. Else, 64 will be set.
-SET IS_USER_MACHINE_64_BIT=.
-
 REM Comment out the following line, to set it to RELEASE Mode. Else, DEBUG Mode Will be set.
 REM SET IS_DEBUG_MODE=.
 
@@ -19,12 +16,6 @@ REM               --------- END: Edit to your liking ---------
 
 SET vcvars64=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars64.bat
 SET vcvars32=%PATH_TO_VISUAL_STUDIO%\..\..\VC\Auxiliary\Build\vcvars32.bat
-
-if defined IS_USER_MACHINE_64_BIT (
-    SET vcvars=%vcvars64%
-) else (
-    SET vcvars=%vcvars32%
-)
 
 if defined IS_DEBUG_MODE (
     SET clOptions=^
@@ -45,17 +36,28 @@ if defined IS_DEBUG_MODE (
 
 REM       ----------------------- Path Variables ----------------------
 
-SET OUTPUT_LIB_FILE_NAME=oop
-SET MSVC_DIRECTORY=release/msvc
-SET MSVC_RELEASE_NAME=%OUTPUT_LIB_FILE_NAME%-msvc.zip
-SET MSVC_RELEASE_PATH=%MSVC_DIRECTORY%/%MSVC_RELEASE_NAME%
-
 REM IMPORTANT: `SETLOCAL EnableDelayedExpansion` enables the use of variables
 REM            inside "for loops".
 REM NOTE: to use the variables, you should call them with `!var!` and not the
 REM       usual `%var%`.
 REM See https://stackoverflow.com/a/13805466/14427765
 SETLOCAL EnableDelayedExpansion
+
+SET OUTPUT_LIB_FILE_NAME_PURE_CONST=oop
+SET OUTPUT_LIB_FILE_NAME_64_BIT_CONST=%OUTPUT_LIB_FILE_NAME_PURE_CONST%
+SET OUTPUT_LIB_FILE_NAME_32_BIT_CONST=%OUTPUT_LIB_FILE_NAME_PURE_CONST%32
+
+CALL :GetParametersRaw %*
+
+if "%BITS%"=="64" (
+    SET vcvars=%vcvars64%
+) else (
+    SET vcvars=%vcvars32%
+)
+
+SET MSVC_DIRECTORY=release/msvc
+SET MSVC_RELEASE_NAME=%OUTPUT_LIB_FILE_NAME_PURE_CONST%-msvc.zip
+SET MSVC_RELEASE_PATH=%MSVC_DIRECTORY%/%MSVC_RELEASE_NAME%
 
 REM See https://stackoverflow.com/a/57802962/14427765
 for /f %%i in ('cd') do (
@@ -110,15 +112,43 @@ GOTO :EOF
     >%FILE_NAME% (
         echo @echo off
         echo.
+        echo SET OUTPUT_LIB_FILE_NAME_PURE_CONST=%OUTPUT_LIB_FILE_NAME_PURE_CONST%
+        echo SET OUTPUT_LIB_FILE_NAME_64_BIT_CONST=%OUTPUT_LIB_FILE_NAME_64_BIT_CONST%
+        echo SET OUTPUT_LIB_FILE_NAME_32_BIT_CONST=%OUTPUT_LIB_FILE_NAME_32_BIT_CONST%
+        echo SET MSVC_DIRECTORY=%MSVC_DIRECTORY%
+        echo SET MSVC_RELEASE_NAME=%MSVC_RELEASE_NAME%
+        echo SET MSVC_RELEASE_PATH=%MSVC_RELEASE_PATH%
         echo SET ROOT_PATH=%ROOT_PATH%
         echo SET SRC_PATH=%SRC_PATH%
         echo SET MAIN_PATH=%MAIN_PATH%
         echo SET TEST_PATH=%TEST_PATH%
         echo SET LIB_PATH=%LIB_PATH%
         echo SET OUTPUT_LIB_PATH=%OUTPUT_LIB_PATH%
+        echo SET OUTPUT_LIB_FILE_NAME=%OUTPUT_LIB_FILE_NAME%
         echo.
         echo CALL "%vcvars%" ^>NUL 2^>^&1
         echo.
         echo GOTO :EOF
+    )
+GOTO :EOF
+
+:GetParametersRaw
+
+    REM Default is 64 bit. Thus, set `BITS` value to `64` by default.
+    SET BITS=64
+    SET OUTPUT_LIB_FILE_NAME=%OUTPUT_LIB_FILE_NAME_64_BIT_CONST%
+    :GetOptionParametersLoop
+    IF NOT "%1"=="" (
+        IF "%1"=="32" (
+
+            REM Optional. Defaults to `64`.
+            REM A literal text. May be `32` or `64`.
+            SET BITS=32
+            SET OUTPUT_LIB_FILE_NAME=%OUTPUT_LIB_FILE_NAME_32_BIT_CONST%
+            SHIFT
+        )
+
+        SHIFT
+        GOTO :GetOptionParametersLoop
     )
 GOTO :EOF

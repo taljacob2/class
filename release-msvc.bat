@@ -16,7 +16,7 @@ CALL shared-config-local-variables.bat
 
 REM ---------------------------------- Code ------------------------------------
 
-SET OOP_DIRECTORY=%MSVC_DIRECTORY%/%OUTPUT_LIB_FILE_NAME%
+SET OOP_DIRECTORY=%MSVC_DIRECTORY%/%OUTPUT_LIB_FILE_NAME_PURE_CONST%
 
 echo releasing msvc...
 
@@ -52,7 +52,8 @@ REM ------------------------------- Functions ----------------------------------
 GOTO :EOF
 
 :CopyHeaderFilesAndStaticLibrary
-    xcopy /Y /E "%OUTPUT_LIB_PATH%\%OUTPUT_LIB_FILE_NAME%.lib" "%OOP_DIRECTORY%" >NUL 2>&1
+    xcopy /Y /E "%OUTPUT_LIB_PATH%\%OUTPUT_LIB_FILE_NAME_64_BIT_CONST%.lib" "%OOP_DIRECTORY%" >NUL 2>&1
+    xcopy /Y /E "%OUTPUT_LIB_PATH%\%OUTPUT_LIB_FILE_NAME_32_BIT_CONST%.lib" "%OOP_DIRECTORY%" >NUL 2>&1
     xcopy /Y /E "%OUTPUT_LIB_PATH%\*.h" "%OOP_DIRECTORY%" >NUL 2>&1
     xcopy /Y /E "%OUTPUT_LIB_PATH%\*.r" "%OOP_DIRECTORY%" >NUL 2>&1
 GOTO :EOF
