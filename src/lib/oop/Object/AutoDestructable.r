@@ -25,7 +25,7 @@ struct autoDestructable {
 AutoDestructable *AutoDestructableConstructorWithLegacy_Object(
         Legacy_Object *legacyObjectToSaveItsAddressToAllocationTable);
 
-// TODO: deprecated. remove this.
+/* TODO: deprecated. remove this. */
 /**
  * @brief Creates a `new` "heap-allocated" instance of `AutoDestructable` and initializes
  *        it.

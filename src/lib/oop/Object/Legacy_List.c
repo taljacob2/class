@@ -113,8 +113,8 @@ void *setByStringToSearch(Legacy_List *list, void *dataToSet,
     Legacy_Node *foundNode =
             findNodeByPredicateOfConstString(list, predicate, stringToSearch);
     if (foundNode == NULL) {
-        // TODO:
-        // throw message with status: ENTRY_NOT_FOUND.
+        /* TODO: */
+        /* throw message with status: ENTRY_NOT_FOUND. */
         return NULL;
     }
 

@@ -3,7 +3,7 @@
 
 #include "../Object/Object.h"
 
-// TODO: maybe this is a redundant file, and should be removed.
+/* TODO: maybe this is a redundant file, and should be removed. */
 
 typedef void (*Action0p)();
 typedef void (*Action1p)(TYPEOF_ANONYMOUS_POINTER);
