@@ -14,4 +14,4 @@
 	#endif
 #endif
 
-#endif //__LIBRARY_OOP_H__
+#endif /* __LIBRARY_OOP_H__ */

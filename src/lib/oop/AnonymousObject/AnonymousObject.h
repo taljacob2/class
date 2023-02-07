@@ -3,4 +3,4 @@
 
 #include "AnonymousObject.r"
 
-#endif //__LIBRARY_ANONYMOUSOBJECT_H__
+#endif /* __LIBRARY_ANONYMOUSOBJECT_H__ */

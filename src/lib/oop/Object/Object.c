@@ -1313,8 +1313,8 @@ void invokeAllDestructorsWithTheGivenAccessModifierInReversedOrder(
             getAccessModifierLegacyListByAccessModifier(self,
                                                         memberAccessModifier);
 
-    // TODO: in `Legacy_List`: make a Foreach and ForeachReversedOrder functions.
-    //TODO:
+    /* TODO: in `Legacy_List`: make a Foreach and ForeachReversedOrder functions. */
+    /* TODO: */
     Legacy_List *list = destructorMemberList->memberEntryList;
     if (list == NULL) { return; }
 
