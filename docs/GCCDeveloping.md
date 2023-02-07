@@ -38,7 +38,9 @@ Execute the following commands with *bash*.
   ```
   ./build-lib.sh 32
   ```
+
   ##### IMPORTANT:
+  
   In case you own a 64 bit host machine, and you want to execute this command,
   you **MUST** install an additional prerequisite, with:
   ```
