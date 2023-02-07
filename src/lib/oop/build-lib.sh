@@ -21,7 +21,7 @@ for f in *; do
 
         # "$f" is a directory. Will not run if no directories are available.
         cd "$f"
-        ./build-lib.sh $1 # Build the static library.
+        ./build-lib.sh "$1" # Build the static library.
 
         # Add paths of all static libraries to the list.
         for staticLibraryName in *.a; do
