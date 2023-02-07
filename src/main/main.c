@@ -1,3 +1,4 @@
+/*
 #include "../lib/oop/oop.h"
 #include "Circle.h"
 #include "CircleV2.h"
@@ -136,3 +137,4 @@ int main() {
 
     return 0;
 }
+*/
