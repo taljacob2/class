@@ -35,7 +35,7 @@ for f in *; do
 
         # Add paths of all static libraries to the list.
         for staticLibraryName in "$(find * -regextype posix-egrep -regex ".*($SUB_LIBRARY_NAME_POSTFIX.a)$")"; do
-        echo $staticLibraryName
+        echo $staticLibraryName # TODO: DEBUG
           if [ -f "$staticLibraryName" ]; then
             staticLibraryList+=("$f/$staticLibraryName")
           fi
