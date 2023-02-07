@@ -7,7 +7,7 @@
 
 #ifdef _WIN32
 	#ifdef _WIN64
-		#pragma comment(lib, "oop/oop.lib")		
+		#pragma comment(lib, "oop/oop.lib")
 	#endif
 	#ifdef WIN32
 		#pragma comment(lib, "oop/oop32.lib")
