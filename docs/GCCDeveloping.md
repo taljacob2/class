@@ -40,7 +40,7 @@ Execute the following commands with *bash*.
   ```
   ##### IMPORTANT:
   In case you own a 64 bit host machine, and you want to execute this command,
-  you **MUST** install an additional prerequisite:
+  you **MUST** install an additional prerequisite, with:
   ```
   sudo apt-get install build-essential libc6-dev-i386
   ```
