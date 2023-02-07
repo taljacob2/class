@@ -14,13 +14,13 @@ https://stackoverflow.com/a/27676016/14427765
 
 LIBRARY_NAME="$OUTPUT_LIB_FILE_NAME"
 
-SUB_LIBRARY_NAME_POSTFIX_32_BIT_CONST="32"
-SUB_LIBRARY_NAME_POSTFIX_64_BIT_CONST="[^($SUB_LIBRARY_NAME_POSTFIX_32_BIT_CONST)]"
-SUB_LIBRARY_NAME_POSTFIX="$SUB_LIBRARY_NAME_POSTFIX_64_BIT_CONST"
+SUB_LIBRARY_REGEX_32_BIT_CONST="-regex .*32\.a"
+SUB_LIBRARY_REGEX_64_BIT_CONST="-not $SUB_LIBRARY_REGEX_32_BIT_CONST"
+SUB_LIBRARY_REGEX="$SUB_LIBRARY_REGEX_64_BIT_CONST"
 
 if [ "$1" == 32 ]; then
 
-  SUB_LIBRARY_NAME_POSTFIX="$SUB_LIBRARY_NAME_POSTFIX_32_BIT_CONST"
+  SUB_LIBRARY_REGEX="$SUB_LIBRARY_REGEX_32_BIT_CONST"
 
 fi
 
@@ -33,8 +33,10 @@ for f in *; do
         cd "$f"
         ./build-lib.sh "$1" # Build the static library.
 
+echo "$SUB_LIBRARY_REGEX" # TODO: DEBUG
         # Add paths of all static libraries to the list.
-        for staticLibraryName in "$(find * -regextype posix-egrep -regex ".*($SUB_LIBRARY_NAME_POSTFIX.a)$")"; do
+        for staticLibraryName in "$(find *.a $SUB_LIBRARY_REGEX)"; do
+        echo $staticLibraryName # TODO: DEBUG
           if [ -f "$staticLibraryName" ]; then
             staticLibraryList+=("$f/$staticLibraryName")
           fi
