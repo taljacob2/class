@@ -17,7 +17,7 @@ CALL shared-config-local-variables.bat
 REM ---------------------------------- Code ------------------------------------
 
 cd "%OUTPUT_LIB_PATH%"
-CALL build-lib.bat
+CALL build-lib.bat %1
 cd "%ROOT_PATH%"
 
 del /F shared-config-local-variables.bat >NUL 2>&1

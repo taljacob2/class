@@ -24,6 +24,7 @@ CALL :CleanupAndPrepareDirectory
 
 REM Build the static library.
 CALL build-lib.bat
+CALL build-lib.bat 32
 
 CALL :CopyHeaderFilesAndStaticLibrary
 
