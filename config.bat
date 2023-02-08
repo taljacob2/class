@@ -46,6 +46,7 @@ SETLOCAL EnableDelayedExpansion
 REM Export `%*` with a `shift` of `1` to `%argv%`.
 CALL :SetArgv 2 %*
 
+REM TODO: DEBUG PRINT
 echo %argv%
 echo %1
 
