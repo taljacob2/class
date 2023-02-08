@@ -43,13 +43,16 @@ REM       usual `%var%`.
 REM See https://stackoverflow.com/a/13805466/14427765
 SETLOCAL EnableDelayedExpansion
 
+REM Export `%*` to `%args%`.
 CALL :SetRemainingArgs %*
 
-for %%i in (%args%) do (
-  set /a i+=1
-  set element[!i!]=%%i
-  echo !element[%%i]!
-)
+@REM for %%i in (%args%) do (
+@REM   set /a i+=1
+@REM   set element[!i!]=%%i
+@REM   echo !element[%%i]!
+@REM )
+echo %args%
+shift %args%
 
 SET OUTPUT_LIB_FILE_NAME_PURE_CONST=oop
 SET OUTPUT_LIB_FILE_NAME_64_BIT_CONST=%OUTPUT_LIB_FILE_NAME_PURE_CONST%
