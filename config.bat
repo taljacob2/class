@@ -48,6 +48,7 @@ CALL :SetArgv 2 %*
 
 REM TODO: DEBUG PRINT
 echo %argv%
+echo %*
 echo %1
 
 SET OUTPUT_LIB_FILE_NAME_PURE_CONST=oop
@@ -222,6 +223,10 @@ GOTO :EOF
             SET /a "idx+=1"
             if !idx! geq 2 SET allArgsShiftOne=!allArgsShiftOne! %%a
         )
+
+        REM TODO: DEBUG
+        echo allArgsShiftOne !allArgsShiftOne!
+        echo %*
 
         SET newArgv=
         SET /a idx=0
