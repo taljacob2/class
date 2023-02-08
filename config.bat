@@ -57,10 +57,10 @@ SET OUTPUT_LIB_FILE_NAME_32_BIT_CONST=%OUTPUT_LIB_FILE_NAME_PURE_CONST%32
 
 CALL :GetParametersRaw %args%
 
-if "%BITS%"=="64" (
-    SET vcvars=%vcvars64%
-) else (
+if "%BITS%"=="32" (
     SET vcvars=%vcvars32%
+) else (
+    SET vcvars=%vcvars64%
 )
 
 SET MSVC_DIRECTORY=release/msvc
