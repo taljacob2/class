@@ -31,9 +31,9 @@ GOTO :EOF
 REM ------------------------------- Functions ----------------------------------
 
 :CompileAllCFilesInCurrentDirectory
-    CALL %CONFIG% :RunCl "/c /I%LIBRARY_NAME%.h *.c"
+    CALL %CONFIG% :RunCl /c /I%LIBRARY_NAME%.h *.c
 GOTO :EOF
 
 :LibAllObjFilesInCurrentDirectory
-    CALL %CONFIG% :RunLib "/out:%LIBRARY_NAME%.lib *.obj"
+    CALL %CONFIG% :RunLib /out:%LIBRARY_NAME%.lib *.obj
 GOTO :EOF

@@ -98,15 +98,15 @@ REM ------------------------------- Functions ----------------------------------
     REM See All compiler warnings https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warnings-c4800-through-c4999?view=msvc-170
     REM See https://github.com/taljacob2/oop/issues/65
 
-    cl %clOptions% /D "_CRT_SECURE_NO_WARNINGS" %argv%
+    cl %clOptions% /D "_CRT_SECURE_NO_WARNINGS" %~1
 GOTO :EOF
 
 :RunLib
-    lib /LTCG /NOLOGO %argv%
+    lib /LTCG /NOLOGO %~1
 GOTO :EOF
 
 :RunLink
-    link %argv%
+    link %~1
 GOTO :EOF
 
 :GetParametersRaw
@@ -221,7 +221,7 @@ GOTO :EOF
         SET allArgsShiftOne=
         SET /a idx=0
         for %%a in (%*) do (
-            
+
             REM TODO: DEBUG
             echo aToAdd %%a
 
