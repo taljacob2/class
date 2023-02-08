@@ -110,39 +110,6 @@ GOTO :EOF
     link %args%~1
 GOTO :EOF
 
-:SetLocalVariablesAsGlobal
-    REM Writes the local variables to an external batch file.
-    REM The user should `CALL %FILE_NAME%` to use the external batch file.
-    REM
-    REM See https://superuser.com/a/1389294
-    REM See https://www.tutorialspoint.com/batch_script/batch_script_appending_files.htm
-    REM See https://stackoverflow.com/a/14604414/14427765
-
-    SET FILE_NAME=shared-config-local-variables.bat
-
-    >%FILE_NAME% (
-        echo @echo off
-        echo.
-        echo SET OUTPUT_LIB_FILE_NAME_PURE_CONST=%OUTPUT_LIB_FILE_NAME_PURE_CONST%
-        echo SET OUTPUT_LIB_FILE_NAME_64_BIT_CONST=%OUTPUT_LIB_FILE_NAME_64_BIT_CONST%
-        echo SET OUTPUT_LIB_FILE_NAME_32_BIT_CONST=%OUTPUT_LIB_FILE_NAME_32_BIT_CONST%
-        echo SET OUTPUT_LIB_FILE_NAME=%OUTPUT_LIB_FILE_NAME%
-        echo SET MSVC_DIRECTORY=%MSVC_DIRECTORY%
-        echo SET MSVC_RELEASE_NAME=%MSVC_RELEASE_NAME%
-        echo SET MSVC_RELEASE_PATH=%MSVC_RELEASE_PATH%
-        echo SET ROOT_PATH=%ROOT_PATH%
-        echo SET SRC_PATH=%SRC_PATH%
-        echo SET MAIN_PATH=%MAIN_PATH%
-        echo SET TEST_PATH=%TEST_PATH%
-        echo SET LIB_PATH=%LIB_PATH%
-        echo SET OUTPUT_LIB_PATH=%OUTPUT_LIB_PATH%
-        echo.
-        echo CALL "%vcvars%" ^>NUL 2^>^&1
-        echo.
-        echo GOTO :EOF
-    )
-GOTO :EOF
-
 :GetParametersRaw
 
     REM Default is 64 bit. Thus, set `BITS` value to `64` by default.
@@ -272,4 +239,37 @@ GOTO :EOF
     REM Save the count of `%argv%` in `%argc%`.
     SET argc=0
     for %%I in (%argv%) do SET /a "argc+=1"
+GOTO :EOF
+
+:SetLocalVariablesAsGlobal
+    REM Writes the local variables to an external batch file.
+    REM The user should `CALL %FILE_NAME%` to use the external batch file.
+    REM
+    REM See https://superuser.com/a/1389294
+    REM See https://www.tutorialspoint.com/batch_script/batch_script_appending_files.htm
+    REM See https://stackoverflow.com/a/14604414/14427765
+
+    SET FILE_NAME=shared-config-local-variables.bat
+
+    >%FILE_NAME% (
+        echo @echo off
+        echo.
+        echo SET OUTPUT_LIB_FILE_NAME_PURE_CONST=%OUTPUT_LIB_FILE_NAME_PURE_CONST%
+        echo SET OUTPUT_LIB_FILE_NAME_64_BIT_CONST=%OUTPUT_LIB_FILE_NAME_64_BIT_CONST%
+        echo SET OUTPUT_LIB_FILE_NAME_32_BIT_CONST=%OUTPUT_LIB_FILE_NAME_32_BIT_CONST%
+        echo SET OUTPUT_LIB_FILE_NAME=%OUTPUT_LIB_FILE_NAME%
+        echo SET MSVC_DIRECTORY=%MSVC_DIRECTORY%
+        echo SET MSVC_RELEASE_NAME=%MSVC_RELEASE_NAME%
+        echo SET MSVC_RELEASE_PATH=%MSVC_RELEASE_PATH%
+        echo SET ROOT_PATH=%ROOT_PATH%
+        echo SET SRC_PATH=%SRC_PATH%
+        echo SET MAIN_PATH=%MAIN_PATH%
+        echo SET TEST_PATH=%TEST_PATH%
+        echo SET LIB_PATH=%LIB_PATH%
+        echo SET OUTPUT_LIB_PATH=%OUTPUT_LIB_PATH%
+        echo.
+        echo CALL "%vcvars%" ^>NUL 2^>^&1
+        echo.
+        echo GOTO :EOF
+    )
 GOTO :EOF
