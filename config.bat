@@ -43,16 +43,11 @@ REM       usual `%var%`.
 REM See https://stackoverflow.com/a/13805466/14427765
 SETLOCAL EnableDelayedExpansion
 
-REM Export `%*` to `%args%`.
-CALL :SetArgv %*
+REM Export `%*` with a `shift` of `1` to `%argv%`.
+CALL :SetArgv 2 %*
 
-@REM for %%i in (%args%) do (
-@REM   set /a i+=1
-@REM   set element[!i!]=%%i
-@REM   echo !element[%%i]!
-@REM )
 echo %argv%
-shift %args%
+echo %1
 
 SET OUTPUT_LIB_FILE_NAME_PURE_CONST=oop
 SET OUTPUT_LIB_FILE_NAME_64_BIT_CONST=%OUTPUT_LIB_FILE_NAME_PURE_CONST%
@@ -164,6 +159,7 @@ GOTO :EOF
     REM   ```
     REM   REM `%argv%` is `world`
     REM   REM `%argc%` is `1`
+    REM   REM (same as calling `shift`)
     REM
     REM - Begin parsing the arguments from `%1`:
     REM   ```
