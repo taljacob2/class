@@ -81,6 +81,7 @@ SET OUTPUT_LIB_PATH=%LIB_PATH%\oop
 
 REM -------------------------------- Code End ----------------------------------
 
+echo argv %argv%
 CALL %argv%
 
 CALL :SetLocalVariablesAsGlobal
@@ -220,8 +221,8 @@ GOTO :EOF
         SET allArgsShiftOne=
         SET /a idx=0
         for %%a in (%*) do (
+            if !idx! geq 1 SET allArgsShiftOne=!allArgsShiftOne! %%a
             SET /a "idx+=1"
-            if !idx! geq 2 SET allArgsShiftOne=!allArgsShiftOne! %%a
         )
 
         REM TODO: DEBUG
@@ -231,9 +232,17 @@ GOTO :EOF
         SET newArgv=
         SET /a idx=0
         for %%a in (!allArgsShiftOne!) do (
-            SET /a "idx+=1"
+
+            REM TODO: DEBUG
+            echo argToAdd %%a
+
             if !idx! geq !START_ARG_IDX! SET newArgv=!newArgv! %%a
+            SET /a "idx+=1"
         )
+
+        REM TODO: DEBUG
+        echo newArgvExclamationMark !newArgv!
+        echo newArgvPercent %newArgv%
 
         REM Save the result in `%argv%`.
         SET argv=!newArgv!
