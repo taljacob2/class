@@ -44,14 +44,14 @@ REM See https://stackoverflow.com/a/13805466/14427765
 SETLOCAL EnableDelayedExpansion
 
 REM Export `%*` to `%args%`.
-CALL :SetRemainingArgs %*
+CALL :SetArgv %*
 
 @REM for %%i in (%args%) do (
 @REM   set /a i+=1
 @REM   set element[!i!]=%%i
 @REM   echo !element[%%i]!
 @REM )
-echo %args%
+echo %argv%
 shift %args%
 
 SET OUTPUT_LIB_FILE_NAME_PURE_CONST=oop
@@ -141,21 +141,6 @@ GOTO :EOF
         echo.
         echo GOTO :EOF
     )
-GOTO :EOF
-
-:SetRemainingArgs
-    REM See https://superuser.com/a/743547
-    REM See https://stackoverflow.com/a/9363989/14427765
-
-    set "args="
-    :parse
-    if "%~1" neq "" (
-        set args=%args% %1
-        shift
-        goto :parse
-    )
-    if defined args set args=%args:~1%
-
 GOTO :EOF
 
 :GetParametersRaw
