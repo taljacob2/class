@@ -61,6 +61,7 @@ if "%BITS%"=="32" (
 ) else (
     SET vcvars=%vcvars64%
 )
+CALL "%vcvars%" >NUL 2>&1
 
 SET MSVC_DIRECTORY=release/msvc
 SET MSVC_RELEASE_NAME=%OUTPUT_LIB_FILE_NAME_PURE_CONST%-msvc.zip
@@ -264,8 +265,6 @@ GOTO :EOF
         echo SET TEST_PATH=%TEST_PATH%
         echo SET LIB_PATH=%LIB_PATH%
         echo SET OUTPUT_LIB_PATH=%OUTPUT_LIB_PATH%
-        echo.
-        echo CALL "%vcvars%" ^>NUL 2^>^&1
         echo.
         echo GOTO :EOF
     )
