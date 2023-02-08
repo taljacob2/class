@@ -221,6 +221,10 @@ GOTO :EOF
         SET allArgsShiftOne=
         SET /a idx=0
         for %%a in (%*) do (
+            
+            REM TODO: DEBUG
+            echo aToAdd %%a
+
             if !idx! geq 1 SET allArgsShiftOne=!allArgsShiftOne! %%a
             SET /a "idx+=1"
         )
