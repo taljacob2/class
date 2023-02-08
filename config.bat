@@ -183,3 +183,108 @@ GOTO :EOF
         GOTO :GetOptionParametersLoop
     )
 GOTO :EOF
+
+:SetArgv
+    REM Stores the given arguments to an output variable (i.e. `%argv%`), so you
+    REM would be able to shift them as you like.
+    REM
+    REM - The result is stored into the `%argv%` variable.
+    REM - The count of `%argv%` is stored into the `%argc%` variable.
+    REM
+    REM - In case `%1` was non-numeric:
+    REM   `%argv%` is SET to `%*`.
+    REM - In case `%1` was numeric:
+    REM   `%argv%` is SET to be all the arguments to the right of it.
+    REM   (i.e. `%*` with a shift of `1`.)
+    REM
+    REM ## Usage Examples:
+    REM
+    REM - Begin parsing the arguments from `%1`:
+    REM   ```
+    REM   CALL :SetArgv 1 hello world
+    REM   ```
+    REM   REM `%argv%` is `hello world`
+    REM   REM `%argc%` is `2`
+    REM
+    REM - Begin parsing the arguments from `%2`:
+    REM   ```
+    REM   CALL :SetArgv 2 hello world
+    REM   ```
+    REM   REM `%argv%` is `world`
+    REM   REM `%argc%` is `1`
+    REM
+    REM - Begin parsing the arguments from `%1`:
+    REM   ```
+    REM   CALL :SetArgv hello world
+    REM   ```
+    REM   REM `%argv%` is `hello world`
+    REM   REM `%argc%` is `2`
+    REM
+    REM ## After calling `:SetArgv` you would be able to use all of the
+    REM    following code examples:
+    REM
+    REM - View all arguments at once (starts with a leading "space"):
+    REM   ```
+    REM   echo %argv%
+    REM   ```
+    REM
+    REM - Loop for each argument:
+    REM   ```
+    REM   for %%a in (%argv%) do (
+    REM       echo %%a
+    REM   )
+    REM   ```
+    REM
+    REM - View the count of `%argv%` at the `%argc%` variable:
+    REM   ```
+    REM   echo %argc%
+    REM   ```
+    REM
+    REM ## Program Example
+    REM ```
+    REM @echo off
+    REM SETLOCAL EnableDelayedExpansion
+    REM 
+    REM CALL :SetArgv %*
+    REM echo %argv%
+    REM 
+    REM GOTO :EOF
+    REM ```
+
+    REM See https://stackoverflow.com/a/17584764/14427765
+    SET "var="&for /f "delims=0123456789" %%i in ("%1") do SET var=%%i
+    if defined var (
+
+        REM echo %1 NOT numeric
+
+        REM Save the result in `%argv%`.
+        SET argv=%*
+    ) else (
+
+        REM echo %1 numeric
+
+        SET START_ARG_IDX=%1
+        
+        REM Shift `%*` by `1`, and store in `%allArgsShiftOne%`.
+        SET allArgsShiftOne=
+        SET /a idx=0
+        for %%a in (%*) do (
+            SET /a "idx+=1"
+            if !idx! geq 2 SET allArgsShiftOne=!allArgsShiftOne! %%a
+        )
+
+        SET newArgv=
+        SET /a idx=0
+        for %%a in (!allArgsShiftOne!) do (
+            SET /a "idx+=1"
+            if !idx! geq !START_ARG_IDX! SET newArgv=!newArgv! %%a
+        )
+
+        REM Save the result in `%argv%`.
+        SET argv=!newArgv!
+    )
+
+    REM Save the count of `%argv%` in `%argc%`.
+    SET argc=0
+    for %%I in (%argv%) do SET /a "argc+=1"
+GOTO :EOF
